@@ -104,7 +104,7 @@ export default function App() {
             }`}
             onClick={() => setActiveTab("basic-services")}
           >
-            Basic Services
+            Services
           </button>
         </div>
 
