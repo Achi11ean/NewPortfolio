@@ -32,7 +32,7 @@ export default function App() {
   <iframe
     allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
     frameBorder="0"
-    className="w-[800px] mt-52 h-40 rounded-lg overflow-hidden"
+    className="w-[800px] mt-22 h-40 rounded-lg overflow-hidden"
     sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
     src="https://embed.music.apple.com/us/album/take-on-me/392429592?i=392429593"
   ></iframe>
@@ -246,10 +246,10 @@ export default function App() {
           )}
           
           {activeTab === "passion" && (
-  <div className="relative p-6 text-white rounded-lg shadow overflow-hidden">
+  <div className="relative p-6 text-white rounded-lg shadow overflow-hidden min-h-[1000px]">
     {/* Fire Animation Background */}
     <div className="absolute inset-0 z-0 bg-gradient-to-r from-orange-500 via-red-600 to-yellow-500 animate-flicker"></div>
-    <div className="absolute inset-0 z-10 opacity-50 bg-[url('/gif.webp')] bg-cover bg-center"></div>
+    <div className="absolute inset-0 h-full z-10 opacity-50 bg-[url('/gif.webp')] bg-cover bg-center"></div>
 
     {/* Content */}
     <div className="relative z-20">
