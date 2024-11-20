@@ -114,7 +114,7 @@ export default function App() {
     {/* Social Media Links */}
     <div className="flex justify-center mt-6 space-x-6">
       <a
-        href="https://github.com/YourGitHubUsername"
+        href="https://github.com/Achi11ean"
         target="_blank"
         rel="noopener noreferrer"
         className="hover:scale-105 transform transition-transform"
@@ -126,7 +126,7 @@ export default function App() {
           />
       </a>
       <a
-        href="https://linkedin.com/in/YourLinkedInUsername"
+        href="https://www.linkedin.com/in/jonathen-whitford/"
         target="_blank"
         rel="noopener noreferrer"
         className="hover:scale-105 transform transition-transform"
