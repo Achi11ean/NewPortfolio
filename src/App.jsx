@@ -47,7 +47,7 @@ export default function App() {
 
 
       {/* Tab Navigation */}
-      <div className="w-full max-w-7.5xl mx-auto p-6 mt-20 h-106">
+      <div className="w-full max-w-7.5xl mx-auto p-6  h-106">
       <div className="flex justify-center space-x-8 mb-6 border-b border-white overflow-x-auto">
 
       <button
