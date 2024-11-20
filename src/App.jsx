@@ -171,7 +171,7 @@ export default function App() {
       </p>
     </div>
   </div>
-  <h3 className="text-xl font-semibold mt-4">Gweather</h3>
+  <h3 className="text-xl text-gray-600 font-semibold mt-4">Gweather</h3>
   <p className="mt-2 text-sm text-gray-600">HTML, CSS, JavaScript</p>
   <a
     href="https://achi11ean.github.io/phase1Project/"
@@ -196,7 +196,7 @@ export default function App() {
       </p>
     </div>
   </div>
-  <h3 className="text-xl font-semibold mt-4">PotterHub</h3>
+  <h3 className="text-xl text-gray-600 font-semibold mt-4">PotterHub</h3>
   <p className="mt-2 text-sm text-gray-600">React, Vite</p>
   <a
     href="https://main--potterpals.netlify.app/"
@@ -220,7 +220,7 @@ export default function App() {
       </p>
     </div>
   </div>
-  <h3 className="text-xl font-semibold mt-4">CLI Event Planner</h3>
+  <h3 className="text-xl text-gray-600 font-semibold mt-4">CLI Event Planner</h3>
   <p className="mt-2 text-sm text-gray-600">Python, CLI</p>
   <a
     href="https://github.com/Achi11ean/Final-Project"
@@ -245,7 +245,7 @@ export default function App() {
       </p>
     </div>
   </div>
-  <h3 className="text-xl font-semibold mt-4">PRISM</h3>
+  <h3 className="text-xl text-gray-600 font-semibold mt-4">PRISM</h3>
   <p className="mt-2 text-sm text-gray-600">Flask, React</p>
   <a
     href="https://iridescent-prism.netlify.app/"
