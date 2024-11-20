@@ -22,6 +22,9 @@ module.exports = {
           '100%': { transform: 'translateY(-100%)' },
         },
       },
+      screens: {
+        sm: '580px', // Customize the sm breakpoint to start at 480px
+      },
     },
   },
   plugins: [],
