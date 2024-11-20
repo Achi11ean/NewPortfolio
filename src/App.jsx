@@ -124,8 +124,8 @@ export default function App() {
       Hi! I'm <span className="text-orange-400 font-bold">Jonathen</span>, a software engineer with a passion for creating 
       <span className="text-red-700 font-bold"> user-centric web applications.</span> 
       <br /><br />
-      Explore the tabs to learn more about my projects, passion, and professional journey - on the last tab use the message form to send me an email with an inquiry! I look forward to connecting with you!
-    </p>
+      Explore the tabs to learn more about my projects, passion, and professional journey. On the last tab, you can use the message form to send me an inquiry, or visit the Services tab to book and pay for services directly through my portfolio! I look forward to connecting with you!
+      </p>
 
     {/* Social Media Links */}
     <div className="flex justify-center mt-6 space-x-6">
