@@ -3,6 +3,8 @@ import AnimatedBackground from "./AnimatedBackground";
 import ContactForm from "./ContactForm";
 import PerformanceForm from "./PerformanceForm";
 import EngineeringForm from "./EngineeringForm";
+import EducationSkills from "./EducationSkills";
+
 export default function App() {
   const [activeTab, setActiveTab] = useState("welcome"); // Default active tab
   const [showContactInfo, setShowContactInfo] = useState(false);
@@ -35,6 +37,7 @@ export default function App() {
         Bien Venido!
       </p>
       
+      
       {/* Embed Music */}
       <div className="mt-6 flex justify-center w-full">
         <iframe
@@ -61,22 +64,15 @@ export default function App() {
           >
             Welcome
           </button>
-      <button
-            className={`py-2 px-4 ${
-              activeTab === "projects" ? "border-b-2 border-white text-white" : "text-gray-300"
-            }`}
-            onClick={() => setActiveTab("projects")}
-          >
-            Projects
-          </button>
           <button
-            className={`py-2 px-4 ${
-              activeTab === "passion" ? "border-b-2 border-white text-white" : "text-gray-300"
-            }`}
-            onClick={() => setActiveTab("passion")}
-          >
-            Passion
-          </button>
+  className={`py-2 px-4 ${
+    activeTab === "education" ? "border-b-2 border-white text-white" : "text-gray-300"
+  }`}
+  onClick={() => setActiveTab("education")}
+>
+  Projects
+</button>
+
           <button
             className={`py-2 px-4 ${
               activeTab === "employment" ? "border-b-2 border-white text-white" : "text-gray-300"
@@ -84,6 +80,15 @@ export default function App() {
             onClick={() => setActiveTab("employment")}
           >
             Employment
+          </button>
+
+          <button
+            className={`py-2 px-4 ${
+              activeTab === "passion" ? "border-b-2 border-white text-white" : "text-gray-300"
+            }`}
+            onClick={() => setActiveTab("passion")}
+          >
+            Passion
           </button>
 
 
@@ -104,6 +109,7 @@ export default function App() {
             Contact
           </button>
         </div>
+        
 
         {/* Tab Content */}
         <div className="mt-4 p-6 bg-black text-white rounded-xl relative overflow-hidden shadow-lg">
@@ -154,115 +160,124 @@ export default function App() {
       </a>
       
     </div>
+    <EducationSkills/>
+
   </div>
 )}
 
 
-{activeTab === "projects" && (
+{activeTab === "education" && (
+  
+  <div className="space-y-8">
+    {/* Education and Skills Section */}
+    <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-6 rounded-lg shadow-lg">
+    </div>
 
-<div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-{/* Project Cards */}
-              <div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
-  <div className="relative w-full h-52 overflow-hidden rounded-md">
-    <img
-      src="/gweather.png"
-      alt="Gweather Screenshot"
-      className="w-full h-62 object-cover rounded-md transition-transform duration-300 group-hover:scale-110"
-    />
-    <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-      <p className="text-center text-sm px-2">
-        An LGBTQIA+ website showcasing Provincetown, RI, built with HTML, CSS, and JavaScript.
-      </p>
+    {/* Project Cards */}
+    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
+        <div className="relative w-full h-52 overflow-hidden rounded-md">
+          <img
+            src="/gweather.png"
+            alt="Gweather Screenshot"
+            className="w-full h-62 object-cover rounded-md transition-transform duration-300 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p className="text-center text-sm px-2">
+              An LGBTQIA+ website showcasing Provincetown, RI, built with HTML, CSS, and JavaScript.
+            </p>
+          </div>
+        </div>
+        <h3 className="text-xl text-gray-600 font-semibold mt-4">Gweather</h3>
+        <p className="mt-2 text-sm text-gray-600">HTML, CSS, JavaScript</p>
+        <a
+          href="https://achi11ean.github.io/phase1Project/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
+        >
+          Visit Site
+        </a>
+      </div>
+
+      <div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
+        <div className="relative w-full h-52 overflow-hidden rounded-md">
+          <img
+            src="/potterhub.png"
+            alt="PotterHub Screenshot"
+            className="w-full h-full object-cover rounded-md transition-transform duration-300 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p className="text-center text-sm px-2">
+              A compendium of Harry Potter characters and spells built with React and Vite.
+            </p>
+          </div>
+        </div>
+        <h3 className="text-xl text-gray-600 font-semibold mt-4">PotterHub</h3>
+        <p className="mt-2 text-sm text-gray-600">React, Vite</p>
+        <a
+          href="https://main--potterpals.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
+        >
+          Visit Site
+        </a>
+      </div>
+
+      <div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
+        <div className="relative w-full h-52 overflow-hidden rounded-md">
+          <img
+            src="/matrix.jpeg"
+            alt="CLI Event Planner Screenshot"
+            className="w-full h-full object-cover rounded-md transition-transform duration-300 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p className="text-center text-sm px-2">
+              A Python-based CLI tool for managing events and tours, designed to assist artists, venues, and attendees.
+            </p>
+          </div>
+        </div>
+        <h3 className="text-xl text-gray-600 font-semibold mt-4">CLI Event Planner</h3>
+        <p className="mt-2 text-sm text-gray-600">Python, CLI</p>
+        <a
+          href="https://github.com/Achi11ean/Final-Project"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
+        >
+          Visit Site
+        </a>
+      </div>
+
+      <div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
+        <div className="relative w-full h-52 overflow-hidden rounded-md">
+          <img
+            src="/Prismm.png"
+            alt="PRISM Screenshot"
+            className="w-full h-full object-cover rounded-md transition-transform duration-300 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p className="text-center text-sm px-2">
+              A full-stack web application built with Flask and React, designed to manage events, tours, and attendees.
+            </p>
+          </div>
+        </div>
+        <h3 className="text-xl text-gray-600 font-semibold mt-4">PRISM</h3>
+        <p className="mt-2 text-sm text-gray-600">Flask, React</p>
+        <a
+          href="https://iridescent-prism.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
+        >
+          Visit Site
+        </a>
+      </div>
     </div>
   </div>
-  <h3 className="text-xl text-gray-600 font-semibold mt-4">Gweather</h3>
-  <p className="mt-2 text-sm text-gray-600">HTML, CSS, JavaScript</p>
-  <a
-    href="https://achi11ean.github.io/phase1Project/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
-  >
-    Visit Site
-  </a>
-</div>
+)}
 
-<div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
-  <div className="relative w-full h-52 overflow-hidden rounded-md">
-    <img
-      src="/potterhub.png"
-      alt="PotterHub Screenshot"
-      className="w-full h-full object-cover rounded-md transition-transform duration-300 group-hover:scale-110"
-    />
-    <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-      <p className="text-center text-sm px-2">
-        A compendium of Harry Potter characters and spells built with React and Vite.
-      </p>
-    </div>
-  </div>
-  <h3 className="text-xl text-gray-600 font-semibold mt-4">PotterHub</h3>
-  <p className="mt-2 text-sm text-gray-600">React, Vite</p>
-  <a
-    href="https://main--potterpals.netlify.app/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
-  >
-    Visit Site
-  </a>
-</div>
-<div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
-  <div className="relative w-full h-52 overflow-hidden rounded-md">
-    <img
-      src="/matrix.jpeg"
-      alt="CLI Event Planner Screenshot"
-      className="w-full h-full object-cover rounded-md transition-transform duration-300 group-hover:scale-110"
-    />
-    <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-      <p className="text-center text-sm px-2">
-        A Python-based CLI tool for managing events and tours, designed to assist artists, venues, and attendees.
-      </p>
-    </div>
-  </div>
-  <h3 className="text-xl text-gray-600 font-semibold mt-4">CLI Event Planner</h3>
-  <p className="mt-2 text-sm text-gray-600">Python, CLI</p>
-  <a
-    href="https://github.com/Achi11ean/Final-Project"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
-  >
-    Visit Site
-  </a>
-</div>
-
-<div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
-  <div className="relative w-full h-52 overflow-hidden rounded-md">
-    <img
-      src="/Prismm.png"
-      alt="PRISM Screenshot"
-      className="w-full h-full object-cover rounded-md transition-transform duration-300 group-hover:scale-110"
-    />
-    <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-      <p className="text-center text-sm px-2">
-        A full-stack web application built with Flask and React, designed to manage events, tours, and attendees.
-      </p>
-    </div>
-  </div>
-  <h3 className="text-xl text-gray-600 font-semibold mt-4">PRISM</h3>
-  <p className="mt-2 text-sm text-gray-600">Flask, React</p>
-  <a
-    href="https://iridescent-prism.netlify.app/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
-  >
-    Visit Site
-  </a>
-</div>
-
-            </div>
-          )}
           
           {activeTab === "passion" && (
   <div className="relative p-6 text-white rounded-lg shadow overflow-hidden min-h-[500px]">
@@ -398,10 +413,13 @@ export default function App() {
 
         </div>
       </div>
+      
                 {/* Basic Services Tab */}
 {/* Basic Services Tab */}
 {activeTab === "basic-services" && (
+  
   <div className="relative z-10 text-center p-8 min-h-[500px] rounded-lg shadow-lg overflow-hidden">
+    
     {/* Background */}
     <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-green-700 to-yellow-700 animate-pulse opacity-70"></div>
     <div className="absolute inset-0 bg-[url('/services-bg.jpg')] bg-cover bg-center opacity-30"></div>
