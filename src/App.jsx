@@ -90,14 +90,7 @@ export default function App() {
           >
             Contact
           </button>
-          <button
-            className={`py-2 px-4 ${
-              activeTab === "contact" ? "border-b-2 border-white text-white" : "text-gray-300"
-            }`}
-            onClick={() => setActiveTab("contact")}
-          >
-            Contact
-          </button>
+
           <button
             className={`py-2 px-4 ${
               activeTab === "basic-services" ? "border-b-2 border-white text-white" : "text-gray-300"
