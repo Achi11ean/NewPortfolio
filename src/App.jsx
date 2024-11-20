@@ -9,10 +9,10 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-400 to-blue-500 text-white overflow-auto">
       {/* About Me Section */}
-      <div className="relative w-full h-[60vh] mb-20">
+      <div className="relative w-full h-[60vh] mb-40">
         <AnimatedBackground />
         <div className="absolute inset-0 bg-black/30"></div> {/* Adds overlay */}
-<div className="relative flex flex-col items-center justify-center text-center z-10 pt-24">
+<div className="relative flex flex-col items-center justify-center text-center z-10 pt-44">
           <div className="w-80 h-80 rounded-full bg-white overflow-hidden shadow-md mx-auto mb-4">
             <img
               src="selfie.jpeg"
@@ -246,10 +246,10 @@ export default function App() {
           )}
           
           {activeTab === "passion" && (
-  <div className="relative p-6 text-white rounded-lg shadow overflow-hidden min-h-[1000px]">
+  <div className="relative p-6 text-white rounded-lg shadow overflow-hidden min-h-[500px]">
     {/* Fire Animation Background */}
     <div className="absolute inset-0 z-0 bg-gradient-to-r from-orange-500 via-red-600 to-yellow-500 animate-flicker"></div>
-    <div className="absolute inset-0 h-full z-10 opacity-50 bg-[url('/gif.webp')] bg-cover bg-center"></div>
+    <div className="absolute inset-0 h-200 z-10 opacity-50 bg-[url('/gif.webp')] bg-cover bg-center"></div>
 
     {/* Content */}
     <div className="relative z-20">
