@@ -37,9 +37,9 @@ export default function App() {
         <iframe
           allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
           frameBorder="0"
-          className="w-full max-w-xs sm:max-w-2xl h-24 sm:h-40 rounded-lg overflow-hidden"
+          className="w-full max-w-xs sm:max-w-2xl h-24 sm:h-60 rounded-lg overflow-hidden"
           sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-          src="https://embed.music.apple.com/us/album/dancing-in-the-moonlight/208819125?i=208819580"
+          src="https://embed.music.apple.com/us/playlist/favorite-songs/pl.u-m6UB7NWme"
         ></iframe>
       </div>
     </div>
