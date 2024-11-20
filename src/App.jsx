@@ -32,7 +32,7 @@ export default function App() {
   <iframe
     allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
     frameBorder="0"
-    className="w-[800px] mt-22  mb-62 h-40 rounded-lg overflow-hidden"
+    className="w-full sm:w-[800px] mt-22  mb-62 h-40 rounded-lg overflow-hidden"
     sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
     src="https://embed.music.apple.com/us/album/take-on-me/392429592?i=392429593"
   ></iframe>
@@ -44,7 +44,7 @@ export default function App() {
 
       {/* Tab Navigation */}
       <div className="w-full max-w-7.5xl mx-auto p-6 h-106">
-      <div className="flex justify-center space-x-8 mb-6 border-b border-white">
+      <div className="flex justify-center space-x-8 mb-6 border-b border-white overflow-x-auto">
 
       <button
             className={`py-2 px-4 ${
@@ -141,8 +141,8 @@ export default function App() {
 
 {activeTab === "projects" && (
 
-            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
-              {/* Project Cards */}
+<div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+{/* Project Cards */}
               <div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
   <div className="relative w-full h-52 overflow-hidden rounded-md">
     <img
