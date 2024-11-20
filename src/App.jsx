@@ -10,6 +10,7 @@ export default function App() {
   const [showContactInfo, setShowContactInfo] = useState(false);
   const [showPerformanceForm, setShowPerformanceForm] = useState(false); // State for toggling Performance Booking Form
   const [showEngineeringForm, setShowEngineeringForm] = useState(false); // State for Engineering Booking Form
+  const [showEducationSkills, setShowEducationSkills] = useState(false); // State to toggle EducationSkills visibility
 
   return (
 <div className="min-h-screen bg-gradient-to-r from-purple-400 to-blue-500 text-white overflow-auto">
@@ -113,12 +114,12 @@ export default function App() {
 
         {/* Tab Content */}
         <div className="mt-4 p-6 bg-black text-white rounded-xl relative overflow-hidden shadow-lg">
-  {/* Glowing Border Effect */}
-  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 blur-lg opacity-50"></div>
-  <div className="absolute inset-0 border-4 border-transparent rounded-xl bg-clip-border bg-gradient-to-r from-purple-500 via-blue-500 to-green-600"></div>
-  
-  {/* Content */}
-  {activeTab === "welcome" && (
+ {/* Glowing Border Effect */}
+<div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 blur-lg opacity-50"></div>
+<div className="absolute inset-0 border-4 border-transparent rounded-xl bg-clip-border bg-gradient-to-r from-purple-500 via-blue-500 to-green-600"></div>
+
+{/* Content */}
+{activeTab === "welcome" && (
   <div className="relative z-10 text-center p-6">
     <h2 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-900 to-red-700 mb-9 animate-pulse">
       Welcome to My Portfolio
@@ -130,7 +131,7 @@ export default function App() {
       Explore the tabs to learn more about my projects, passion, and professional journey. On the last tab, you can use the contact form to send me an inquiry, or visit the Services tab to book and pay for services directly through my portfolio! I look forward to connecting with you!
       <br /><br />
       This website was built using <span className="text-blue-400 font-bold">React</span> and <span className="text-green-400 font-bold">Vite</span> for fast development, styled with <span className="text-teal-400 font-bold">Tailwind CSS</span> for modern and responsive design, and powered by Stripe for seamless booking and payment functionality.   
-      </p>
+    </p>
 
     {/* Social Media Links */}
     <div className="flex justify-center mt-6 space-x-6">
@@ -144,7 +145,7 @@ export default function App() {
           src="/github.webp"
           alt="GitHub"
           className="w-20 h-20 rounded-full"
-          />
+        />
       </a>
       <a
         href="https://www.linkedin.com/in/jonathen-whitford/"
@@ -156,14 +157,25 @@ export default function App() {
           src="/linkedin.webp"
           alt="LinkedIn"
           className="w-20 h-20 rounded-full"
-          />
+        />
       </a>
-      
     </div>
-    <EducationSkills/>
 
+    {/* Toggle Button */}
+    <div className="text-center mt-6">
+      <button
+        onClick={() => setShowEducationSkills(!showEducationSkills)}
+        className="py-2 px-6 bg-purple-700 hover:bg-purple-600 text-white font-bold rounded-lg shadow-lg transition-all"
+      >
+        {showEducationSkills ? "Hide Education and Skills" : "Show Education and Skills"}
+      </button>
+    </div>
+
+    {/* Conditionally Render EducationSkills */}
+    {showEducationSkills && <EducationSkills />}
   </div>
 )}
+
 
 
 {activeTab === "education" && (
