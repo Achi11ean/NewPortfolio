@@ -14,7 +14,7 @@ export default function App() {
     <div className="absolute inset-0 bg-black/30"></div> {/* Adds overlay */}
     <div className="relative flex flex-col items-center justify-center text-center z-10 pt-4 px-4 sm:px-8">
       {/* Headshot */}
-      <div className="w-40 h-40 sm:w-80 mt-20 sm:mt-0 sm:h-80 rounded-full bg-white overflow-hidden shadow-md mx-auto mb-4 ">
+      <div className="w-40 h-40 sm:w-80 sm:h-80 rounded-full bg-white overflow-hidden shadow-md mx-auto mb-4 ">
         <img
           src="selfie.jpeg"
           alt="Your Headshot"
