@@ -3,7 +3,7 @@ import AnimatedBackground from "./AnimatedBackground";
 import ContactForm from "./ContactForm";
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState("projects"); // Default active tab
+  const [activeTab, setActiveTab] = useState("welcome"); // Default active tab
   const [showContactInfo, setShowContactInfo] = useState(false);
 
   return (
@@ -29,7 +29,7 @@ export default function App() {
       
       {/* Intro */}
       <p className="text-sm sm:text-lg mt-2 max-w-lg">
-        Welcome! I'm a software engineer passionate about creating innovative and scalable web applications.
+        Bien Venido!
       </p>
       
       {/* Embed Music */}
