@@ -9,7 +9,7 @@ export default function App() {
   return (
 <div className="min-h-screen bg-gradient-to-r from-purple-400 to-blue-500 text-white overflow-auto">
   {/* About Me Section */}
-  <div className="relative w-full h-[60vh] mb-60">
+  <div className="relative w-full h-[60vh] ">
     <AnimatedBackground />
     <div className="absolute inset-0 bg-black/30"></div> {/* Adds overlay */}
     <div className="relative flex flex-col items-center justify-center text-center z-10 pt-4 px-4 sm:px-8">
@@ -47,7 +47,7 @@ export default function App() {
 
 
       {/* Tab Navigation */}
-      <div className="w-full max-w-7.5xl mx-auto p-6  h-106">
+      <div className="w-full max-w-7.5xl mx-auto p-6  ">
       <div className="flex justify-center space-x-8 mb-6 border-b border-white overflow-x-auto">
 
       <button
