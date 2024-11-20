@@ -118,6 +118,8 @@ export default function App() {
       <span className="text-red-700 font-bold"> user-centric web applications.</span> 
       <br /><br />
       Explore the tabs to learn more about my projects, passion, and professional journey. On the last tab, you can use the message form to send me an inquiry, or visit the Services tab to book and pay for services directly through my portfolio! I look forward to connecting with you!
+      <br /><br />
+      This website was built using <span className="text-blue-400 font-bold">React</span> and <span className="text-green-400 font-bold">Vite</span> for fast development, styled with <span className="text-teal-400 font-bold">Tailwind CSS</span> for modern and responsive design, and powered by Stripe for seamless booking and payment functionality.   
       </p>
 
     {/* Social Media Links */}
