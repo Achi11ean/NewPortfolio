@@ -28,7 +28,7 @@ export default function App() {
 
 {/* Embed Music */}
 {/* Embed Music */}
-<div className="mt-16 flex justify-center">
+<div className="mt-6 flex justify-center">
   <iframe
     allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
     frameBorder="0"
