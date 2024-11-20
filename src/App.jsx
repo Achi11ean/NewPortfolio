@@ -9,7 +9,7 @@ export default function App() {
   return (
 <div className="min-h-screen bg-gradient-to-r from-purple-400 to-blue-500 text-white overflow-auto">
   {/* About Me Section */}
-  <div className="relative w-full h-[60vh] ">
+  <div className="relative w-full pb-20"> {/* Removed fixed height and added padding */}
     <AnimatedBackground />
     <div className="absolute inset-0 bg-black/30"></div> {/* Adds overlay */}
     <div className="relative flex flex-col items-center justify-center text-center z-10 pt-4 px-4 sm:px-8">
