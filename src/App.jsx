@@ -1,10 +1,13 @@
 import { useState } from "react";
 import AnimatedBackground from "./AnimatedBackground";
 import ContactForm from "./ContactForm";
-
+import PerformanceForm from "./PerformanceForm";
+import EngineeringForm from "./EngineeringForm";
 export default function App() {
   const [activeTab, setActiveTab] = useState("welcome"); // Default active tab
   const [showContactInfo, setShowContactInfo] = useState(false);
+  const [showPerformanceForm, setShowPerformanceForm] = useState(false); // State for toggling Performance Booking Form
+  const [showEngineeringForm, setShowEngineeringForm] = useState(false); // State for Engineering Booking Form
 
   return (
 <div className="min-h-screen bg-gradient-to-r from-purple-400 to-blue-500 text-white overflow-auto">
@@ -82,14 +85,7 @@ export default function App() {
           >
             Employment
           </button>
-          <button
-            className={`py-2 px-4 ${
-              activeTab === "contact" ? "border-b-2 border-white text-white" : "text-gray-300"
-            }`}
-            onClick={() => setActiveTab("contact")}
-          >
-            Contact
-          </button>
+
 
           <button
             className={`py-2 px-4 ${
@@ -98,6 +94,14 @@ export default function App() {
             onClick={() => setActiveTab("basic-services")}
           >
             Services
+          </button>
+          <button
+            className={`py-2 px-4 ${
+              activeTab === "contact" ? "border-b-2 border-white text-white" : "text-gray-300"
+            }`}
+            onClick={() => setActiveTab("contact")}
+          >
+            Contact
           </button>
         </div>
 
@@ -341,26 +345,56 @@ export default function App() {
 
     {/* Content */}
     <div className="relative z-10 p-6 bg-black/50 rounded-lg">
-      <ContactForm />
-      
-      {/* Get in Touch Button */}
-      <div className="text-center mt-6">
-        <button
-          onClick={() => setShowContactInfo(!showContactInfo)}
-          className="px-6 py-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
+
+      {/* Cards for Dropdown Options */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        {/* Performance Booking Card */}
+        <div
+          onClick={() => setShowPerformanceForm(!showPerformanceForm)}
+          className="cursor-pointer p-4 rounded-lg bg-gradient-to-r from-green-500 to-blue-500 text-white text-center font-bold shadow-lg hover:scale-105 transition-transform"
         >
-          {showContactInfo ? "Hide Contact Info" : "Get in Touch"}
-        </button>
+          {showPerformanceForm ? "Hide Performance Booking" : "Performance Booking"}
+        </div>
+
+        {/* Engineering Booking Card */}
+        <div
+          onClick={() => setShowEngineeringForm(!showEngineeringForm)}
+          className="cursor-pointer p-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-500 text-white text-center font-bold shadow-lg hover:scale-105 transition-transform"
+        >
+          {showEngineeringForm ? "Hide Engineering Booking" : "Engineering Booking"}
+        </div>
+
+        {/* Contact Info Card */}
+        <div
+          onClick={() => setShowContactInfo(!showContactInfo)}
+          className="cursor-pointer p-4 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center font-bold shadow-lg hover:scale-105 transition-transform"
+        >
+          {showContactInfo ? "Hide Contact Form" : "Get in Touch"}
+        </div>
+      </div>
+
+      {/* Content for Selected Dropdown */}
+      <div className="mt-6">
+        {showPerformanceForm && (
+          <div className="mb-4">
+            <PerformanceForm />
+          </div>
+        )}
+        {showEngineeringForm && (
+          <div className="mb-4">
+            <EngineeringForm />
+          </div>
+        )}
         {showContactInfo && (
-          <div className="mt-4 text-lg">
-            <p className="text-gray-200">Phone: <span className="text-white font-bold">(959) 204-1689</span></p>
-            <p className="text-gray-200">Email: <span className="text-white font-bold">paredes.jonathen@yahoo.com</span></p>
+          <div className="mb-4">
+            <ContactForm />
           </div>
         )}
       </div>
     </div>
   </div>
 )}
+
 
         </div>
       </div>
