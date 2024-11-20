@@ -32,7 +32,7 @@ export default function App() {
   <iframe
     allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
     frameBorder="0"
-    className="w-[800px] mt-42  mb-22 h-40 rounded-lg overflow-hidden"
+    className="w-[800px] mt-22  mb-42 h-40 rounded-lg overflow-hidden"
     sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
     src="https://embed.music.apple.com/us/album/take-on-me/392429592?i=392429593"
   ></iframe>
