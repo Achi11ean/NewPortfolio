@@ -32,7 +32,7 @@ export default function App() {
   <iframe
     allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
     frameBorder="0"
-    className="w-full sm:w-[800px] mt-22  mb-62 h-40 rounded-lg overflow-hidden"
+    className="w-full sm:w-[800px] mt-22  mb-52 h-40 rounded-lg overflow-hidden"
     sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
     src="https://embed.music.apple.com/us/album/dancing-in-the-moonlight/208819125?i=208819580"
   ></iframe>
