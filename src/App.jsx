@@ -121,7 +121,7 @@ export default function App() {
       Hi! I'm <span className="text-orange-400 font-bold">Jonathen</span>, a software engineer with a passion for creating 
       <span className="text-red-700 font-bold"> user-centric web applications.</span> 
       <br /><br />
-      Explore the tabs to learn more about my projects, passion, and professional journey. On the last tab, you can use the message form to send me an inquiry, or visit the Services tab to book and pay for services directly through my portfolio! I look forward to connecting with you!
+      Explore the tabs to learn more about my projects, passion, and professional journey. On the last tab, you can use the contact form to send me an inquiry, or visit the Services tab to book and pay for services directly through my portfolio! I look forward to connecting with you!
       <br /><br />
       This website was built using <span className="text-blue-400 font-bold">React</span> and <span className="text-green-400 font-bold">Vite</span> for fast development, styled with <span className="text-teal-400 font-bold">Tailwind CSS</span> for modern and responsive design, and powered by Stripe for seamless booking and payment functionality.   
       </p>
@@ -413,7 +413,7 @@ export default function App() {
         Services
       </h2>
       <p className="text-lg text-gray-200 mb-8">
-        Explore our wide range of services, including performance bookings, software engineering, consultation, and bartending services. Book now for exceptional quality and expertise.
+      Explore our wide range of services, including performance bookings, software engineering, consultation, and bartending services. To get started, submit a request under the Contact tab, and we'll guide you through the booking process once we've finalized the details for exceptional quality and expertise.
       </p>
 
       {/* Service Cards */}
