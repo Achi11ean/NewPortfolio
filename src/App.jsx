@@ -12,7 +12,7 @@ export default function App() {
       <div className="relative w-full h-[60vh] mb-20">
         <AnimatedBackground />
         <div className="absolute inset-0 bg-black/30"></div> {/* Adds overlay */}
-<div className="relative flex flex-col items-center justify-center text-center z-10 pt-44">
+<div className="relative flex flex-col items-center justify-center text-center z-10 pt-24">
           <div className="w-80 h-80 rounded-full bg-white overflow-hidden shadow-md mx-auto mb-4">
             <img
               src="selfie.jpeg"
