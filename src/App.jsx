@@ -90,6 +90,22 @@ export default function App() {
           >
             Contact
           </button>
+          <button
+            className={`py-2 px-4 ${
+              activeTab === "contact" ? "border-b-2 border-white text-white" : "text-gray-300"
+            }`}
+            onClick={() => setActiveTab("contact")}
+          >
+            Contact
+          </button>
+          <button
+            className={`py-2 px-4 ${
+              activeTab === "basic-services" ? "border-b-2 border-white text-white" : "text-gray-300"
+            }`}
+            onClick={() => setActiveTab("basic-services")}
+          >
+            Basic Services
+          </button>
         </div>
 
         {/* Tab Content */}
@@ -353,6 +369,120 @@ export default function App() {
 
         </div>
       </div>
+                {/* Basic Services Tab */}
+{/* Basic Services Tab */}
+{activeTab === "basic-services" && (
+  <div className="relative z-10 text-center p-8 min-h-[500px] rounded-lg shadow-lg overflow-hidden">
+    {/* Background */}
+    <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-green-700 to-yellow-700 animate-pulse opacity-70"></div>
+    <div className="absolute inset-0 bg-[url('/services-bg.jpg')] bg-cover bg-center opacity-30"></div>
+    <div className="absolute inset-0 bg-black/30"></div>
+
+    {/* Content */}
+    <div className="relative z-20">
+      <h2 className="text-4xl font-bold text-white mb-6">
+        Services
+      </h2>
+      <p className="text-lg text-gray-200 mb-8">
+        Explore our wide range of services, including performance bookings, software engineering, consultation, and bartending services. Book now for exceptional quality and expertise.
+      </p>
+
+      {/* Service Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Performance Services Card */}
+        <div className="bg-white rounded-lg shadow-lg p-6 text-left">
+          <h3 className="text-2xl font-bold text-black mb-4">Performance Services</h3>
+          <p className="text-gray-700 mb-4">
+            Enjoy karaoke hosting, DJ services, and live performances for parties, company events, weddings, and more. Customized playlists and add-ons available!
+          </p>
+          <p className="text-sm text-gray-600 mb-4">
+            <strong>Pricing:</strong>
+            <br /> - Private Parties: $120 (4 hours)
+            <br /> - Company Events: $200 minimum (4 hours)
+            <br /> - Weddings: $350 minimum (6 hours)
+            <br /> - Deluxe All-Day Event: $500
+          </p>
+          <a
+            href="https://buy.stripe.com/aEU4gvdOa6qi8kEfYZ" // Replace with actual link
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block px-6 py-3 text-center rounded-full bg-gradient-to-r from-yellow-500 to-red-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
+          >
+            Book Performance Services
+          </a>
+        </div>
+
+        {/* Software Engineering Services Card */}
+        <div className="bg-white rounded-lg shadow-lg p-6 text-left">
+          <h3 className="text-2xl font-bold text-black mb-4">Software Engineering Services</h3>
+          <p className="text-gray-700 mb-4">
+            Professional website development for static and dynamic applications, as well as enterprise solutions. Consultation and code reviews available.
+          </p>
+          <p className="text-sm text-gray-600 mb-4">
+            <strong>Pricing:</strong>
+            <br /> - Static Websites: Starting at $65/page
+            <br /> - Dynamic Applications: Starting at $250
+            <br /> - Enterprise Applications: Starting at $400
+          </p>
+          <a
+            href="https://buy.stripe.com/bIY14j9xUcOG58sfZ0" // Replace with actual link
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block px-6 py-3 text-center rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
+          >
+            Book Engineering Services
+          </a>
+        </div>
+
+        {/* Consultation Services Card */}
+        <div className="bg-white rounded-lg shadow-lg p-6 text-left">
+          <h3 className="text-2xl font-bold text-black mb-4">Consultation Services</h3>
+          <p className="text-gray-700 mb-4">
+            Get expert guidance on software engineering, project architecture, debugging, and tech stack selection. Tailored advice for your specific needs.
+          </p>
+          <p className="text-sm text-gray-600 mb-4">
+            <strong>Pricing:</strong>
+            <br /> - Software Consultation: $30/hr
+            <br /> - Code Review: $50 flat fee
+            <br /> - API Integration: Starting at $75/service
+          </p>
+          <a
+            href="https://buy.stripe.com/4gwbIX8tQcOG8kE000" // Replace with actual link
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block px-6 py-3 text-center rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
+          >
+            Book Consultation Services
+          </a>
+        </div>
+
+        {/* Bartending Services Card */}
+        <div className="bg-white rounded-lg shadow-lg p-6 text-left">
+          <h3 className="text-2xl font-bold text-black mb-4">Bartending Services</h3>
+          <p className="text-gray-700 mb-4">
+            Professional bartending services for private parties, weddings, and corporate events. Experienced and TIPS-certified for responsible alcohol service.
+          </p>
+          <p className="text-sm text-gray-600 mb-4">
+            <strong>Pricing:</strong>
+            <br /> - Starting at $25/hr
+            <br /> - Includes setup and cleanup
+            <br /> - Custom drink menus available
+          </p>
+          <a
+            href="https://buy.stripe.com/cN27sH11o15Y44o8wz" // Replace with actual link
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block px-6 py-3 text-center rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
+          >
+            Book Bartending Services
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+
     </div>
   );
 }
