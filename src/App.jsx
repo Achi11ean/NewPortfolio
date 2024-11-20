@@ -32,7 +32,7 @@ export default function App() {
   <iframe
     allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
     frameBorder="0"
-    className="w-full sm:w-[800px] mt-22  mb-72 h-40 rounded-lg overflow-hidden"
+    className="w-full sm:w-[800px] mt-22  mb-22 h-40 rounded-lg overflow-hidden"
     sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
     src="https://embed.music.apple.com/us/album/dancing-in-the-moonlight/208819125?i=208819580"
   ></iframe>
@@ -43,7 +43,7 @@ export default function App() {
       </div>
 
       {/* Tab Navigation */}
-      <div className="w-full max-w-7.5xl mx-auto p-6 h-106">
+      <div className="w-full max-w-7.5xl mx-auto p-6 mt-20 h-106">
       <div className="flex justify-center space-x-8 mb-6 border-b border-white overflow-x-auto">
 
       <button
