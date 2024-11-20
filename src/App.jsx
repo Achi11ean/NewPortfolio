@@ -7,40 +7,44 @@ export default function App() {
   const [showContactInfo, setShowContactInfo] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-400 to-blue-500 text-white overflow-auto">
-      {/* About Me Section */}
-      <div className="relative w-full h-[60vh] mb-60">
-        <AnimatedBackground />
-        <div className="absolute inset-0 bg-black/30"></div> {/* Adds overlay */}
-<div className="relative flex flex-col items-center justify-center text-center z-10 pt-4">
-          <div className="w-80 h-80 rounded-full bg-white overflow-hidden shadow-md mx-auto mb-4">
-            <img
-              src="selfie.jpeg"
-              alt="Your Headshot"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <h1 className="text-6xl font-bold">Jonathen Whitford</h1>
-          
-          <p className="text-lg mt-2">
-            Welcome! I'm a software engineer passionate about creating innovative and scalable web applications.
-          </p>
-
-{/* Embed Music */}
-{/* Embed Music */}
-<div className="mt-6 mb-22 flex justify-center">
-  <iframe
-    allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-    frameBorder="0"
-    className="w-full sm:w-[800px] mt-22  mb-22 h-40 rounded-lg overflow-hidden"
-    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-    src="https://embed.music.apple.com/us/album/dancing-in-the-moonlight/208819125?i=208819580"
-  ></iframe>
-</div>
-
-
-        </div>
+<div className="min-h-screen bg-gradient-to-r from-purple-400 to-blue-500 text-white overflow-auto">
+  {/* About Me Section */}
+  <div className="relative w-full h-[60vh] mb-60">
+    <AnimatedBackground />
+    <div className="absolute inset-0 bg-black/30"></div> {/* Adds overlay */}
+    <div className="relative flex flex-col items-center justify-center text-center z-10 pt-4 px-4 sm:px-8">
+      {/* Headshot */}
+      <div className="w-40 h-40 sm:w-80 sm:h-80 rounded-full bg-white overflow-hidden shadow-md mx-auto mb-4">
+        <img
+          src="selfie.jpeg"
+          alt="Your Headshot"
+          className="w-full h-full object-cover"
+        />
       </div>
+      
+      {/* Name */}
+      <h1 className="text-4xl sm:text-6xl font-bold">
+        Jonathen Whitford
+      </h1>
+      
+      {/* Intro */}
+      <p className="text-sm sm:text-lg mt-2 max-w-lg">
+        Welcome! I'm a software engineer passionate about creating innovative and scalable web applications.
+      </p>
+      
+      {/* Embed Music */}
+      <div className="mt-6 flex justify-center w-full">
+        <iframe
+          allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+          frameBorder="0"
+          className="w-full max-w-xs sm:max-w-2xl h-24 sm:h-40 rounded-lg overflow-hidden"
+          sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+          src="https://embed.music.apple.com/us/album/dancing-in-the-moonlight/208819125?i=208819580"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
 
       {/* Tab Navigation */}
       <div className="w-full max-w-7.5xl mx-auto p-6 mt-20 h-106">
