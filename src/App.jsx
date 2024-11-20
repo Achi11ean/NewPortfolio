@@ -58,7 +58,7 @@ export default function App() {
       <div className="flex justify-center space-x-8 mb-6 border-b border-white overflow-x-auto">
 
       <button
-            className={`py-2 px-4 ${
+            className={`py-2 px-4 text-3xl font-bold ${
               activeTab === "welcome" ? "border-b-2 border-white text-white" : "text-gray-300"
             }`}
             onClick={() => setActiveTab("welcome")}
@@ -66,7 +66,7 @@ export default function App() {
             Welcome
           </button>
           <button
-  className={`py-2 px-4 ${
+  className={`py-2 px-4 text-3xl font-bold ${
     activeTab === "education" ? "border-b-2 border-white text-white" : "text-gray-300"
   }`}
   onClick={() => setActiveTab("education")}
@@ -75,7 +75,7 @@ export default function App() {
 </button>
 
           <button
-            className={`py-2 px-4 ${
+            className={`py-2 px-4 text-3xl font-bold ${
               activeTab === "employment" ? "border-b-2 border-white text-white" : "text-gray-300"
             }`}
             onClick={() => setActiveTab("employment")}
@@ -84,7 +84,7 @@ export default function App() {
           </button>
 
           <button
-            className={`py-2 px-4 ${
+            className={`py-2 px-4 text-3xl font-bold${
               activeTab === "passion" ? "border-b-2 border-white text-white" : "text-gray-300"
             }`}
             onClick={() => setActiveTab("passion")}
@@ -94,7 +94,7 @@ export default function App() {
 
 
           <button
-            className={`py-2 px-4 ${
+            className={`py-2 px-4 text-3xl font-bold${
               activeTab === "basic-services" ? "border-b-2 border-white text-white" : "text-gray-300"
             }`}
             onClick={() => setActiveTab("basic-services")}
@@ -102,7 +102,7 @@ export default function App() {
             Services
           </button>
           <button
-            className={`py-2 px-4 ${
+            className={`py-2 px-4 text-3xl font-bold ${
               activeTab === "contact" ? "border-b-2 border-white text-white" : "text-gray-300"
             }`}
             onClick={() => setActiveTab("contact")}
@@ -124,7 +124,7 @@ export default function App() {
     <h2 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-900 to-red-700 mb-9 animate-pulse">
       Welcome to My Portfolio
     </h2>
-    <p className="text-xl leading-relaxed text-gray-300">
+    <p className="text-3xl font-bold leading-relaxed text-gray-300">
       Hi! I'm <span className="text-orange-400 font-bold">Jonathen</span>, a software engineer with a passion for creating 
       <span className="text-red-700 font-bold"> user-centric web applications.</span> 
       <br /><br />
@@ -366,7 +366,7 @@ export default function App() {
 
 
 {activeTab === "contact" && (
-  <div className="relative p-6 text-white rounded-lg shadow overflow-hidden">
+  <div className="relative p-6 text-white text-3xl font-bold rounded-lg shadow overflow-hidden">
     {/* Background Animation */}
     <div className="absolute inset-0 z-0 bg-[url('/beach.webp')] bg-cover bg-center opacity-50"></div>
 
@@ -442,7 +442,7 @@ export default function App() {
       <h2 className="text-4xl font-bold text-white mb-6">
         Services
       </h2>
-      <p className="text-lg text-gray-200 mb-8">
+      <p className="text-2xl text-gray-200 mb-8">
       Explore our wide range of services, including performance bookings, software engineering, consultation, and bartending services. To get started, submit a request under the Contact tab, and we'll guide you through the booking process once we've finalized the details for exceptional quality and expertise.
       </p>
 
@@ -450,11 +450,11 @@ export default function App() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Performance Services Card */}
         <div className="bg-white rounded-lg shadow-lg p-6 text-left">
-          <h3 className="text-2xl font-bold text-black mb-4">Performance Services</h3>
+          <h3 className="text-4xl font-bold text-black mb-4">Performance Services</h3>
           <p className="text-gray-700 mb-4">
             Enjoy karaoke hosting, DJ services, and live performances for parties, company events, weddings, and more. Customized playlists and add-ons available!
           </p>
-          <p className="text-sm text-gray-600 mb-4">
+          <p className="text-lg text-gray-600 mb-4">
             <strong>Pricing:</strong>
             <br /> - Private Parties: $120 (4 hours)
             <br /> - Company Events: $200 minimum (4 hours)
@@ -465,7 +465,7 @@ export default function App() {
             href="https://buy.stripe.com/aEU4gvdOa6qi8kEfYZ" // Replace with actual link
             target="_blank"
             rel="noopener noreferrer"
-            className="block px-6 py-3 text-center rounded-full bg-gradient-to-r from-yellow-500 to-red-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
+            className="block px-6 py-3 text-center text-2xl rounded-full bg-gradient-to-r from-yellow-500 to-red-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
           >
             Book Performance Services
           </a>
@@ -477,7 +477,7 @@ export default function App() {
           <p className="text-gray-700 mb-4">
             Professional website development for static and dynamic applications, as well as enterprise solutions. Consultation and code reviews available.
           </p>
-          <p className="text-sm text-gray-600 mb-4">
+          <p className="text-lg text-gray-600 mb-4">
             <strong>Pricing:</strong>
             <br /> - Static Websites: Starting at $65/page
             <br /> - Dynamic Applications: Starting at $250
@@ -487,7 +487,7 @@ export default function App() {
             href="https://buy.stripe.com/bIY14j9xUcOG58sfZ0" // Replace with actual link
             target="_blank"
             rel="noopener noreferrer"
-            className="block px-6 py-3 text-center rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
+            className="block px-6 py-3 text-center rounded-full text-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
           >
             Book Engineering Services
           </a>
@@ -496,10 +496,10 @@ export default function App() {
         {/* Consultation Services Card */}
         <div className="bg-white rounded-lg shadow-lg p-6 text-left">
           <h3 className="text-2xl font-bold text-black mb-4">Consultation Services</h3>
-          <p className="text-gray-700 mb-4">
+          <p className="text-gray-700 mb-4 text-lg">
             Get expert guidance on software engineering, project architecture, debugging, and tech stack selection. Tailored advice for your specific needs.
           </p>
-          <p className="text-sm text-gray-600 mb-4">
+          <p className="text-lg text-gray-600 mb-4">
             <strong>Pricing:</strong>
             <br /> - Software Consultation: $30/hr
             <br /> - Code Review: $50 flat fee
@@ -509,7 +509,7 @@ export default function App() {
             href="https://buy.stripe.com/4gwbIX8tQcOG8kE000" // Replace with actual link
             target="_blank"
             rel="noopener noreferrer"
-            className="block px-6 py-3 text-center rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
+            className="block px-6 py-3 text-2xl text-center rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
           >
             Book Consultation Services
           </a>
@@ -518,10 +518,10 @@ export default function App() {
         {/* Bartending Services Card */}
         <div className="bg-white rounded-lg shadow-lg p-6 text-left">
           <h3 className="text-2xl font-bold text-black mb-4">Bartending Services</h3>
-          <p className="text-gray-700 mb-4">
+          <p className="text-gray-700 mb-4 text-lg">
             Professional bartending services for private parties, weddings, and corporate events. Experienced and TIPS-certified for responsible alcohol service.
           </p>
-          <p className="text-sm text-gray-600 mb-4">
+          <p className="text-lg text-gray-600 mb-4">
             <strong>Pricing:</strong>
             <br /> - Starting at $25/hr
             <br /> - Includes setup and cleanup
@@ -531,7 +531,7 @@ export default function App() {
             href="https://buy.stripe.com/cN27sH11o15Y44o8wz" // Replace with actual link
             target="_blank"
             rel="noopener noreferrer"
-            className="block px-6 py-3 text-center rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
+            className="block px-6 py-3 text-center text-2xl rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
           >
             Book Bartending Services
           </a>
