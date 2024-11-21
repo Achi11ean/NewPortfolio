@@ -336,16 +336,16 @@ onClick={() => toggleSection("performing")}
   Through performing, I’ve gained confidence, creativity, and the ability to adapt—skills that translate beautifully into all aspects of my life.
 </p>
             {/* Video Player */}
-            <div className="flex items-center justify-center h-[300px] rounded-lg overflow-hidden">
-            <video
-                controls
-                className="w-400 h-full  ml-100 object-cover"
-              >
-                <source src="https://drive.google.com/file/d/1ubjCUtqPdIsQJaU1cBDjX0W_1aM27TbV/view?usp=sharing" 
-                type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
+            <div className="flex items-center justify-center  h-[300px] rounded-lg overflow-hidden">
+  <iframe
+    src="https://player.vimeo.com/video/1031800524"
+    frameBorder="0"
+    allow="autoplay; fullscreen; picture-in-picture"
+    allowFullScreen
+    className="w-100 "
+  ></iframe>
+</div>
+
 
           </div>
         </div>
