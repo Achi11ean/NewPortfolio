@@ -11,7 +11,11 @@ export default function App() {
   const [showPerformanceForm, setShowPerformanceForm] = useState(false); // State for toggling Performance Booking Form
   const [showEngineeringForm, setShowEngineeringForm] = useState(false); // State for Engineering Booking Form
   const [showEducationSkills, setShowEducationSkills] = useState(false); // State to toggle EducationSkills visibility
-
+  const [openSection, setOpenSection] = useState(null); // State for open dropdown
+  const toggleSection = (section) => {
+    setOpenSection((prevSection) => (prevSection === section ? null : section));
+  };
+  
   return (
 <div className="min-h-screen bg-gradient-to-r from-purple-400 to-blue-500 text-white overflow-auto">
   {/* About Me Section */}
@@ -84,7 +88,7 @@ export default function App() {
           </button>
 
           <button
-            className={`py-2 px-4 text-3xl font-bold${
+            className={`py-2 px-4 text-3xl font-bold ${
               activeTab === "passion" ? "border-b-2 border-white text-white" : "text-gray-300"
             }`}
             onClick={() => setActiveTab("passion")}
@@ -94,7 +98,7 @@ export default function App() {
 
 
           <button
-            className={`py-2 px-4 text-3xl font-bold${
+            className={`py-2 px-4 text-3xl font-bold ${
               activeTab === "basic-services" ? "border-b-2 border-white text-white" : "text-gray-300"
             }`}
             onClick={() => setActiveTab("basic-services")}
@@ -113,10 +117,9 @@ export default function App() {
         
 
         {/* Tab Content */}
-        <div className="mt-4 p-6 bg-black text-white rounded-xl relative overflow-hidden shadow-lg">
+        <div className="mt-4 p-6  text-white rounded-xl relative overflow-hidden shadow-lg">
  {/* Glowing Border Effect */}
-<div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 blur-lg opacity-50"></div>
-<div className="absolute inset-0 border-4 border-transparent rounded-xl bg-clip-border bg-gradient-to-r from-purple-500 via-blue-500 to-green-600"></div>
+{/* <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 blur-lg opacity-50"></div> */}
 
 {/* Content */}
 {activeTab === "welcome" && (
@@ -291,27 +294,95 @@ export default function App() {
 )}
 
           
-          {activeTab === "passion" && (
-  <div className="relative p-6 text-white rounded-lg shadow overflow-hidden min-h-[500px]">
-    {/* Fire Animation Background */}
-    <div className="absolute inset-0 z-0 bg-gradient-to-r from-orange-500 via-red-600 to-yellow-500 animate-flicker"></div>
-    <div className="absolute inset-0 h-200 z-10 opacity-50 bg-[url('/gif.webp')] bg-cover bg-center"></div>
+{activeTab === "passion" && (
+  <div className="space-y-6">
+    {/* Dropdown for Passion for Performing */}
+    <div>
+      <button
+className="w-full text-left bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-6 text-2xl mb-3 text-center rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-700 hover:to-pink-700"
+onClick={() => toggleSection("performing")}
+      >
+        My Passion for Performing
+      </button>
+      {openSection === "performing" && (
+        <div className="relative p-6 text-white rounded-lg shadow overflow-hidden min-h-[500px]">
+          {/* Background for Performing */}
+          <div className="absolute inset-0 z-0 bg-gradient-to-r from-pink-500 via-purple-600 to-red-500 opacity-50"></div>
+          
+          {/* Content */}
+          <div className="relative text-center z-20">
+            <h2 className="text-3xl font-bold mb-4">My Passion for Performing</h2>
+            
+            <p className="text-2xl leading-relaxed mb-4">
+              
+  <strong>My Passion for Music and Performing</strong>
+  <br /><br />
+  Performing has always been a cornerstone of my life, and music is my greatest passion. I’ve had the privilege of:
+  <ul className="list-disc list-inside mt-2 mb-4">
+    <li>Performing at weddings and local LGBTQ+ events with Sky Casper Entertainment.</li>
+    <li>Hosting karaoke for two years, creating a space for others to share in the joy of music.</li>
+    <li>Embarking on an exciting journey to create my own music, pouring my heart into every lyric and melody.</li>
+  </ul>
+  
+  <strong>Key Milestones in My Journey</strong>
+  <br /><br />
+  One of the most thrilling experiences was my role in <em>Cabaret the Musical</em>, where I played the characters of Herman, Max, and Sailor. The stage became my canvas for creativity, a place to connect with audiences and tell stories that resonated deeply.
+  <br /><br />
+  Currently, I’m in rehearsal for the winter musical at the Connecticut Theatre Company, <em>A Christmas Carol</em>, where I will be playing Fred—the <em>wonderfully British</em> nephew of dear old Uncle Scrooge. Stay tuned for updates on ticket sales; I’d love to see you there!
+  <br /><br />
+  <strong>The Impact of Performing</strong>
+  <br /><br />
+  Through performing, I’ve gained confidence, creativity, and the ability to adapt—skills that translate beautifully into all aspects of my life.
+</p>
+            {/* Video Player */}
+            <div className="flex items-center justify-center h-[300px] rounded-lg overflow-hidden">
+            <video
+                controls
+                className="w-400 h-full  ml-100 object-cover"
+              >
+                <source src="/cabaret.mov" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
 
-    {/* Content */}
-    <div className="relative z-20">
-      <h2 className="text-3xl font-bold mb-4">My Passion for Technology</h2>
-      <p className="text-2xl leading-relaxed">
-        My passion for technology grew from experiences teaching clients about technology at the bank, troubleshooting their problems, and creating websites to help others. 
-        <br /><br />
-        These experiences revealed how technology could empower people, simplify their lives, and create meaningful connections. Teaching clients provided opportunities to break down complex systems into understandable solutions, building trust and making technology more accessible. 
-        <br /><br />
-        Troubleshooting challenges reinforced the satisfaction of solving problems and helping others navigate technical obstacles. Meanwhile, designing websites combined creativity with purpose, allowing for the creation of user-friendly platforms that simplify tasks and bring ideas to life.
-        <br /><br />
-        This combination of teaching, problem-solving, and creative development showed how technology can be a powerful tool for supporting, inspiring, and improving the lives of others, fostering a deep and lasting passion for the field.
-      </p>
+          </div>
+        </div>
+      )}
+    </div>
+
+    {/* Dropdown for Passion for Software Engineering */}
+    <div>
+      <button
+className="w-full text-left bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-6 text-2xl mb-3 text-center rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-700 hover:to-pink-700"
+onClick={() => toggleSection("technology")}
+      >
+        My Passion for Software Engineering
+      </button>
+      {openSection === "technology" && (
+        <div className="relative p-6 text-white rounded-lg shadow overflow-hidden min-h-[500px]">
+          {/* Fire Animation Background */}
+          <div className="absolute inset-0 z-0 bg-gradient-to-r from-orange-500 via-red-600 to-yellow-500 animate-flicker"></div>
+          <div className="absolute inset-0 h-200 z-10 opacity-50 bg-[url('/gif.webp')] bg-cover bg-center"></div>
+          
+          {/* Content */}
+          <div className="relative z-20">
+            <h2 className="text-3xl font-bold mb-4">My Passion for Software Engineering</h2>
+            <p className="text-2xl leading-relaxed">
+              My passion for technology grew from experiences teaching clients about technology at the bank, troubleshooting their problems, and creating websites to help others.
+              <br /><br />
+              These experiences revealed how technology could empower people, simplify their lives, and create meaningful connections. Teaching clients provided opportunities to break down complex systems into understandable solutions, building trust and making technology more accessible. 
+              <br /><br />
+              Troubleshooting challenges reinforced the satisfaction of solving problems and helping others navigate technical obstacles. Meanwhile, designing websites combined creativity with purpose, allowing for the creation of user-friendly platforms that simplify tasks and bring ideas to life.
+              <br /><br />
+              This combination of teaching, problem-solving, and creative development showed how technology can be a powerful tool for supporting, inspiring, and improving the lives of others, fostering a deep and lasting passion for the field.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   </div>
 )}
+
 
 
 {activeTab === "employment" && (
