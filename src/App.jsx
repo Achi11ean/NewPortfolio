@@ -336,17 +336,15 @@ onClick={() => toggleSection("performing")}
   Through performing, I’ve gained confidence, creativity, and the ability to adapt—skills that translate beautifully into all aspects of my life.
 </p>
             {/* Video Player */}
-            <div className="relative flex items-center w-500 justify-center h-[400px] rounded-3xl overflow-hidden shadow-lg border-4 border-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-black">
+            <div className="flex items-center justify-center  h-[300px] rounded-4xl overflow-hidden">
   <iframe
     src="https://player.vimeo.com/video/1031800524"
     frameBorder="0"
     allow="autoplay; fullscreen; picture-in-picture"
     allowFullScreen
-    className="w-full h-full rounded-3xl"
+    className="w-350 rounded-4xl "
   ></iframe>
-  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/50"></div>
 </div>
-
 
 
           </div>
