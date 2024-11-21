@@ -105,7 +105,8 @@ export default function App() {
           >
             Services
           </button>
-          <button
+          <button 
+            id="contact"
             className={`py-2 px-4 text-3xl font-bold ${
               activeTab === "contact" ? "border-b-2 border-white text-white" : "text-gray-300"
             }`}
@@ -517,7 +518,15 @@ onClick={() => toggleSection("technology")}
       <p className="text-2xl text-gray-200 mb-8">
       Explore our wide range of services, including performance bookings, software engineering, consultation, and bartending services. To get started, submit a request under the Contact tab, and we'll guide you through the booking process once we've finalized the details for exceptional quality and expertise.
       </p>
-
+    {/* "Submit A Booking Request" Button */}
+    <div className="relative z-20 mb-6 flex justify-center">
+  <button
+    onClick={() => setActiveTab("contact")} // Set the activeTab to "contact"
+    className="px-6 py-3 text-xl font-bold text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-transform"
+  >
+    Submit A Booking Request
+  </button>
+</div>
       {/* Service Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Performance Services Card */}
@@ -539,7 +548,7 @@ onClick={() => toggleSection("technology")}
             rel="noopener noreferrer"
             className="block px-6 py-3 text-center text-2xl rounded-full bg-gradient-to-r from-yellow-500 to-red-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
           >
-            Book Performance Services
+            Performance Services Payment
           </a>
         </div>
 
@@ -561,7 +570,7 @@ onClick={() => toggleSection("technology")}
             rel="noopener noreferrer"
             className="block px-6 py-3 text-center rounded-full text-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
           >
-            Book Engineering Services
+            Engineering Services Payment
           </a>
         </div>
 
@@ -583,7 +592,7 @@ onClick={() => toggleSection("technology")}
             rel="noopener noreferrer"
             className="block px-6 py-3 text-2xl text-center rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
           >
-            Book Consultation Services
+            Consultation Services Payment
           </a>
         </div>
 
@@ -605,7 +614,7 @@ onClick={() => toggleSection("technology")}
             rel="noopener noreferrer"
             className="block px-6 py-3 text-center text-2xl rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
           >
-            Book Bartending Services
+            Bartending Services Payment
           </a>
         </div>
       </div>
