@@ -341,7 +341,7 @@ onClick={() => toggleSection("performing")}
                 controls
                 className="w-400 h-full  ml-100 object-cover"
               >
-                <source src="https://drive.google.com/uc?1ubjCUtqPdIsQJaU1cBDjX0W_1aM27TbV" 
+                <source src="https://drive.google.com/1ubjCUtqPdIsQJaU1cBDjX0W_1aM27TbV" 
                 type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
