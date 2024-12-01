@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AnimatedBackground from "./AnimatedBackground";
 import ContactForm from "./ContactForm";
 import PerformanceForm from "./PerformanceForm";
 import EngineeringForm from "./EngineeringForm";
 import EducationSkills from "./EducationSkills";
+
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("welcome"); // Default active tab
@@ -11,11 +12,38 @@ export default function App() {
   const [showPerformanceForm, setShowPerformanceForm] = useState(false); // State for toggling Performance Booking Form
   const [showEngineeringForm, setShowEngineeringForm] = useState(false); // State for Engineering Booking Form
   const [showEducationSkills, setShowEducationSkills] = useState(false); // State to toggle EducationSkills visibility
+  const [selectedVideo, setSelectedVideo] = useState(""); // State for selected video
+
   const [openSection, setOpenSection] = useState(null); // State for open dropdown
   const toggleSection = (section) => {
     setOpenSection((prevSection) => (prevSection === section ? null : section));
   };
-  
+  // Load Instagram script once globally
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "//www.instagram.com/embed.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    script.onload = () => {
+      if (window.instgrm) {
+        window.instgrm.Embeds.process();
+      }
+    };
+
+    return () => {
+      document.body.removeChild(script); // Clean up script
+    };
+  }, []);
+
+  // Reprocess Instagram embeds when the video changes
+  useEffect(() => {
+    if (window.instgrm && selectedVideo.startsWith("instagram")) {
+      window.instgrm.Embeds.process();
+    }
+  }, [selectedVideo]);
+
+
   return (
 <div className="min-h-screen bg-gradient-to-r from-purple-400 to-blue-500 text-white overflow-auto">
   {/* About Me Section */}
@@ -206,6 +234,32 @@ export default function App() {
 
     {/* Project Cards */}
     <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+  {/* Ink Haven by Jwhit Productions */}
+  <div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
+    <div className="relative w-full h-52 overflow-hidden rounded-md">
+      <img
+        src="InkHaven.png" // Replace with the actual image path for Ink Haven
+        alt="Ink Haven Screenshot"
+        className="w-full h-full object-cover rounded-md transition-transform duration-300 group-hover:scale-110"
+      />
+      <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <p className="text-center text-sm px-2">
+          A tattoo parlor booking website built with React, Vite, and Tailwind CSS, offering a modern and responsive user experience.
+        </p>
+      </div>
+    </div>
+    <h3 className="text-xl text-gray-600 font-semibold mt-4">Ink Haven by Jwhit Productions</h3>
+    <p className="mt-2 text-sm text-gray-600">React, Vite, Tailwind CSS</p>
+    <a
+      href="https://jwhitproductionstattooparlor.netlify.app/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
+    >
+      Visit Site
+    </a>
+  </div>
+
       <div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
         <div className="relative w-full h-52 overflow-hidden rounded-md">
           <img
@@ -311,66 +365,210 @@ export default function App() {
 
           
 {activeTab === "passion" && (
-  <div className="space-y-6">
-    {/* Dropdown for Passion for Performing */}
-    <div>
-      <button
-className="w-full text-left bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-6 text-2xl mb-3 text-center rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-700 hover:to-pink-700"
-onClick={() => toggleSection("performing")}
+        <div className="space-y-6">
+          {/* Dropdown for Passion for Performing */}
+          <div>
+            <button
+              className="w-full text-left bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-6 text-2xl mb-3 text-center rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-700 hover:to-pink-700"
+              onClick={() => toggleSection("performing")}
+            >
+              My Passion for Performing
+            </button>
+            {openSection === "performing" && (
+              <div className="relative p-6 text-white rounded-lg shadow-lg overflow-hidden min-h-[600px]">
+                {/* Background for Performing */}
+                <div className="absolute inset-0 z-0 bg-gradient-to-r from-pink-500 via-purple-600 to-red-500 opacity-50"></div>
+
+                {/* Content */}
+                <div className="relative text-center z-20 space-y-6">
+                  <h2 className="text-4xl font-extrabold mb-6">
+                    My Passion for Performing
+                  </h2>
+                  <p className="text-xl leading-relaxed mb-6">
+                    Performing has always been a cornerstone of my life, and
+                    music is my greatest passion. I’ve had the privilege of:
+                  </p>
+                  <ul className="list-disc list-inside mt-2 mb-4">
+                    <li>
+                      Performing at weddings and local LGBTQ+ events with Sky
+                      Casper Entertainment.
+                    </li>
+                    <li>
+                      Hosting karaoke for two years, creating a space for others
+                      to share in the joy of music.
+                    </li>
+                    <li>
+                      Embarking on an exciting journey to create my own music,
+                      pouring my heart into every lyric and melody.
+                    </li>
+                  </ul>
+
+                  <p className="text-xl leading-relaxed">
+                    One of the most thrilling experiences was my role in{" "}
+                    <em>Cabaret the Musical</em>, where I played the characters
+                    of Herman, Max, and Sailor. Currently, I’m in rehearsal for
+                    the winter musical <em>A Christmas Carol</em>, where I will
+                    be playing Fred—the <em>wonderfully British</em> nephew of
+                    dear old Uncle Scrooge. Stay tuned for updates!
+                  </p>
+
+                  {/* Ticket Link Dropdown */}
+                  <div className="mt-6">
+                    <select
+                      className="w-full bg-gradient-to-r from-white via-purple-400 to-yellow-400 text-gray-800 py-3 px-4 rounded-lg shadow-md focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                      onChange={(e) => {
+                        if (e.target.value) {
+                          window.open(e.target.value, "_blank");
+                        }
+                      }}
+                    >
+                      <option value="">Select an Upcoming Performance</option>
+                      <option value="https://www.connecticuttheatrecompany.org/box-office/">
+                        Tickets for A Christmas Carol
+                      </option>
+                      {/* Add more performance options as needed */}
+                    </select>
+                  </div>
+
+{/* Video Cards */}
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+  {/* Cabaret Musical Performance */}
+  <div
+    className="bg-white text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
+    onClick={() => setSelectedVideo("https://player.vimeo.com/video/1031800524")}
+  >
+    <h3 className="text-xl font-bold text-gray-800">Cabaret Musical Performance</h3>
+  </div>
+
+  {/* Beautiful Things - Benson Boone */}
+  <div
+    className="bg-white text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
+    onClick={() => setSelectedVideo("instagram3")}
+  >
+    <h3 className="text-xl font-bold text-gray-800">Beautiful Things - Benson Boone</h3>
+  </div>
+
+  {/* You - Miley Cyrus */}
+  <div
+    className="bg-white text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
+    onClick={() => setSelectedVideo("instagram2")}
+  >
+    <h3 className="text-xl font-bold text-gray-800">You - Miley Cyrus</h3>
+  </div>
+
+  {/* Somebody - Jelly Roll */}
+  <div
+    className="bg-white text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
+    onClick={() => setSelectedVideo("instagram1")}
+  >
+    <h3 className="text-xl font-bold text-gray-800">Somebody - Jelly Roll</h3>
+  </div>
+
+  {/* Haunted House - Christina Aguilera */}
+  <div
+    className="bg-white text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
+    onClick={() => setSelectedVideo("instagram4")}
+  >
+    <h3 className="text-xl font-bold text-gray-800">Haunted House - Christina Aguilera</h3>
+  </div>
+
+  {/* New Video - Beautiful Symphony */}
+  <div
+    className="bg-white text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
+    onClick={() => setSelectedVideo("instagram5")}
+  >
+    <h3 className="text-xl font-bold text-gray-800">Too Sweet - Hozier</h3>
+  </div>
+</div>
+
+{/* Video Player */}
+<div className="flex items-center justify-center h-[300px] rounded-2xl overflow-hidden mt-6">
+  {selectedVideo.startsWith("instagram") ? (
+    <div key={selectedVideo} className="instagram-container">
+      {/* Instagram Embed Block */}
+      <blockquote
+        className="instagram-media"
+        data-instgrm-permalink={
+          selectedVideo === "instagram1"
+            ? "https://www.instagram.com/reel/DC4J0fERW6E/?utm_source=ig_embed&amp;utm_campaign=loading"
+            : selectedVideo === "instagram2"
+            ? "https://www.instagram.com/reel/DC4MaLdxfUB/?utm_source=ig_embed&amp;utm_campaign=loading"
+            : selectedVideo === "instagram3"
+            ? "https://www.instagram.com/reel/DC4NOC2Rsoi/?utm_source=ig_embed&amp;utm_campaign=loading"
+            : selectedVideo === "instagram4"
+            ? "https://www.instagram.com/reel/DAzJtSxOhE9/?utm_source=ig_embed&amp;utm_campaign=loading"
+            : "https://www.instagram.com/reel/C_q_mZ9O6Ag/?utm_source=ig_embed&amp;utm_campaign=loading" // Instagram5 - Beautiful Symphony
+        }
+        data-instgrm-version="14"
+        style={{
+          background: "#FFF",
+          border: "0",
+          borderRadius: "3px",
+          boxShadow: "0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15)",
+          margin: "1px",
+          maxWidth: "540px",
+          minWidth: "326px",
+          padding: "0",
+          width: "calc(100% - 2px)",
+        }}
       >
-        My Passion for Performing
-      </button>
-      {openSection === "performing" && (
-        <div className="relative p-6 text-white rounded-lg shadow overflow-hidden min-h-[500px]">
-          {/* Background for Performing */}
-          <div className="absolute inset-0 z-0 bg-gradient-to-r from-pink-500 via-purple-600 to-red-500 opacity-50"></div>
-          
-          {/* Content */}
-          <div className="relative text-center z-20">
-            <h2 className="text-3xl font-bold mb-4">My Passion for Performing</h2>
-            
-            <p className="text-2xl leading-relaxed mb-4">
-              
-  <strong>My Passion for Music and Performing</strong>
-  <br /><br />
-  Performing has always been a cornerstone of my life, and music is my greatest passion. I’ve had the privilege of:
-  <ul className="list-disc list-inside mt-2 mb-4">
-    <li>Performing at weddings and local LGBTQ+ events with Sky Casper Entertainment.</li>
-    <li>Hosting karaoke for two years, creating a space for others to share in the joy of music.</li>
-    <li>Embarking on an exciting journey to create my own music, pouring my heart into every lyric and melody.</li>
-  </ul>
-  
-  <strong>Key Milestones in My Journey</strong>
-  <br /><br />
-  One of the most thrilling experiences was my role in <em>Cabaret the Musical</em>, where I played the characters of Herman, Max, and Sailor. The stage became my canvas for creativity, a place to connect with audiences and tell stories that resonated deeply.
-  <br /><br />
-  Currently, I’m in rehearsal for the winter musical at the Connecticut Theatre Company, <em>A Christmas Carol</em>, where I will be playing Fred—the <em>wonderfully British</em> nephew of dear old Uncle Scrooge. Stay tuned for updates on ticket sales; I’d love to see you there!
-  <br /><br />
-  <strong>The Impact of Performing</strong>
-  <br /><br />
-  Through performing, I’ve gained confidence, creativity, and the ability to adapt—skills that translate beautifully into all aspects of my life.
-</p>
-            {/* Video Player */}
-            <div className="flex items-center justify-center  h-[300px] rounded-4xl overflow-hidden">
-  <iframe
-    src="https://player.vimeo.com/video/1031800524"
-    frameBorder="0"
-    allow="autoplay; fullscreen; picture-in-picture"
-    allowFullScreen
-    className="w-350 rounded-4xl "
-  ></iframe>
+        <a
+          href={
+            selectedVideo === "instagram1"
+              ? "https://www.instagram.com/reel/DC4J0fERW6E/?utm_source=ig_embed&amp;utm_campaign=loading"
+              : selectedVideo === "instagram2"
+              ? "https://www.instagram.com/reel/DC4MaLdxfUB/?utm_source=ig_embed&amp;utm_campaign=loading"
+              : selectedVideo === "instagram3"
+              ? "https://www.instagram.com/reel/DC4NOC2Rsoi/?utm_source=ig_embed&amp;utm_campaign=loading"
+              : selectedVideo === "instagram4"
+              ? "https://www.instagram.com/reel/DAzJtSxOhE9/?utm_source=ig_embed&amp;utm_campaign=loading"
+              : "https://www.instagram.com/reel/C_q_mZ9O6Ag/?utm_source=ig_embed&amp;utm_campaign=loading" // Instagram5 - Beautiful Symphony
+          }
+          target="_blank"
+          style={{
+            background: "#FFF",
+            lineHeight: "0",
+            padding: "0",
+            textAlign: "center",
+            textDecoration: "none",
+            width: "100%",
+          }}
+        >
+          View this post on Instagram
+        </a>
+      </blockquote>
+    </div>
+  ) : selectedVideo ? (
+    // Regular Video Embed (e.g., Vimeo)
+    <iframe
+      src={selectedVideo}
+      frameBorder="0"
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowFullScreen
+      className="w-full max-w-[800px] h-full rounded-2xl"
+    ></iframe>
+  ) : (
+    // Placeholder Text
+    <p className="text-lg text-gray-300">
+      Please select a video to watch by clicking a card above.
+    </p>
+  )}
 </div>
 
 
+                </div>
+              </div>
+            )}
+            
           </div>
-        </div>
-      )}
-    </div>
+          
+
+
 
     {/* Dropdown for Passion for Software Engineering */}
     <div>
       <button
-className="w-full text-left bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-6 text-2xl mb-3 text-center rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-700 hover:to-pink-700"
+className="w-full text-left bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-6 text-2xl mb-3  rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-700 hover:to-pink-700"
 onClick={() => toggleSection("technology")}
       >
         My Passion for Software Engineering
