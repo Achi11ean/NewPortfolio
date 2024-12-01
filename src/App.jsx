@@ -156,17 +156,8 @@ export default function App() {
     <h2 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-900 to-red-700 mb-9 animate-pulse">
       Welcome to My Portfolio
     </h2>
-    <p className="text-3xl font-bold leading-relaxed text-white">
-      Hi! I'm <span className="text-white font-bold">Jonathen</span>, a software engineer with a passion for creating 
-      <span className="text-red-300 font-bold"> user-centric web applications.</span> 
-      <br /><br />
-      Explore the tabs to learn more about my projects, passion, and professional journey. On the last tab, you can use the contact form to send me an inquiry, or visit the Services tab to book and pay for services directly through my portfolio! I look forward to connecting with you!
-      <br /><br />
-      This website was built using <span className="text-blue-600 font-bold">React</span> and <span className="text-green-300 font-bold">Vite</span> for fast development, styled with <span className="text-teal-200 font-bold">Tailwind CSS</span> for modern and responsive design, and powered by Stripe for seamless booking and payment functionality.   
-    </p>
-
-    {/* Social Media Links */}
-    <div className="flex justify-center mt-6 space-x-6">
+       {/* Social Media Links */}
+       <div className="flex justify-center mt-6 space-x-6">
       <a
         href="https://github.com/Achi11ean"
         target="_blank"
@@ -207,6 +198,16 @@ export default function App() {
         Resume
       </a>
     </div>
+    <p className="text-3xl font-bold leading-relaxed text-white">
+      Hi! I'm <span className="text-white font-bold">Jonathen</span>, a software engineer with a passion for creating 
+      <span className="text-red-300 font-bold"> user-centric web applications.</span> 
+      <br /><br />
+      Explore the tabs to learn more about my projects, passion, and professional journey. On the last tab, you can use the contact form to send me an inquiry, or visit the Services tab to book and pay for services directly through my portfolio! I look forward to connecting with you!
+      <br /><br />
+      This website was built using <span className="text-blue-600 font-bold">React</span> and <span className="text-green-300 font-bold">Vite</span> for fast development, styled with <span className="text-teal-200 font-bold">Tailwind CSS</span> for modern and responsive design, and powered by Stripe for seamless booking and payment functionality.   
+    </p>
+
+ 
 
     {/* Toggle Button */}
     <div className="text-center mt-6">
