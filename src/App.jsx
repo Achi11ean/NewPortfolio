@@ -415,16 +415,16 @@ export default function App() {
                   {/* Ticket Link Dropdown */}
                   <div className="mt-6">
                     <select
-                      className="w-full bg-gradient-to-r from-white via-purple-400 to-yellow-400 text-gray-800 py-3 px-4 rounded-lg shadow-md focus:ring-2 focus:ring-purple-500 focus:outline-none"
-                      onChange={(e) => {
+className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-yellow-400 py-3 px-4 rounded-xl shadow-lg text-white font-extrabold text-xl text-center tracking-wide hover:scale-105 transform transition-transform duration-300 hover:bg-gradient-to-r hover:from-pink-600 hover:via-purple-700 hover:to-yellow-500 focus:ring-4 focus:ring-purple-600 focus:outline-none"
+onChange={(e) => {
                         if (e.target.value) {
                           window.open(e.target.value, "_blank");
                         }
                       }}
                     >
-                      <option value="">Select an Upcoming Performance</option>
+                      <option value="">Tickets on sale Now!</option>
                       <option value="https://www.connecticuttheatrecompany.org/box-office/">
-                        Tickets for A Christmas Carol
+                        Tickets for A Christmas Carol December 2024
                       </option>
                       {/* Add more performance options as needed */}
                     </select>
@@ -434,50 +434,53 @@ export default function App() {
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
   {/* Cabaret Musical Performance */}
   <div
-    className="bg-white text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
+    className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
     onClick={() => setSelectedVideo("https://player.vimeo.com/video/1031800524")}
   >
-    <h3 className="text-xl font-bold text-gray-800">Cabaret Musical Performance</h3>
+<h3  className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 text-transparent bg-clip-text shadow-lg rounded-2xl p-6 cursor-pointer hover:scale-105 hover:shadow-red-700 transform transition-transform duration-300 text-2xl font-extrabold tracking-wider uppercase">
+  Cabaret Musical Performance
+</h3>
   </div>
 
   {/* Beautiful Things - Benson Boone */}
   <div
-    className="bg-white text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
+    className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
     onClick={() => setSelectedVideo("instagram3")}
   >
-    <h3 className="text-xl font-bold text-gray-800">Beautiful Things - Benson Boone</h3>
+    <h3 className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 text-transparent bg-clip-text shadow-lg rounded-2xl p-6 cursor-pointer hover:scale-105 hover:shadow-orange-700 transform transition-transform duration-300 text-2xl font-extrabold tracking-wider uppercase"
+    >Beautiful Things - Benson Boone</h3>
   </div>
 
   {/* You - Miley Cyrus */}
   <div
-    className="bg-white text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
+    className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
     onClick={() => setSelectedVideo("instagram2")}
   >
-    <h3 className="text-xl font-bold text-gray-800">You - Miley Cyrus</h3>
+    <h3 className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 text-transparent bg-clip-text shadow-lg rounded-2xl p-6 cursor-pointer hover:scale-105 hover:shadow-yellow-700 transform transition-transform duration-300 text-2xl font-extrabold tracking-wider uppercase">You - Miley Cyrus</h3>
   </div>
 
   {/* Somebody - Jelly Roll */}
   <div
-    className="bg-white text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
+    className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
     onClick={() => setSelectedVideo("instagram1")}
   >
-    <h3 className="text-xl font-bold text-gray-800">Somebody - Jelly Roll</h3>
+    <h3 className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 text-transparent bg-clip-text shadow-lg rounded-2xl p-6 cursor-pointer hover:scale-105 hover:shadow-green-700 transform transition-transform duration-300 text-2xl font-extrabold tracking-wider uppercase">Somebody - Jelly Roll</h3>
   </div>
 
   {/* Haunted House - Christina Aguilera */}
   <div
-    className="bg-white text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
+    className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
     onClick={() => setSelectedVideo("instagram4")}
   >
-    <h3 className="text-xl font-bold text-gray-800">Haunted House - Christina Aguilera</h3>
+    <h3  className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 text-transparent bg-clip-text shadow-lg rounded-2xl p-6 cursor-pointer hover:scale-105 hover:shadow-blue-700 transform transition-transform duration-300 text-2xl font-extrabold tracking-wider uppercase">Haunted House - Christina Aguilera</h3>
   </div>
 
   {/* New Video - Beautiful Symphony */}
   <div
-    className="bg-white text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
+    className="bg-black text-center  rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
     onClick={() => setSelectedVideo("instagram5")}
   >
-    <h3 className="text-xl font-bold text-gray-800">Too Sweet - Hozier</h3>
+    <h3  className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 text-transparent bg-clip-text shadow-lg rounded-2xl p-6 cursor-pointer hover:scale-105 hover:shadow-purple-700 transform transition-transform duration-300 text-2xl font-extrabold tracking-wider uppercase">Too Sweet - Hozier</h3>
   </div>
 </div>
 
