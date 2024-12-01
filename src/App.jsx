@@ -103,7 +103,7 @@ export default function App() {
   }`}
   onClick={() => setActiveTab("education")}
 >
-  Projects
+  Jwhit Productions
 </button>
 
           <button
