@@ -248,7 +248,7 @@ export default function App() {
         </p>
       </div>
     </div>
-    <h3 className="text-xl text-gray-600 font-semibold mt-4">Ink Haven by Jwhit Productions</h3>
+    <h3 className="text-xl text-gray-600 font-semibold mt-4">Ink Haven</h3>
     <p className="mt-2 text-sm text-gray-600">React, Vite, Tailwind CSS</p>
     <a
       href="https://jwhitproductionstattooparlor.netlify.app/"
