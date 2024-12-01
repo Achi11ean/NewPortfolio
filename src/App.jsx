@@ -568,7 +568,7 @@ export default function App() {
     {/* Dropdown for Passion for Software Engineering */}
     <div>
       <button
-className="w-full text-left bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-6 text-2xl mb-3  rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-700 hover:to-pink-700"
+className="w-full text-center bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-6 text-2xl mb-3  rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-700 hover:to-pink-700"
 onClick={() => toggleSection("technology")}
       >
         My Passion for Software Engineering
