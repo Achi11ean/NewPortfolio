@@ -415,21 +415,29 @@ export default function App() {
 
                   {/* Ticket Link Dropdown */}
                   <div className="mt-6">
-                    <select
-className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-yellow-400 py-3 px-4 rounded-xl shadow-lg text-white font-extrabold text-xl text-center tracking-wide hover:scale-105 transform transition-transform duration-300 hover:bg-gradient-to-r hover:from-pink-600 hover:via-purple-700 hover:to-yellow-500 focus:ring-4 focus:ring-purple-600 focus:outline-none"
-onChange={(e) => {
-                        if (e.target.value) {
-                          window.open(e.target.value, "_blank");
-                        }
-                      }}
-                    >
-                      <option value="">Tickets on sale Now!</option>
-                      <option value="https://www.connecticuttheatrecompany.org/box-office/">
-                        Tickets for A Christmas Carol December 2024
-                      </option>
-                      {/* Add more performance options as needed */}
-                    </select>
-                  </div>
+  <select
+    className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-yellow-400 py-3 px-4 rounded-xl shadow-lg text-white font-extrabold text-xl text-center tracking-wide hover:scale-105 transform transition-transform duration-300 hover:bg-gradient-to-r hover:from-pink-600 hover:via-purple-700 hover:to-yellow-500 focus:ring-4 focus:ring-purple-600 focus:outline-none"
+    onChange={(e) => {
+      const link = e.target.value;
+      if (link) {
+        if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+          // Redirect for mobile devices
+          window.location.href = link;
+        } else {
+          // Open in new tab for desktop
+          window.open(link, "_blank");
+        }
+      }
+    }}
+  >
+    <option value="">Tickets on sale Now!</option>
+    <option value="https://www.connecticuttheatrecompany.org/box-office/">
+      Tickets for A Christmas Carol December 2024
+    </option>
+    {/* Add more performance options as needed */}
+  </select>
+</div>
+
 
 {/* Video Cards */}
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
