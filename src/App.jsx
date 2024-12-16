@@ -373,7 +373,7 @@ export default function App() {
               className="w-full text-left bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-6 text-2xl mb-3 text-center rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-700 hover:to-pink-700"
               onClick={() => toggleSection("performing")}
             >
-              My Passion for Performing
+             Performing Arts
             </button>
             {openSection === "performing" && (
               <div className="relative p-6 text-white rounded-lg shadow-lg overflow-hidden min-h-[600px]">
@@ -383,7 +383,7 @@ export default function App() {
                 {/* Content */}
                 <div className="relative text-center z-20 space-y-6">
                   <h2 className="text-4xl font-extrabold mb-6">
-                    My Passion for Performing
+                    My Passion for The Arts
                   </h2>
                   <p className="text-xl leading-relaxed mb-6">
                     Performing has always been a cornerstone of my life, and
@@ -415,29 +415,21 @@ export default function App() {
 
                   {/* Ticket Link Dropdown */}
                   <div className="mt-6">
-  <select
-    className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-yellow-400 py-3 px-4 rounded-xl shadow-lg text-white font-extrabold text-xl text-center tracking-wide hover:scale-105 transform transition-transform duration-300 hover:bg-gradient-to-r hover:from-pink-600 hover:via-purple-700 hover:to-yellow-500 focus:ring-4 focus:ring-purple-600 focus:outline-none"
-    onChange={(e) => {
-      const link = e.target.value;
-      if (link) {
-        if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
-          // Redirect for mobile devices
-          window.location.href = link;
-        } else {
-          // Open in new tab for desktop
-          window.open(link, "_blank");
-        }
-      }
-    }}
-  >
-    <option value="">Tickets on sale Now!</option>
-    <option value="https://www.connecticuttheatrecompany.org/box-office/">
-      Tickets for A Christmas Carol December 2024
-    </option>
-    {/* Add more performance options as needed */}
-  </select>
-</div>
-
+                    <select
+className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-yellow-400 py-3 px-4 rounded-xl shadow-lg text-white font-extrabold text-xl text-center tracking-wide hover:scale-105 transform transition-transform duration-300 hover:bg-gradient-to-r hover:from-pink-600 hover:via-purple-700 hover:to-yellow-500 focus:ring-4 focus:ring-purple-600 focus:outline-none"
+onChange={(e) => {
+                        if (e.target.value) {
+                          window.open(e.target.value, "_blank");
+                        }
+                      }}
+                    >
+                      <option value="">Tickets on sale Now!</option>
+                      <option value="https://www.connecticuttheatrecompany.org/box-office/">
+                        Tickets for A Christmas Carol December 2024
+                      </option>
+                      {/* Add more performance options as needed */}
+                    </select>
+                  </div>
 
 {/* Video Cards */}
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
@@ -583,7 +575,7 @@ export default function App() {
 className="w-full text-center bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-6 text-2xl mb-3  rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-700 hover:to-pink-700"
 onClick={() => toggleSection("technology")}
       >
-        My Passion for Software Engineering
+        Software Engineering
       </button>
       {openSection === "technology" && (
         <div className="relative p-6 text-white rounded-lg shadow overflow-hidden min-h-[500px]">
@@ -593,7 +585,7 @@ onClick={() => toggleSection("technology")}
           
           {/* Content */}
           <div className="relative z-20">
-            <h2 className="text-3xl font-bold mb-4">My Passion for Software Engineering</h2>
+            <h2 className="text-3xl font-bold mb-4">Software Engineering</h2>
             <p className="text-2xl leading-relaxed">
               My passion for technology grew from experiences teaching clients about technology at the bank, troubleshooting their problems, and creating websites to help others.
               <br /><br />
