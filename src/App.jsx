@@ -214,6 +214,17 @@ export default function App() {
                   Resume
                 </a>
               </div>
+                            {/* Toggle Button */}
+                            <div className="text-center mt-6">
+                <button
+                  onClick={() => setShowEducationSkills(!showEducationSkills)}
+                  className="py-2 px-6 bg-purple-700 hover:bg-purple-600 text-white font-bold rounded-lg shadow-lg transition-all"
+                >
+                  {showEducationSkills
+                    ? "Hide Education and Skills"
+                    : "Show Education and Skills"}
+                </button>
+              </div>
               <p className="text-3xl font-bold leading-relaxed text-white">
                 Hi! I'm <span className="text-white font-bold">Jonathen</span>,
                 a software engineer with a passion for creating
@@ -239,17 +250,7 @@ export default function App() {
                 seamless booking and payment functionality.
               </p>
 
-              {/* Toggle Button */}
-              <div className="text-center mt-6">
-                <button
-                  onClick={() => setShowEducationSkills(!showEducationSkills)}
-                  className="py-2 px-6 bg-purple-700 hover:bg-purple-600 text-white font-bold rounded-lg shadow-lg transition-all"
-                >
-                  {showEducationSkills
-                    ? "Hide Education and Skills"
-                    : "Show Education and Skills"}
-                </button>
-              </div>
+
 
               {/* Conditionally Render EducationSkills */}
               {showEducationSkills && <EducationSkills />}
