@@ -39,6 +39,11 @@ const EducationSkills = () => {
               "SQLite",
               "SQLAlchemy",
               "PostgreSQL",
+              "Stripe API-Payment processing",
+              "JWT-Tokens",
+              "Cookies",
+              "Coming Soon:TypeScript",
+
             ].map((skill, index) => (
               <span
                 key={index}
