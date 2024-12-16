@@ -224,6 +224,8 @@ export default function App() {
                     ? "Hide Education and Skills"
                     : "Show Education and Skills"}
                 </button>
+                {showEducationSkills && <EducationSkills />}
+
               </div>
               <p className="text-3xl font-bold leading-relaxed text-white">
                 Hi! I'm <span className="text-white font-bold">Jonathen</span>,
@@ -253,7 +255,6 @@ export default function App() {
 
 
               {/* Conditionally Render EducationSkills */}
-              {showEducationSkills && <EducationSkills />}
             </div>
           )}
 
