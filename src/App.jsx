@@ -113,7 +113,7 @@ export default function App() {
             } drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] z-10`}
             onClick={() => setActiveTab("education")}
           >
-            Jwhit Productions
+            Jwhit ©
           </button>
 
           <button
