@@ -6,6 +6,10 @@ export default function Reviews({ triggerEmojis }) {
   const [error, setError] = useState(null);
   const [showEmojis, setShowEmojis] = useState(false); // Controls emoji visibility
   const [showPopup, setShowPopup] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1); // Current page
+  const reviewsPerPage = 12; // Reviews per page
+  const indexOfLastReview = currentPage * reviewsPerPage;
+  const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
 
   const [loading, setLoading] = useState(true);
   const [selectedReview, setSelectedReview] = useState(null);
@@ -124,6 +128,7 @@ export default function Reviews({ triggerEmojis }) {
   };
   
   const { user, token } = useAuth();
+  const currentReviews = filteredReviews.slice(indexOfFirstReview, indexOfLastReview);
 
   return (
 <div
@@ -420,7 +425,7 @@ required
 {/* Reviews Grid */}
 {!loading && !error && (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-  {filteredReviews.map((review) => {
+{currentReviews.map((review) => {
     const randomGradient =
       gradientBackgrounds[Math.floor(Math.random() * gradientBackgrounds.length)];
 
@@ -485,12 +490,31 @@ required
             <span key={`empty-${i}`} className="text-lg text-gray-300">★</span>
           ))}
         </div>
+        <div className="flex justify-center space-x-4 mt-4">
+  <button
+    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+    disabled={currentPage === 1}
+    className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 disabled:opacity-50"
+  >
+    Previous
+  </button>
+  <span className="font-bold text-lg">{`Page ${currentPage}`}</span>
+  <button
+    onClick={() => setCurrentPage((prev) => prev + 1)}
+    disabled={indexOfLastReview >= filteredReviews.length}
+    className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 disabled:opacity-50"
+  >
+    Next
+  </button>
+</div>
+
       </div>
       
     );
   })}
 </div> 
 )}
+
 
 {selectedReview && (
   <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
