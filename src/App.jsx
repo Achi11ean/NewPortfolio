@@ -8,6 +8,7 @@ import Reviews from "./Reviews";
 import Signin from "./Signin";
 import Admin from "./Admin";
 import { useAuth } from "./AuthContext";
+import Gallery from "./Gallery"; // Import the Gallery component
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("welcome"); // Default active tab
@@ -175,6 +176,17 @@ export default function App() {
           >
             Contact
           </button>
+          <button
+  className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
+    activeTab === "gallery"
+      ? "border-b-2 border-white text-white bg-gradient-to-r from-yellow-400 to-red-400"
+      : "text-gray-300 hover:bg-white/10"
+  }`}
+  onClick={() => setActiveTab("gallery")}
+>
+  Gallery
+</button>
+
           {user?.is_admin && (
   <button
     className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
@@ -230,6 +242,8 @@ export default function App() {
 
         {activeTab === "admin-signin" && <Signin setActiveTab={setActiveTab} />}
         {activeTab === "admin-dashboard" && <Admin />} 
+        {activeTab === "gallery" && <Gallery />}
+
           {/* Glowing Border Effect */}
           {/* <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 blur-lg opacity-50"></div> */}
 

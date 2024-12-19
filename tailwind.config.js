@@ -6,12 +6,19 @@ module.exports = {
   ],
   theme: {
     extend: {
+      // Custom Font Family
+      fontFamily: {
+        aspire: ["Aspire", "sans-serif"],
+      },
+      // Existing Animations
       animation: {
         'lava-lamp': 'morph 8s ease-in-out infinite',
-        scroll: 'scroll 60s linear infinite', // Increased duration to 20 seconds
+        scroll: 'scroll 60s linear infinite',
         fallingStars: 'fallingStars 10s linear infinite',
         sparkle: 'sparkle 2s infinite',
+        'fade-scale': 'fade-scale 1s ease-out', // Add new animation here
       },
+      // Keyframes
       keyframes: {
         morph: {
           '0%': { transform: 'translate(0, 0) scale(1)' },
@@ -32,7 +39,13 @@ module.exports = {
           '0%, 100%': { opacity: 0.3, transform: 'scale(0.8)' },
           '50%': { opacity: 1, transform: 'scale(1)' },
         },
+        // New Fade-Scale Keyframe
+        'fade-scale': {
+          '0%': { opacity: '0', transform: 'scale(0.8)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
       },
+      // Breakpoints
       screens: {
         sm: '580px', // Customize the sm breakpoint to start at 480px
       },
