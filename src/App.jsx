@@ -12,7 +12,11 @@ import { useAuth } from "./AuthContext";
 export default function App() {
   const [activeTab, setActiveTab] = useState("welcome"); // Default active tab
   const { token, logout, user } = useAuth();
-
+  const [showEmojis, setShowEmojis] = useState(false);
+  const triggerEmojis = () => {
+    setShowEmojis(true);
+    setTimeout(() => setShowEmojis(false), 3000); // Hide after 3 seconds
+  };
   const [showContactInfo, setShowContactInfo] = useState(false);
   const [showPerformanceForm, setShowPerformanceForm] = useState(false); // State for toggling Performance Booking Form
   const [showEngineeringForm, setShowEngineeringForm] = useState(false); // State for Engineering Booking Form
@@ -206,6 +210,24 @@ export default function App() {
 
         {/* Tab Content */}
         <div className="mt-4 p-6  text-white rounded-xl relative overflow-hidden shadow-lg">
+        {showEmojis && (
+  <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-50">
+    {Array.from({ length: 20 }).map((_, index) => (
+      <span
+        key={index}
+        className="emoji"
+        style={{
+          left: `${Math.random() * 100}vw`,
+          animationDuration: `${Math.random() * 3 + 2}s`,
+          animationDelay: `${Math.random() * 1}s`,
+        }}
+      >
+        {Math.random() > 0.5 ? "🌟" : "💕"}
+      </span>
+    ))}
+  </div>
+)}
+
         {activeTab === "admin-signin" && <Signin setActiveTab={setActiveTab} />}
         {activeTab === "admin-dashboard" && <Admin />} 
           {/* Glowing Border Effect */}
@@ -462,7 +484,7 @@ export default function App() {
               </div>
             </div>
           )}
-{activeTab === "reviews" && <Reviews />}
+{activeTab === "reviews" && <Reviews triggerEmojis={triggerEmojis} />}
 
           {activeTab === "passion" && (
             <div className="space-y-6">

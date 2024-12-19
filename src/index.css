@@ -120,3 +120,20 @@ button:focus-visible {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #ff9a8b, #b9fbc0); /* Slightly brighter on hover */
 }
+@keyframes fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.emoji {
+  position: absolute;
+  font-size: 2rem;
+  animation: fall linear infinite;
+  pointer-events: none;
+}

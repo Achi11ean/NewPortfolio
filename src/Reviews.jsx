@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext"; // Update the path if needed
 
-export default function Reviews() {
-  const [reviews, setReviews] = useState([]);
+export default function Reviews({ triggerEmojis }) {
+    const [reviews, setReviews] = useState([]);
   const [error, setError] = useState(null);
   const [showEmojis, setShowEmojis] = useState(false); // Controls emoji visibility
 
@@ -111,10 +111,7 @@ export default function Reviews() {
       });
   
       setShowForm(false); // Hide form
-      setShowEmojis(true); // Trigger emojis
-  
-      // Hide emojis after 3 seconds
-      setTimeout(() => setShowEmojis(false), 3000);
+      triggerEmojis(); // Call the global emoji trigger function
     } catch (err) {
       setError(err.message);
     }
