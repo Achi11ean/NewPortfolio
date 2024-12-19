@@ -4,6 +4,8 @@ import { useAuth } from "./AuthContext"; // Update the path if needed
 export default function Reviews() {
   const [reviews, setReviews] = useState([]);
   const [error, setError] = useState(null);
+  const [showEmojis, setShowEmojis] = useState(false); // Controls emoji visibility
+
   const [loading, setLoading] = useState(true);
   const [selectedReview, setSelectedReview] = useState(null);
   const [showForm, setShowForm] = useState(false);
@@ -94,13 +96,11 @@ export default function Reviews() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to add review");
-      }
-
+  
+      if (!response.ok) throw new Error("Failed to add review");
+  
       const newReview = await response.json();
-      setReviews([...reviews, newReview.review]); // Add new review to the list
+      setReviews([...reviews, newReview.review]);
       setFormData({
         name: "",
         rating: "",
@@ -108,12 +108,18 @@ export default function Reviews() {
         description: "",
         image_url: "",
         website_url: "",
-      }); // Reset form
-      setError(null);
+      });
+  
+      setShowForm(false); // Hide form
+      setShowEmojis(true); // Trigger emojis
+  
+      // Hide emojis after 3 seconds
+      setTimeout(() => setShowEmojis(false), 3000);
     } catch (err) {
       setError(err.message);
     }
   };
+  
   const { user, token } = useAuth();
 
   return (
@@ -126,6 +132,23 @@ export default function Reviews() {
 <h2 className="text-5xl font-extrabold tracking-wide text-center mb-12 rainbow-text">
   ✨ Client Reviews & Feedback ✨
 </h2>
+{showEmojis && (
+  <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-50">
+    {Array.from({ length: 20 }).map((_, index) => (
+      <span
+        key={index}
+        className="emoji absolute"
+        style={{
+          left: `${Math.random() * 100}vw`,
+          animationDelay: `${Math.random() * 2}s`,
+          animationDuration: `${Math.random() * 3 + 2}s`,
+        }}
+      >
+        {Math.random() > 0.5 ? "🌟" : "💕"}
+      </span>
+    ))}
+  </div>
+)}
 
 
       {/* Loading State */}
