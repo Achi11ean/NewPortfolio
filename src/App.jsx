@@ -258,8 +258,10 @@ By Jonathen Whitford</p>
           {/* Content */}
           {activeTab === "welcome" && (
             <div className="relative z-10 text-center p-6">
-              <h2 className="text-5xl font-extrabold text-transparent pb-2 bg-clip-text bg-gradient-to-r from-red-500 via-yellow-400 to-green-600 mb-9 animate-pulse drop-shadow-lg">
-                <span className="text-white">🎄</span> Welcome!{" "}
+<h2
+  className="text-5xl font-extrabold text-transparent pb-2 bg-clip-text bg-gradient-to-r from-red-500 via-yellow-400 to-green-600 mb-9 animate-pulse drop-shadow-lg"
+  style={{ fontFamily: "Aspire, sans-serif" }}
+>                <span className="text-white">🎄</span> Welcome!{" "}
                 <span className="text-white">🎅</span> <br />
                 Wishing you and your loved ones a Magical Holiday Season{" "}
                 <span className="text-white">✨</span>
