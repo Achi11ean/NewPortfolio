@@ -181,7 +181,7 @@ export default function Reviews({ triggerEmojis }) {
 <br/>
 {showPopup && (
   <div
-    className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50"
+    className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50"
     onClick={() => setShowPopup(false)} // Close popup on background click
   >
     <div
