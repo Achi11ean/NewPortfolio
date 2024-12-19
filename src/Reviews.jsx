@@ -321,7 +321,7 @@ required
 )}
 <br/>
 
-<div className="flex justify-center mb-6 space-x-4">
+<div className="flex flex-wrap justify-center mb-6 gap-4 overflow-x-auto">
 {/* All Reviews Button */}
 <button
   onClick={() => setFilter("All")}
