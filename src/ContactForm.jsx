@@ -92,7 +92,7 @@ export default function ContactForm() {
             value={formData.firstName}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded text-white"
+            className="w-full p-2 border rounded text-black"
           />
         </div>
         <div>
@@ -106,7 +106,7 @@ export default function ContactForm() {
             value={formData.lastName}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded text-white"
+            className="w-full p-2 border rounded text-black"
           />
         </div>
         <div>
@@ -119,7 +119,7 @@ export default function ContactForm() {
             id="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="w-full p-2 border rounded text-white"
+            className="w-full p-2 border rounded text-black"
           />
         </div>
         <div>
@@ -133,7 +133,7 @@ export default function ContactForm() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded text-white"
+            className="w-full p-2 border rounded text-black"
           />
         </div>
         <div>
@@ -146,12 +146,12 @@ export default function ContactForm() {
             value={formData.message}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded text-white"
+            className="w-full p-2 border rounded text-black"
           />
         </div>
         <button
           type="submit"
-          className="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700"
+          className="w-full bg-purple-600 text-black py-2 rounded hover:bg-purple-700"
         >
           Send Message
         </button>

@@ -126,7 +126,7 @@ export default function PerformanceForm() {
             value={formData.clientName}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-gray-700"
           />
         </div>
 
@@ -142,7 +142,7 @@ export default function PerformanceForm() {
             value={formData.clientEmail}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-gray-700"
           />
         </div>
 
@@ -157,7 +157,7 @@ export default function PerformanceForm() {
             id="clientPhone"
             value={formData.clientPhone}
             onChange={handleChange}
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-gray-700"
           />
         </div>
 
@@ -173,7 +173,7 @@ export default function PerformanceForm() {
             value={formData.eventName}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-gray-700"
           />
         </div>
 
@@ -209,7 +209,7 @@ export default function PerformanceForm() {
             value={formData.eventDateTime}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-gray-700"
           />
         </div>
 
@@ -225,7 +225,7 @@ export default function PerformanceForm() {
             value={formData.location}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-gray-700"
           />
         </div>
 
@@ -240,7 +240,7 @@ export default function PerformanceForm() {
             id="guests"
             value={formData.guests}
             onChange={handleChange}
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-gray-700"
           />
         </div>
 
@@ -254,14 +254,14 @@ export default function PerformanceForm() {
             id="specialRequests"
             value={formData.specialRequests}
             onChange={handleChange}
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-gray-700"
           />
         </div>
 
         {/* Price Range */}
         <div>
           <label htmlFor="priceRange" className="block text-gray-700">
-            Requested Price Range
+            Budget
           </label>
           <input
             type="text"
@@ -269,15 +269,15 @@ export default function PerformanceForm() {
             id="priceRange"
             value={formData.priceRange}
             onChange={handleChange}
-            placeholder="e.g., $150-$300"
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            placeholder="e.g., 250"
+            className="w-full p-2 border rounded bg-gray-800 text-gray-700"
           />
         </div>
 
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+          className="w-full bg-green-600 text-gray-700 py-2 rounded hover:bg-green-700"
         >
           Submit Booking Request
         </button>

@@ -155,7 +155,7 @@ const Gallery = () => {
       placeholder="Filter by Category"
       value={searchCategory}
       onChange={(e) => setSearchCategory(e.target.value)}
-      className="border rounded p-2 text-white bg-gray-800"
+      className="border rounded p-2 text-gray-700 bg-gray-800"
     />
     <div
       className="absolute bottom-full mb-2 w-52 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"

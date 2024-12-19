@@ -45,7 +45,7 @@ export default function Signin({ setActiveTab }) { // Accept setActiveTab as a p
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full border text-center rounded-lg p-2"
+                className="w-full border text-center text-black rounded-lg p-2"
                 placeholder="Welcome Back"
                 required
               />
@@ -56,7 +56,7 @@ export default function Signin({ setActiveTab }) { // Accept setActiveTab as a p
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full text-center border rounded-lg p-2"
+                className="w-full text-center text-black border rounded-lg p-2"
                 placeholder="Password"
                 required
               />

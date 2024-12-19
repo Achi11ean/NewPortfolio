@@ -168,7 +168,7 @@ export default function EngineeringForm() {
             id="clientPhone"
             value={formData.clientPhone}
             onChange={handleChange}
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-gray-700"
           />
         </div>
 
@@ -184,7 +184,7 @@ export default function EngineeringForm() {
             value={formData.projectName}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-black"
           />
         </div>
 
@@ -199,7 +199,7 @@ export default function EngineeringForm() {
             id="projectManager"
             value={formData.projectManager}
             onChange={handleChange}
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-black"
           />
         </div>
 
@@ -214,7 +214,7 @@ export default function EngineeringForm() {
             value={formData.projectType}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-black"
           >
             <option value="">Select a Service Type</option>
             <option value="New Website">New Website</option>
@@ -235,7 +235,7 @@ export default function EngineeringForm() {
             value={formData.projectStartDate}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-black"
           />
         </div>
 
@@ -251,7 +251,7 @@ export default function EngineeringForm() {
             value={formData.projectEndDate}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-black"
           />
         </div>
 
@@ -266,7 +266,7 @@ export default function EngineeringForm() {
             value={formData.projectDescription}
             onChange={handleChange}
             placeholder="Provide a detailed description of the project"
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-black"
           />
         </div>
 
@@ -281,7 +281,7 @@ export default function EngineeringForm() {
             id="price"
             value={formData.price}
             onChange={handleChange}
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-black"
           />
         </div>
 
@@ -296,7 +296,7 @@ export default function EngineeringForm() {
             value={formData.specialRequests}
             onChange={handleChange}
             placeholder="Any additional requirements or requests"
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded bg-gray-800 text-black"
           />
         </div>
 
