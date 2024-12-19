@@ -515,13 +515,13 @@ required
     className="w-full max-w-lg h-auto mx-auto rounded-lg mb-4 shadow-lg"
   />
 ) : (
-<img
-  src={selectedReview.image_url}
-  alt="Review"
-  className="w-full max-w-lg max-h-60 h-auto mx-auto rounded-lg mb-4 shadow-lg opacity-75 object-contain"
-/>
-
+  <img
+    src="https://www.pokemoncenter.com/wcsstore/PokemonCatalogAssetStore/images/catalog/products/P5074/710-04027/P5074_710-04027_06.jpg" 
+    alt="Placeholder"
+    className="w-full max-w-lg max-h-60 h-auto mx-auto rounded-lg mb-4 shadow-lg opacity-75 object-contain"
+  />
 )}
+
 
 
       {selectedReview.website_url?.trim() && (
