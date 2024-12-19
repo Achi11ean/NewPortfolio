@@ -269,7 +269,7 @@ export default function PerformanceForm() {
             id="priceRange"
             value={formData.priceRange}
             onChange={handleChange}
-            placeholder="e.g., 250"
+            placeholder="e.g., $150-$300"
             className="w-full p-2 border rounded bg-gray-800 text-gray-700"
           />
         </div>
@@ -277,7 +277,7 @@ export default function PerformanceForm() {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-green-600 text-gray-700 py-2 rounded hover:bg-green-700"
+          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
         >
           Submit Booking Request
         </button>

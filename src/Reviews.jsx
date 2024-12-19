@@ -5,6 +5,7 @@ export default function Reviews({ triggerEmojis }) {
     const [reviews, setReviews] = useState([]);
   const [error, setError] = useState(null);
   const [showEmojis, setShowEmojis] = useState(false); // Controls emoji visibility
+  const [showPopup, setShowPopup] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const [selectedReview, setSelectedReview] = useState(null);
@@ -90,6 +91,11 @@ export default function Reviews({ triggerEmojis }) {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.rating) {
+        setShowPopup(true); // Show popup if no rating is selected
+        return;
+      }
+      
     try {
       const response = await fetch("https://portfoliobackend-ih6t.onrender.com/reviews", {
         method: "POST",
@@ -173,6 +179,26 @@ export default function Reviews({ triggerEmojis }) {
   {showForm ? "Hide Form" : "Share Your Experience ✨"}
 </button>
 <br/>
+{showPopup && (
+  <div
+    className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50"
+    onClick={() => setShowPopup(false)} // Close popup on background click
+  >
+    <div
+      className="bg-white p-4 rounded-lg shadow-lg text-center"
+      onClick={(e) => e.stopPropagation()} // Prevent closing on content click
+    >
+      <h2 className="text-xl font-semibold text-red-600 mb-2">Oops!</h2>
+      <p className="text-gray-700">Please select a star rating before submitting.</p>
+      <button
+        className="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+        onClick={() => setShowPopup(false)}
+      >
+        Okay
+      </button>
+    </div>
+  </div>
+)}
 
 
 
