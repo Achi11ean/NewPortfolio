@@ -114,24 +114,37 @@ const Gallery = () => {
   }, [searchCategory, searchPhotoType]);
 
   return (
-    <div
-      className="relative text-white min-h-screen p-6"
-      style={{
-        backgroundImage: `url('stage.webp')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center top 5px", // Move the image 20px down
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      <div className="curtain left"></div>
-      <div className="curtain right"></div>
-      <h1
-  className="text-8xl font-extrabold text-center mt-20 mb-6 text-white animate-fade-scale"
-  style={{ fontFamily: "'Aspire', sans-serif" }}
+<div
+  className="relative text-white min-h-screen p-6 overflow-hidden"
+  style={{
+    backgroundImage: `url('stage.webp')`,
+    backgroundSize: "cover",
+    backgroundPosition: "center top 5px",
+    backgroundRepeat: "no-repeat",
+  }}
 >
-  ✨ Photo Gallery ✨
-</h1>
+  {/* Falling Sparkles */}
+  {Array.from({ length: 50 }).map((_, index) => (
+    <div
+      key={index}
+      className="sparkle"
+      style={{
+        left: `${Math.random() * 100}vw`, // Randomize horizontal position
+        animationDelay: `${Math.random() * 5}s`, // Randomize animation start
+        animationDuration: `${3 + Math.random() * 5}s`, // Randomize animation speed
+      }}
+    ></div>
+  ))}
 
+  {/* Existing Content */}
+  <div className="curtain left"></div>
+  <div className="curtain right"></div>
+  <h1
+    className="text-8xl font-extrabold text-center mt-20 mb-6 text-white animate-fade-scale"
+    style={{ fontFamily: "'Aspire', sans-serif" }}
+  >
+    ✨ Photo Gallery ✨
+  </h1>
 
       {/* Search Filters */}
       <div className="flex flex-wrap justify-center gap-4 mb-6">
