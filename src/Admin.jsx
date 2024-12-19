@@ -528,7 +528,7 @@ export default function Admin() {
       placeholder="Search by Name"
       value={searchParams.name}
       onChange={handleInputChange}
-      className="border p-2 rounded w-full"
+      className="border p-2 rounded bg-black text-white w-full"
     />
     <input
       type="text"
@@ -536,7 +536,7 @@ export default function Admin() {
       placeholder="Search by Phone"
       value={searchParams.phone}
       onChange={handleInputChange}
-      className="border p-2 rounded w-full"
+      className="border p-2 rounded bg-black text-white w-full"
     />
     <select
       name="status"
@@ -608,14 +608,14 @@ export default function Admin() {
               const newValue = e.target.value;
               handlePriceChange("contacts", contact.id, newValue);
             }}
-            className="border p-2 rounded w-full"
+            className="border bg-black text-white p-2 rounded w-full"
           />
           <select
             value={contact.status}
             onChange={(e) =>
               handleStatusUpdate("contacts", contact.id, e.target.value, newPrices[`contacts-${contact.id}`])
             }
-            className="border p-2 rounded w-full"
+            className="border p-2 bg-black text-white rounded w-full"
           >
             <option value="Pending">Pending</option>
             <option value="Booked">Booked</option>
@@ -682,7 +682,7 @@ export default function Admin() {
               const newValue = e.target.value;
               handlePriceChange("engineering_bookings", booking.id, newValue);
             }}
-            className="border p-2 rounded w-full"
+            className="border p-2 bg-black text-white rounded w-full"
           />
           <select
             value={booking.status}
@@ -694,7 +694,7 @@ export default function Admin() {
                 newPrices[`engineering_bookings-${booking.id}`]
               )
             }
-            className="border p-2 rounded w-full"
+            className="border p-2 bg-black text-white rounded w-full"
           >
             <option value="Pending">Pending</option>
             <option value="Booked">Booked</option>
@@ -761,7 +761,7 @@ export default function Admin() {
               const newValue = e.target.value;
               handlePriceChange("performance_bookings", booking.id, newValue);
             }}
-            className="border p-2 rounded w-full"
+            className="border p-2 bg-black text-white rounded w-full"
           />
           <select
             value={booking.status}
@@ -773,7 +773,7 @@ export default function Admin() {
                 newPrices[`performance_bookings-${booking.id}`]
               )
             }
-            className="border p-2 rounded w-full"
+            className="border p-2 bg-black text-white rounded w-full"
           >
             <option value="Pending">Pending</option>
             <option value="Booked">Booked</option>

@@ -83,10 +83,13 @@ export default function App() {
           </div>
 
           {/* Name */}
-          <h1 className="text-4xl sm:text-6xl font-bold">Jonathen Whitford</h1>
+          <h1 className="text-4xl underline sm:text-6xl font-aspire font-bold">
+  Welcome To JWhit Productions
+</h1>
 
-          {/* Intro */}
-          <p className="text-sm sm:text-lg mt-2 max-w-lg">Bien Venido!</p>
+<p className="text-sm sm:text-3xl mt-2 max-w-lg font-aspire">
+By Jonathen Whitford</p>
+
 
           {/* Embed Music */}
           <div className="mt-6 flex justify-center w-full">
