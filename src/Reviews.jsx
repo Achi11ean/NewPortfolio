@@ -490,7 +490,15 @@ required
             <span key={`empty-${i}`} className="text-lg text-gray-300">★</span>
           ))}
         </div>
-        <div className="flex justify-center space-x-4 mt-4">
+
+      </div>
+      
+      
+    );
+  })}
+</div> 
+)}
+<div className="flex justify-center space-x-4 mt-4">
   <button
     onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
     disabled={currentPage === 1}
@@ -507,13 +515,6 @@ required
     Next
   </button>
 </div>
-
-      </div>
-      
-    );
-  })}
-</div> 
-)}
 
 
 {selectedReview && (
