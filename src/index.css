@@ -166,3 +166,21 @@ button:focus-visible {
   pointer-events: none;
   animation: falling-sparkles 5s linear infinite;
 }
+/* Snowflake Styles */
+.snowflake {
+  position: absolute;
+  top: -2rem; /* Start slightly above the viewport */
+  color: #fff; /* White snowflakes */
+  pointer-events: none; /* Allow interaction with elements behind */
+  animation: fall linear infinite; /* Apply the animation */
+}
+
+/* Snowflake Falling Animation */
+@keyframes fall {
+  0% {
+    transform: translateY(0); /* Start position */
+  }
+  100% {
+    transform: translateY(100vh); /* Move to the bottom of the viewport */
+  }
+}
