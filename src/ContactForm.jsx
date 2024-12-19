@@ -31,7 +31,8 @@ export default function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+    console.log("Form Data to be Sent:", formData); // Log the form data
+
     // Send data to Flask backend
     fetch("https://portfoliobackend-ih6t.onrender.com/contacts", {
       method: "POST",
