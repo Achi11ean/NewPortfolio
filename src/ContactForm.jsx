@@ -33,7 +33,7 @@ export default function ContactForm() {
     e.preventDefault();
   
     // Send data to Flask backend
-    fetch("http://127.0.0.1:5002/contacts", {
+    fetch("https://portfoliobackend-ih6t.onrender.com/contacts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
