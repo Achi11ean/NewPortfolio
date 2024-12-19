@@ -140,11 +140,11 @@ const Gallery = () => {
   <div className="curtain left"></div>
   <div className="curtain right"></div>
   <h1
-    className="text-8xl font-extrabold text-center mt-20 mb-6 text-white animate-fade-scale"
-    style={{ fontFamily: "'Aspire', sans-serif" }}
-  >
-    ✨ Photo Gallery ✨
-  </h1>
+  className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-center mt-20 mb-6 text-white animate-fade-scale"
+  style={{ fontFamily: "'Aspire', sans-serif" }}
+>
+  ✨ Photo Gallery ✨
+</h1>
 
       {/* Search Filters */}
       <div className="flex flex-wrap justify-center gap-4 mb-6">

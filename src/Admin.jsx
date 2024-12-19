@@ -46,6 +46,20 @@ export default function Admin() {
     status: "",
   });
 
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    const date = new Date(dateString);
+    return date.toLocaleString("en-US", {
+      weekday: "long", // Full weekday name
+      year: "numeric",
+      month: "long", // Full month name
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true, // AM/PM format
+    });
+  };
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setSearchParams((prev) => ({ ...prev, [name]: value }));
@@ -580,6 +594,8 @@ export default function Admin() {
           <p>
             <strong>Price:</strong> ${contact.price || "N/A"}
           </p>
+          <p><strong>Created At:</strong> {formatDate(contact.created_at)}</p>
+
         </div>
 
         {/* Input and Status Controls */}
@@ -653,8 +669,8 @@ export default function Admin() {
           <p><strong>Special Requests:</strong> {booking.special_requests || "N/A"}</p>
           <p><strong>Status:</strong> {booking.status}</p>
           <p><strong>Price:</strong> ${booking.price || "N/A"}</p>
-          <p><strong>Created At:</strong> {booking.created_at}</p>
-        </div>
+          <p><strong>Created At:</strong> {formatDate(booking.created_at)}</p>
+          </div>
 
         {/* Input and Status Controls */}
         <div className="flex flex-col gap-2 mt-auto">
@@ -732,8 +748,8 @@ export default function Admin() {
           <p><strong>Special Requests:</strong> {booking.special_requests || "N/A"}</p>
           <p><strong>Status:</strong> {booking.status}</p>
           <p><strong>Price:</strong> ${booking.price || "N/A"}</p>
-          <p><strong>Created At:</strong> {booking.created_at}</p>
-        </div>
+          <p><strong>Created At:</strong> {formatDate(booking.created_at)}</p>
+          </div>
 
         {/* Input and Status Controls */}
         <div className="flex flex-col gap-2 mt-auto">

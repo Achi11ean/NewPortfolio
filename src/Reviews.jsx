@@ -126,9 +126,12 @@ export default function Reviews({ triggerEmojis }) {
     backgroundImage: `url('https://source.unsplash.com/1600x900/?feedback,customers')`,
   }}
 >
-<h2 className="text-5xl font-extrabold tracking-wide text-center mb-12 rainbow-text">
+<h2
+  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-wide text-center mb-12 rainbow-text animate-fade-scale"
+>
   ✨ Client Reviews & Feedback ✨
 </h2>
+
 {showEmojis && (
   <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-50">
     {Array.from({ length: 20 }).map((_, index) => (
