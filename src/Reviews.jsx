@@ -500,7 +500,7 @@ required
           href={selectedReview.website_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center text-blue-500 text-center underline hover:text-blue-600 transition"
+          className="flex items-center justify-center text-white text-center underline hover:text-blue-600 transition"
           >
           Visit Website
         </a>
