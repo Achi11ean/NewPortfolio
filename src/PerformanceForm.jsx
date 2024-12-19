@@ -45,49 +45,71 @@ export default function PerformanceForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     const formattedDateTime = formatDate(formData.eventDateTime);
-
-    emailjs
-      .send(
-        "service_ud7473n", // Replace with your EmailJS service ID
-        "template_lv1nzud", // Replace with your EmailJS template ID
-        {
-          clientName: formData.clientName,
-          clientEmail: formData.clientEmail,
-          clientPhone: formData.clientPhone,
-          eventName: formData.eventName,
-          eventType: formData.eventType,
-          eventDateTime: formattedDateTime, // Send formatted date
-          location: formData.location,
-          guests: formData.guests,
-          specialRequests: formData.specialRequests,
-          priceRange: formData.priceRange,
-        },
-        "BDPsT3cNRMnCg-OaU" // Replace with your EmailJS public key
-      )
-      .then(
-        (result) => {
-          setStatus("Booking request sent successfully!");
-          setFormData({
-            clientName: "",
-            clientEmail: "",
-            clientPhone: "",
-            eventName: "",
-            eventType: "",
-            eventDateTime: "",
-            location: "",
-            guests: "",
-            specialRequests: "",
-            priceRange: "",
-          });
-        },
-        (error) => {
-          setStatus("Failed to send the booking request. Please try again later.");
-        }
-      );
+  
+    // Save to Flask Backend
+    fetch("http://127.0.0.1:5002/performance-bookings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...formData,
+        eventDateTime: formattedDateTime, // Format the date
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Saved to backend:", data);
+  
+        // Send the email via EmailJS
+        emailjs
+          .send(
+            "service_ud7473n", // Replace with your EmailJS service ID
+            "template_lv1nzud", // Replace with your EmailJS template ID
+            {
+              clientName: formData.clientName,
+              clientEmail: formData.clientEmail,
+              clientPhone: formData.clientPhone,
+              eventName: formData.eventName,
+              eventType: formData.eventType,
+              eventDateTime: formattedDateTime,
+              location: formData.location,
+              guests: formData.guests,
+              specialRequests: formData.specialRequests,
+              priceRange: formData.priceRange,
+            },
+            "BDPsT3cNRMnCg-OaU" // Replace with your EmailJS public key
+          )
+          .then(
+            (result) => {
+              setStatus("Booking request sent successfully!");
+              setFormData({
+                clientName: "",
+                clientEmail: "",
+                clientPhone: "",
+                eventName: "",
+                eventType: "",
+                eventDateTime: "",
+                location: "",
+                guests: "",
+                specialRequests: "",
+                priceRange: "",
+              });
+            },
+            (error) => {
+              console.error("EmailJS error:", error);
+              setStatus("Failed to send the booking request. Please try again later.");
+            }
+          );
+      })
+      .catch((error) => {
+        console.error("Backend error:", error);
+        setStatus("Failed to save the booking. Please try again later.");
+      });
   };
-
+  
   return (
     <div className="bg-gray-100 p-6 rounded-lg shadow-lg max-w-md mx-auto">
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">Performance Booking</h2>

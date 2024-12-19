@@ -31,30 +31,50 @@ export default function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    emailjs
-      .send(
-        "service_ud7473n", // service_ud7473n
-        "template_0ab1aa9", // Replace with your EmailJS Template ID
-        formData,
-        "BDPsT3cNRMnCg-OaU" // Replace with your EmailJS Public Key
-      )
-      .then(
-        (result) => {
-          setStatus("Message sent successfully!");
-          setFormData({
-            firstName: "",
-            lastName: "",
-            phone: "",
-            email: "",
-            message: "",
-          });
-        },
-        (error) => {
-          setStatus("Failed to send the message. Please try again later.");
-        }
-      );
+  
+    // Send data to Flask backend
+    fetch("http://127.0.0.1:5002/contacts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Saved to backend:", data);
+  
+        // Send to EmailJS after backend confirmation
+        emailjs
+          .send(
+            "service_ud7473n", // Replace with your EmailJS service ID
+            "template_0ab1aa9", // Replace with your EmailJS template ID
+            formData,
+            "BDPsT3cNRMnCg-OaU" // Replace with your EmailJS public key
+          )
+          .then(
+            (result) => {
+              setStatus("Message sent successfully!");
+              setFormData({
+                firstName: "",
+                lastName: "",
+                phone: "",
+                email: "",
+                message: "",
+              });
+            },
+            (error) => {
+              console.error("EmailJS error:", error);
+              setStatus("Failed to send the message. Please try again later.");
+            }
+          );
+      })
+      .catch((error) => {
+        console.error("Backend error:", error);
+        setStatus("Failed to save the message. Please try again later.");
+      });
   };
+  
 
   return (
     <div className="bg-gray-100 p-6 rounded-lg shadow-lg max-w-md mx-auto">

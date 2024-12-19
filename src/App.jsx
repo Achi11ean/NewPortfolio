@@ -4,9 +4,15 @@ import ContactForm from "./ContactForm";
 import PerformanceForm from "./PerformanceForm";
 import EngineeringForm from "./EngineeringForm";
 import EducationSkills from "./EducationSkills";
+import Reviews from "./Reviews";
+import Signin from "./Signin";
+import Admin from "./Admin";
+import { useAuth } from "./AuthContext";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("welcome"); // Default active tab
+  const { token, logout, user } = useAuth();
+
   const [showContactInfo, setShowContactInfo] = useState(false);
   const [showPerformanceForm, setShowPerformanceForm] = useState(false); // State for toggling Performance Booking Form
   const [showEngineeringForm, setShowEngineeringForm] = useState(false); // State for Engineering Booking Form
@@ -48,7 +54,6 @@ export default function App() {
       style={{ backgroundImage: "url('christmas.webp')" }}
     >
       <div className="absolute inset-0 bg-gray-600 opacity-50 pointer-events-none"></div>
-      {/* Your content goes here */}
 
       {/* About Me Section */}
       <div className="relative w-full pb-20">
@@ -121,6 +126,16 @@ export default function App() {
           >
             Employment
           </button>
+          <button
+  className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
+    activeTab === "reviews"
+      ? "border-b-2 border-white text-white bg-gradient-to-r from-yellow-400 to-red-400"
+      : "text-gray-300 hover:bg-white/10"
+  } drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] z-10`}
+  onClick={() => setActiveTab("reviews")}
+>
+  Reviews
+</button>
 
           <button
             className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
@@ -144,6 +159,7 @@ export default function App() {
             Services
           </button>
 
+
           <button
             id="contact"
             className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
@@ -155,10 +171,43 @@ export default function App() {
           >
             Contact
           </button>
+          {user?.is_admin && (
+  <button
+    className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
+      activeTab === "admin-dashboard"
+        ? "border-b-2 border-white text-white bg-gradient-to-r from-green-400 to-blue-500"
+        : "text-gray-300 hover:bg-white/10"
+    } drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] z-10`}
+    onClick={() => setActiveTab("admin-dashboard")}
+  >
+    Admin Dashboard
+  </button>
+)}
+
+<button
+  className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
+    activeTab === "admin-signin"
+      ? "border-b-2 border-white text-white bg-gradient-to-r from-yellow-400 to-red-400"
+      : "text-gray-300 hover:bg-white/10"
+  }`}
+  onClick={() => {
+    if (token) {
+      logout(); // Clear the token
+    } else {
+      setActiveTab("admin-signin"); // Navigate to sign-in tab
+    }
+  }}
+>
+  {token ? "Sign Out" : "Admin SignIn"}
+</button>
+
+
         </div>
 
         {/* Tab Content */}
         <div className="mt-4 p-6  text-white rounded-xl relative overflow-hidden shadow-lg">
+        {activeTab === "admin-signin" && <Signin setActiveTab={setActiveTab} />}
+        {activeTab === "admin-dashboard" && <Admin />} 
           {/* Glowing Border Effect */}
           {/* <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 blur-lg opacity-50"></div> */}
 
@@ -413,6 +462,7 @@ export default function App() {
               </div>
             </div>
           )}
+{activeTab === "reviews" && <Reviews />}
 
           {activeTab === "passion" && (
             <div className="space-y-6">

@@ -49,58 +49,78 @@ export default function EngineeringForm() {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     const formattedStartDate = formatDate(formData.projectStartDate);
     const formattedEndDate = formatDate(formData.projectEndDate);
-
-    emailjs
-      .send(
-        "service_ud7473n", // Replace with your EmailJS service ID
-        "template_kh68swe", // Replace with your EmailJS template ID
-        {
-          clientName: formData.clientName,
-          clientEmail: formData.clientEmail,
-          clientPhone: formData.clientPhone,
-          projectName: formData.projectName,
-          projectManager: formData.projectManager,
-          projectType: formData.projectType,
-          projectStartDate: formattedStartDate,
-          projectEndDate: formattedEndDate,
-          projectDescription: formData.projectDescription,
-          projectTimeline: formData.projectTimeline,
-          projectScope: formData.projectScope,
-          specialRequests: formData.specialRequests,
-          budgetRange: formData.budgetRange,
-          price: `$${formData.price}`,
-        },
-        "BDPsT3cNRMnCg-OaU" // Replace with your EmailJS public key
-      )
-      .then(
-        (result) => {
-          setStatus("Booking request sent successfully!");
-          setFormData({
-            clientName: "",
-            clientEmail: "",
-            clientPhone: "",
-            projectName: "",
-            projectManager: "",
-            projectType: "",
-            projectStartDate: "",
-            projectEndDate: "",
-            projectDescription: "",
-            projectTimeline: "",
-            projectScope: "",
-            specialRequests: "",
-            budgetRange: "",
-            price: "",
-          });
-        },
-        (error) => {
-          setStatus("Failed to send the booking request. Please try again later.");
-        }
-      );
+  
+    // Save to Flask Backend
+    fetch("http://127.0.0.1:5002/engineering-bookings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...formData,
+        projectStartDate: formattedStartDate,
+        projectEndDate: formattedEndDate,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Saved to backend:", data);
+  
+        // Send the email using EmailJS
+        emailjs
+          .send(
+            "service_ud7473n", // Replace with your EmailJS service ID
+            "template_kh68swe", // Replace with your EmailJS template ID
+            {
+              clientName: formData.clientName,
+              clientEmail: formData.clientEmail,
+              clientPhone: formData.clientPhone,
+              projectName: formData.projectName,
+              projectManager: formData.projectManager,
+              projectType: formData.projectType,
+              projectStartDate: formattedStartDate,
+              projectEndDate: formattedEndDate,
+              projectDescription: formData.projectDescription,
+              specialRequests: formData.specialRequests,
+              price: `$${formData.price}`,
+            },
+            "BDPsT3cNRMnCg-OaU" // Replace with your EmailJS public key
+          )
+          .then(
+            (result) => {
+              setStatus("Booking request sent successfully!");
+              setFormData({
+                clientName: "",
+                clientEmail: "",
+                clientPhone: "",
+                projectName: "",
+                projectManager: "",
+                projectType: "",
+                projectStartDate: "",
+                projectEndDate: "",
+                projectDescription: "",
+                projectTimeline: "",
+                projectScope: "",
+                specialRequests: "",
+                budgetRange: "",
+                price: "",
+              });
+            },
+            (error) => {
+              console.error("EmailJS error:", error);
+              setStatus("Failed to send the email. Please try again later.");
+            }
+          );
+      })
+      .catch((error) => {
+        console.error("Backend error:", error);
+        setStatus("Failed to save booking. Please try again later.");
+      });
   };
-
+  
   return (
     <div className="bg-gray-100 p-6 rounded-lg shadow-lg max-w-md mx-auto">
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">Engineering Booking</h2>
