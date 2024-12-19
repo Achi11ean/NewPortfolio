@@ -198,7 +198,7 @@ export default function App() {
     }
   }}
 >
-  {token ? "Sign Out" : "Admin SignIn"}
+  {token ? "Sign Out" : "Admin"}
 </button>
 
 
