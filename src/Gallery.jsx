@@ -134,7 +134,7 @@ const Gallery = () => {
 
 
       {/* Search Filters */}
-      <div className="flex justify-center gap-4 mb-6">
+      <div className="flex flex-wrap justify-center gap-4 mb-6">
   {/* Filter by Category with Tooltip */}
   <div className="relative group">
     <input
