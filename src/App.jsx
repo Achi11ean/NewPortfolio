@@ -522,14 +522,15 @@ export default function App() {
 
                     {/* Content */}
                     <div className="relative text-center z-20 space-y-6">
-                      <h2 className="text-4xl font-extrabold mb-6">
+                      <h2 className="text-5xl font-extrabold mb-6">
                         My Passion for The Arts
                       </h2>
-                      <p className="text-xl leading-relaxed mb-6">
+                      <p className="text-2xl leading-relaxed mb-6">
                         Performing has always been a cornerstone of my life, and
-                        music is my greatest passion. I’ve had the privilege of:
+                        music is one of my greatest passions.
                       </p>
-                      <ul className="list-disc list-inside mt-2 mb-4">
+                      <p className="text-2xl">Some Wonderful experiences i've had performing include:</p>
+                      <ul className="list-disc list-inside text-2xl mt-2 mb-4">
                         <li>
                           Performing at weddings and local LGBTQ+ events with
                           Sky Casper Entertainment.
@@ -545,14 +546,13 @@ export default function App() {
                       </ul>
 
                       <p className="text-xl leading-relaxed">
-                        One of the most thrilling experiences was my role in{" "}
-                        <em>Cabaret the Musical</em>, where I played the
-                        characters of Herman, Max, and Sailor. Currently, I’m in
-                        rehearsal for the winter musical{" "}
-                        <em>A Christmas Carol</em>, where I will be playing
-                        Fred—the <em>wonderfully British</em> nephew of dear old
-                        Uncle Scrooge. Stay tuned for updates!
-                      </p>
+  One of the most thrilling experiences was my role in{" "}
+  <em>Cabaret the Musical</em>, where I played the characters of Herman, Max, and Sailor. <br/>
+  This is our last weekend performing{" "}
+  <em>A Christmas Carol</em>, where I play Fred—the <em>wonderfully British</em> nephew of dear old Uncle Scrooge. <br/>
+  Tickets are available at the link below. Don’t miss out on this festive experience! <br/>
+  Up next, I’m excited to be featured on an up-and-coming artist’s album and to start more work on my own music. Stay tuned for what’s to come!
+</p>
 
                       {/* Ticket Link Dropdown */}
                       <div className="mt-6">
@@ -570,6 +570,7 @@ export default function App() {
                           </option>
                           {/* Add more performance options as needed */}
                         </select>
+                        <p className="mt-3">Select A Song to Watch me Perform it in the video below!</p>
                       </div>
 
                       {/* Video Cards */}
@@ -702,6 +703,7 @@ export default function App() {
                           </div>
                         ) : selectedVideo ? (
                           // Regular Video Embed (e.g., Vimeo)
+                          
                           <iframe
                             src={selectedVideo}
                             frameBorder="0"
