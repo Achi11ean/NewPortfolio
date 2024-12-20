@@ -40,6 +40,62 @@ export default function Admin() {
   
     return `linear-gradient(135deg, ${color1}, ${color2})`;
   };
+  const [editingReview, setEditingReview] = useState(null);
+  const [editFormData, setEditFormData] = useState({});
+    // Handle input changes for editing form
+    const handleEditInputChange = (e) => {
+      const { name, value } = e.target;
+      setEditFormData((prev) => ({ ...prev, [name]: value }));
+    };
+  
+    // Enable editing mode
+    const handleEditClick = (review) => {
+      setEditingReview(review.id);
+      setEditFormData({
+        name: review.name,
+        rating: review.rating,
+        service: review.service,
+        description: review.description,
+        website_url: review.website_url || "",
+        image_url: review.image_url || "",
+
+      });
+    };
+    const handleEditSubmit = async (id) => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/reviews/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(editFormData),
+        });
+  
+        if (!response.ok) {
+          throw new Error("Failed to update review");
+        }
+  
+        setPendingReviews((prev) =>
+          prev.map((review) =>
+            review.id === id ? { ...review, ...editFormData } : review
+          )
+        );
+  
+        setEditingReview(null); // Exit editing mode
+      } catch (err) {
+        (err.message);
+    }
+  };
+
+  // Cancel editing
+  const handleCancelEdit = () => {
+    setEditingReview(null);
+    setEditFormData({});
+  };
+  const [pendingReviews, setPendingReviews] = useState([]);
+  const [reviewsError, setReviewsError] = useState("");
+
   const [searchParams, setSearchParams] = useState({
     name: "",
     phone: "",
@@ -59,12 +115,58 @@ export default function Admin() {
       hour12: true, // AM/PM format
     });
   };
+  const fetchPendingReviews = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/reviews/pending");
+
+      
+      const data = await response.json();
+  
+      // Ensure data is an array before setting state
+      if (Array.isArray(data)) {
+        setPendingReviews(data);
+      } else {
+        setPendingReviews([]); // Default to an empty array
+      }
+      setReviewsError("");
+    } catch (err) {
+      setReviewsError("Failed to fetch pending reviews.");
+      setPendingReviews([]); // Reset to empty array on error
+    }
+  };
+  useEffect(() => {
+    fetchPendingReviews(); // Call the function when the component mounts
+  }, []);
   
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setSearchParams((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleApproveReview = async (id) => {
+    try {
+      await fetch(`http://127.0.0.1:8000/reviews/${id}/approve`, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setPendingReviews((prev) => prev.filter((review) => review.id !== id));
+    } catch (err) {
+      setReviewsError("Failed to approve review.");
+    }
+  };
+  
+  const handleDeleteReview = async (id) => {
+    try {
+      await fetch(`http://127.0.0.1:8000/reviews/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setPendingReviews((prev) => prev.filter((review) => review.id !== id));
+    } catch (err) {
+      setReviewsError("Failed to delete review.");
+    }
+  };
+  
   const [revenue, setRevenue] = useState({
     contact_monthly: Array(12).fill(0),
     engineering_monthly: Array(12).fill(0),
@@ -79,9 +181,9 @@ export default function Admin() {
     try {
       console.log("Deleting booking...");
       const urlMap = {
-        contacts: `https://portfoliobackend-ih6t.onrender.com/contacts/${id}`,
-        engineering_bookings: `https://portfoliobackend-ih6t.onrender.com/engineering-bookings/${id}`,
-        performance_bookings: `https://portfoliobackend-ih6t.onrender.com/performance-bookings/${id}`,
+        contacts: `http://127.0.0.1:8000/contacts/${id}`,
+        engineering_bookings: `http://127.0.0.1:8000/engineering-bookings/${id}`,
+        performance_bookings: `http://127.0.0.1:8000/performance-bookings/${id}`,
       };
   
       const url = urlMap[type];
@@ -122,13 +224,13 @@ export default function Admin() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const contactsResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/contacts", {
+        const contactsResponse = await fetch("http://127.0.0.1:8000/contacts", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const engineeringResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/engineering-bookings", {
+        const engineeringResponse = await fetch("http://127.0.0.1:8000/engineering-bookings", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const performanceResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/performance-bookings", {
+        const performanceResponse = await fetch("http://127.0.0.1:8000/performance-bookings", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -279,25 +381,25 @@ export default function Admin() {
     const fetchData = async () => {
         try {
           // Fetch all contact bookings
-          const contactsResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/contacts", {
+          const contactsResponse = await fetch("http://127.0.0.1:8000/contacts", {
             headers: { Authorization: `Bearer ${token}` },
           });
           const contactsData = await contactsResponse.json();
       
           // Fetch all engineering bookings
-          const engineeringResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/engineering-bookings", {
+          const engineeringResponse = await fetch("http://127.0.0.1:8000/engineering-bookings", {
             headers: { Authorization: `Bearer ${token}` },
           });
           const engineeringData = await engineeringResponse.json();
       
           // Fetch all performance bookings
-          const performanceResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/performance-bookings", {
+          const performanceResponse = await fetch("http://127.0.0.1:8000/performance-bookings", {
             headers: { Authorization: `Bearer ${token}` },
           });
           const performanceData = await performanceResponse.json();
       
           // Fetch total earnings
-          const earningsResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/bookings/monthly-earnings", {
+          const earningsResponse = await fetch("http://127.0.0.1:8000/bookings/monthly-earnings", {
             headers: { Authorization: `Bearer ${token}` },
           });
           const earningsData = await earningsResponse.json();
@@ -359,9 +461,9 @@ export default function Admin() {
       console.log("New Price:", newPrice); // Log new price for debugging
   
       const urlMap = {
-        contacts: `https://portfoliobackend-ih6t.onrender.com/contacts/${id}`,
-        performance_bookings: `https://portfoliobackend-ih6t.onrender.com/performance-bookings/${id}`,
-        engineering_bookings: `https://portfoliobackend-ih6t.onrender.com/engineering-bookings/${id}`,
+        contacts: `http://127.0.0.1:8000/contacts/${id}`,
+        performance_bookings: `http://127.0.0.1:8000/performance-bookings/${id}`,
+        engineering_bookings: `http://127.0.0.1:8000/engineering-bookings/${id}`,
       };
   
       const stateMap = {
@@ -792,6 +894,150 @@ export default function Admin() {
     ))}
   </div>
 </section>
+<section className="mb-6">
+  <h3 className="text-2xl font-medium mb-4">Pending Reviews</h3>
+  {reviewsError && <p className="text-red-500">{reviewsError}</p>}
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+    {pendingReviews.length === 0 ? (
+      <p>No pending reviews found.</p>
+    ) : (
+      pendingReviews.map((review) => (
+<div
+  key={review.id}
+  style={{
+    background: generateRandomGradient(), // Dynamic gradient for each card
+    borderRadius: "12px",
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+    padding: "16px",
+    border: "6px solid white", // White border
+    color: "gray", // Ensures text readability
+  }}
+>
+
+          {editingReview === review.id ? (
+            // Edit Mode: Render form for editing
+            <div>
+              <h4 className="font-bold mb-2">Edit Review</h4>
+              <input
+                type="text"
+                name="name"
+                value={editFormData.name}
+                onChange={handleEditInputChange}
+                placeholder="Name"
+                className="w-full mb-2 p-2 border rounded"
+              />
+              <input
+                type="number"
+                name="rating"
+                value={editFormData.rating}
+                onChange={handleEditInputChange}
+                placeholder="Rating"
+                className="w-full mb-2 p-2 border rounded"
+              />
+              <textarea
+                name="description"
+                value={editFormData.description}
+                onChange={handleEditInputChange}
+                placeholder="Description"
+                className="w-full mb-2 p-2 border rounded"
+              />
+              <input
+  type="text"
+  name="image_url"
+  value={editFormData.image_url || ""}
+  onChange={handleEditInputChange}
+  placeholder="Image URL"
+  className="w-full mb-2 p-2 border rounded"
+/>
+
+              <input
+                type="text"
+                name="website_url"
+                value={editFormData.website_url}
+                onChange={handleEditInputChange}
+                placeholder="Website URL"
+                className="w-full mb-2 p-2 border rounded"
+              />
+
+              {/* Save and Cancel Buttons */}
+              <div className="flex gap-2 mt-2">
+                <button
+                  onClick={() => handleEditSubmit(review.id)}
+                  className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={handleCancelEdit}
+                  className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            // Normal Mode: Display review details
+            <>
+              <h4 className="font-bold mb-2">{review.name}</h4>
+              <p>
+                <strong>Rating:</strong> {review.rating}
+              </p>
+              <p>
+                <strong>Service:</strong> {review.service}
+              </p>
+              <p>
+                <strong>Description:</strong> {review.description}
+              </p>
+              {review.image_url && (
+                <img
+                  src={review.image_url}
+                  alt="Review"
+                  className="w-full h-32 object-cover rounded mb-2"
+                />
+              )}
+              {review.website_url && (
+                <p>
+                  <strong>Website:</strong>{" "}
+                  <a
+                    href={review.website_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 underline"
+                  >
+                    Visit Site
+                  </a>
+                </p>
+              )}
+
+              {/* Action Buttons */}
+              <div className="flex gap-2 mt-2">
+                <button
+                  onClick={() => handleApproveReview(review.id)}
+                  className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                >
+                  Approve
+                </button>
+                <button
+                  onClick={() => handleEditClick(review)}
+                  className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDeleteReview(review.id)}
+                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                >
+                  Delete
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      ))
+    )}
+  </div>
+</section>
+
 
       </div>
       

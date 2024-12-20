@@ -55,12 +55,15 @@ export default function Reviews({ triggerEmojis }) {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/reviews");
+        const response = await fetch("http://127.0.0.1:8000/reviews");
         if (!response.ok) {
           throw new Error("Failed to fetch reviews");
         }
         const data = await response.json();
-        setReviews(data);
+  
+        // Filter approved reviews if needed
+        const approvedReviews = data.filter(review => review.is_approved);
+        setReviews(approvedReviews);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -69,9 +72,10 @@ export default function Reviews({ triggerEmojis }) {
     };
     fetchReviews();
   }, []);
+  
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/reviews/${id}`, {
+      const response = await fetch(`http://127.0.0.1:8000/reviews/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`, // Include token
@@ -95,22 +99,29 @@ export default function Reviews({ triggerEmojis }) {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form Data Before Submission:", formData);
+  
     if (!formData.rating) {
-        setShowPopup(true); // Show popup if no rating is selected
-        return;
-      }
-      
+      setShowPopup(true); // Show popup if no rating is selected
+      return;
+    }
+  
     try {
-      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/reviews", {
+      const response = await fetch("http://127.0.0.1:8000/reviews", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
   
-      if (!response.ok) throw new Error("Failed to add review");
+      const result = await response.json();
+      console.log("Server Response:", result); // Log response to verify data
   
-      const newReview = await response.json();
-      setReviews([...reviews, newReview.review]);
+      if (!response.ok) throw new Error(result.error || "Failed to add review");
+  
+      alert("Review submitted and pending approval!"); // Notify the user
+      
+      // Do NOT add the review directly to state
+      // Wait for the backend GET request (useEffect) to fetch approved reviews
       setFormData({
         name: "",
         rating: "",
@@ -120,9 +131,10 @@ export default function Reviews({ triggerEmojis }) {
         website_url: "",
       });
   
-      setShowForm(false); // Hide form
+      setShowForm(false);
       triggerEmojis(); // Call the global emoji trigger function
     } catch (err) {
+      console.error("Error Adding Review:", err);
       setError(err.message);
     }
   };
