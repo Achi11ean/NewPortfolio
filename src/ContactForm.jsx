@@ -34,7 +34,7 @@ export default function ContactForm() {
     console.log("Form Data to be Sent:", formData); // Log the form data
 
     // Send data to Flask backend
-    fetch("http://127.0.0.1:8000/contacts", {
+    fetch("https://portfoliobackend-ih6t.onrender.com/contacts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

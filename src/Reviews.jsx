@@ -55,7 +55,7 @@ export default function Reviews({ triggerEmojis }) {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/reviews");
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/reviews");
         if (!response.ok) {
           throw new Error("Failed to fetch reviews");
         }
@@ -75,7 +75,7 @@ export default function Reviews({ triggerEmojis }) {
   
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/reviews/${id}`, {
+      const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/reviews/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`, // Include token
@@ -107,7 +107,7 @@ export default function Reviews({ triggerEmojis }) {
     }
   
     try {
-      const response = await fetch("http://127.0.0.1:8000/reviews", {
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/reviews", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
