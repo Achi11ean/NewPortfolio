@@ -294,30 +294,20 @@ export default function App() {
                 </button>
                 {showEducationSkills && <EducationSkills />}
               </div>
-              <p className="text-3xl font-bold leading-relaxed text-white">
-                Hi! I'm <span className="text-white font-bold">Jonathen</span>,
-                a software engineer with a passion for creating
-                <span className="text-red-300 font-bold">
-                  {" "}
-                  user-centric web applications.
-                </span>
-                <br />
-                <br />
-                Explore the tabs to learn more about my projects, passion, and
-                professional journey. On the last tab, you can use the contact
-                form to send me an inquiry, or visit the Services tab to book
-                and pay for services directly through my portfolio! I look
-                forward to connecting with you!
-                <br />
-                <br />
-                This website was built using{" "}
-                <span className="text-blue-600 font-bold">React</span> and{" "}
-                <span className="text-green-300 font-bold">Vite</span> for fast
-                development, styled with{" "}
-                <span className="text-teal-200 font-bold">Tailwind CSS</span>{" "}
-                for modern and responsive design, and powered by Stripe for
-                seamless booking and payment functionality.
-              </p>
+              <p className="text-lg sm:text-2xl md:text-3xl font-bold leading-relaxed text-white">
+  Hi! I'm <span className="text-white font-bold">Jonathen</span>, a software engineer with a passion for creating
+  <span className="text-red-300 font-bold"> user-centric web applications.</span>
+  <br />
+  <br />
+  Explore the tabs to learn more about my projects, passion, and professional journey. On the last tab, you can use the contact form to send me an inquiry, or visit the Services tab to book and pay for services directly through my portfolio! I look forward to connecting with you!
+  <br />
+  <br />
+  This website was built using{" "}
+  <span className="text-blue-600 font-bold">React</span> and{" "}
+  <span className="text-green-300 font-bold">Vite</span> for fast development, styled with{" "}
+  <span className="text-teal-200 font-bold">Tailwind CSS</span> for modern and responsive design, and powered by Stripe for seamless booking and payment functionality.
+</p>
+
 
               {/* Conditionally Render EducationSkills */}
             </div>
