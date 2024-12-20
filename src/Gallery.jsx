@@ -262,7 +262,7 @@ const Gallery = () => {
         <img
           src={selectedPhoto.image_url}
           alt={selectedPhoto.caption}
-          className="w-full max-h-[50vh] object-contain rounded-lg"
+          className="w-full max-h-[70vh] object-contain rounded-lg"
         />
       </div>
 
