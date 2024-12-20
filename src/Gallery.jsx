@@ -114,74 +114,75 @@ const Gallery = () => {
   }, [searchCategory, searchPhotoType]);
 
   return (
-<div
-  className="relative text-white min-h-screen p-6 overflow-hidden"
-  style={{
-    backgroundImage: `url('stage.webp')`,
-    backgroundSize: "cover",
-    backgroundPosition: "center top 5px",
-    backgroundRepeat: "no-repeat",
-  }}
->
-  {/* Falling Sparkles */}
-  {Array.from({ length: 50 }).map((_, index) => (
     <div
-      key={index}
-      className="sparkle"
+      className="relative text-white min-h-screen p-6 overflow-hidden"
       style={{
-        left: `${Math.random() * 100}vw`, // Randomize horizontal position
-        animationDelay: `${Math.random() * 5}s`, // Randomize animation start
-        animationDuration: `${3 + Math.random() * 5}s`, // Randomize animation speed
+        backgroundImage: `url('stage.webp')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center top 5px",
+        backgroundRepeat: "no-repeat",
       }}
-    ></div>
-  ))}
+    >
+      {/* Falling Sparkles */}
+      {Array.from({ length: 50 }).map((_, index) => (
+        <div
+          key={index}
+          className="sparkle"
+          style={{
+            left: `${Math.random() * 100}vw`, // Randomize horizontal position
+            animationDelay: `${Math.random() * 5}s`, // Randomize animation start
+            animationDuration: `${3 + Math.random() * 5}s`, // Randomize animation speed
+          }}
+        ></div>
+      ))}
 
-  {/* Existing Content */}
-  <div className="curtain left"></div>
-  <div className="curtain right"></div>
-  <h1
-  className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-center mt-20 mb-6 text-white animate-fade-scale"
-  style={{ fontFamily: "'Aspire', sans-serif" }}
->
-  ✨ Photo Gallery ✨
-</h1>
+      {/* Existing Content */}
+      <div className="curtain left"></div>
+      <div className="curtain right"></div>
+      <h1
+        className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-center mt-20 mb-6 text-white animate-fade-scale"
+        style={{ fontFamily: "'Aspire', sans-serif" }}
+      >
+        ✨ Photo Gallery ✨
+      </h1>
 
       {/* Search Filters */}
       <div className="flex flex-wrap justify-center gap-4 mb-6">
-  {/* Filter by Category with Tooltip */}
-  <div className="relative group">
-    <input
-      type="text"
-      placeholder="Filter by Category"
-      value={searchCategory}
-      onChange={(e) => setSearchCategory(e.target.value)}
-      className="border rounded p-2 text-gray-700 bg-gray-800"
-    />
-    <div
-      className="absolute bottom-full mb-2 w-52 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-      style={{ left: "50%", transform: "translateX(-50%)" }}
-    >
-      Search by category names, e.g., "Volunteer", "Modeling", "Software Engineering".
-    </div>
-  </div>
+        {/* Filter by Category with Tooltip */}
+        <div className="relative group">
+          <input
+            type="text"
+            placeholder="Filter by Category"
+            value={searchCategory}
+            onChange={(e) => setSearchCategory(e.target.value)}
+            className="border rounded p-2 text-gray-700 bg-gray-800"
+          />
+          <div
+            className="absolute bottom-full mb-2 w-52 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+            style={{ left: "50%", transform: "translateX(-50%)" }}
+          >
+            Search by category names, e.g., "Volunteer", "Modeling", "Software
+            Engineering".
+          </div>
+        </div>
 
-  {/* Filter by Photo Type with Tooltip */}
-  <div className="relative group">
-    <input
-      type="text"
-      placeholder="Filter by Photo Type"
-      value={searchPhotoType}
-      onChange={(e) => setSearchPhotoType(e.target.value)}
-      className="border rounded p-2 text-white bg-gray-800"
-    />
-    <div
-      className="absolute bottom-full mb-2 w-52 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-      style={{ left: "50%", transform: "translateX(-50%)" }}
-    >
-      Search by photo types, e.g., "Portrait", "Landscape", "Candid".
-    </div>
-  </div>
-</div>
+        {/* Filter by Photo Type with Tooltip */}
+        <div className="relative group">
+          <input
+            type="text"
+            placeholder="Filter by Photo Type"
+            value={searchPhotoType}
+            onChange={(e) => setSearchPhotoType(e.target.value)}
+            className="border rounded p-2 text-white bg-gray-800"
+          />
+          <div
+            className="absolute bottom-full mb-2 w-52 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+            style={{ left: "50%", transform: "translateX(-50%)" }}
+          >
+            Search by photo types, e.g., "Portrait", "Landscape", "Candid".
+          </div>
+        </div>
+      </div>
 
       {/* Loading State */}
       {loading ? (
@@ -245,38 +246,40 @@ const Gallery = () => {
 
       {/* Modal for Selected Photo */}
       {selectedPhoto && (
-  <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50">
-    {/* Modal Content */}
-    <div className="relative bg-gray-800 p-6 max-w-3xl w-[90%] max-h-[90vh] overflow-y-auto flex flex-col rounded-lg shadow-lg">
-      {/* Close Button */}
-      <button
-        onClick={() => setSelectedPhoto(null)}
-        className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center shadow-md"
-        aria-label="Close"
-      >
-        &times;
-      </button>
+        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50">
+          {/* Modal Content */}
+          <div className="relative bg-gray-800 p-6 max-w-3xl w-[90%] max-h-[90vh] overflow-y-auto flex flex-col rounded-lg shadow-lg">
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedPhoto(null)}
+              className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center shadow-md"
+              aria-label="Close"
+            >
+              &times;
+            </button>
 
-      {/* Image */}
-      <div className="flex items-center justify-center">
-        <img
-          src={selectedPhoto.image_url}
-          alt={selectedPhoto.caption}
-          className="w-full max-h-[70vh] object-contain rounded-lg"
-        />
-      </div>
+            {/* Image */}
+            <div className="flex items-center justify-center">
+              <img
+                src={selectedPhoto.image_url}
+                alt={selectedPhoto.caption}
+                className="w-full max-h-[70vh] object-contain rounded-lg"
+              />
+            </div>
 
-      {/* Caption & Details */}
-      <div className="text-center mt-4 text-white">
-        <div className="text-md font-bold max-h-24 overflow-y-auto break-words px-2">
-          {selectedPhoto.caption}
+            {/* Caption & Details */}
+            <div className="text-center mt-4 text-white">
+              <div className="text-md font-bold max-h-24 overflow-y-auto break-words px-2">
+                {selectedPhoto.caption}
+              </div>
+              <p className="mt-2">
+                Category: {selectedPhoto.category || "Uncategorized"}
+              </p>
+              <p>Type: {selectedPhoto.photo_type || "No Type"}</p>
+            </div>
+          </div>
         </div>
-        <p className="mt-2">Category: {selectedPhoto.category || "Uncategorized"}</p>
-        <p>Type: {selectedPhoto.photo_type || "No Type"}</p>
-      </div>
-    </div>
-  </div>
-)}
+      )}
 
       <br />
       {/* Message Display */}

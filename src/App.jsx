@@ -90,7 +90,20 @@ export default function App() {
 <p className="text-sm sm:text-3xl mt-2 max-w-lg font-aspire">
 By Jonathen Whitford</p>
 
-
+<div className="mt-6 flex justify-center">
+  <a
+    href="https://www.connecticuttheatrecompany.org/box-office/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center justify-center px-6 py-3 text-3xl sm:text-2xl font-extrabold text-white bg-gradient-to-r from-red-600 to-green-500 border-2 border-red-400 rounded-full shadow-lg hover:scale-105 transform transition-all duration-300 hover:bg-gradient-to-r hover:from-green-500 hover:to-red-600 hover:shadow-2xl"
+    style={{
+      fontFamily: "'Aspire', serif",
+      textShadow: "0 0 8px #fff, 0 0 12px #ff0000, 0 0 16px #00ff00",
+    }}
+  >
+    🎟️ Buy Tickets to <span className="mx-1 text-yellow-300">A Christmas Carol</span> Now! 🎄
+  </a>
+</div>
           {/* Embed Music */}
           <div className="mt-6 flex justify-center w-full">
             <iframe
