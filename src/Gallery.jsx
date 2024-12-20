@@ -249,7 +249,7 @@ const Gallery = () => {
         <div
           className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50" // Add z-50
         >
-          <div className="relative bg-gray-800 p-6 max-w-3xl  rounded-lg shadow-lg">
+          <div className="relative bg-gray-800 p-6 max-w-3xl max-h-[90vh] rounded-lg shadow-lg">
             <button
               onClick={() => setSelectedPhoto(null)}
               className="absolute top-2 right-2 bg-red-600 text-white rounded-full px-3 py-1"
