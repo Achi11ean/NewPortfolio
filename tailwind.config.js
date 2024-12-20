@@ -10,13 +10,16 @@ module.exports = {
       fontFamily: {
         aspire: ["Aspire", "sans-serif"],
       },
-      // Existing Animations
+      // Animations
       animation: {
         'lava-lamp': 'morph 8s ease-in-out infinite',
         scroll: 'scroll 60s linear infinite',
         fallingStars: 'fallingStars 10s linear infinite',
         sparkle: 'sparkle 2s infinite',
-        'fade-scale': 'fade-scale 1s ease-out', // Add new animation here
+        'fade-scale': 'fade-scale 1s ease-out',
+        typing: 'typing 5s steps(20, end) infinite',
+        blink: 'blink 1s step-end infinite',
+      
       },
       // Keyframes
       keyframes: {
@@ -39,10 +42,20 @@ module.exports = {
           '0%, 100%': { opacity: 0.3, transform: 'scale(0.8)' },
           '50%': { opacity: 1, transform: 'scale(1)' },
         },
-        // New Fade-Scale Keyframe
         'fade-scale': {
           '0%': { opacity: '0', transform: 'scale(0.8)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        // Typing Effect Keyframes
+        typing: {
+          '0%': { width: '0%' },    // Start hidden
+          '50%': { width: '100%' }, // Full text appears
+          '100%': { width: '0%' },  // Text is erased
+        },
+        // Blinking Cursor Keyframes
+        blink: {
+          '50%': { borderColor: 'transparent' },
+          '100%': { borderColor: 'currentColor' },
         },
       },
       // Breakpoints

@@ -184,3 +184,88 @@ button:focus-visible {
     transform: translateY(100vh); /* Move to the bottom of the viewport */
   }
 }
+ 
+@keyframes roam-1 {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    transform: translate(150%, 100%);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes roam-2 {
+  0% {
+    transform: translate(50%, -50%);
+  }
+  50% {
+    transform: translate(-100%, 120%);
+  }
+  100% {
+    transform: translate(50%, -50%);
+  }
+}
+
+.animate-roam-1 {
+  animation: roam-1 8s infinite alternate ease-in-out;
+}
+
+.animate-roam-2 {
+  animation: roam-2 6s infinite alternate ease-in-out;
+}
+
+/* Typing Animation for Mobile */
+@keyframes typing-mobile {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 100%; /* Mobile stops at 90% width */
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+/* Typing Animation for Desktop */
+@keyframes typing-desktop {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 30%; /* Desktop stops at 30% width */
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+/* Blinking Cursor */
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+  100% {
+    border-color: white;
+  }
+}
+
+/* Responsive Animation Classes */
+@media (max-width: 640px) {
+  .animate-typing {
+    animation: typing-mobile 5s steps(15, end) infinite, blink 1s step-end infinite;
+  }
+}
+
+@media (min-width: 641px) {
+  .animate-typing {
+    animation: typing-desktop 5s steps(10, end) infinite, blink 1s step-end infinite;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}

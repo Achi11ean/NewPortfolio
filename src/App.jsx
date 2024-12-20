@@ -9,7 +9,7 @@ import Signin from "./Signin";
 import Admin from "./Admin";
 import { useAuth } from "./AuthContext";
 import Gallery from "./Gallery"; // Import the Gallery component
-import Snowfall from "./Snowfall"
+import Snowfall from "./Snowfall";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("welcome"); // Default active tab
@@ -24,7 +24,7 @@ export default function App() {
   const [showEngineeringForm, setShowEngineeringForm] = useState(false); // State for Engineering Booking Form
   const [showEducationSkills, setShowEducationSkills] = useState(false); // State to toggle EducationSkills visibility
   const [selectedVideo, setSelectedVideo] = useState(""); // State for selected video
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openSection, setOpenSection] = useState(null); // State for open dropdown
   const toggleSection = (section) => {
     setOpenSection((prevSection) => (prevSection === section ? null : section));
@@ -60,20 +60,13 @@ export default function App() {
       style={{ backgroundImage: "url('christmas.webp')" }}
     >
       <div className="absolute inset-0 bg-gray-600 opacity-50 pointer-events-none"></div>
-
-      {/* About Me Section */}
       <div className="relative w-full pb-20">
         {" "}
-        {/* Removed fixed height and added padding */}
         <AnimatedBackground />
         <Snowfall />
-
-
         <div className="absolute inset-0 bg-black/30"></div>{" "}
         {/* Adds overlay */}
         <div className="relative flex flex-col items-center justify-center text-center z-10 pt-4 px-4 sm:px-8">
-          
-          {/* Headshot */}
           <div className="w-40 h-40 sm:w-80 mt-20 sm:mt-0 sm:h-80 rounded-full bg-white overflow-hidden shadow-md mx-auto mb-4 ">
             <img
               src="selfie.jpeg"
@@ -81,31 +74,32 @@ export default function App() {
               className="w-full h-full object-cover"
             />
           </div>
-
-          {/* Name */}
           <h1 className="text-4xl underline sm:text-6xl font-aspire font-bold">
-  Welcome To JWhit Productions
-</h1>
+            Welcome To JWhit Productions
+          </h1>
+          <p className="text-sm sm:text-3xl mt-2 max-w-lg font-aspire">
+            By Jonathen Whitford
+          </p>
 
-<p className="text-sm sm:text-3xl mt-2 max-w-lg font-aspire">
-By Jonathen Whitford</p>
+          <div className="mt-6 flex justify-center">
+            <a
+              href="https://www.connecticuttheatrecompany.org/box-office/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-4 py-2 text-2xl sm:px-6 sm:py-3 sm:text-2xl lg:text-3xl font-extrabold text-white bg-gradient-to-r from-red-600 to-green-500 border-2 border-red-400 rounded-full shadow-lg hover:scale-105 transform transition-all duration-300 hover:bg-gradient-to-r hover:from-green-500 hover:to-red-600 hover:shadow-2xl"
+              style={{
+                fontFamily: "'Aspire', serif",
+                textShadow: "0 0 8px #fff, 0 0 12px #ff0000, 0 0 16px #00ff00",
+              }}
+            >
+              🎟️ Buy Tickets to{" "}
+              <span className="mx-1 text-yellow-300">A Christmas Carol</span>{" "}
+              Now! 🎄
+            </a>
+          </div>
 
-<div className="mt-6 flex justify-center">
-  <a
-    href="https://www.connecticuttheatrecompany.org/box-office/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-flex items-center justify-center px-4 py-2 text-2xl sm:px-6 sm:py-3 sm:text-2xl lg:text-3xl font-extrabold text-white bg-gradient-to-r from-red-600 to-green-500 border-2 border-red-400 rounded-full shadow-lg hover:scale-105 transform transition-all duration-300 hover:bg-gradient-to-r hover:from-green-500 hover:to-red-600 hover:shadow-2xl"
-    style={{
-      fontFamily: "'Aspire', serif",
-      textShadow: "0 0 8px #fff, 0 0 12px #ff0000, 0 0 16px #00ff00",
-    }}
-  >
-    🎟️ Buy Tickets to <span className="mx-1 text-yellow-300">A Christmas Carol</span> Now! 🎄
-  </a>
-</div>
 
-          {/* Embed Music */}
+
           <div className="mt-6 flex justify-center w-full">
             <iframe
               allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
@@ -117,154 +111,117 @@ By Jonathen Whitford</p>
           </div>
         </div>
       </div>
+      <div className="w-full max-w-7.5xl mx-auto p-6">
+  {/* Mobile Menu Button */}
+  <div className="sm:hidden flex justify-end mb-4">
+    <button
+      className="bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 px-4 rounded-lg shadow-md text-lg font-bold"
+      onClick={() => setIsMenuOpen(!isMenuOpen)}
+    >
+      {isMenuOpen ? "Close Menu ✖" : "Menu ☰"}
+    </button>
+  </div>
 
-      {/* Tab Navigation */}
-      <div className="w-full max-w-7.5xl mx-auto p-6  ">
-        <div className="flex justify-center space-x-8 mb-6 border-b border-white overflow-x-auto">
-          <button
-            className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
-              activeTab === "welcome"
-                ? "border-b-2 border-white text-blue-100 bg-gradient-to-r from-yellow-400 to-red-400"
-                : "text-white hover:bg-white/10"
-            } drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] z-10`}
-            onClick={() => setActiveTab("welcome")}
-          >
-            Welcome
-          </button>
+  {/* Mobile Menu */}
+  {isMenuOpen && (
+    <div className="sm:hidden bg-gray-800 rounded-lg p-4 shadow-lg space-y-2">
+      {[
+        { tab: "welcome", label: "Welcome" },
+        { tab: "education", label: "Jwhit ©" },
+        { tab: "employment", label: "Employment" },
+        { tab: "reviews", label: "Reviews" },
+        { tab: "passion", label: "Passion" },
+        { tab: "basic-services", label: "Services" },
+        { tab: "gallery", label: "Gallery" },
+        { tab: "contact", label: "Contact" },
+        { tab: "admin-dashboard", label: "Admin Dashboard", adminOnly: true },
+        { tab: "admin-signin", label: token ? "Sign Out" : "Admin" },
+      ].map(
+        ({ tab, label, adminOnly }) =>
+          (!adminOnly || user?.is_admin) && (
+            <button
+              key={tab}
+              className={`w-full text-left py-2 px-4 rounded-lg ${
+                activeTab === tab
+                  ? "bg-blue-500 text-white"
+                  : "hover:bg-gray-700 text-gray-300"
+              }`}
+              onClick={() => {
+                setActiveTab(tab);
+                if (tab === "admin-signin") {
+                  token ? logout() : setActiveTab("admin-signin");
+                }
+                setIsMenuOpen(false); // Close menu after selection
+              }}
+            >
+              {label}
+            </button>
+          )
+      )}
+    </div>
+  )}
 
+  {/* Desktop Tabs */}
+  <div className="hidden sm:flex justify-center space-x-8 mb-6 border-b border-white">
+    {[
+      { tab: "welcome", label: "Welcome" },
+      { tab: "education", label: "Jwhit ©" },
+      { tab: "employment", label: "Employment" },
+      { tab: "reviews", label: "Reviews" },
+      { tab: "passion", label: "Passion" },
+      { tab: "basic-services", label: "Services" },
+      { tab: "gallery", label: "Gallery" },
+      { tab: "contact", label: "Contact" },
+      { tab: "admin-dashboard", label: "Admin Dashboard", adminOnly: true },
+      { tab: "admin-signin", label: token ? "Sign Out" : "Admin" },
+    ].map(
+      ({ tab, label, adminOnly }) =>
+        (!adminOnly || user?.is_admin) && (
           <button
+            key={tab}
             className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
-              activeTab === "education"
+              activeTab === tab
                 ? "border-b-2 border-white text-white bg-gradient-to-r from-yellow-400 to-red-400"
                 : "text-gray-300 hover:bg-white/10"
-            } drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] z-10`}
-            onClick={() => setActiveTab("education")}
+            }`}
+            onClick={() => {
+              setActiveTab(tab);
+              if (tab === "admin-signin") {
+                token ? logout() : setActiveTab("admin-signin");
+              }
+            }}
           >
-            Jwhit ©
+            {label}
           </button>
-
-          <button
-            className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
-              activeTab === "employment"
-                ? "border-b-2 border-white text-white bg-gradient-to-r from-yellow-400 to-red-400"
-                : "text-gray-300 hover:bg-white/10"
-            } drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] z-10`}
-            onClick={() => setActiveTab("employment")}
-          >
-            Employment
-          </button>
-          <button
-  className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
-    activeTab === "reviews"
-      ? "border-b-2 border-white text-white bg-gradient-to-r from-yellow-400 to-red-400"
-      : "text-gray-300 hover:bg-white/10"
-  } drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] z-10`}
-  onClick={() => setActiveTab("reviews")}
->
-  Reviews
-</button>
-
-          <button
-            className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
-              activeTab === "passion"
-                ? "border-b-2 border-white text-white bg-gradient-to-r from-yellow-400 to-red-400"
-                : "text-gray-300 hover:bg-white/10"
-            } drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] z-10`}
-            onClick={() => setActiveTab("passion")}
-          >
-            Passion
-          </button>
-
-          <button
-            className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
-              activeTab === "basic-services"
-                ? "border-b-2 border-white text-white bg-gradient-to-r from-yellow-400 to-red-400"
-                : "text-gray-300 hover:bg-white/10"
-            } drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] z-10`}
-            onClick={() => setActiveTab("basic-services")}
-          >
-            Services
-          </button>
-
-
-          <button
-            id="contact"
-            className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
-              activeTab === "contact"
-                ? "border-b-2 border-white text-white bg-gradient-to-r from-yellow-400 to-red-400"
-                : "text-gray-300 hover:bg-white/10"
-            } drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] z-10`}
-            onClick={() => setActiveTab("contact")}
-          >
-            Contact
-          </button>
-          <button
-  className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
-    activeTab === "gallery"
-      ? "border-b-2 border-white text-white bg-gradient-to-r from-yellow-400 to-red-400"
-      : "text-gray-300 hover:bg-white/10"
-  }`}
-  onClick={() => setActiveTab("gallery")}
->
-  Gallery
-</button>
-
-          {user?.is_admin && (
-  <button
-    className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
-      activeTab === "admin-dashboard"
-        ? "border-b-2 border-white text-white bg-gradient-to-r from-green-400 to-blue-500"
-        : "text-gray-300 hover:bg-white/10"
-    } drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] z-10`}
-    onClick={() => setActiveTab("admin-dashboard")}
-  >
-    Admin Dashboard
-  </button>
-)}
-
-<button
-  className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
-    activeTab === "admin-signin"
-      ? "border-b-2 border-white text-white bg-gradient-to-r from-yellow-400 to-red-400"
-      : "text-gray-300 hover:bg-white/10"
-  }`}
-  onClick={() => {
-    if (token) {
-      logout(); // Clear the token
-    } else {
-      setActiveTab("admin-signin"); // Navigate to sign-in tab
-    }
-  }}
->
-  {token ? "Sign Out" : "Admin"}
-</button>
-
-
-        </div>
+        )
+    )}
+  </div>
 
         {/* Tab Content */}
         <div className="mt-4 p-6  text-white rounded-xl relative overflow-hidden shadow-lg">
-        {showEmojis && (
-  <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-50">
-    {Array.from({ length: 20 }).map((_, index) => (
-      <span
-        key={index}
-        className="emoji"
-        style={{
-          left: `${Math.random() * 100}vw`,
-          animationDuration: `${Math.random() * 3 + 2}s`,
-          animationDelay: `${Math.random() * 1}s`,
-        }}
-      >
-        {Math.random() > 0.5 ? "🌟" : "💕"}
-      </span>
-    ))}
-  </div>
-)}
+          {showEmojis && (
+            <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-50">
+              {Array.from({ length: 20 }).map((_, index) => (
+                <span
+                  key={index}
+                  className="emoji"
+                  style={{
+                    left: `${Math.random() * 100}vw`,
+                    animationDuration: `${Math.random() * 3 + 2}s`,
+                    animationDelay: `${Math.random() * 1}s`,
+                  }}
+                >
+                  {Math.random() > 0.5 ? "🌟" : "💕"}
+                </span>
+              ))}
+            </div>
+          )}
 
-        {activeTab === "admin-signin" && <Signin setActiveTab={setActiveTab} />}
-        {activeTab === "admin-dashboard" && <Admin />} 
-        {activeTab === "gallery" && <Gallery />}
+          {activeTab === "admin-signin" && (
+            <Signin setActiveTab={setActiveTab} />
+          )}
+          {activeTab === "admin-dashboard" && <Admin />}
+          {activeTab === "gallery" && <Gallery />}
 
           {/* Glowing Border Effect */}
           {/* <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 blur-lg opacity-50"></div> */}
@@ -272,10 +229,12 @@ By Jonathen Whitford</p>
           {/* Content */}
           {activeTab === "welcome" && (
             <div className="relative z-10 text-center p-6">
-<h2
-  className="text-5xl font-extrabold text-transparent pb-2 bg-clip-text bg-gradient-to-r from-red-500 via-yellow-400 to-green-600 mb-9 animate-pulse drop-shadow-lg"
-  style={{ fontFamily: "Aspire, sans-serif" }}
->                <span className="text-white">🎄</span> Welcome!{" "}
+              <h2
+                className="text-5xl font-extrabold text-transparent pb-2 bg-clip-text bg-gradient-to-r from-red-500 via-yellow-400 to-green-600 mb-9 animate-pulse drop-shadow-lg"
+                style={{ fontFamily: "Aspire, sans-serif" }}
+              >
+                {" "}
+                <span className="text-white">🎄</span> Welcome!{" "}
                 <span className="text-white">🎅</span> <br />
                 Wishing you and your loved ones a Magical Holiday Season{" "}
                 <span className="text-white">✨</span>
@@ -323,8 +282,8 @@ By Jonathen Whitford</p>
                   Resume
                 </a>
               </div>
-                            {/* Toggle Button */}
-                            <div className="text-center mt-6">
+              {/* Toggle Button */}
+              <div className="text-center mt-6">
                 <button
                   onClick={() => setShowEducationSkills(!showEducationSkills)}
                   className="py-2 px-6 bg-purple-700 hover:bg-purple-600 text-white font-bold rounded-lg shadow-lg transition-all"
@@ -334,7 +293,6 @@ By Jonathen Whitford</p>
                     : "Show Education and Skills"}
                 </button>
                 {showEducationSkills && <EducationSkills />}
-
               </div>
               <p className="text-3xl font-bold leading-relaxed text-white">
                 Hi! I'm <span className="text-white font-bold">Jonathen</span>,
@@ -360,8 +318,6 @@ By Jonathen Whitford</p>
                 for modern and responsive design, and powered by Stripe for
                 seamless booking and payment functionality.
               </p>
-
-
 
               {/* Conditionally Render EducationSkills */}
             </div>
@@ -522,18 +478,29 @@ By Jonathen Whitford</p>
               </div>
             </div>
           )}
-{activeTab === "reviews" && <Reviews triggerEmojis={triggerEmojis} />}
+          {activeTab === "reviews" && <Reviews triggerEmojis={triggerEmojis} />}
 
           {activeTab === "passion" && (
             <div className="space-y-6">
               {/* Dropdown for Passion for Performing */}
               <div>
-                <button
-                  className="w-full text-left bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-6 text-2xl mb-3 text-center rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-700 hover:to-pink-700"
-                  onClick={() => toggleSection("performing")}
-                >
-                  Performing Arts
-                </button>
+              <button
+  className="w-full text-center bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 text-white py-4 px-6 text-2xl font-bold rounded-lg shadow-2xl transform transition-all duration-300 relative overflow-hidden hover:scale-110 hover:shadow-pink-400/50"
+  onClick={() => toggleSection("performing")}
+>
+  {/* Roaming Spotlight Circles */}
+  <span className="absolute inset-0">
+    <span className="absolute w-48 h-48 bg-white rounded-full blur-3xl animate-roam-1"></span>
+    <span className="absolute w-48 h-48 bg-white rounded-full blur-2xl animate-roam-2"></span>
+  </span>
+
+  {/* Button Text */}
+  <span className="relative z-10 inline-block tracking-wide uppercase font-mono">
+    🎭 Performing Arts 🎶
+  </span>
+</button>
+
+
                 {openSection === "performing" && (
                   <div className="relative p-6 text-white rounded-lg shadow-lg overflow-hidden min-h-[600px]">
                     {/* Background for Performing */}
@@ -548,7 +515,9 @@ By Jonathen Whitford</p>
                         Performing has always been a cornerstone of my life, and
                         music is one of my greatest passions.
                       </p>
-                      <p className="text-2xl">Some Wonderful experiences i've had performing include:</p>
+                      <p className="text-2xl">
+                        Some Wonderful experiences i've had performing include:
+                      </p>
                       <ul className="list-disc list-inside text-2xl mt-2 mb-4">
                         <li>
                           Performing at weddings and local LGBTQ+ events with
@@ -565,13 +534,19 @@ By Jonathen Whitford</p>
                       </ul>
 
                       <p className="text-xl leading-relaxed">
-  One of the most thrilling experiences was my role in{" "}
-  <em>Cabaret the Musical</em>, where I played the characters of Herman, Max, and Sailor. <br/>
-  This is our last weekend performing{" "}
-  <em>A Christmas Carol</em>, where I play Fred—the <em>wonderfully British</em> nephew of dear old Uncle Scrooge. <br/>
-  Tickets are available at the link below. Don’t miss out on this festive experience! <br/>
-  Up next, I’m excited to be featured on an up-and-coming artist’s album and to start more work on my own music. Stay tuned for what’s to come!
-</p>
+                        One of the most thrilling experiences was my role in{" "}
+                        <em>Cabaret the Musical</em>, where I played the
+                        characters of Herman, Max, and Sailor. <br />
+                        This is our last weekend performing{" "}
+                        <em>A Christmas Carol</em>, where I play Fred—the{" "}
+                        <em>wonderfully British</em> nephew of dear old Uncle
+                        Scrooge. <br />
+                        Tickets are available at the link below. Don’t miss out
+                        on this festive experience! <br />
+                        Up next, I’m excited to be featured on an up-and-coming
+                        artist’s album and to start more work on my own music.
+                        Stay tuned for what’s to come!
+                      </p>
 
                       {/* Ticket Link Dropdown */}
                       <div className="mt-6">
@@ -589,7 +564,10 @@ By Jonathen Whitford</p>
                           </option>
                           {/* Add more performance options as needed */}
                         </select>
-                        <p className="mt-3">Select A Song to Watch me Perform it in the video below!</p>
+                        <p className="mt-3">
+                          Select A Song to Watch me Perform it in the video
+                          below!
+                        </p>
                       </div>
 
                       {/* Video Cards */}
@@ -603,9 +581,16 @@ By Jonathen Whitford</p>
                             )
                           }
                         >
-                          <h3 className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 text-transparent bg-clip-text shadow-lg rounded-2xl p-6 cursor-pointer hover:scale-105 hover:shadow-red-700 transform transition-transform duration-300 text-2xl font-extrabold tracking-wider uppercase">
-                            Cabaret Musical Performance
-                          </h3>
+<h3
+  className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 
+  text-transparent bg-clip-text shadow-lg rounded-2xl p-3 sm:p-4 md:p-6 
+  cursor-pointer hover:scale-105 hover:shadow-red-700 
+  transform transition-transform duration-300 
+  text-sm sm:text-base md:text-lg lg:text-2xl font-extrabold tracking-wider uppercase"
+>
+  Cabaret Musical Performance
+</h3>
+
                         </div>
 
                         {/* Beautiful Things - Benson Boone */}
@@ -613,9 +598,16 @@ By Jonathen Whitford</p>
                           className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
                           onClick={() => setSelectedVideo("instagram3")}
                         >
-                          <h3 className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 text-transparent bg-clip-text shadow-lg rounded-2xl p-6 cursor-pointer hover:scale-105 hover:shadow-orange-700 transform transition-transform duration-300 text-2xl font-extrabold tracking-wider uppercase">
-                            Beautiful Things - Benson Boone
-                          </h3>
+<h3
+  className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 
+  text-transparent bg-clip-text shadow-lg rounded-2xl p-3 sm:p-4 md:p-6 
+  cursor-pointer hover:scale-105 hover:shadow-orange-700 
+  transform transition-transform duration-300 
+  text-sm sm:text-base md:text-lg lg:text-2xl font-extrabold tracking-wider uppercase"
+>
+  Beautiful Things - Benson Boone
+</h3>
+
                         </div>
 
                         {/* You - Miley Cyrus */}
@@ -623,9 +615,16 @@ By Jonathen Whitford</p>
                           className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
                           onClick={() => setSelectedVideo("instagram2")}
                         >
-                          <h3 className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 text-transparent bg-clip-text shadow-lg rounded-2xl p-6 cursor-pointer hover:scale-105 hover:shadow-yellow-700 transform transition-transform duration-300 text-2xl font-extrabold tracking-wider uppercase">
-                            You - Miley Cyrus
-                          </h3>
+<h3
+  className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 
+  text-transparent bg-clip-text shadow-lg rounded-2xl p-3 sm:p-4 md:p-6 
+  cursor-pointer hover:scale-105 hover:shadow-yellow-700 
+  transform transition-transform duration-300 
+  text-sm sm:text-base md:text-lg lg:text-2xl font-extrabold tracking-wider uppercase"
+>
+  You - Miley Cyrus
+</h3>
+
                         </div>
 
                         {/* Somebody - Jelly Roll */}
@@ -633,7 +632,11 @@ By Jonathen Whitford</p>
                           className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
                           onClick={() => setSelectedVideo("instagram1")}
                         >
-                          <h3 className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 text-transparent bg-clip-text shadow-lg rounded-2xl p-6 cursor-pointer hover:scale-105 hover:shadow-green-700 transform transition-transform duration-300 text-2xl font-extrabold tracking-wider uppercase">
+                          <h3   className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 
+  text-transparent bg-clip-text shadow-lg rounded-2xl p-3 sm:p-4 md:p-6 
+  cursor-pointer hover:scale-105 hover:shadow-yellow-700 
+  transform transition-transform duration-300 
+  text-sm sm:text-base md:text-lg lg:text-2xl font-extrabold tracking-wider uppercase">
                             Somebody - Jelly Roll
                           </h3>
                         </div>
@@ -643,7 +646,11 @@ By Jonathen Whitford</p>
                           className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
                           onClick={() => setSelectedVideo("instagram4")}
                         >
-                          <h3 className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 text-transparent bg-clip-text shadow-lg rounded-2xl p-6 cursor-pointer hover:scale-105 hover:shadow-blue-700 transform transition-transform duration-300 text-2xl font-extrabold tracking-wider uppercase">
+                          <h3   className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 
+  text-transparent bg-clip-text shadow-lg rounded-2xl p-3 sm:p-4 md:p-6 
+  cursor-pointer hover:scale-105 hover:shadow-yellow-700 
+  transform transition-transform duration-300 
+  text-sm sm:text-base md:text-lg lg:text-2xl font-extrabold tracking-wider uppercase">
                             Haunted House - Christina Aguilera
                           </h3>
                         </div>
@@ -653,7 +660,11 @@ By Jonathen Whitford</p>
                           className="bg-black text-center  rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
                           onClick={() => setSelectedVideo("instagram5")}
                         >
-                          <h3 className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 text-transparent bg-clip-text shadow-lg rounded-2xl p-6 cursor-pointer hover:scale-105 hover:shadow-purple-700 transform transition-transform duration-300 text-2xl font-extrabold tracking-wider uppercase">
+                          <h3   className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 
+  text-transparent bg-clip-text shadow-lg rounded-2xl p-3 sm:p-4 md:p-6 
+  cursor-pointer hover:scale-105 hover:shadow-yellow-700 
+  transform transition-transform duration-300 
+  text-sm sm:text-base md:text-lg lg:text-2xl font-extrabold tracking-wider uppercase">
                             Too Sweet - Hozier
                           </h3>
                         </div>
@@ -722,7 +733,7 @@ By Jonathen Whitford</p>
                           </div>
                         ) : selectedVideo ? (
                           // Regular Video Embed (e.g., Vimeo)
-                          
+
                           <iframe
                             src={selectedVideo}
                             frameBorder="0"
@@ -745,12 +756,27 @@ By Jonathen Whitford</p>
 
               {/* Dropdown for Passion for Software Engineering */}
               <div>
-                <button
-                  className="w-full text-center bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-6 text-2xl mb-3  rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-700 hover:to-pink-700"
-                  onClick={() => toggleSection("technology")}
-                >
-                  Software Engineering
-                </button>
+              <button
+  className="w-full text-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white py-4 px-6 text-2xl mb-3 rounded-lg shadow-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-blue-400/50 relative"
+  onClick={() => toggleSection("technology")}
+>
+  {/* Mobile Text */}
+  <span
+    className="block sm:hidden font-mono tracking-widest text-lg animate-typing overflow-hidden whitespace-nowrap border-r-2 border-white"
+  >
+    {"< Developer />"}
+  </span>
+
+  {/* Larger Screen Text */}
+  <span
+    className="hidden sm:inline-block font-mono tracking-widest w-[17ch] animate-typing overflow-hidden whitespace-nowrap border-r-2 border-white"
+  >
+    {"< Software Engineering />"}
+  </span>
+</button>
+
+
+
                 {openSection === "technology" && (
                   <div className="relative p-6 text-white rounded-lg shadow overflow-hidden min-h-[500px]">
                     {/* Fire Animation Background */}
