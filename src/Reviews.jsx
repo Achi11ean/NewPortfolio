@@ -10,7 +10,9 @@ export default function Reviews({ triggerEmojis }) {
   const reviewsPerPage = 12; // Reviews per page
   const indexOfLastReview = currentPage * reviewsPerPage;
   const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
-
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(""); // For pop-up message
+  
   const [loading, setLoading] = useState(true);
   const [selectedReview, setSelectedReview] = useState(null);
   const [showForm, setShowForm] = useState(false);
@@ -118,10 +120,11 @@ export default function Reviews({ triggerEmojis }) {
   
       if (!response.ok) throw new Error(result.error || "Failed to add review");
   
-      alert("Review submitted and pending approval!"); // Notify the user
-      
-      // Do NOT add the review directly to state
-      // Wait for the backend GET request (useEffect) to fetch approved reviews
+      // Show success pop-up
+      setSuccessMessage("Your review has been submitted and is pending approval!");
+      setShowSuccessPopup(true);
+  
+      // Reset form and close it
       setFormData({
         name: "",
         rating: "",
@@ -138,6 +141,7 @@ export default function Reviews({ triggerEmojis }) {
       setError(err.message);
     }
   };
+  
   
   const { user, token } = useAuth();
   const currentReviews = filteredReviews.slice(indexOfFirstReview, indexOfLastReview);
@@ -194,6 +198,28 @@ export default function Reviews({ triggerEmojis }) {
   onClick={() => setShowForm((prev) => !prev)} // Toggle form visibility
   className="w-64  bg-gradient-to-r from-black to-red-800 text-white text-lg font-bold rounded-lg shadow-md  transition-all duration-300"
 >
+{showSuccessPopup && (
+  <div
+  className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 transition-opacity duration-300 ease-in-out"
+  style={{ opacity: showSuccessPopup ? 1 : 0 }}
+      onClick={() => setShowSuccessPopup(false)} // Close popup on background click
+  >
+    <div
+      className="bg-white p-6 rounded-lg shadow-lg text-center"
+      onClick={(e) => e.stopPropagation()} // Prevent closing on content click
+    >
+      <h2 className="text-2xl font-semibold text-green-600 mb-2">Success!</h2>
+      <p className="text-gray-700">{successMessage}</p>
+      <button
+        className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+        onClick={() => setShowSuccessPopup(false)}
+      >
+        Awesome!
+      </button>
+    </div>
+  </div>
+)}
+
   {showForm ? "Hide Form" : "Share Your Experience ✨"}
 </button>
 <br/>
