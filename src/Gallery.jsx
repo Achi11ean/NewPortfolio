@@ -244,34 +244,40 @@ const Gallery = () => {
       </div>
 
       {/* Modal for Selected Photo */}
-      {/* Modal for Selected Photo */}
       {selectedPhoto && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50" // Add z-50
-        >
-          <div className="relative bg-gray-800 p-6 max-w-3xl max-h-[90vh] overflow-hidden flex flex-col rounded-lg shadow-lg">
-            <button
-              onClick={() => setSelectedPhoto(null)}
-              className="absolute top-2 right-2 bg-red-600 text-white rounded-full px-3 py-1"
-            >
-              &times;
-            </button>
-            <img
-              src={selectedPhoto.image_url}
-              alt={selectedPhoto.caption}
-              className="w-full h-auto max-w-3xl max-h-[60vh] rounded-lg"
-            />
-            <div className="text-center mt-4">
-              <div className="text-md font-bold max-h-24 overflow-y-auto break-words px-2">
-                {selectedPhoto.caption}
-              </div>
+  <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50">
+    {/* Modal Content */}
+    <div className="relative bg-gray-800 p-6 max-w-3xl w-[90%] max-h-[90vh] overflow-y-auto flex flex-col rounded-lg shadow-lg">
+      {/* Close Button */}
+      <button
+        onClick={() => setSelectedPhoto(null)}
+        className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center shadow-md"
+        aria-label="Close"
+      >
+        &times;
+      </button>
 
-              <p>Category: {selectedPhoto.category || "Uncategorized"}</p>
-              <p>Type: {selectedPhoto.photo_type || "No Type"}</p>
-            </div>
-          </div>
+      {/* Image */}
+      <div className="flex items-center justify-center">
+        <img
+          src={selectedPhoto.image_url}
+          alt={selectedPhoto.caption}
+          className="w-full max-h-[50vh] object-contain rounded-lg"
+        />
+      </div>
+
+      {/* Caption & Details */}
+      <div className="text-center mt-4 text-white">
+        <div className="text-md font-bold max-h-24 overflow-y-auto break-words px-2">
+          {selectedPhoto.caption}
         </div>
-      )}
+        <p className="mt-2">Category: {selectedPhoto.category || "Uncategorized"}</p>
+        <p>Type: {selectedPhoto.photo_type || "No Type"}</p>
+      </div>
+    </div>
+  </div>
+)}
+
       <br />
       {/* Message Display */}
       {message && (
