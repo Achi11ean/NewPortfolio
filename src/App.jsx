@@ -298,10 +298,10 @@ export default function App() {
   Hi! I'm <span className="text-white font-bold">Jonathen</span>, a software engineer with a passion for creating
   <span className="text-red-300 font-bold"> user-centric web applications.</span>
   <br />
-  <br />
+
   Explore the tabs to learn more about my projects, passion, and professional journey. On the last tab, you can use the contact form to send me an inquiry, or visit the Services tab to book and pay for services directly through my portfolio! I look forward to connecting with you!
   <br />
-  <br />
+
   This website was built using{" "}
   <span className="text-blue-600 font-bold">React</span> and{" "}
   <span className="text-green-300 font-bold">Vite</span> for fast development, styled with{" "}
