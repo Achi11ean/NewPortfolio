@@ -259,7 +259,7 @@ const Gallery = () => {
             <img
               src={selectedPhoto.image_url}
               alt={selectedPhoto.caption}
-              className="w-full h-auto max-w-3xl rounded-lg"
+              className="w-full h-auto max-w-3xl max-h-[60vh] rounded-lg"
             />
             <div className="text-center mt-4">
               <div className="text-md font-bold max-h-24 overflow-y-auto break-words px-2">
