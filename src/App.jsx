@@ -93,7 +93,7 @@ export default function App() {
               }}
             >
               🎟️ Buy Tickets to{" "}
-              <span className="mx-1 text-yellow-300">A Christmas Carol</span>{" "}
+              <span className="mx-1 text-black">A Christmas Carol</span>{" "}
               Now! 🎄
             </a>
           </div>
