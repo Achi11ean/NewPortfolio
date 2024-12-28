@@ -60,7 +60,6 @@ export default function App() {
   style={{
     backgroundImage: "url('https://dl-file.cyberlink.com/web/upload-file/learning-center/enu/2022/12/Thumbnail_20221215224644129.gif')",
     backgroundPosition: "center  top 450px", // Adjust the vertical position
-    backgroundSize: "contain"
   }}
 >
 
