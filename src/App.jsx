@@ -55,10 +55,15 @@ export default function App() {
   }, [selectedVideo]);
 
   return (
-    <div
-      className="relative min-h-screen bg-cover bg-center bg-no-repeat text-white overflow-auto"
-      style={{ backgroundImage: "url('christmas.webp')" }}
-    >
+<div
+  className="relative min-h-screen bg-cover bg-center bg-no-repeat text-white overflow-auto"
+  style={{
+    backgroundImage: "url('https://dl-file.cyberlink.com/web/upload-file/learning-center/enu/2022/12/Thumbnail_20221215224644129.gif')",
+    backgroundPosition: "center  top 450px", // Adjust the vertical position
+    backgroundSize: "contain"
+  }}
+>
+
       <div className="absolute inset-0 bg-gray-600 opacity-50 pointer-events-none"></div>
       <div className="relative w-full pb-20">
         {" "}
