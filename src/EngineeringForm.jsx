@@ -282,6 +282,7 @@ export default function EngineeringForm() {
             value={formData.price}
             onChange={handleChange}
             className="w-full p-2 border rounded bg-gray-800 text-black"
+            required
           />
         </div>
 
