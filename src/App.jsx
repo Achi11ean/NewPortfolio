@@ -85,7 +85,7 @@ export default function App() {
             By Jonathen Whitford
           </p>
 
-          <div className="mt-6 flex justify-center">
+          {/* <div className="mt-6 flex justify-center">
             <a
               href="https://www.connecticuttheatrecompany.org/box-office/"
               target="_blank"
@@ -100,7 +100,7 @@ export default function App() {
               <span className="mx-1 text-black">A Christmas Carol</span>{" "}
               Now! 🎄
             </a>
-          </div>
+          </div> */}
 
 
 
