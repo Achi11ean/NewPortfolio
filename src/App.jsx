@@ -324,13 +324,47 @@ export default function App() {
 
               {/* Project Cards */}
               <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+
+
+              <div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
+  <div className="relative w-full h-52 overflow-hidden rounded-md">
+    <img
+      src="https://i.imgur.com/UjDeUSH.jpeg"
+      alt="Golden Hour Photography Screenshot"
+      className="w-full h-full object-cover object-top rounded-md transition-transform duration-300 group-hover:scale-110"
+    />
+    <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <p className="text-center text-sm px-2">
+        A stunning photography portfolio showcasing artistic talent and 
+        professional offerings, designed with a focus on aesthetics and user 
+        experience.
+      </p>
+    </div>
+  </div>
+  <h3 className="text-xl text-gray-600 font-semibold mt-4">
+    Golden Hour Photography
+  </h3>
+  <p className="mt-2 text-sm text-gray-600">
+    React, Vite, Tailwind CSS
+  </p>
+  <a
+    href="https://jwhitproductionsphotography.netlify.app/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
+  >
+    Visit Site
+  </a>
+</div>
+
                 {/* Ink Haven by Jwhit Productions */}
                 <div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
+                  
                   <div className="relative w-full h-52 overflow-hidden rounded-md">
                     <img
                       src="InkHaven.png" // Replace with the actual image path for Ink Haven
                       alt="Ink Haven Screenshot"
-                      className="w-full h-full object-cover rounded-md transition-transform duration-300 group-hover:scale-110"
+                      className="w-full h-full object-cover object-top rounded-md transition-transform duration-300 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <p className="text-center text-sm px-2">
@@ -361,7 +395,7 @@ export default function App() {
                     <img
                       src="/gweather.png"
                       alt="Gweather Screenshot"
-                      className="w-full h-62 object-cover rounded-md transition-transform duration-300 group-hover:scale-110"
+                      className="w-full h-62 object-cover object-top rounded-md transition-transform duration-300 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <p className="text-center text-sm px-2">
@@ -447,7 +481,7 @@ export default function App() {
                     <img
                       src="/Prismm.png"
                       alt="PRISM Screenshot"
-                      className="w-full h-full object-cover rounded-md transition-transform duration-300 group-hover:scale-110"
+                      className="w-full h-full object-cover object-top rounded-md transition-transform duration-300 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <p className="text-center text-sm px-2">
