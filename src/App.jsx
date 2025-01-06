@@ -342,7 +342,7 @@ export default function App() {
     </div>
   </div>
   <h3 className="text-xl text-gray-600 font-semibold mt-4">
-    Golden Hour Photography
+    Amara's PhotoHut
   </h3>
   <p className="mt-2 text-sm text-gray-600">
     React, Vite, Tailwind CSS
