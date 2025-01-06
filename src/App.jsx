@@ -139,7 +139,7 @@ export default function App() {
         { tab: "gallery", label: "Gallery" },
         { tab: "contact", label: "Contact" },
         { tab: "admin-dashboard", label: "Admin Dashboard", adminOnly: true },
-        { tab: "admin-signin", label: token ? "Sign Out" : "Admin" },
+        { tab: "admin-signin", label: token ? "Sign In" : "Admin" },
       ].map(
         ({ tab, label, adminOnly }) =>
           (!adminOnly || user?.is_admin) && (
@@ -177,7 +177,7 @@ export default function App() {
       { tab: "gallery", label: "Gallery" },
       { tab: "contact", label: "Contact" },
       { tab: "admin-dashboard", label: "Admin Dashboard", adminOnly: true },
-      { tab: "admin-signin", label: token ? "Sign Out" : "Admin" },
+      { tab: "admin-signin", label: token ? "Sign In" : "Admin" },
     ].map(
       ({ tab, label, adminOnly }) =>
         (!adminOnly || user?.is_admin) && (
