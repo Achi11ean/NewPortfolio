@@ -58,7 +58,7 @@ export default function App() {
 <div
   className="relative min-h-screen bg-cover bg-center bg-no-repeat text-white overflow-auto"
   style={{
-    backgroundImage: "url('https://dl-file.cyberlink.com/web/upload-file/learning-center/enu/2022/12/Thumbnail_20221215224644129.gif')",
+    backgroundImage: "url('https://images.pexels.com/photos/1552212/pexels-photo-1552212.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
     backgroundPosition: "center  top 450px", // Adjust the vertical position
   }}
 >
