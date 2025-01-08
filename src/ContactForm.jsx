@@ -132,7 +132,7 @@ export default function ContactForm() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded-2xl"
+            className="w-full p-2 border text-center rounded-2xl"
           />
         </div>
         <div>
