@@ -122,7 +122,7 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-gray-700">
+          <label htmlFor="email" className="block text-center text-gray-700">
             Email
           </label>
           <input
@@ -132,7 +132,7 @@ export default function ContactForm() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full p-2 border text-center rounded-2xl"
+            className="w-full p-2 border rounded-2xl"
           />
         </div>
         <div>
