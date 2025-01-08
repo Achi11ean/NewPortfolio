@@ -997,6 +997,7 @@ export default function App() {
         >
           {showContactInfo ? "Hide Contact Form" : "Get in Touch"}
         </div>
+        <br/>
         {showContactInfo && (
           <div className="mb-4">
             <ContactForm />

@@ -79,7 +79,6 @@ export default function ContactForm() {
 
   return (
     <div className="bg-gray-100 p-6 rounded-lg shadow-lg max-w-md mx-auto">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Message Me</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="firstName" className="block text-gray-700">
