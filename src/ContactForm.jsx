@@ -106,7 +106,7 @@ export default function ContactForm() {
             value={formData.lastName}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded text-black"
+            className="w-full p-2 border rounded bg-gray-700 text-white"
           />
         </div>
         <div>
@@ -119,7 +119,7 @@ export default function ContactForm() {
             id="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="w-full p-2 border rounded text-black"
+            className="w-full p-2 border rounded bg-gray-700 text-white"
           />
         </div>
         <div>
@@ -133,7 +133,7 @@ export default function ContactForm() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded text-black"
+            className="w-full p-2 border rounded bg-gray-700 text-white"
           />
         </div>
         <div>
@@ -146,7 +146,7 @@ export default function ContactForm() {
             value={formData.message}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded text-black"
+            className="w-full p-2 border rounded bg-gray-700 text-white"
           />
         </div>
         <button
