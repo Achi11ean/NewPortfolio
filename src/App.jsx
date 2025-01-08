@@ -946,70 +946,63 @@ export default function App() {
               </div>
             </div>
           )}
-{activeTab === "contact" && (
-  <div className="relative p-6 text-white text-3xl font-bold rounded-lg shadow overflow-hidden">
-    {/* Background Animation */}
-    <div className="absolute inset-0 z-0 bg-[url('/beach.webp')] bg-cover bg-center opacity-50"></div>
 
-    {/* Content */}
-    <div className="relative z-10 p-6 bg-black/50 rounded-lg">
-      {/* Cards for Dropdown Options */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        {/* Performance Booking Card */}
-        {user?.is_admin && (
-          <div
-            onClick={() => setShowPerformanceForm(!showPerformanceForm)}
-            className="cursor-pointer p-4 rounded-lg bg-gradient-to-r from-green-500 to-blue-500 text-white text-center font-bold shadow-lg hover:scale-105 transition-transform"
-          >
-            {showPerformanceForm
-              ? "Hide Performance Booking"
-              : "Performance Booking"}
-          </div>
-        )}
+          {activeTab === "contact" && (
+            <div className="relative p-6 text-white  text-3xl font-bold rounded-lg shadow overflow-hidden">
+              {/* Background Animation */}
+              <div className="absolute inset-0 z-0 bg-[url('/beach.webp')] bg-cover bg-center opacity-50"></div>
 
-        {/* Engineering Booking Card */}
-        {user?.is_admin && (
-          <div
-            onClick={() => setShowEngineeringForm(!showEngineeringForm)}
-            className="cursor-pointer p-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-500 text-white text-center font-bold shadow-lg hover:scale-105 transition-transform"
-          >
-            {showEngineeringForm
-              ? "Hide Engineering Booking"
-              : "Engineering Booking"}
-          </div>
-        )}
+              {/* Content */}
+              <div className="relative z-10 p-6 bg-black/50 rounded-lg">
+                {/* Cards for Dropdown Options */}
+                <div className=" mb-10">             {/* Performance Booking Card */}
+                  <div
+                    onClick={() => setShowPerformanceForm(!showPerformanceForm)}
+                    className="cursor-pointer p-4 rounded-lg bg-gradient-to-r from-green-500 to-blue-500 text-white text-center font-bold shadow-lg hover:scale-105 transition-transform"
+                  >
+                    {showPerformanceForm
+                      ? "Hide Performance Booking"
+                      : "Performance Booking"}
+                      
+                  </div> <br/>
+                  {showPerformanceForm && (
+                    <div className="mb-4">
+                      <PerformanceForm />
+                    </div>
+                  )}
+                  {/* Engineering Booking Card */}
+                  <div
+                    onClick={() => setShowEngineeringForm(!showEngineeringForm)}
+                    className="cursor-pointer p-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-500 text-white text-center font-bold shadow-lg hover:scale-105 transition-transform"
+                  >
+                    {showEngineeringForm
+                      ? "Hide Engineering Booking"
+                      : "Engineering Booking"}
+                  </div><br/>                  {showEngineeringForm && (
+                    <div className="mb-4">
+                      <EngineeringForm />
+                    </div>
+                  )}
+                  {/* Contact Info Card */}
+                  <div
+                    onClick={() => setShowContactInfo(!showContactInfo)}
+                    className="cursor-pointer p-4 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center font-bold shadow-lg hover:scale-105 transition-transform"
+                  >
+                    {showContactInfo ? "Hide Contact Form" : "Get in Touch"}
+                  </div>
+<br/>
+                  {showContactInfo && (
+                    <div className="mb-4">
+                      <ContactForm />
+                    </div>
+                  )}
+                </div>
 
-        {/* Contact Info Card */}
-        <div
-          onClick={() => setShowContactInfo(!showContactInfo)}
-          className="cursor-pointer p-4 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center font-bold shadow-lg hover:scale-105 transition-transform"
-        >
-          {showContactInfo ? "Hide Contact Form" : "Get in Touch"}
-        </div>
-      </div>
+                {/* Content for Selected Dropdown */}
 
-      {/* Content for Selected Dropdown */}
-      <div className="mt-6">
-        {showPerformanceForm && user?.is_admin && (
-          <div className="mb-4">
-            <PerformanceForm />
-          </div>
-        )}
-        {showEngineeringForm && user?.is_admin && (
-          <div className="mb-4">
-            <EngineeringForm />
-          </div>
-        )}
-        {showContactInfo && (
-          <div className="mb-4">
-            <ContactForm />
-          </div>
-        )}
-      </div>
-    </div>
-  </div>
-)}
-
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

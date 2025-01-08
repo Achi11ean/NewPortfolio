@@ -7,7 +7,6 @@ export default function EngineeringForm() {
     clientEmail: "",
     clientPhone: "",
     projectName: "",
-    projectManager: "",
     projectType: "",
     projectStartDate: "",
     projectEndDate: "",
@@ -79,7 +78,6 @@ export default function EngineeringForm() {
               clientEmail: formData.clientEmail,
               clientPhone: formData.clientPhone,
               projectName: formData.projectName,
-              projectManager: formData.projectManager,
               projectType: formData.projectType,
               projectStartDate: formattedStartDate,
               projectEndDate: formattedEndDate,
@@ -97,7 +95,6 @@ export default function EngineeringForm() {
                 clientEmail: "",
                 clientPhone: "",
                 projectName: "",
-                projectManager: "",
                 projectType: "",
                 projectStartDate: "",
                 projectEndDate: "",
@@ -137,7 +134,7 @@ export default function EngineeringForm() {
             value={formData.clientName}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
           />
         </div>
 
@@ -153,7 +150,7 @@ export default function EngineeringForm() {
             value={formData.clientEmail}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
           />
         </div>
 
@@ -168,7 +165,7 @@ export default function EngineeringForm() {
             id="clientPhone"
             value={formData.clientPhone}
             onChange={handleChange}
-            className="w-full p-2 border rounded bg-gray-800 text-gray-700"
+            className="w-full p-2 border rounded-xl bg-gray-800 text-gray-700"
           />
         </div>
 
@@ -184,24 +181,11 @@ export default function EngineeringForm() {
             value={formData.projectName}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-black"
+            className="w-full p-2 border rounded-xl bg-gray-800 text-black"
           />
         </div>
 
-        {/* Project Manager */}
-        <div>
-          <label htmlFor="projectManager" className="block text-gray-700">
-            Project Manager
-          </label>
-          <input
-            type="text"
-            name="projectManager"
-            id="projectManager"
-            value={formData.projectManager}
-            onChange={handleChange}
-            className="w-full p-2 border rounded bg-gray-800 text-black"
-          />
-        </div>
+
 
         {/* Project Type */}
         <div>
@@ -214,7 +198,7 @@ export default function EngineeringForm() {
             value={formData.projectType}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-black"
+            className="w-full p-2 border rounded-xl bg-gray-800 text-black"
           >
             <option value="">Select a Service Type</option>
             <option value="New Website">New Website</option>
@@ -235,7 +219,7 @@ export default function EngineeringForm() {
             value={formData.projectStartDate}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-black"
+            className="w-full p-2 border rounded-xl bg-gray-800 text-black"
           />
         </div>
 
@@ -251,7 +235,7 @@ export default function EngineeringForm() {
             value={formData.projectEndDate}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded bg-gray-800 text-black"
+            className="w-full p-2 border rounded-xl bg-gray-800 text-black"
           />
         </div>
 
@@ -273,7 +257,7 @@ export default function EngineeringForm() {
         {/* Price */}
         <div>
           <label htmlFor="price" className="block text-gray-700">
-            Price
+            Budget Limit
           </label>
           <input
             type="number"
