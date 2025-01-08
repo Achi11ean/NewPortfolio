@@ -950,7 +950,7 @@ export default function App() {
           {activeTab === "contact" && (
             <div className="relative p-6 text-white  text-3xl font-bold rounded-lg shadow overflow-hidden">
               {/* Background Animation */}
-              <div className="absolute inset-0 z-0 bg-[url('/beach.webp')] bg-cover bg-center opacity-50"></div>
+              <div className="absolute inset-0 z-0 bg-[url('https://burst.shopifycdn.com/photos/contact-us-flatlay.jpg?width=1000&format=pjpg&exif=0&iptc=0')] bg-cover bg-center "></div>
 
               {/* Content */}
               <div className="relative z-10 p-6 bg-black/50 rounded-lg">
