@@ -49,7 +49,7 @@ export default function ContactForm() {
         emailjs
           .send(
             "service_ud7473n", // Replace with your EmailJS service ID
-            "template_0ab1aa9", // Replace with your EmailJS template ID
+            "template_453lw8g", // Replace with your EmailJS template ID
             formData,
             "BDPsT3cNRMnCg-OaU" // Replace with your EmailJS public key
           )
