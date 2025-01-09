@@ -712,8 +712,8 @@ export default function Admin() {
   
   return (
     <div className="p-6">
-<div className="bg-white p-6 rounded-full shadow-md">
-  <h1 className="text-8xl text-center font-extrabold mb-6 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent drop-shadow-md font-[Aspire]">
+<div className="bg-white p-6 rounded-lg shadow-md">
+  <h1 className="text-4xl sm:text-6xl lg:text-8xl text-center font-extrabold mb-6 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent drop-shadow-md font-[Aspire]">
     Admin Dashboard
   </h1>
 </div>
