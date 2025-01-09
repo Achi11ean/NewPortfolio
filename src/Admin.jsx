@@ -719,9 +719,7 @@ export default function Admin() {
 </div>
 
 
-      <section className="mb-6">
   <Calendar token={token} />
-</section>
 
       {/* Revenue Totals */}
       <div className="mb-6">
