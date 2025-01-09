@@ -1,194 +1,150 @@
-import React, { useState } from "react";
-import emailjs from "emailjs-com";
+import React, { useState, useEffect } from "react";
 
-export default function PerformanceForm() {
-  const [formData, setFormData] = useState({
-    clientName: "",
-    clientEmail: "",
-    clientPhone: "",
-    eventName: "",
-    eventType: "",
-    eventDateTime: "",
-    location: "",
-    guests: "",
-    specialRequests: "",
-    priceRange: "",
-  });
+export default function PerformanceForm({ existingData = null, onSuccess }) {
+  const [formData, setFormData] = useState(
+    existingData || {
+      contactId: "", // New field for selecting a contact
+      eventName: "",
+      eventType: "",
+      eventDateTime: "",
+      location: "",
+      guests: "",
+      specialRequests: "",
+      price: "",
+      status: "Pending", // Default status
+    }
+  );
 
+  const [contacts, setContacts] = useState([]); // Store list of contacts
   const [status, setStatus] = useState("");
 
-  const formatPhoneNumber = (value) => {
-    const numericValue = value.replace(/\D/g, "");
-    const formattedValue = numericValue
-      .slice(0, 10)
-      .replace(/(\d{3})(\d{3})(\d{1,4})/, (_, area, prefix, line) => {
-        return `(${area}) ${prefix}-${line}`;
-      });
-    return formattedValue;
-  };
-
-  const formatDate = (dateString) => {
-    const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", options);
-  };
+  // Fetch contacts from the backend
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/contacts")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch contacts");
+        }
+        return response.json();
+      })
+      .then((data) => setContacts(data))
+      .catch((error) => console.error("Error fetching contacts:", error));
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    if (name === "clientPhone") {
-      setFormData({ ...formData, [name]: formatPhoneNumber(value) });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    const formattedDateTime = formatDate(formData.eventDateTime);
-  
-    // Save to Flask Backend
-    fetch("https://portfoliobackend-ih6t.onrender.com/performance-bookings", {
-      method: "POST",
+
+    // Determine the API endpoint and method
+    const apiUrl = existingData
+      ? `http://127.0.0.1:5000/performance-bookings/${existingData.id}`
+      : "http://127.0.0.1:5000/performance-bookings";
+    const method = existingData ? "PATCH" : "POST";
+
+    fetch(apiUrl, {
+      method,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        ...formData,
-        eventDateTime: formattedDateTime, // Format the date
-      }),
+      body: JSON.stringify(formData),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to save or update booking");
+        }
+        return response.json();
+      })
       .then((data) => {
-        console.log("Saved to backend:", data);
-  
-        // Send the email via EmailJS
-        emailjs
-          .send(
-            "service_ud7473n", // Replace with your EmailJS service ID
-            "template_lv1nzud", // Replace with your EmailJS template ID
-            {
-              clientName: formData.clientName,
-              clientEmail: formData.clientEmail,
-              clientPhone: formData.clientPhone,
-              eventName: formData.eventName,
-              eventType: formData.eventType,
-              eventDateTime: formattedDateTime,
-              location: formData.location,
-              guests: formData.guests,
-              specialRequests: formData.specialRequests,
-              priceRange: formData.priceRange,
-            },
-            "BDPsT3cNRMnCg-OaU" // Replace with your EmailJS public key
-          )
-          .then(
-            (result) => {
-              setStatus("Booking request sent successfully!");
-              setFormData({
-                clientName: "",
-                clientEmail: "",
-                clientPhone: "",
-                eventName: "",
-                eventType: "",
-                eventDateTime: "",
-                location: "",
-                guests: "",
-                specialRequests: "",
-                priceRange: "",
-              });
-            },
-            (error) => {
-              console.error("EmailJS error:", error);
-              setStatus("Failed to send the booking request. Please try again later.");
-            }
-          );
+        if (onSuccess) {
+          onSuccess(data.booking); // Callback to refresh the list or update the UI
+        }
+        setStatus(
+          existingData
+            ? "Booking updated successfully!"
+            : "Booking created successfully!"
+        );
+        if (!existingData) {
+          setFormData({
+            contactId: "",
+            eventName: "",
+            eventType: "",
+            eventDateTime: "",
+            location: "",
+            guests: "",
+            specialRequests: "",
+            price: "",
+            status: "Pending",
+          });
+        }
       })
       .catch((error) => {
-        console.error("Backend error:", error);
+        console.error("Error:", error);
         setStatus("Failed to save the booking. Please try again later.");
       });
   };
-  
+
   return (
-    <div className="bg-gray-100 p-6 rounded-2xl shadow-lg max-w-6xl mx-auto">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Performance Booking</h2>
+    <div className="bg-gray-100 p-6 rounded-lg shadow-lg max-w-md mx-auto">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+        {existingData ? "Update Performance Booking" : "Create Performance Booking"}
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Client Name */}
+        {/* Select Contact */}
         <div>
-          <label htmlFor="clientName" className="block text-center text-gray-700">
-            Client Information
+          <label htmlFor="contactId" className="block text-gray-700">
+            Select Contact
           </label>
-          <input
-            type="text"
-            name="clientName"
-            placeholder="First Name, Last Name"
-            id="clientName"
-            value={formData.clientName}
+          <select
+            name="contactId"
+            id="contactId"
+            value={formData.contactId}
             onChange={handleChange}
             required
-            className="w-full p-2 border text-center rounded-2xl bg-gray-800 text-white"
-          />
-        </div>
-
-        {/* Client Email */}
-        <div>
-
-          <input
-            type="email"
-            name="clientEmail"
-            placeholder="Enter Email Address "
-            id="clientEmail"
-            value={formData.clientEmail}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border text-center rounded-2xl bg-gray-800 text-white"
-          />
-        </div>
-
-        {/* Client Phone */}
-        <div>
-
-          <input
-            type="tel"
-            name="clientPhone"
-            placeholder="Enter Phone Number"
-            id="clientPhone"
-            value={formData.clientPhone}
-            onChange={handleChange}
-            className="w-full p-2 border text-center rounded-2xl bg-gray-800 text-white"
-          />
+            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
+          >
+            <option value="">Select a Contact</option>
+            {contacts.map((contact) => (
+              <option key={contact.id} value={contact.id}>
+                {`${contact.first_name} ${contact.last_name}`}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Event Name */}
         <div>
-          <label htmlFor="eventName" className="block text-center text-gray-700">
-            Event Information
+          <label htmlFor="eventName" className="block text-gray-700">
+            Event Name
           </label>
           <input
             type="text"
             name="eventName"
-            placeholder="Event Name"
             id="eventName"
             value={formData.eventName}
             onChange={handleChange}
             required
-            className="w-full p-2 border text-center rounded-2xl bg-gray-800 text-white"
+            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
           />
         </div>
 
         {/* Event Type */}
         <div>
-
+          <label htmlFor="eventType" className="block text-gray-700">
+            Event Type
+          </label>
           <select
             name="eventType"
             id="eventType"
             value={formData.eventType}
             onChange={handleChange}
             required
-            className="w-full p-2 border text-center rounded-2xl bg-gray-800 text-white"
+            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
           >
-            <option value="">Select a Service for the Event</option>
+            <option value="">Select an Event Type</option>
             <option value="Karaoke">Karaoke</option>
             <option value="DJ Services">DJ Services</option>
             <option value="Live Song Performances">Live Song Performances</option>
@@ -197,7 +153,7 @@ export default function PerformanceForm() {
 
         {/* Event Date & Time */}
         <div>
-          <label htmlFor="eventDateTime" className="block text-center text-gray-700">
+          <label htmlFor="eventDateTime" className="block text-gray-700">
             Event Date and Time
           </label>
           <input
@@ -207,72 +163,78 @@ export default function PerformanceForm() {
             value={formData.eventDateTime}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded-2xl text-center bg-gray-800 text-white"
+            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
           />
         </div>
 
         {/* Location */}
         <div>
-
+          <label htmlFor="location" className="block text-gray-700">
+            Location
+          </label>
           <input
             type="text"
-            placeholder="Address/Location"
             name="location"
             id="location"
             value={formData.location}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded-2xl text-center bg-gray-800 text-white"
+            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
           />
         </div>
 
         {/* Number of Guests */}
         <div>
+          <label htmlFor="guests" className="block text-gray-700">
+            Number of Guests
+          </label>
           <input
             type="number"
-            placeholder="Number of Guests (approx)"
             name="guests"
             id="guests"
             value={formData.guests}
             onChange={handleChange}
-            className="w-full p-2 border rounded-2xl text-center bg-gray-800 text-white"
+            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
           />
         </div>
 
         {/* Special Requests */}
         <div>
+          <label htmlFor="specialRequests" className="block text-gray-700">
+            Special Requests
+          </label>
           <textarea
             name="specialRequests"
-            placeholder="Special Requests/Accomodations: e.g. 4 microphones, special song request"
             id="specialRequests"
             value={formData.specialRequests}
             onChange={handleChange}
-            className="w-full p-2 border rounded-2xl bg-gray-800 text-white text-center"
+            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
           />
         </div>
 
-        {/* Price Range */}
+        {/* Price */}
         <div>
-          <label htmlFor="priceRange" className="block text-gray-700">
-            Budget Limit
+          <label htmlFor="price" className="block text-gray-700">
+            Price
           </label>
           <input
-            type="text"
-            name="priceRange"
-            id="priceRange"
-            value={formData.priceRange}
+            type="number"
+            name="price"
+            id="price"
+            value={formData.price}
             onChange={handleChange}
-            placeholder="400"
-            className="w-full p-2 border rounded-2xl bg-gray-800 text-white"
+            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
           />
         </div>
+
+        {/* Status */}
 
         {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
         >
-          Submit Booking Request
+          {existingData ? "Update Booking" : "Create Booking"}
         </button>
       </form>
       {status && <p className="mt-4 text-center text-gray-700">{status}</p>}

@@ -1,0 +1,104 @@
+.react-calendar {
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .react-calendar__tile {
+    max-height: 80px;
+    padding: 10px;
+    border: 1px solid #f0f0f0;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .react-calendar__tile:hover {
+    background: linear-gradient(135deg, #e0e0e0, #f8f8f8);
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+  
+  .booked-date {
+    background: linear-gradient(135deg, #ff9a8b, #fecfef);
+    border-radius: 10px;
+    color: white !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+  }
+  
+  .booked-date:hover {
+    background: linear-gradient(135deg, #ff758c, #febbda);
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  
+  /* Add styles for weekdays */
+  .react-calendar__month-view__weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: linear-gradient(135deg, #f3f4f6, #e7e9eb);
+    color: #333;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .react-calendar__month-view__weekdays__weekday {
+    font-size: 14px;
+    color: black;
+    text-transform: uppercase;
+  }
+  
+  /* Navigation styling */
+  .react-calendar__navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #ffb3c6, #ffd8b1);
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .react-calendar__navigation button {
+    color: #333;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .react-calendar__navigation button:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .react-calendar__month-view__days__day--neighboringMonth {
+    color: #bbb;
+  }
+  
+  .react-calendar__tile--now {
+    background: linear-gradient(135deg, #b3e6b5, #b3d9ff);
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+  }
+  
+  .react-calendar__tile--now:hover {
+    background: linear-gradient(135deg, #85d4aa, #85c8ff);
+  }
+  
+  .react-calendar__tile--active {
+    background: linear-gradient(135deg, #ff758c, #febbda) !important;
+    color: white !important;
+    font-weight: bold;
+    border-radius: 50%;
+  }
+  
+  .react-calendar__tile--active:hover {
+    transform: scale(1.1);
+  }
+  

@@ -10,6 +10,7 @@ import Admin from "./Admin";
 import { useAuth } from "./AuthContext";
 import Gallery from "./Gallery"; // Import the Gallery component
 import Snowfall from "./Snowfall";
+import CalendarComponent from "./Calendar";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("welcome"); // Default active tab
