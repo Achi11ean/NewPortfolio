@@ -28,8 +28,8 @@ const Gallery = () => {
     // Construct the URL properly without trailing "?"
     const queryString = queryParams.toString();
     const url = queryString
-      ? `http://127.0.0.1:5000/gallery?${queryString}`
-      : `http://127.0.0.1:5000/gallery`;
+      ? `https://portfoliobackend-ih6t.onrender.com/gallery?${queryString}`
+      : `https://portfoliobackend-ih6t.onrender.com/gallery`;
 
     fetch(url)
       .then((res) => {
@@ -58,7 +58,7 @@ const Gallery = () => {
       photo_type: photoType,
     };
 
-    fetch("http://127.0.0.1:5000/gallery", {
+    fetch("https://portfoliobackend-ih6t.onrender.com/gallery", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -90,7 +90,7 @@ const Gallery = () => {
   const handleDelete = (id) => {
     if (!window.confirm("Are you sure you want to delete this photo?")) return;
 
-    fetch(`http://127.0.0.1:5000/gallery/${id}`, {
+    fetch(`https://portfoliobackend-ih6t.onrender.com/gallery/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
