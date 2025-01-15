@@ -118,56 +118,56 @@ export default function App() {
       </div>
       <div className="w-full max-w-7.5xl mx-auto p-6">
   {/* Mobile Menu Button */}
-  <div className="sm:hidden flex justify-end mb-4">
-    <button
-      className="bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 px-4 rounded-lg shadow-md text-lg font-bold"
-      onClick={() => setIsMenuOpen(!isMenuOpen)}
-    >
-      {isMenuOpen ? "Close Menu ✖" : "Menu ☰"}
-    </button>
-  </div>
+  <div className="md:hidden flex justify-end mb-4">
+  <button
+    className="bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 px-4 rounded-lg shadow-md text-lg font-bold"
+    onClick={() => setIsMenuOpen(!isMenuOpen)}
+  >
+    {isMenuOpen ? "Close Menu ✖" : "Menu ☰"}
+  </button>
+</div>
 
   {/* Mobile Menu */}
   {isMenuOpen && (
-    <div className="sm:hidden bg-gray-800 rounded-lg p-4 shadow-lg space-y-2">
-      {[
-        { tab: "welcome", label: "Welcome" },
-        { tab: "education", label: "Jwhit ©" },
-        { tab: "employment", label: "Employment" },
-        { tab: "reviews", label: "Reviews" },
-        { tab: "passion", label: "Passion" },
-        { tab: "basic-services", label: "Services" },
-        { tab: "gallery", label: "Gallery" },
-        { tab: "contact", label: "Contact" },
-        { tab: "admin-dashboard", label: "Admin Dashboard", adminOnly: true },
-        { tab: "admin-signin", label: token ? "Sign In" : "Admin" },
-      ].map(
-        ({ tab, label, adminOnly }) =>
-          (!adminOnly || user?.is_admin) && (
-            <button
-              key={tab}
-              className={`w-full text-left py-2 px-4 rounded-lg ${
-                activeTab === tab
-                  ? "bg-blue-500 text-white"
-                  : "hover:bg-gray-700 text-gray-300"
-              }`}
-              onClick={() => {
-                setActiveTab(tab);
-                if (tab === "admin-signin") {
-                  token ? logout() : setActiveTab("admin-signin");
-                }
-                setIsMenuOpen(false); // Close menu after selection
-              }}
-            >
-              {label}
-            </button>
-          )
-      )}
-    </div>
-  )}
+  <div className="md:hidden bg-gray-800 rounded-lg p-4 shadow-lg space-y-2">
+    {[
+      { tab: "welcome", label: "Welcome" },
+      { tab: "education", label: "Jwhit ©" },
+      { tab: "employment", label: "Employment" },
+      { tab: "reviews", label: "Reviews" },
+      { tab: "passion", label: "Passion" },
+      { tab: "basic-services", label: "Services" },
+      { tab: "gallery", label: "Gallery" },
+      { tab: "contact", label: "Contact" },
+      { tab: "admin-dashboard", label: "Admin Dashboard", adminOnly: true },
+      { tab: "admin-signin", label: token ? "Sign In" : "Admin" },
+    ].map(
+      ({ tab, label, adminOnly }) =>
+        (!adminOnly || user?.is_admin) && (
+          <button
+            key={tab}
+            className={`w-full text-left py-2 px-4 rounded-lg ${
+              activeTab === tab
+                ? "bg-blue-500 text-white"
+                : "hover:bg-gray-700 text-gray-300"
+            }`}
+            onClick={() => {
+              setActiveTab(tab);
+              if (tab === "admin-signin") {
+                token ? logout() : setActiveTab("admin-signin");
+              }
+              setIsMenuOpen(false); // Close menu after selection
+            }}
+          >
+            {label}
+          </button>
+        )
+    )}
+  </div>
+)}
 
   {/* Desktop Tabs */}
-  <div className="hidden sm:flex justify-center space-x-8 mb-6 border-b border-white">
+  <div className="hidden md:flex justify-center space-x-8 mb-6 border-b border-white">
     {[
       { tab: "welcome", label: "Welcome" },
       { tab: "education", label: "Jwhit ©" },
