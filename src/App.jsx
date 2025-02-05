@@ -181,7 +181,7 @@ export default function App() {
       { tab: "basic-services", label: "Services" },
       { tab: "gallery", label: "Gallery" },
       { tab: "contact", label: "Contact" },
-      { tab: "businessweekly", label: "Co + AI" },
+      { tab: "businessweekly", label: "Inc. + AI" },
       { tab: "admin-dashboard", label: "Admin Dashboard", adminOnly: true },
       { tab: "admin-signin", label: token ? "Sign In" : "Admin" },
     ].map(
