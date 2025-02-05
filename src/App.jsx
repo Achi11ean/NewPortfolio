@@ -26,6 +26,8 @@ export default function App() {
   const [showEducationSkills, setShowEducationSkills] = useState(false); // State to toggle EducationSkills visibility
   const [selectedVideo, setSelectedVideo] = useState(""); // State for selected video
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
+
   const [openSection, setOpenSection] = useState(null); // State for open dropdown
   const toggleSection = (section) => {
     setOpenSection((prevSection) => (prevSection === section ? null : section));
@@ -179,7 +181,7 @@ export default function App() {
       { tab: "basic-services", label: "Services" },
       { tab: "gallery", label: "Gallery" },
       { tab: "contact", label: "Contact" },
-      { tab: "businessweekly", label: "Business Weekly" },
+      { tab: "businessweekly", label: "Co + AI" },
       { tab: "admin-dashboard", label: "Admin Dashboard", adminOnly: true },
       { tab: "admin-signin", label: token ? "Sign In" : "Admin" },
     ].map(
@@ -233,7 +235,7 @@ export default function App() {
           {activeTab === "businessweekly" && (
   <div className="flex flex-col items-center bg-orange-500 rounded-3xl justify-center min-h-[50vh]">
     <p className="text-2xl font-semibold mt-4 text-green-800 font-mono">
-  🚧 Code's in motion, with a little devotion 👨🏻‍💻—check back soon for our latest promotion! 🚧
+  🚧 CTRL+ ALT+ Innovate 🚧
 </p>
 
     <img 
@@ -246,9 +248,13 @@ export default function App() {
 <p className="text-xl text-center font-semibold text-white  pr-6 mt-4">
   🚀 **Weekly AI-Powered Business Insights!** 🚀  
   <br/><br/>
-  Stay ahead of the curve with the latest tech trends designed to **elevate your small business** in the era of AI!  
+  Get ahead of the curve with the latest tech trends designed to elevate your small business in the era of AI!  
+
+</p>
+<p className="text-xl text-center mb-7 font-semibold text-white mt-6">
+  ✨ Stay tuned for actionable insights to **help your business grow, operate faster, and stay ahead of the competition!**  
   <br/><br/>
-  🌟 **Discover how AI is transforming:**  
+  🌟 Discover how AI is transforming: 
 </p>
 
 <ul className="text-lg text-center text-white mt-4 space-y-2">
@@ -260,13 +266,33 @@ export default function App() {
   <li>🍽️ **Food & Hospitality:** Restaurants, cafés, food trucks, catering</li>
   <li>🎨 **Creative & Media:** Photographers, content creators, musicians</li>
   <li>📚 **Education & Coaching:** Tutors, online course creators, music teachers</li>
+  <li>🏠 Real Estate Agents & Brokers – Residential & commercial property sales</li>
+  <li>🏢 Property Management Companies – Rental management, tenant screening, maintenance</li>
+  <li>🏡 Real Estate Investors & House Flippers – Buying, renovating, and selling properties</li>
+  <li>🏘 Short-Term Rental Hosts – Airbnb, VRBO, vacation rental managers</li>
 </ul>
-
-<p className="text-xl text-center mb-7 font-semibold text-white mt-6">
-  ✨ Stay tuned for actionable insights to **help your business grow, operate faster, and stay ahead of the competition!** ✨
-</p>
+<p className="text-2xl underline text-center mb-7 font-semibold text-white mt-6">✨⬇️Vote Below on what topic you'd like to see us unveil first!⬇️✨</p>
 
 </div>
+<div
+  className="strawpoll-embed"
+  id="strawpoll_XOgOVd7jbn3"
+  style={{ height: "779px", maxWidth: "640px", width: "100%", margin: "0 auto", display: "flex", flexDirection: "column", paddingBottom:"15px"}}
+>
+  <iframe
+    title="StrawPoll Embed"
+    id="strawpoll_iframe_XOgOVd7jbn3"
+    src="https://strawpoll.com/embed/XOgOVd7jbn3"
+    style={{ position: "static", visibility: "visible", display: "block", width: "100%", flexGrow: 1 }}
+    frameBorder="0"
+    allowFullScreen
+    allowTransparency="true"
+  >
+    Loading...
+  </iframe>
+  <script async src="https://cdn.strawpoll.com/dist/widgets.js" charSet="utf-8"></script>
+</div>
+
   </div>
 )}
 
