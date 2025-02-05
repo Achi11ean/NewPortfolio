@@ -234,8 +234,8 @@ export default function App() {
           {activeTab === "gallery" && <Gallery />}
           {activeTab === "businessweekly" && (
   <div className="flex flex-col items-center bg-orange-500 rounded-3xl justify-center min-h-[50vh]">
-    <p className="text-2xl font-semibold mt-4 text-green-800 font-mono">
-  🚧 CTRL+ ALT+ Innovate 🚧
+    <p className="text-2xl sm:text-xl font-semibold mt-4 text-green-800 font-mono">
+    🚧 CTRL+ ALT+ Innovate 🚧 
 </p>
 
     <img 
