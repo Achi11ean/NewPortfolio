@@ -132,7 +132,7 @@ export default function App() {
   <div className="md:hidden bg-gray-800 rounded-lg p-4 shadow-lg space-y-2">
     {[
       { tab: "welcome", label: "Welcome" },
-      { tab: "education", label: "Jwhit ©" },
+      { tab: "education", label: "Websites by Jwhit ©" },
       { tab: "employment", label: "Employment" },
       { tab: "reviews", label: "Reviews" },
       { tab: "passion", label: "Passion" },
