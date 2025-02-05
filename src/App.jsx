@@ -187,7 +187,7 @@ export default function App() {
         (!adminOnly || user?.is_admin) && (
           <button
             key={tab}
-            className={`relative py-2 px-4 text-3xl font-bold rounded-lg ${
+            className={`relative py-2 px-4 text-2xl font-bold rounded-lg ${
               activeTab === tab
                 ? "border-b-2 border-white text-white bg-gradient-to-r from-yellow-400 to-red-400"
                 : "text-gray-300 hover:bg-white/10"
