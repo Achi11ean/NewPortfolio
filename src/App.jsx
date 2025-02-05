@@ -11,7 +11,7 @@ import { useAuth } from "./AuthContext";
 import Gallery from "./Gallery"; // Import the Gallery component
 import Snowfall from "./Snowfall";
 import CalendarComponent from "./Calendar";
-
+import "./App.css"
 export default function App() {
   const [activeTab, setActiveTab] = useState("welcome"); // Default active tab
   const { token, logout, user } = useAuth();
@@ -139,6 +139,8 @@ export default function App() {
       { tab: "basic-services", label: "Services" },
       { tab: "gallery", label: "Gallery" },
       { tab: "contact", label: "Contact" },
+      { tab: "businessweekly", label: "Business Weekly" },
+
       { tab: "admin-dashboard", label: "Admin Dashboard", adminOnly: true },
       { tab: "admin-signin", label: token ? "Sign In" : "Admin" },
     ].map(
@@ -177,6 +179,7 @@ export default function App() {
       { tab: "basic-services", label: "Services" },
       { tab: "gallery", label: "Gallery" },
       { tab: "contact", label: "Contact" },
+      { tab: "businessweekly", label: "Business Weekly" },
       { tab: "admin-dashboard", label: "Admin Dashboard", adminOnly: true },
       { tab: "admin-signin", label: token ? "Sign In" : "Admin" },
     ].map(
@@ -227,6 +230,45 @@ export default function App() {
           )}
           {activeTab === "admin-dashboard" && <Admin />}
           {activeTab === "gallery" && <Gallery />}
+          {activeTab === "businessweekly" && (
+  <div className="flex flex-col items-center bg-orange-500 rounded-3xl justify-center min-h-[50vh]">
+    <p className="text-2xl font-semibold mt-4 text-green-800 font-mono">
+  🚧 Code's in motion, with a little devotion 👨🏻‍💻—check back soon for our latest promotion! 🚧
+</p>
+
+    <img 
+      src="https://t4.ftcdn.net/jpg/02/04/71/07/360_F_204710733_326ouzzcjAKx9mJaNrwjQEUqXJOH1Kgu.jpg" // Replace with the actual path to your image
+      alt="Coming Soon"
+      className="object-contain rounded-2xl  mt-10"
+    />
+
+<div className="max-w-45l">
+<p className="text-xl text-center font-semibold text-white  pr-6 mt-4">
+  🚀 **Weekly AI-Powered Business Insights!** 🚀  
+  <br/><br/>
+  Stay ahead of the curve with the latest tech trends designed to **elevate your small business** in the era of AI!  
+  <br/><br/>
+  🌟 **Discover how AI is transforming:**  
+</p>
+
+<ul className="text-lg text-center text-white mt-4 space-y-2">
+  <li>🛍️ **Retail & E-commerce:** Local shops, online stores, thrift boutiques</li>
+  <li>🏠 **Home & Trade Services:** Electricians, roofers, plumbers, HVAC, landscapers</li>
+  <li>💼 **Professional Services:** Marketing agencies, financial consultants, IT support</li>
+  <li>🏥 **Health & Wellness:** Healthcare providers, personal trainers, yoga studios</li>
+  <li>🚗 **Automotive & Transportation:** Auto repair, mobile mechanics, taxis, towing</li>
+  <li>🍽️ **Food & Hospitality:** Restaurants, cafés, food trucks, catering</li>
+  <li>🎨 **Creative & Media:** Photographers, content creators, musicians</li>
+  <li>📚 **Education & Coaching:** Tutors, online course creators, music teachers</li>
+</ul>
+
+<p className="text-xl text-center mb-7 font-semibold text-white mt-6">
+  ✨ Stay tuned for actionable insights to **help your business grow, operate faster, and stay ahead of the competition!** ✨
+</p>
+
+</div>
+  </div>
+)}
 
           {/* Glowing Border Effect */}
           {/* <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 blur-lg opacity-50"></div> */}
@@ -329,6 +371,39 @@ export default function App() {
 
               <div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
   <div className="relative w-full h-52 overflow-hidden rounded-md">
+    {/* Placeholder for the image */}
+    <img
+      src="abofacs.png" // Replace this with your actual image
+      alt="A Breath of Fresh Air Cleaning Services"
+      className="w-full h-full object-cover object-top  rounded-md transition-transform duration-300 group-hover:scale-110"
+    />
+    <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+    <p className="text-center text-sm px-2">
+  A fully operational cleaning service based in Connecticut, dedicated to excellence and customer satisfaction. Collaborating with the owner, Amanda, was an absolute pleasure—her vision and commitment to quality made this project both insightful and rewarding. Book her services now here!  <br/>(This is a LIVE CLIENT SITE)
+</p>
+
+    </div>
+  </div>
+  <h3 className="text-xl text-gray-600 font-semibold mt-4">
+    A Breath of Fresh Air Cleaning Services
+  </h3>
+  <p className="mt-2 text-sm text-gray-600">
+    Python, Flask, React, Vite, Tailwind CSS, Headless CMS, and SEO best practices.
+  </p>
+  <a
+    href="https://abofacs.netlify.app/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 hover:text-white"
+    >
+    Visit Site
+  </a>
+</div>
+
+
+
+              <div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
+  <div className="relative w-full h-52 overflow-hidden rounded-md">
     <img
       src="https://i.imgur.com/UjDeUSH.jpeg"
       alt="Golden Hour Photography Screenshot"
@@ -338,7 +413,7 @@ export default function App() {
       <p className="text-center text-sm px-2">
         A stunning photography portfolio showcasing artistic talent and 
         professional offerings, designed with a focus on aesthetics and user 
-        experience.
+        experience. <br/>(This is a template for a possible website - not a live client site)
       </p>
     </div>
   </div>
@@ -352,7 +427,7 @@ export default function App() {
     href="https://jwhitproductionsphotography.netlify.app/"
     target="_blank"
     rel="noopener noreferrer"
-    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
+    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 hover:text-white"
   >
     Visit Site
   </a>
@@ -371,7 +446,7 @@ export default function App() {
                       <p className="text-center text-sm px-2">
                         A tattoo parlor booking website built with React, Vite,
                         and Tailwind CSS, offering a modern and responsive user
-                        experience.
+                        experience. <br/>(This is a template for a possible website - not a live client site)
                       </p>
                     </div>
                   </div>
@@ -385,8 +460,8 @@ export default function App() {
                     href="https://jwhitproductionstattooparlor.netlify.app/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
-                  >
+                    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 hover:text-white"
+                    >
                     Visit Site
                   </a>
                 </div>
@@ -415,8 +490,8 @@ export default function App() {
                     href="https://achi11ean.github.io/phase1Project/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
-                  >
+                    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 hover:text-white"
+                    >
                     Visit Site
                   </a>
                 </div>
@@ -443,8 +518,8 @@ export default function App() {
                     href="https://main--potterpals.netlify.app/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
-                  >
+                    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 hover:text-white"
+                    >
                     Visit Site
                   </a>
                 </div>
@@ -471,8 +546,8 @@ export default function App() {
                     href="https://github.com/Achi11ean/Final-Project"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
-                  >
+                    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 hover:text-white"
+                    >
                     Visit Site
                   </a>
                 </div>
@@ -499,8 +574,8 @@ export default function App() {
                     href="https://iridescent-prism.netlify.app/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700"
-                  >
+                    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 hover:text-white"
+                    >
                     Visit Site
                   </a>
                 </div>
@@ -1146,10 +1221,15 @@ export default function App() {
                   Bartending Services Payment
                 </a>
               </div>
+             
             </div>
+            
           </div>
+
         </div>
+        
       )}
     </div>
+    
   );
 }
