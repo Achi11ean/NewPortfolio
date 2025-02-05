@@ -141,7 +141,7 @@ export default function App() {
       { tab: "basic-services", label: "Services" },
       { tab: "gallery", label: "Gallery" },
       { tab: "contact", label: "Contact" },
-      { tab: "businessweekly", label: "Business Weekly" },
+      { tab: "businessweekly", label: "Inc + AI" },
 
       { tab: "admin-dashboard", label: "Admin Dashboard", adminOnly: true },
       { tab: "admin-signin", label: token ? "Sign In" : "Admin" },
@@ -252,7 +252,7 @@ export default function App() {
 
 </p>
 <p className="text-xl text-center mb-7 font-semibold text-white mt-6">
-  ✨ Stay tuned for actionable insights to **help your business grow, operate faster, and stay ahead of the competition!**  
+  ✨ Stay tuned for actionable insights to help your business grow, operate faster, and stay ahead of the competition!   
   <br/><br/>
   🌟 Discover how AI is transforming: 
 </p>
