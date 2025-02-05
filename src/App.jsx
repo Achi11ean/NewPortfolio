@@ -20,7 +20,7 @@ export default function App() {
     setShowEmojis(true);
     setTimeout(() => setShowEmojis(false), 3000); // Hide after 3 seconds
   };
-  const [showContactInfo, setShowContactInfo] = useState(false);
+  const [showContactInfo, setShowContactInfo] = useState(true);
   const [showPerformanceForm, setShowPerformanceForm] = useState(false); // State for toggling Performance Booking Form
   const [showEngineeringForm, setShowEngineeringForm] = useState(false); // State for Engineering Booking Form
   const [showEducationSkills, setShowEducationSkills] = useState(false); // State to toggle EducationSkills visibility
@@ -59,7 +59,7 @@ export default function App() {
 <div
   className="relative min-h-screen bg-cover bg-center bg-no-repeat text-white overflow-auto"
   style={{
-    backgroundImage: "url('https://images.pexels.com/photos/1552212/pexels-photo-1552212.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
+    backgroundImage: "url('portrait2.webp')",
     backgroundPosition: "center  top 450px", // Adjust the vertical position
   }}
 >
@@ -68,15 +68,15 @@ export default function App() {
       <div className="relative w-full pb-20">
         {" "}
         <AnimatedBackground />
-        <Snowfall />
+        {/* <Snowfall /> */}
         <div className="absolute inset-0 bg-black/30"></div>{" "}
         {/* Adds overlay */}
         <div className="relative flex flex-col items-center justify-center text-center z-10 pt-4 px-4 sm:px-8">
-          <div className="w-40 h-40 sm:w-80 mt-20 sm:mt-0 sm:h-80 rounded-full bg-white overflow-hidden shadow-md mx-auto mb-4 ">
+          <div className="  mt-20 sm:mt-0 sm:h-80  bg-white overflow-hidden shadow-md mx-auto mb-4 ">
             <img
-              src="selfie.jpeg"
+              src="https://i.imgur.com/IEeLPPL.jpeg"
               alt="Your Headshot"
-              className="w-full h-full object-cover"
+              className="w-full  h-full object-cover"
             />
           </div>
           <h1 className="text-4xl underline sm:text-6xl font-aspire font-bold">
@@ -105,7 +105,7 @@ export default function App() {
 
 
 
-          <div className="mt-6 flex justify-center w-full">
+          {/* <div className="mt-6 flex justify-center w-full">
             <iframe
               allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
               frameBorder="0"
@@ -113,7 +113,7 @@ export default function App() {
               sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
               src="https://embed.music.apple.com/us/playlist/favorite-songs/pl.u-m6UB7NWme"
             ></iframe>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="w-full max-w-7.5xl mx-auto p-6">
@@ -234,7 +234,7 @@ export default function App() {
           {/* Content */}
           {activeTab === "welcome" && (
             <div className="relative z-10 text-center p-6">
-              <h2
+              {/* <h2
                 className="text-5xl font-extrabold text-transparent pb-2 bg-clip-text bg-gradient-to-r from-red-500 via-yellow-400 to-green-600 mb-9 animate-pulse drop-shadow-lg"
                 style={{ fontFamily: "Aspire, sans-serif" }}
               >
@@ -243,7 +243,7 @@ export default function App() {
                 <span className="text-white">🎅</span> <br />
                 Wishing you and your loved ones a Magical Holiday Season{" "}
                 <span className="text-white">✨</span>
-              </h2>
+              </h2> */}
 
               {/* Social Media Links */}
               <div className="flex justify-center mt-6 space-x-6">
@@ -300,7 +300,7 @@ export default function App() {
                 {showEducationSkills && <EducationSkills />}
               </div>
               <p className="text-lg sm:text-2xl md:text-3xl font-bold leading-relaxed text-white">
-  Hi! I'm <span className="text-white font-bold">Jonathen</span>, a software engineer with a passion for creating
+   I'm <span className="text-white font-bold">Jonathen</span>, a software engineer with a passion for creating
   <span className="text-red-300 font-bold"> user-centric web applications.</span>
   <br />
 
@@ -951,7 +951,7 @@ export default function App() {
 {activeTab === "contact" && (
   <div className="relative p-6 text-white text-3xl font-bold rounded-lg shadow overflow-hidden">
     {/* Background Animation */}
-    <div className="absolute inset-0 z-0 bg-[url('https://burst.shopifycdn.com/photos/contact-us-flatlay.jpg?width=1000&format=pjpg&exif=0&iptc=0')] bg-cover bg-center"></div>
+    <div className="absolute inset-0 z-0 bg-[url('contactsssss.webp')] bg-cover bg-center"></div>
 
     {/* Content */}
     <div className="relative z-10 p-6 bg-black/50 rounded-lg">
