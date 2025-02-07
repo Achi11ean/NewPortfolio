@@ -81,7 +81,7 @@ export default function ContactForm() {
     <div className="bg-gray-100 p-6 rounded-lg shadow-lg max-w-md mx-auto">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="firstName" className="block text-center ">
+          <label htmlFor="firstName" className="block text-center text-gray-700">
             First Name
           </label>
           <input
@@ -91,11 +91,11 @@ export default function ContactForm() {
             value={formData.firstName}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded-2xl "
+            className="w-full p-2 border bg-black text-white rounded-2xl "
           />
         </div>
         <div>
-          <label htmlFor="lastName" className="block text-center ">
+          <label htmlFor="lastName" className="block text-center text-gray-700">
             Last Name
           </label>
           <input
@@ -105,11 +105,11 @@ export default function ContactForm() {
             value={formData.lastName}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded-2xl "
+            className="w-full p-2 bg-black text-white  border rounded-2xl "
           />
         </div>
         <div>
-          <label htmlFor="phone" className="block text-center ">
+          <label htmlFor="phone" className="block text-center text-gray-700">
             Phone (Optional)
           </label>
           <input
@@ -118,11 +118,11 @@ export default function ContactForm() {
             id="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="w-full p-2 border rounded-2xl "
+            className="w-full p-2 border bg-black text-white  rounded-2xl "
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-center ">
+          <label htmlFor="email" className="block  text-center text-gray-700">
             Email
           </label>
           <input
@@ -132,11 +132,11 @@ export default function ContactForm() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded-2xl"
+            className="w-full p-2 border bg-black text-white  rounded-2xl"
           />
         </div>
         <div>
-          <label htmlFor="message" className="block text-center ">
+          <label htmlFor="message" className="block text-center text-gray-700">
             Message
           </label>
           <textarea
@@ -145,7 +145,7 @@ export default function ContactForm() {
             value={formData.message}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded-2xl"
+            className="w-full p-2 bg-black text-white  border rounded-2xl"
           />
         </div>
         <button
