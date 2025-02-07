@@ -81,7 +81,7 @@ export default function ContactForm() {
     <div className="bg-gray-100 p-6 rounded-lg shadow-lg max-w-md mx-auto">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="firstName" className="block text-center text-gray-700">
+          <label htmlFor="firstName" className="block text-center ">
             First Name
           </label>
           <input
@@ -95,7 +95,7 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="lastName" className="block text-center text-gray-700">
+          <label htmlFor="lastName" className="block text-center ">
             Last Name
           </label>
           <input
@@ -109,7 +109,7 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="phone" className="block text-center text-gray-700">
+          <label htmlFor="phone" className="block text-center ">
             Phone (Optional)
           </label>
           <input
@@ -122,7 +122,7 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-center text-gray-700">
+          <label htmlFor="email" className="block text-center ">
             Email
           </label>
           <input
@@ -136,7 +136,7 @@ export default function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="message" className="block text-center text-gray-700">
+          <label htmlFor="message" className="block text-center ">
             Message
           </label>
           <textarea
