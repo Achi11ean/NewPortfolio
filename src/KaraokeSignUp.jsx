@@ -165,8 +165,8 @@ export default function KaraokeSignup() {
 
       {/* Sign-up List */}
       <div className="space-y-4">
-      {signups.map(({ id, name, song, artist, createdAt }, index) => (
-        <div key={id} className={`p-4 rounded-lg shadow-md text-white ${issues[id] ? 'bg-red-600' : 'bg-gray-700'}`}>
+      {signups.map(({ id, name, song, artist, created_at }, index) => (
+           <div key={id} className={`p-4 rounded-lg shadow-md text-white ${issues[id] ? 'bg-red-600' : 'bg-gray-700'}`}>
 
 
     {/* Move Up/Down Buttons */}
@@ -236,8 +236,9 @@ export default function KaraokeSignup() {
       <strong>{name}</strong> wants to sing <em>{song}</em> by {artist}
     </p>
     <p className="text-sm text-gray-300">
-      Signed up at: {new Date(createdAt).toLocaleString()}
+      Signed up at: {created_at ? new Date(created_at).toLocaleString() : "Unknown"}
     </p>
+    
     {issues[id] && (
   <p className="text-white font-bold">⚠️ We had an issue with your song. Please see the host!</p>
 )}
