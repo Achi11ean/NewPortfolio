@@ -11,6 +11,8 @@ import { useAuth } from "./AuthContext";
 import Gallery from "./Gallery"; // Import the Gallery component
 import Snowfall from "./Snowfall";
 import CalendarComponent from "./Calendar";
+import Karaoke from "./KaraokeSignUp"; // Add this import
+
 import "./App.css"
 export default function App() {
   const [activeTab, setActiveTab] = useState("welcome"); // Default active tab
@@ -134,6 +136,7 @@ export default function App() {
   <div className="md:hidden bg-gray-800 rounded-lg p-4 shadow-lg space-y-2">
     {[
       { tab: "welcome", label: "Welcome" },
+      { tab: "karaoke", label: "Karaoke Signup" },
       { tab: "education", label: "Websites by Jwhit ©" },
       { tab: "employment", label: "Employment" },
       { tab: "reviews", label: "Reviews" },
@@ -160,7 +163,7 @@ export default function App() {
               if (tab === "admin-signin") {
                 token ? logout() : setActiveTab("admin-signin");
               }
-              setIsMenuOpen(false); // Close menu after selection
+              setIsMenuOpen(false); 
             }}
           >
             {label}
@@ -174,6 +177,7 @@ export default function App() {
   <div className="hidden md:flex justify-center space-x-8 mb-6 border-b border-white">
     {[
       { tab: "welcome", label: "Welcome" },
+      { tab: "karaoke", label: "Karaoke Signup" }, 
       { tab: "education", label: "Jwhit ©" },
       { tab: "employment", label: "Employment" },
       { tab: "reviews", label: "Reviews" },
@@ -232,6 +236,8 @@ export default function App() {
           )}
           {activeTab === "admin-dashboard" && <Admin />}
           {activeTab === "gallery" && <Gallery />}
+          {activeTab === "karaoke" && <Karaoke />}
+
           {activeTab === "businessweekly" && (
   <div className="flex flex-col items-center bg-orange-500 rounded-3xl justify-center min-h-[50vh]">
     <p className="text-2xl sm:text-xl font-semibold mt-4 text-green-800 font-mono">
