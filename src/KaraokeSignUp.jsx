@@ -95,52 +95,71 @@ export default function KaraokeSignup() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-        <h1>Welcome to Jwhit Productions Karaoke!</h1>
+    <div className="max-w-4xl item-center justify-center mx-auto p-4">
+<div className="flex flex-col items-center justify-center  px-4 sm:px-8 md:px-16 lg:px-24">
+  
+  {/* Title */}
+  <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white text-center drop-shadow-lg p-4 sm:p-6 bg-gradient-to-r from-purple-500 to-orange-500 rounded-xl inline-block font-[Aspire]">
+    🎤 Jwhit Karaoke 🎶
+  </h1>
 
-      <h1 className="text-3xl font-bold mb-4 text-center text-white">Karaoke Sign-up 🎤</h1>
+  {/* Subtitle */}
+  <h1 className="text-3xl mt-16  sm:text-4xl md:text-5xl font-extrabold mb-6 text-center text-white drop-shadow-lg">
+    🎤Sign-up 🎶
+  </h1>
 
-      {/* Sign-up Form */}
-      <form onSubmit={handleSubmit} className="mb-6 space-y-3 bg-gray-800 p-4 rounded-lg shadow-lg">
-        <input
-          type="text"
-          placeholder="Your Name"
-          value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-          className="w-full px-4 py-2 bg-black text-white rounded-md border border-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-        <input
-          type="text"
-          placeholder="Song"
-          value={form.song}
-          onChange={(e) => setForm({ ...form, song: e.target.value })}
-          className="w-full px-4 py-2 bg-black text-white rounded-md border border-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-        <input
-          type="text"
-          placeholder="Artist"
-          value={form.artist}
-          onChange={(e) => setForm({ ...form, artist: e.target.value })}
-          className="w-full px-4 py-2 bg-black text-white rounded-md border border-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-        <button
-          type="submit"
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md transition-all duration-200"
-        >
-          Sign Up 🎶
-        </button>
-      </form>
-      <div className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg shadow-lg overflow-y-auto max-h-64">
-  <h2 className="text-xl font-bold mb-2 text-center">Karaoke Guidelines 🎤</h2>
-  <ul className="list-disc pl-5 space-y-2">
-    <li><strong>Respect:</strong> Everyone gets their moment to shine! Disrespect toward singers or staff will result in removal from the queue.</li>
-    <li><strong>One Song at a Time:</strong> If you enter multiple songs, your next turn may be moved to ensure fairness for all participants.</li>
-    <li><strong>Tips Appreciated, Not Required:</strong> Tipping is welcome but does not guarantee priority in the queue.</li>
-    <li><strong>Song Availability:</strong> If your song isn't available, it will be flagged. Refresh the page to check for updates.</li>
-    <li><strong>Celebrations:</strong> Let us know if it's your birthday or a special occasion—we'd love to give you an epic introduction!</li>
-    <li><strong>Host Authority:</strong> The host may adjust the queue as needed but will always aim to keep it fair for everyone.</li>
-    <li><strong>Most Important Rule:</strong> HAVE FUN! Enjoy your time on stage and cheer for fellow performers.</li>
-    <li><strong>Leave a Review:</strong> Loving the experience? Leave a review and snap a photo with the host to be featured!</li>
+  {/* Sign-up Form */}
+  <form 
+    onSubmit={handleSubmit} 
+    className="w-full max-w-md  bg-opacity-80 bg-white backdrop-blur-lg p-6 sm:p-8 rounded-2xl shadow-2xl space-y-4 border border-gray-700 flex flex-col items-center"
+  >
+    {/* Name Input */}
+    <input
+      type="text"
+      placeholder="Your Name"
+      value={form.name}
+      onChange={(e) => setForm({ ...form, name: e.target.value })}
+      className="w-full px-4 py-3 bg-black text-white text-2xl text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+    />
+
+    {/* Song Input */}
+    <input
+      type="text"
+      placeholder="Song"
+      value={form.song}
+      onChange={(e) => setForm({ ...form, song: e.target.value })}
+      className="w-full px-4 py-3 bg-black text-white text-2xl text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+    />
+
+    {/* Artist Input */}
+    <input
+      type="text"
+      placeholder="Artist"
+      value={form.artist}
+      onChange={(e) => setForm({ ...form, artist: e.target.value })}
+      className="w-full px-4 py-3 bg-black text-white text-2xl text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+    />
+
+    {/* Submit Button */}
+    <button
+      type="submit"
+      className="w-full mt-26 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold text-2xl py-3 rounded-lg shadow-md transition-all duration-200 transform hover:scale-105"
+    >
+      Sign Up 🎶
+    </button>
+  </form>
+</div>
+      <div className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg shadow-lg overflow-y-auto mt-10 max-h-64">
+  <h2 className="text-3xl underline font-bold mb-2 text-center">🚦Karaoke Guidelines 🚦</h2>
+  <ul className="list-disc text-lg text-center pl-5 space-y-2">
+    <li><strong>Respect:</strong> <br/>Everyone gets their moment to shine! Disrespect toward singers or staff will result in removal from the queue.</li>
+    <li><strong>One Song at a Time:</strong>  <br/>If you enter multiple songs, your next turn may be moved to ensure fairness for all participants.</li>
+    <li><strong>Tips Appreciated, Not Required:</strong> <br/> Tipping is welcome but does not guarantee priority in the queue.</li>
+    <li><strong>Song Availability:</strong> <br/>If your song isn't available, it will be flagged. Refresh the page to check for updates.</li>
+    <li><strong>Celebrations:</strong>  <br/>Let us know if it's your birthday or a special occasion—we'd love to give you an epic introduction!</li>
+    <li><strong>Host Authority:</strong>  <br/>The host may adjust the queue as needed but will always aim to keep it fair for everyone.</li>
+    <li><strong>Most Important Rule:</strong>  <br/>HAVE FUN! Enjoy your time on stage and cheer for fellow performers.</li>
+    <li><strong>Leave a Review:</strong>  <br/>Loving the experience? Leave a review and snap a photo with the host to be featured!</li>
   </ul>
 </div>
 
