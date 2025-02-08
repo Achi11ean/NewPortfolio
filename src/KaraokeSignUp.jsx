@@ -107,21 +107,21 @@ export default function KaraokeSignup() {
           placeholder="Your Name"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
-          className="w-full px-4 py-2  rounded-md border border-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full px-4 py-2 bg-black text-white rounded-md border border-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
         <input
           type="text"
           placeholder="Song"
           value={form.song}
           onChange={(e) => setForm({ ...form, song: e.target.value })}
-          className="w-full px-4 py-2  rounded-md border border-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full px-4 py-2 bg-black text-white rounded-md border border-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
         <input
           type="text"
           placeholder="Artist"
           value={form.artist}
           onChange={(e) => setForm({ ...form, artist: e.target.value })}
-          className="w-full px-4 py-2  rounded-md border border-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full px-4 py-2 bg-black text-white rounded-md border border-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
         <button
           type="submit"
@@ -177,19 +177,19 @@ export default function KaraokeSignup() {
       type="text"
       value={editForm.name}
       onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
-      className="w-full px-4 py-2  rounded-md border border-gray-400"
+      className="w-full px-4 py-2 bg-black text-white rounded-md border border-gray-400"
     />
     <input
       type="text"
       value={editForm.song}
       onChange={(e) => setEditForm({ ...editForm, song: e.target.value })}
-      className="w-full px-4 py-2  rounded-md border border-gray-400"
+      className="w-full px-4 py-2 bg-black text-white rounded-md border border-gray-400"
     />
     <input
       type="text"
       value={editForm.artist}
       onChange={(e) => setEditForm({ ...editForm, artist: e.target.value })}
-      className="w-full px-4 py-2  rounded-md border border-gray-400"
+      className="w-full px-4 py-2 bg-black text-white rounded-md border border-gray-400"
     />
 
     {/* Save and Cancel Buttons - Only for Admins */}
@@ -221,7 +221,7 @@ export default function KaraokeSignup() {
 )}
 
     {/* Admin-Only Buttons */}
-    {/* {user?.is_admin && ( */}
+    {user?.is_admin && (
       <>
         <button
           className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-md"
@@ -247,8 +247,8 @@ export default function KaraokeSignup() {
     {issues[id] ? 'Clear Issue ✅' : 'Mark Issue 🚨'}
   </button>
       </>
-{/* )} */}
-  </>
+    )}
+</>
 )}
 
 
