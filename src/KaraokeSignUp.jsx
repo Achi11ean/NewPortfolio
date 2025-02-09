@@ -484,13 +484,13 @@ const fetchSignups = async (searchTerm = "") => {
   type="text"
   placeholder="Search by name..."
   className="border p-2 rounded w-full mb-4"
-  onChange={(e) => fetchSignups(e.target.value)}
+  onChange={(e) => fetchSignups(e.target.value)} 
 />
 
 
       {/* Sign-up List */}
       <div className="space-y-4">
-      {signups.map(({ id, name, song, artist, created_at }, index) => (
+      {signups.map(({ id, name, song, artist, position, created_at }, index) => (
            <div key={id} className={`p-4 rounded-lg shadow-md text-white ${issues[id] ? 'bg-red-600' : 'bg-gray-700'}`}>
 
 
