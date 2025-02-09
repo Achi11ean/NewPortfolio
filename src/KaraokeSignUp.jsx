@@ -89,26 +89,33 @@ const moveDownFive = async (id, index) => {
 
     fetchSignups();
 };
-
 const moveToFirst = async (id) => {
+    if (!id) {
+        console.error("Invalid ID for moveToFirst:", id);
+        return;
+    }
+
     await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "to_first" }), // New action
+        body: JSON.stringify({ action: "to_first" }), // Matches backend
+    });
+
+    fetchSignups(); // Refresh the list
+};
+
+const moveToSecond = async (id, index) => {
+    if (index <= 1) return; // Prevent unnecessary movement
+
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "up_next" }), // Correct action for backend
     });
 
     fetchSignups();
 };
 
-const moveToSecond = async (id) => {
-    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "up_next" }), // New action
-    });
-
-    fetchSignups();
-};
 
 
 // Move an entry up
@@ -421,20 +428,22 @@ const moveDown = async (id) => {
     {user?.is_admin && (
 
     <div className="mt-2">
-      <button
-        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded-md mr-2"
-        onClick={() => moveUp(index)}
-        disabled={index === 0}
-      >
-        ⬆️ Move Up
-      </button>
-      <button
-        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded-md"
-        onClick={() => moveDown(index)}
-        disabled={index === signups.length - 1}
-      >
-        ⬇️ Move Down
-      </button>
+<button
+  className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded-md mr-2"
+  onClick={() => moveUp(signups[index].id, index)} // ✅ Pass `id` instead of `index`
+  disabled={index === 0}
+>
+  ⬆️ Move Up
+</button>
+
+<button
+  className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded-md"
+  onClick={() => moveDown(signups[index].id, index)} // ✅ Pass `id` instead of `index`
+  disabled={index === signups.length - 1}
+>
+  ⬇️ Move Down
+</button>
+
     </div>
     )}
 {editingId === id ? (
@@ -540,32 +549,39 @@ const moveDown = async (id) => {
   </button>
 
   <button
-    className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-md"
-    onClick={() => moveToSecond(index)}
-  >
-    ⏩ UP NEXT
-  </button>
-
-  <button
-    className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg"
-    onClick={sortByTime}
-  >
-    ⏳ Sort by Time
-  </button>
-
-  <button
-    className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-md"
-    onClick={() => moveUpFive(signups[index].id, index)}
+  className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-md"
+  onClick={() => moveToSecond(signups[index].id, index)} // ✅ Pass `id` correctly
 >
-    ⬆️ Up 5
+  ⏩ UP NEXT
 </button>
 
 <button
-    className="bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-md"
-    onClick={() => moveDownFive(signups[index].id, index)}
+  className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg"
+  onClick={sortByTime}
 >
-    ⬇️ Down 5
+  ⏳ Sort by Time
 </button>
+
+<button
+  className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-md"
+  onClick={() => moveUpFive(signups[index].id, index)} // ✅ Already correct
+>
+  ⬆️ Up 5
+</button>
+
+<button
+  className="bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-md"
+  onClick={() => moveDownFive(signups[index].id, index)} // ✅ Already correct
+>
+  ⬇️ Down 5
+</button>
+<button
+  className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md"
+  onClick={() => moveToFirst(signups[index].id, index)} // ✅ Passes `id` correctly
+>
+  ⬆️ Move to First
+</button>
+
 
 </div>
 
