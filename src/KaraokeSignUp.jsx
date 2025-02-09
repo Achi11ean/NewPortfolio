@@ -20,6 +20,7 @@ export default function KaraokeSignup() {
   };
   
   const [editForm, setEditForm] = useState({ name: "", song: "", artist: "" });
+  
 // Move an entry up
     const moveUp = (index) => {
         if (index === 0) return; // Can't move first item up
@@ -72,8 +73,15 @@ export default function KaraokeSignup() {
     const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup");
     const data = await response.json();
     setSignups(data);
-  };
-  
+
+    // Extract issues from the data
+    const issuesMap = {};
+    data.forEach(signup => {
+        issuesMap[signup.id] = signup.is_flagged;  // Ensure it reflects the DB value
+    });
+    setIssues(issuesMap);
+};
+
   // POST: Add new signup
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,11 +90,20 @@ export default function KaraokeSignup() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
+  
+    const data = await response.json();
+  
+    if (response.status === 403) {
+      alert(data.error); // Show an alert if sign-ups are closed
+      return;
+    }
+  
     if (response.ok) {
       fetchSignups();
       setForm({ name: "", song: "", artist: "" });
     }
   };
+  
   const { user } = useAuth();
 
   // PATCH: Update a signup
@@ -281,7 +298,7 @@ export default function KaraokeSignup() {
 )}
 </div>
     {/* Admin-Only Buttons */}
-    {user?.is_admin && (
+    {/* {user?.is_admin && ( */}
       <>
         <button
           className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-md"
@@ -308,7 +325,7 @@ export default function KaraokeSignup() {
 </button>
 
       </>
-    )}
+    {/* )} */}
 </>
 )}
 
