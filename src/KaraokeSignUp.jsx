@@ -21,7 +21,13 @@ export default function KaraokeSignup() {
       console.error("Error fetching form state:", error);
     }
   };
-  
+  const sortByTime = () => {
+    const sortedSignups = [...signups].sort((a, b) => 
+        new Date(a.created_at) - new Date(b.created_at)
+    );
+    setSignups(sortedSignups);
+};
+
   const [lastUpdated, setLastUpdated] = useState(null);
 
   const handleDeleteAll = async () => {
@@ -420,6 +426,13 @@ export default function KaraokeSignup() {
   >
     ⏩ UP NEXT
   </button>
+  <button
+  className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
+  onClick={sortByTime}
+>
+  ⏳ Sort by Time
+</button>
+
       </>
     )} 
 </>
