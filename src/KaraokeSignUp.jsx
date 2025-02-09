@@ -495,16 +495,21 @@ const moveDown = async (id) => {
   }`}
 >
 <h3 
-  className={`text-2xl font-extrabold  text-white text-center transition-all 
+  className={`text-2xl font-extrabold text-white text-center transition-all 
     ${index === 0 ? "animate-pulse bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 text-transparent bg-clip-text" : ""}
     ${index === 1 ? "text-blue-400" : ""}
   `}
 >
-  {index === 0 ? "🎤 CURRENTLY ROCKING THE MIC: " : index === 1 ? "UP NEXT:👉 " : "🎶"}
+  {index === 0 ? "🎤 CURRENTLY ROCKING THE MIC: " : index === 1 ? "UP NEXT:👉 " : `🎶 Position #${index + 1}`}
   <br />
-
   <span className="uppercase tracking-wide drop-shadow-lg">{name}</span>
 </h3>
+<p className="text-lg text-green-300 font-medium text-center mt-1">
+  {index === 0 
+    ? "🔥 You're singing now! 🔥" 
+    : `🚶 ${index} ${index === 1 ? "person" : "people"} ahead of you! 🎶`}
+</p>
+
 
 <p className="text-xl text-purple-300 font-medium text-center mt-2">
   🎶 <span className="text-white font-extrabold">Performing:{song}</span> by <span className="text-yellow-400 font-extrabold">{artist}</span>
