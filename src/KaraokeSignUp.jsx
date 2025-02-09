@@ -149,7 +149,7 @@ export default function KaraokeSignup() {
     </button>
   </form>
 </div>
-      <div className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg shadow-lg overflow-y-auto mt-10 max-h-64">
+      <div className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg shadow-lg overflow-y-auto mt-10 mb-10 max-h-64">
   <h2 className="text-3xl underline font-bold mb-2 text-center">🚦Karaoke Guidelines 🚦</h2>
   <ul className="list-disc text-lg text-center pl-5 space-y-2">
     <li><strong>Respect:</strong> <br/>Everyone gets their moment to shine! Disrespect toward singers or staff will result in removal from the queue.</li>
@@ -232,7 +232,10 @@ export default function KaraokeSignup() {
 ) : (
   // View Mode
   <>
-  <h3 className="text-xl font-bold text-white">{name}</h3>
+<h3 className="text-xl font-bold text-white">
+  {index === 0 ? "🎤 CURRENT SINGER: " : index === 1 ? "⏭️ UP NEXT!: " : ""}
+  {name}
+</h3>
   <p className="text-lg text-purple-300">
     🎤 <em className="font-semibold">{song}</em> by <span className="font-semibold">{artist}</span>
   </p>
