@@ -157,7 +157,10 @@ export default function KaraokeSignup() {
   };
 
   return (
-    <div className="max-w-4xl item-center justify-center mx-auto p-4">
+<div 
+  className="max-w-4xl item-center justify-center mx-auto p-4 bg-cover bg-center" 
+  style={{ backgroundImage: "url('party.webp')" }}
+>
 <div className="flex flex-col items-center justify-center  px-4 sm:px-8 md:px-16 lg:px-24">
   
   {/* Title */}
