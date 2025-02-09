@@ -44,7 +44,26 @@ export default function KaraokeSignup() {
   };
   
   const [editForm, setEditForm] = useState({ name: "", song: "", artist: "" });
-  
+  const moveUpFive = (index) => {
+    if (index < 5) return; // Prevents moving higher than first position
+
+    const newSignups = [...signups];
+    const [selectedEntry] = newSignups.splice(index, 1); // Remove entry
+    newSignups.splice(index - 5, 0, selectedEntry); // Insert 5 positions up
+
+    setSignups(newSignups);
+};
+
+const moveDownFive = (index) => {
+    if (index >= signups.length - 5) return; // Prevents moving lower than last position
+
+    const newSignups = [...signups];
+    const [selectedEntry] = newSignups.splice(index, 1); // Remove entry
+    newSignups.splice(index + 5, 0, selectedEntry); // Insert 5 positions down
+
+    setSignups(newSignups);
+};
+
 // Move an entry up
     const moveUp = (index) => {
         if (index === 0) return; // Can't move first item up
@@ -366,7 +385,7 @@ export default function KaraokeSignup() {
   // View Mode
   <>
   <div 
-  className={`p-4 rounded-lg transition-all ${
+  className={`p-4 rounded-lg  transition-all ${
     issues[id] ? "bg-red-600 text-white" : "bg-transparent"
   }`}
 >
@@ -376,10 +395,10 @@ export default function KaraokeSignup() {
     ${index === 1 ? "text-blue-400" : ""}
   `}
 >
-  {index === 0 ? "🎤 CURRENTLY ROCKING THE MIC: " : index === 1 ? "⏭️ UP NEXT: " : "🎶"}
+  {index === 0 ? "🎤 CURRENTLY ROCKING THE MIC: " : index === 1 ? "UP NEXT:👉 " : "🎶"}
   <br />
 
-  <span className="uppercase tracking-wide drop-shadow-lg">NAME:{name}</span>
+  <span className="uppercase tracking-wide drop-shadow-lg">{name}</span>
 </h3>
 
 <p className="text-xl text-purple-300 font-medium text-center mt-2">
@@ -432,6 +451,18 @@ export default function KaraokeSignup() {
 >
   ⏳ Sort by Time
 </button>
+<button
+      className="mt-2 bg-purple-500 hover:bg-purple-600 text-white font-bold py-1 px-3 rounded-md"
+      onClick={() => moveUpFive(index)}
+    >
+      ⬆️ Move Up 5
+    </button>
+    <button
+      className="mt-2 bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-3 rounded-md"
+      onClick={() => moveDownFive(index)}
+    >
+      ⬇️ Move Down 5
+    </button>
 
       </>
     )} 
