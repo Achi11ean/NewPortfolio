@@ -170,15 +170,23 @@ export default function DJNotesApp() {
     </div>
 
     <form onSubmit={handleSubmit} className="mb-6">
-      <input
-        type="text"
-        name="alert_type"
-        value={formData.alert_type}
-        onChange={handleChange}
-        placeholder="Alert Type"
-        className="border p-2 rounded w-full mb-2"
-        required
-      />
+    <select
+  name="alert_type"
+  value={formData.alert_type}
+  onChange={handleChange}
+  className="border p-2 rounded w-full mb-2 bg-white"
+  required
+>
+  <option value="">-- Select Alert Type --</option>
+  <option value="ALERT:">🚨 Breaking News</option>
+  <option value="HAPPY BIRTHDAY">🎂 Birthday Shout Out</option>
+  <option value="HAPPY ANNIVERSARY">💖 Anniversary Shout Out</option>
+  <option value="JUST MARRIED">💍 Just Married</option>
+  <option value="JUST DIVORCED">💔 Just Divorced</option>
+  <option value="IN MEMORY">🕊️ In Memory</option>
+  <option value="SPOTLIGHT">Spotlight</option>
+
+</select>
       <textarea
         name="alert_details"
         value={formData.alert_details}
