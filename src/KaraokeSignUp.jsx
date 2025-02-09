@@ -163,7 +163,7 @@ export default function KaraokeSignup() {
   </ul>
 </div>
 <button
-  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
+  className="w-full mb-3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
   onClick={fetchSignups}
 >
   🔄 Refresh List
