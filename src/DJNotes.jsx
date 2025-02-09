@@ -260,10 +260,11 @@ const fetchDeletedNotes = async () => {
       <div className="relative w-full max-w-md mx-auto mt-6">
       {notes.length > 0 && (
         <div
-          className={`border p-6 rounded-lg shadow-lg bg-blue-200 text-center transform scale-105 animate-opacity ${
-            isFlipping ? "animate-flip" : ""
-          }`}
-        >
+  className={`border p-6 rounded-lg shadow-lg text-center transform scale-105 animate-opacity ${
+    isFlipping ? "animate-flip" : ""
+  } ${notes.length > 0 ? getAlertStyles(notes[currentIndex].alert_type) : "bg-yellow-300 text-yellow-800"}`}
+>
+
 
           <div className="border p-4 rounded-lg bg-white shadow-md flex flex-col items-center">
             <p className="font-semibold text-lg">{notes[currentIndex].alert_type}</p>
