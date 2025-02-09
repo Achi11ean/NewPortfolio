@@ -244,10 +244,14 @@ export default function KaraokeSignup() {
 </div>
 <button
   className="w-full mb-3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
-  onClick={fetchSignups}
+  onClick={() => {
+    fetchSignups();
+    fetchFormState();
+  }}
 >
-  🔄 Refresh List
+  🔄 Refresh Everything
 </button>
+
 
       {/* Sign-up List */}
       <div className="space-y-4">
