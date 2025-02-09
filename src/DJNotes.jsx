@@ -330,14 +330,7 @@ const fetchDeletedNotes = async () => {
       )}
     </div>
 
-    {user?.is_admin && (
-  <button
-    className="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
-    onClick={handleHardDeleteAll}
-  >
-    🚨 HARD DELETE ALL ALERTS 🚨
-  </button>
-)}
+
 
 
     </div>
