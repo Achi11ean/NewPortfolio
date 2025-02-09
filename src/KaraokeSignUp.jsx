@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext"; // Adjust the path accordingly
+import DJNotesApp from "./DJNotes";
 
 export default function KaraokeSignup() {
   const [signups, setSignups] = useState([]);
@@ -297,13 +298,24 @@ const moveDown = async (id) => {
     }
   };
   const handleSoftDelete = async (id) => {
-    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/soft_delete`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-    });
-  
-    fetchSignups(); // Refresh list without actually deleting from DB
-  };
+    try {
+        const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/soft_delete`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" }
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to soft delete signup.");
+        }
+
+        console.log(`Signup ID ${id} marked as deleted.`); // Debugging log
+        fetchSignups(); // ✅ Refresh active signups
+        fetchDeletedSignups(); // ✅ Refresh deleted signups
+    } catch (error) {
+        console.error("Error soft deleting signup:", error);
+    }
+};
+
   // DELETE: Remove a signup
   const handleDelete = async (id) => {
     await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, { method: "DELETE" });
@@ -334,7 +346,7 @@ const moveDown = async (id) => {
 </h1>
   )}
 
-  {user?.is_admin && (
+  {/* {user?.is_admin && ( */}
 
   <button
   className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
@@ -343,7 +355,7 @@ const moveDown = async (id) => {
   {showForm ? "Hide Sign-Up Form ⬆️" : "Show Sign-Up Form ⬇️"}
 </button>
 
-  )} 
+  {/* )}  */}
 
   {/* Sign-up Form */}
   <h2 className="text-2xl sm:text-3xl md:text-4xl mb-5 lg:text-5xl font-extrabold text-white text-center drop-shadow-lg mt-6 p-4 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 rounded-xl">
@@ -435,6 +447,9 @@ const moveDown = async (id) => {
     </ul>
   </div>
 )}
+    <div>
+      <DJNotesApp />
+    </div>
 
 <button
   className="w-full mb-3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
