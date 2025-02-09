@@ -12,6 +12,28 @@ export default function KaraokeSignup() {
   const [deletedSignups, setDeletedSignups] = useState([]);
   const [deletedNotes, setDeletedNotes] = useState([]);
 const [showDeletedNotes, setShowDeletedNotes] = useState(false);
+const handleHardDeleteAll = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to PERMANENTLY DELETE ALL DJ NOTES? This action CANNOT be undone!");
+
+    if (!confirmDelete) return;
+
+    try {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/hard_delete_all", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to delete all notes: ${response.status}`);
+        }
+
+        alert("All DJ Notes have been permanently deleted.");
+        fetchDeletedNotes(); // Refresh the deleted notes list
+    } catch (error) {
+        console.error("Error deleting all DJ Notes:", error);
+    }
+};
+
 const fetchDeletedNotes = async () => {
     try {
         const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/deleted");
@@ -774,7 +796,12 @@ const fetchSignups = async (searchTerm = "") => {
     >
       🚨 DELETE ALL SIGNUPS 🚨
     </button>
-
+    <button
+    className="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
+    onClick={handleHardDeleteAll}
+  >
+    🚨 HARD DELETE ALL ALERTS 🚨
+  </button>
     <button
       className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
       onClick={() => {
