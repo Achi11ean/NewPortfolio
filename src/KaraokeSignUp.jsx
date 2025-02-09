@@ -567,11 +567,12 @@ const moveDown = async (id) => {
   </button>
 
   <button
-    className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md"
-    onClick={() => handleDelete(id)}
-  >
-    Remove ❌
-  </button>
+  className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md"
+  onClick={() => handleSoftDelete(id)} // ✅ Now calls soft delete function
+>
+  Remove ❌
+</button>
+
 
   <button
     className={`text-white font-bold py-2 px-4 rounded-md ${
