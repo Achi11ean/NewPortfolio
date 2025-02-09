@@ -174,7 +174,7 @@ export default function KaraokeSignup() {
 </h1>
 
 
-  {/* {user?.is_admin && ( */}
+  {user?.is_admin && (
 
   <button
   className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
@@ -183,7 +183,7 @@ export default function KaraokeSignup() {
   {showForm ? "Hide Sign-Up Form ⬆️" : "Show Sign-Up Form ⬇️"}
 </button>
 
-  {/* )} */}
+  )} 
 
   {/* Sign-up Form */}
   {showForm && (
