@@ -127,7 +127,7 @@ export default function App() {
              text-white font-bold py-3 w-full rounded-lg shadow-lg transition-all transform hover:scale-105"
   onClick={() => setActiveTab("karaoke")}
 >
-  🎤 Karaoke Sign up Sheet
+  🎤 Karaoke Sign up Sheet  📝
 </button>
 
 
