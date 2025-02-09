@@ -233,11 +233,11 @@ export default function KaraokeSignup() {
   // View Mode
   <>
 <h3 className="text-xl font-bold text-white">
-  {index === 0 ? "🎤 CURRENT SINGER: " : index === 1 ? "⏭️ UP NEXT!: " : ""}
+  {index === 0 ? "🎤 CURRENT SINGER: " : index === 1 ? "⏭️ UP NEXT!: " : ""}<br/>
   {name}
 </h3>
   <p className="text-lg text-purple-300">
-    🎤 <em className="font-semibold">{song}</em> by <span className="font-semibold">{artist}</span>
+    🎶Song: <em className="font-semibold">{song}</em> by <span className="font-semibold">{artist}</span>
   </p>
   <p className="text-sm text-gray-400 mt-2">
     ⏰ Signed up at: {created_at ? new Date(new Date(created_at).getTime() - 5 * 60 * 60 * 1000).toLocaleString() : "Unknown"}
