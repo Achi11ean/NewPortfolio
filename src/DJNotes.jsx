@@ -59,7 +59,7 @@ export default function DJNotesApp({ user }) {
 
   const fetchNotes = async () => {
     try {
-        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes", {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotesactive", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -111,15 +111,15 @@ const fetchDeletedNotes = async () => {
     try {
         const response = await fetch(
             editingId 
-                ? `https://portfoliobackend-ih6t.onrender.com/djnotes/${editingId}` 
+                ? `https://portfoliobackend-ih6t.onrender.com/djnotesactive/${editingId}` 
                 : "https://portfoliobackend-ih6t.onrender.com/djnotes",
             {
                 method: editingId ? "PATCH" : "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${user?.token}`, // Ensure the user token is included
+                    Authorization: `Bearer ${user?.token}`,
                 },
-                credentials: "include", // Allows cookies for session-based auth
+                credentials: "include",
                 body: JSON.stringify(formData),
             }
         );
