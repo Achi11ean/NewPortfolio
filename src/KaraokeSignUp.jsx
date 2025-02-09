@@ -33,12 +33,16 @@ const fetchDeletedSignups = async () => {
       console.error("Error fetching form state:", error);
     }
   };
-  const sortByTime = () => {
-    const sortedSignups = [...signups].sort((a, b) => 
-        new Date(a.created_at) - new Date(b.created_at)
-    );
-    setSignups(sortedSignups);
+  const sortByTime = async () => {
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/sort`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "sort_by_time" }), // Ensure backend understands this
+    });
+
+    fetchSignups();
 };
+
 // Extract flagged artists
 const flaggedArtists = [...new Set(
     signups
@@ -62,33 +66,72 @@ const flaggedArtists = [...new Set(
   };
   
   const [editForm, setEditForm] = useState({ name: "", song: "", artist: "" });
-  const moveUpFive = (index) => {
-    if (index < 5) return; // Prevents moving higher than first position
+  const moveUpFive = async (id, index) => {
+    if (index < 5) return; 
 
-    const newSignups = [...signups];
-    const [selectedEntry] = newSignups.splice(index, 1); // Remove entry
-    newSignups.splice(index - 5, 0, selectedEntry); // Insert 5 positions up
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "up5" }), // Corrected key
+    });
 
-    setSignups(newSignups);
+    fetchSignups();
 };
 
-const moveDownFive = (index) => {
-    if (index >= signups.length - 5) return; // Prevents moving lower than last position
+const moveDownFive = async (id, index) => {
+    if (index >= signups.length - 5) return;
 
-    const newSignups = [...signups];
-    const [selectedEntry] = newSignups.splice(index, 1); // Remove entry
-    newSignups.splice(index + 5, 0, selectedEntry); // Insert 5 positions down
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "down5" }), // Corrected key
+    });
 
-    setSignups(newSignups);
+    fetchSignups();
 };
+
+const moveToFirst = async (id) => {
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "to_first" }), // New action
+    });
+
+    fetchSignups();
+};
+
+const moveToSecond = async (id) => {
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "up_next" }), // New action
+    });
+
+    fetchSignups();
+};
+
 
 // Move an entry up
-    const moveUp = (index) => {
-        if (index === 0) return; // Can't move first item up
-        const newSignups = [...signups];
-        [newSignups[index], newSignups[index - 1]] = [newSignups[index - 1], newSignups[index]];
-        setSignups(newSignups);
-    };
+const moveUp = async (id) => {
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "up" }), // Corrected key
+    });
+
+    fetchSignups();
+};
+
+const moveDown = async (id) => {
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "down" }), // Corrected key
+    });
+
+    fetchSignups();
+};
+
     const toggleIssue = async (id, currentStatus) => {
         console.log(`Toggling issue for ID: ${id}, current status: ${currentStatus}`);
         try {
@@ -133,12 +176,7 @@ const moveDownFive = (index) => {
       
     
     // Move an entry down
-    const moveDown = (index) => {
-        if (index === signups.length - 1) return; // Can't move last item down
-        const newSignups = [...signups];
-        [newSignups[index], newSignups[index + 1]] = [newSignups[index + 1], newSignups[index]];
-        setSignups(newSignups);
-    };
+
   
   useEffect(() => {
     fetchSignups();
@@ -221,15 +259,7 @@ const moveDownFive = (index) => {
     await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, { method: "DELETE" });
     fetchSignups();
   };
-  const moveToSecond = (index) => {
-    if (index <= 1) return; // If already #1 or #2, do nothing
 
-    const newSignups = [...signups];
-    const [selectedEntry] = newSignups.splice(index, 1); // Remove selected entry
-    newSignups.splice(1, 0, selectedEntry); // Insert at index 1 (second position)
-    
-    setSignups(newSignups);
-};
 
   return (
 <div 
@@ -511,17 +541,18 @@ const moveDownFive = (index) => {
 
   <button
     className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-md"
-    onClick={() => moveUpFive(index)}
-  >
+    onClick={() => moveUpFive(signups[index].id, index)}
+>
     ⬆️ Up 5
-  </button>
+</button>
 
-  <button
+<button
     className="bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-md"
-    onClick={() => moveDownFive(index)}
-  >
+    onClick={() => moveDownFive(signups[index].id, index)}
+>
     ⬇️ Down 5
-  </button>
+</button>
+
 </div>
 
       </>
