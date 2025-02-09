@@ -211,7 +211,7 @@ const fetchDeletedNotes = async () => {
   name="alert_type"
   value={formData.alert_type}
   onChange={handleChange}
-  className="border p-2 rounded w-full mb-2 bg-white"
+  className="border p-2 rounded w-full mb-2 bg-black text-white"
   required
 >
   <option value="">-- Select Alert Type --</option>
@@ -229,7 +229,7 @@ const fetchDeletedNotes = async () => {
         value={formData.alert_details}
         onChange={handleChange}
         placeholder="Alert Details"
-        className="border p-2 rounded w-full mb-2"
+        className="border p-2 rounded text-white bg-black w-full mb-2"
         required
       ></textarea>
       <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
@@ -246,13 +246,14 @@ const fetchDeletedNotes = async () => {
             isFlipping ? "animate-flip" : ""
           }`}
         >
-          <h2 className="text-2xl font-bold text-blue-600 mb-2">📌 Active Alert 📌</h2>
 
           <div className="border p-4 rounded-lg bg-white shadow-md flex flex-col items-center">
             <p className="font-semibold text-lg">{notes[currentIndex].alert_type}</p>
             <p className="text-gray-700 italic">{notes[currentIndex].alert_details}</p>
+            {user?.is_admin && (
 
             <div className="flex space-x-2 mt-4">
+                
               <button 
                 onClick={() => handleEdit(notes[currentIndex])} 
                 className="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow hover:bg-yellow-600 transition"
@@ -266,7 +267,7 @@ const fetchDeletedNotes = async () => {
                 Soft Delete
               </button>
             </div>
-
+            )}
             {/* Manual Navigation Buttons */}
             <div className="flex justify-between mt-4 w-full">
               <button 

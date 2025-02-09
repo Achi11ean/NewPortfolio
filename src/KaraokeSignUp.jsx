@@ -478,7 +478,7 @@ const fetchSignups = async (searchTerm = "") => {
     fetchNotes();           // Refresh Active DJ Notes
   }}
 >
-  🔄 Refresh Everything
+  🔄 Refresh for latest data!
 </button>
 <input
   type="text"
