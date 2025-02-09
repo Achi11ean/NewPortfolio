@@ -298,7 +298,7 @@ export default function KaraokeSignup() {
 )}
 </div>
     {/* Admin-Only Buttons */}
-    {/* {user?.is_admin && ( */}
+    {user?.is_admin && (
       <>
         <button
           className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-md"
@@ -325,7 +325,7 @@ export default function KaraokeSignup() {
 </button>
 
       </>
-    {/* )} */}
+    )} 
 </>
 )}
 
