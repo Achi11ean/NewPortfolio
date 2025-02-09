@@ -76,10 +76,18 @@ const fetchDeletedSignups = async () => {
 // Extract flagged artists
 const flaggedArtists = [...new Set(
     signups
-      .filter((signup) => issues[signup.id]) // Get only flagged signups
-      .map((signup) => signup.artist) // Extract artist names
+      .filter((signup) => {
+        console.log("Checking signup:", signup); // Debugging log
+        return issues[signup.id]; // Get only flagged signups
+      })
+      .map((signup) => {
+        console.log("Flagged Artist Found:", signup.artist); // Debugging log
+        return signup.artist; // Extract artist names
+      })
   )];
-  
+
+console.log("Final Flagged Artists List:", flaggedArtists); // Debugging log
+
   const [lastUpdated, setLastUpdated] = useState(null);
 
   const handleDeleteAll = async () => {
@@ -181,6 +189,23 @@ const moveDown = async (id) => {
 
     fetchSignups();
 };
+const fetchSignups = async (searchTerm = "") => {
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/karaokesignup?search=${encodeURIComponent(searchTerm)}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch signups: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setSignups(data);
+    } catch (error) {
+        console.error("Error fetching signups:", error);
+    }
+};
 
 
     const toggleIssue = async (id, currentStatus) => {
@@ -234,19 +259,6 @@ const moveDown = async (id) => {
     fetchFormState();
   }, []);
 
-  // GET: Fetch all signups
-  const fetchSignups = async () => {
-    const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup");
-    const data = await response.json();
-    setSignups(data);
-
-    // Extract issues from the data
-    const issuesMap = {};
-    data.forEach(signup => {
-        issuesMap[signup.id] = signup.is_flagged;  // Ensure it reflects the DB value
-    });
-    setIssues(issuesMap);
-};
 
   // POST: Add new signup
   const handleSubmit = async (e) => {
@@ -438,14 +450,18 @@ const moveDown = async (id) => {
   <div className="max-w-lg mx-auto bg-red-700 text-white p-4 rounded-lg shadow-lg mt-6">
     <h3 className="text-xl font-bold text-center">🚨 Flagged Artists 🚨</h3>
     <ul className="list-disc text-lg text-center pl-5 mt-2 space-y-1">
-      {flaggedArtists.map((artist, index) => (
-        <li key={index} className="font-semibold">
-          {artist}
-        </li>
-      ))}
+      {flaggedArtists.map((artist, index) => {
+        console.log(`Rendering Flagged Artist #${index + 1}:`, artist); // Debugging log
+        return (
+          <li key={index} className="font-semibold">
+            {artist || "❌ Missing Artist Name"} {/* Handle undefined artist names */}
+          </li>
+        );
+      })}
     </ul>
   </div>
 )}
+
     <div>
     <DJNotesApp user={user} />
     </div>
@@ -459,6 +475,12 @@ const moveDown = async (id) => {
 >
   🔄 Refresh Everything
 </button>
+<input
+  type="text"
+  placeholder="Search by name..."
+  className="border p-2 rounded w-full mb-4"
+  onChange={(e) => fetchSignups(e.target.value)}
+/>
 
 
       {/* Sign-up List */}
