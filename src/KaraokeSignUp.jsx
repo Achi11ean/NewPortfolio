@@ -32,6 +32,8 @@ export default function KaraokeSignup() {
   const [issues, setIssues] = useState({});
   const [showForm, setShowForm] = useState(false);
   const [signupsOpen, setSignupsOpen] = useState(true);
+  const [flaggedArtists, setFlaggedArtists] = useState([]);
+
   const [deletedSignups, setDeletedSignups] = useState([]);
   const [deletedNotes, setDeletedNotes] = useState([]);
 const [showDeletedNotes, setShowDeletedNotes] = useState(false);
@@ -146,20 +148,25 @@ const fetchDeletedSignups = async () => {
     }
 };
 
-// Extract flagged artists
-const flaggedArtists = [...new Set(
-    signups
-      .filter((signup) => {
-        console.log("Checking signup:", signup); // Debugging log
-        return issues[signup.id]; // Get only flagged signups
-      })
-      .map((signup) => {
-        console.log("Flagged Artist Found:", signup.artist); // Debugging log
-        return signup.artist; // Extract artist names
-      })
-  )];
+    const fetchFlaggedSignups = async () => {
+        try {
+            const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/flagged");
 
-console.log("Final Flagged Artists List:", flaggedArtists); // Debugging log
+            if (!response.ok) {
+                throw new Error(`Failed to fetch flagged signups: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Flagged Signups Data:", data); // Debugging log
+
+            // Extract unique flagged artists
+            const flaggedArtistsList = [...new Set(data.map(signup => signup.artist.trim()))];
+
+            setFlaggedArtists(flaggedArtistsList);
+        } catch (error) {
+            console.error("Error fetching flagged signups:", error);
+        }
+    };
 
   const [lastUpdated, setLastUpdated] = useState(null);
 
@@ -558,11 +565,13 @@ const fetchSignups = async (searchTerm = "") => {
     fetchFormState();       // Refresh Form State Visibility
     fetchDeletedSignups();  // Refresh Deleted Signups
     fetchDeletedNotes();    // Refresh Deleted DJ Notes
-    fetchNotes();           // Refresh Active DJ Notes
-  }}
+    fetchFlaggedSignups();  // ✅ This is the function you defined
+  }} 
 >
   🔄 Refresh for latest data!
 </button>
+
+
 <input
   type="text"
   placeholder="Search by name..."
