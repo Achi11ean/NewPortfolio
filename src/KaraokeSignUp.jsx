@@ -198,7 +198,18 @@ export default function KaraokeSignup() {
   🕒 Karaoke Start/Stop Timestamp: 
   <br />
   <span className="text-yellow-200 text-3xl sm:text-4xl md:text-5xl block mt-2">
-    {lastUpdated}
+    {lastUpdated 
+      ? new Date(lastUpdated).toLocaleString("en-US", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true, // Ensures AM/PM format
+        })
+      : "N/A"}
   </span>
 </h2>
 
