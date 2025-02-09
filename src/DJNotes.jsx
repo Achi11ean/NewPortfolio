@@ -59,13 +59,11 @@ export default function DJNotesApp({ user }) {
 
   const fetchNotes = async () => {
     try {
-        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotesactive", {
+        const response = await fetch("http://127.0.0.1:5000/djnotesactive", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${user?.token}`, // Pass user's token if available
             },
-            credentials: "include", // Ensures cookies are sent if auth relies on sessions
         });
 
         if (!response.ok) {
@@ -81,13 +79,11 @@ export default function DJNotesApp({ user }) {
 
 const fetchDeletedNotes = async () => {
     try {
-        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/deleted", {
+        const response = await fetch("http://127.0.0.1:5000/djnotes/deleted", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${user?.token}`, // Ensure the user token is included
             },
-            credentials: "include", // Allows cookies for session-based auth
         });
 
         if (!response.ok) {
@@ -101,25 +97,23 @@ const fetchDeletedNotes = async () => {
     }
 };
 
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
         const response = await fetch(
             editingId 
-                ? `https://portfoliobackend-ih6t.onrender.com/djnotesactive/${editingId}` 
-                : "https://portfoliobackend-ih6t.onrender.com/djnotes",
+                ? `http://127.0.0.1:5000/djnotesactive/${editingId}` 
+                : "http://127.0.0.1:5000/djnotes",
             {
                 method: editingId ? "PATCH" : "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${user?.token}`,
                 },
-                credentials: "include",
                 body: JSON.stringify(formData),
             }
         );
@@ -136,19 +130,20 @@ const fetchDeletedNotes = async () => {
     }
 };
 
+
   const handleEdit = (note) => {
     setFormData({ alert_type: note.alert_type, alert_details: note.alert_details });
     setEditingId(note.id);
   };
 
   const handleSoftDelete = async (id) => {
-    await fetch(`https://portfoliobackend-ih6t.onrender.com/djnotes/${id}`, { method: "DELETE" });
+    await fetch(`http://127.0.0.1:5000/djnotes/${id}`, { method: "DELETE" });
     fetchNotes();
     fetchDeletedNotes();
   };
 
   const handleHardDelete = async (id) => {
-    await fetch(`https://portfoliobackend-ih6t.onrender.com/djnotes/${id}/hard_delete`, { method: "DELETE" });
+    await fetch(`http://127.0.0.1:5000/djnotes/${id}/hard_delete`, { method: "DELETE" });
     fetchDeletedNotes();
   };
 
