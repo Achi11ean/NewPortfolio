@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "./AuthContext"; // Adjust the path accordingly
 
 export default function DJNotesApp({ user }) {
     const [notes, setNotes] = useState([]);
@@ -59,10 +58,27 @@ export default function DJNotesApp({ user }) {
   }, []);
 
   const fetchNotes = async () => {
-    const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes");
-    const data = await response.json();
-    setNotes(data);
-  };
+    try {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${user?.token}`, // Pass user's token if available
+            },
+            credentials: "include", // Ensures cookies are sent if auth relies on sessions
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch notes: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setNotes(data);
+    } catch (error) {
+        console.error("Error fetching notes:", error);
+    }
+};
+
 
   const fetchDeletedNotes = async () => {
     const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/deleted");
