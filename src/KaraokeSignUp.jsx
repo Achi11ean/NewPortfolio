@@ -112,25 +112,39 @@ const moveToSecond = async (id) => {
 
 
 // Move an entry up
-const moveUp = async (id) => {
+const moveUp = async (id, index) => {
+    console.log(`Attempting to move up signup with ID: ${id} at index: ${index}`);
+
+    if (!id || id === 0) {
+        console.error("Invalid ID received:", id);
+        return;
+    }
+    
     await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "up" }), // Corrected key
+        body: JSON.stringify({ action: "up" }),
     });
 
     fetchSignups();
 };
+
 
 const moveDown = async (id) => {
+    if (!id || id === 0) {
+        console.error("Invalid ID received:", id);
+        return;
+    }
+    
     await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "down" }), // Corrected key
+        body: JSON.stringify({ action: "down" }),
     });
 
     fetchSignups();
 };
+
 
     const toggleIssue = async (id, currentStatus) => {
         console.log(`Toggling issue for ID: ${id}, current status: ${currentStatus}`);
