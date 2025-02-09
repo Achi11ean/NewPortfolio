@@ -273,3 +273,22 @@ button:focus-visible {
 
 
 
+@keyframes fall {
+  0% {
+    transform: translateY(-50px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+.falling-effect {
+  position: absolute;
+  top: 0;
+  font-size: 2rem;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: fall linear forwards;
+}

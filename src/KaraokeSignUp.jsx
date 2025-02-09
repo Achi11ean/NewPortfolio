@@ -267,8 +267,26 @@ const moveToSecond = async (id, index) => {
 
     fetchSignups();
 };
+const [isRefreshing, setIsRefreshing] = useState(false);
+const handleRefresh = async () => {
+  console.log("🔄 Refreshing Everything...");
+  
+  setIsRefreshing(true); // Start animation
 
+  // Run all fetch functions in parallel for efficiency
+  await Promise.all([
+    fetchSignups(),
+    fetchFormState(),
+    fetchDeletedSignups(),
+    fetchDeletedNotes(),
+    fetchFlaggedSignups()
+  ]);
 
+  setTimeout(() => setIsRefreshing(false), 1000); // Stop after 1 sec (smooth UI)
+};
+
+const [isSubmitting, setIsSubmitting] = useState(false);
+  const [effects, setEffects] = useState([]);
 
 // Move an entry up
 const moveUp = async (id, index) => {
@@ -409,25 +427,50 @@ const fetchSignups = async (searchTerm = "") => {
       return;
     }
   
+    setIsSubmitting(true); // Start animation
+  
     const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
-  
+
     const data = await response.json();
   
     if (response.status === 403) {
-      alert(data.error); // Show an alert if sign-ups are closed
+      alert(data.error);
+      setIsSubmitting(false); // Stop animation if failed
       return;
     }
   
     if (response.ok) {
       fetchSignups();
       setForm({ name: "", song: "", artist: "" });
+      
+      // Trigger falling effects
+      triggerEffects();
+
+      setTimeout(() => setIsSubmitting(false), 1500); // Reset after 1.5s
     }
   };
-  
+
+  const triggerEffects = () => {
+    let newEffects = [];
+    
+    for (let i = 0; i < 15; i++) { // Generate 15 falling emojis
+      newEffects.push({
+        id: Math.random(),
+        left: Math.random() * 100, // Random position
+        duration: Math.random() * 2 + 1 // Random fall speed
+      });
+    }
+
+    setEffects(newEffects);
+
+    // Remove effects after animation completes
+    setTimeout(() => setEffects([]), 3000);
+  };
+
   
   const { user } = useAuth();
 
@@ -473,7 +516,20 @@ const fetchSignups = async (searchTerm = "") => {
 <div 
   className="max-w-4xl item-center justify-center mx-auto p-4 bg-cover bg-center" 
   style={{ backgroundImage: "url('party.webp')" }}
->
+>    <div className="relative">
+      {/* 🎤 Falling sparkles & mic effects */}
+      {effects.map((effect) => (
+        <span
+          key={effect.id}
+          className="falling-effect"
+          style={{
+            left: `${effect.left}%`,
+            animationDuration: `${effect.duration}s`
+          }}
+        >
+          {Math.random() > 0.5 ? "✨" : "🎤"}
+        </span>
+      ))}
 <div className="flex flex-col items-center justify-center  px-4 sm:px-8 md:px-16 lg:px-24">
   
   {/* Title */}
@@ -607,20 +663,24 @@ const fetchSignups = async (searchTerm = "") => {
     </div>
 
     <button
-  className="w-full mb-3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
-  onClick={() => {
-    console.log("🔄 Refreshing Everything...");
-
-    fetchSignups();         // Refresh Karaoke Signups
-    fetchFormState();       // Refresh Form State Visibility
-    fetchDeletedSignups();  // Refresh Deleted Signups
-    fetchDeletedNotes();    // Refresh Deleted DJ Notes
-    fetchFlaggedSignups();  // ✅ This is the function you defined
-  }} 
->
-  🔄 Refresh for latest data!
-</button>
-
+      className={`w-full mb-3 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4
+        ${isRefreshing ? "bg-blue-800 animate-pulse" : "bg-blue-600 hover:bg-blue-700"}
+      `}
+      onClick={handleRefresh}
+      disabled={isRefreshing} // Prevent multiple clicks
+    >
+      {isRefreshing ? (
+        <span className="flex items-center justify-center">
+          <svg className="animate-spin h-6 w-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="10" strokeWidth="4" stroke="white" fill="none"></circle>
+            <path d="M12 2v4M12 22v-4M2 12h4M22 12h-4" strokeWidth="4" stroke="white"></path>
+          </svg>
+          Refreshing...
+        </span>
+      ) : (
+        "🔄 Refresh for latest data!"
+      )}
+    </button>
 
 <input
   type="text"
@@ -818,16 +878,23 @@ const fetchSignups = async (searchTerm = "") => {
     {user?.is_admin && (
 
         <div>
-  <button
+<button
   className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
   onClick={() => {
-    console.log("Toggling Deleted Signups View. Fetching...");
-    setShowDeleted(!showDeleted);
-    if (!showDeleted) fetchDeletedSignups(); // Fetch only when opening
+    console.log("Toggling Deleted DJ Notes View. Fetching...");
+    
+    if (!showDeletedNotes) {
+      fetchDeletedNotes();  // ✅ Fetch if opening
+    } else {
+      fetchDeletedNotes();  // ✅ Always refresh, even if closing
+    }
+    
+    setShowDeletedNotes(!showDeletedNotes);
   }}
 >
-  {showDeleted ? "❌ Hide Deleted Signups" : "📜 View Deleted Signups"}
+  {showDeletedNotes ? "❌ Hide Deleted DJ Notes" : "📜 View Deleted DJ Notes"}
 </button>
+
 
 
 {showDeleted && (
@@ -913,5 +980,7 @@ const fetchSignups = async (searchTerm = "") => {
 
 
                     </div>
+                    </div>
+
   );
 }
