@@ -10,6 +10,34 @@ export default function KaraokeSignup() {
   const [showForm, setShowForm] = useState(false);
   const [signupsOpen, setSignupsOpen] = useState(true);
   const [deletedSignups, setDeletedSignups] = useState([]);
+  const [deletedNotes, setDeletedNotes] = useState([]);
+const [showDeletedNotes, setShowDeletedNotes] = useState(false);
+const fetchDeletedNotes = async () => {
+    try {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/deleted");
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch deleted DJ Notes: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Deleted DJ Notes Data:", data); // Debugging log
+
+        // Ensure data is valid
+        if (!Array.isArray(data)) {
+            console.error("Invalid response format:", data);
+            return;
+        }
+
+        // Sort by creation time (newest first)
+        const sortedDeletedNotes = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+        setDeletedNotes(sortedDeletedNotes);
+    } catch (error) {
+        console.error("Error fetching deleted DJ Notes:", error);
+    }
+};
+
 const [showDeleted, setShowDeleted] = useState(false); // Toggle state
 const fetchDeletedSignups = async () => {
     try {
@@ -200,7 +228,11 @@ const fetchSignups = async (searchTerm = "") => {
             throw new Error(`Failed to fetch signups: ${response.status}`);
         }
 
-        const data = await response.json();
+        let data = await response.json();
+
+        // Ensure it's sorted by position
+        data = data.sort((a, b) => a.position - b.position);
+
         setSignups(data);
     } catch (error) {
         console.error("Error fetching signups:", error);
@@ -254,12 +286,12 @@ const fetchSignups = async (searchTerm = "") => {
     // Move an entry down
 
   
-  useEffect(() => {
-    fetchSignups();
-    fetchFormState();
-  }, []);
-
-
+    useEffect(() => {
+        fetchSignups();
+        fetchFormState();
+        fetchDeletedNotes();  // ✅ Fetch deleted DJ notes on mount
+    }, []);
+    
   // POST: Add new signup
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -370,7 +402,7 @@ const fetchSignups = async (searchTerm = "") => {
   )}
   {/* Sign-up Form */}
   <h2 className="text-2xl sm:text-3xl md:text-4xl mb-5 lg:text-5xl font-extrabold text-white text-center drop-shadow-lg mt-6 p-4 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 rounded-xl">
-  🕒 Karaoke Start/Stop Timestamp: 
+  {showForm ? "🕒 Karaoke Start Time:" : "🛑 Karaoke Stop Time:"}
   <br />
   <span className="text-yellow-200 text-3xl sm:text-4xl md:text-5xl block mt-2">
     {lastUpdated 
@@ -565,13 +597,13 @@ const fetchSignups = async (searchTerm = "") => {
   }`}
 >
 <h3 className={`text-2xl font-extrabold text-white text-center transition-all 
-    ${signup.position === 1 ? "animate-pulse bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 text-transparent bg-clip-text" : ""}
-    ${signup.position === 2 ? "text-blue-400" : ""}
+    ${position === 1 ? "animate-pulse bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 text-transparent bg-clip-text" : ""}
+    ${position === 2 ? "text-blue-400" : ""}
   `}
 >
-  {signup.position === 1 ? "🎤 CURRENTLY ROCKING THE MIC: " 
-  : signup.position === 2 ? "UP NEXT:👉 " 
-  : `🎶 Position #${signup.position}`}
+  {position === 1 ? "🎤 CURRENTLY ROCKING THE MIC: " 
+  : position === 2 ? "UP NEXT:👉 " 
+  : `🎶 Position #${position}`}
   <br />
   <span className="uppercase tracking-wide drop-shadow-lg">{name}</span>
 </h3>
@@ -711,6 +743,29 @@ const fetchSignups = async (searchTerm = "") => {
         </div>
     )}
       </div>
+
+      {user?.is_admin && showDeletedNotes && (
+  <div className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg shadow-lg mt-6">
+    <h3 className="text-xl font-bold text-center">📜 Deleted DJ Notes</h3>
+
+    {console.log("Rendering Deleted DJ Notes:", deletedNotes)} {/* Debugging Log */}
+
+    <ul className="list-none text-lg text-center pl-5 mt-2 space-y-2">
+      {deletedNotes.length > 0 ? (
+        deletedNotes.map(({ id, content, created_at }) => (
+          <li key={id} className="border-b border-gray-700 pb-2 pt-2">
+            <p className="text-white font-medium">📝 {content}</p>
+            <p className="text-sm text-gray-400">⏰ {created_at ? new Date(created_at).toLocaleString() : "Unknown"}</p>
+          </li>
+        ))
+      ) : (
+        <p className="text-center text-gray-400">No deleted DJ Notes found.</p>
+      )}
+    </ul>
+  </div>
+)}
+
+
             {user?.is_admin && (
                 
   <button
@@ -721,6 +776,18 @@ const fetchSignups = async (searchTerm = "") => {
   </button>
   
                 )}
+
+    <button
+  className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
+  onClick={() => {
+    console.log("Toggling Deleted DJ Notes View. Fetching...");
+    setShowDeletedNotes(!showDeletedNotes);
+    if (!showDeletedNotes) fetchDeletedNotes(); // Fetch only when opening
+  }}
+>
+  {showDeletedNotes ? "❌ Hide Deleted DJ Notes" : "📜 View Deleted DJ Notes"}
+</button>
+
                     </div>
   );
 }
