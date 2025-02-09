@@ -194,12 +194,12 @@ export default function KaraokeSignup() {
   )} 
 
   {/* Sign-up Form */}
-  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white text-center drop-shadow-lg mt-6 p-4 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 rounded-xl">
+  <h2 className="text-2xl sm:text-3xl md:text-4xl mb-5 lg:text-5xl font-extrabold text-white text-center drop-shadow-lg mt-6 p-4 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 rounded-xl">
   🕒 Karaoke Start/Stop Timestamp: 
   <br />
   <span className="text-yellow-200 text-3xl sm:text-4xl md:text-5xl block mt-2">
     {lastUpdated 
-      ? new Date(lastUpdated).toLocaleString("en-US", {
+      ? new Date(new Date(lastUpdated).getTime() - 5 * 60 * 60 * 1000).toLocaleString("en-US", {
           weekday: "long",
           year: "numeric",
           month: "long",
@@ -212,6 +212,7 @@ export default function KaraokeSignup() {
       : "N/A"}
   </span>
 </h2>
+
 
   {showForm && (
 
