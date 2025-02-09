@@ -448,7 +448,7 @@ const moveDown = async (id) => {
   </div>
 )}
     <div>
-      <DJNotesApp />
+    <DJNotesApp user={user} />
     </div>
 
 <button

@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext"; // Adjust the path accordingly
 
-export default function DJNotesApp() {
-  const [notes, setNotes] = useState([]);
+export default function DJNotesApp({ user }) {
+    const [notes, setNotes] = useState([]);
   const [deletedNotes, setDeletedNotes] = useState([]);
   const [formData, setFormData] = useState({ alert_type: "", alert_details: "" });
   const [editingId, setEditingId] = useState(null);
-  const { user } = useAuth();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipping, setIsFlipping] = useState(false); // Track if the flip is happening
   const handleFlipEnd = () => {
