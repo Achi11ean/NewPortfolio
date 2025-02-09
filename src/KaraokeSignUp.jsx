@@ -390,7 +390,7 @@ const moveDownFive = (index) => {
   }`}
 >
 <h3 
-  className={`text-2xl font-extrabold text-white text-center transition-all 
+  className={`text-2xl font-extrabold  text-white text-center transition-all 
     ${index === 0 ? "animate-pulse bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 text-transparent bg-clip-text" : ""}
     ${index === 1 ? "text-blue-400" : ""}
   `}
