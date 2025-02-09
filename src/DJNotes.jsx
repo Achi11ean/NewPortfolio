@@ -250,24 +250,26 @@ const fetchDeletedNotes = async () => {
           <div className="border p-4 rounded-lg bg-white shadow-md flex flex-col items-center">
             <p className="font-semibold text-lg">{notes[currentIndex].alert_type}</p>
             <p className="text-gray-700 italic">{notes[currentIndex].alert_details}</p>
-            {user?.is_admin && (
 
             <div className="flex space-x-2 mt-4">
-                
-              <button 
-                onClick={() => handleEdit(notes[currentIndex])} 
-                className="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow hover:bg-yellow-600 transition"
-              >
-                Edit
-              </button>
-              <button 
-                onClick={() => handleSoftDelete(notes[currentIndex].id)} 
-                className="bg-red-500 text-white px-3 py-1 rounded-lg shadow hover:bg-red-600 transition"
-              >
-                Soft Delete
-              </button>
-            </div>
-            )}
+  {user?.is_admin && ( // ✅ Restricts buttons to admins only
+    <>
+      <button 
+        onClick={() => handleEdit(notes[currentIndex])} 
+        className="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow hover:bg-yellow-600 transition"
+      >
+        Edit
+      </button>
+      <button 
+        onClick={() => handleSoftDelete(notes[currentIndex].id)} 
+        className="bg-red-500 text-white px-3 py-1 rounded-lg shadow hover:bg-red-600 transition"
+      >
+        Soft Delete
+      </button>
+    </>
+  )}
+</div>
+
             {/* Manual Navigation Buttons */}
             <div className="flex justify-between mt-4 w-full">
               <button 
