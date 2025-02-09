@@ -190,6 +190,32 @@ const fetchFlaggedSignups = async () => {
       }
     }
   };
+  const handleHardDeleteSoftDeleted = async () => {
+    const confirmDelete = window.confirm("🚨 Are you sure you want to PERMANENTLY DELETE all soft-deleted signups? This action CANNOT be undone!");
+    
+    if (!confirmDelete) return;
+
+    try {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/hard_delete", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error hard deleting soft-deleted signups: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("✅ Hard delete response:", data);
+        alert(`✅ ${data.message}`);
+
+        fetchDeletedSignups(); // Refresh the deleted signups list
+    } catch (error) {
+        console.error("❌ Error hard deleting soft-deleted signups:", error);
+        alert("❌ Failed to hard delete soft-deleted signups. Please try again.");
+    }
+};
+
   
   const [editForm, setEditForm] = useState({ name: "", song: "", artist: "" });
   const moveUpFive = async (id, index) => {
@@ -684,12 +710,12 @@ const fetchSignups = async (searchTerm = "") => {
   }`}
 >
 <h3 className={`text-2xl font-extrabold text-white text-center transition-all 
-    ${position === 1 ? "animate-pulse bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 text-transparent bg-clip-text" : ""}
-    ${position === 2 ? "text-blue-400" : ""}
+    ${position === 0 ? "animate-pulse bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 text-transparent bg-clip-text" : ""}
+    ${position === 1 ? "text-blue-400" : ""}
   `}
 >
-  {position === 1 ? "🎤 CURRENTLY ROCKING THE MIC: " 
-  : position === 2 ? "UP NEXT:👉 " 
+  {position === 0 ? "🎤 CURRENTLY ROCKING THE MIC: " 
+  : position === 1 ? "UP NEXT:👉 " 
   : `🎶 Position #${position}`}
   <br />
   <span className="uppercase tracking-wide drop-shadow-lg">{name}</span>
@@ -860,6 +886,13 @@ const fetchSignups = async (searchTerm = "") => {
     >
       🚨 DELETE ALL SIGNUPS 🚨
     </button>
+    <button
+  className="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
+  onClick={handleHardDeleteSoftDeleted}
+>
+  🚨 HARD DELETE ALL SOFT-DELETED SIGNUPS 🚨
+</button>
+
     <button
     className="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
     onClick={handleHardDeleteAll}
