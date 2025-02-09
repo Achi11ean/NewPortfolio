@@ -6,6 +6,21 @@ export default function KaraokeSignup() {
   const [form, setForm] = useState({ name: "", song: "", artist: "" });
   const [editingId, setEditingId] = useState(null);
   const [issues, setIssues] = useState({});
+  const [showForm, setShowForm] = useState(false);
+  const [signupsOpen, setSignupsOpen] = useState(true);
+  const fetchFormState = async () => {
+    try {
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/formstate");
+      if (!response.ok) {
+        throw new Error("Failed to fetch form state");
+      }
+      const data = await response.json();
+      setShowForm(data.show_form || false); // Default to false if no value exists
+    } catch (error) {
+      console.error("Error fetching form state:", error);
+    }
+  };
+  
   const handleDeleteAll = async () => {
     const confirmDelete = window.confirm("Are you sure you want to delete ALL signups? This action cannot be undone!");
     if (confirmDelete) {
@@ -55,6 +70,21 @@ export default function KaraokeSignup() {
             console.error("Error toggling issue:", error);
         }
     };
+    const toggleFormVisibility = async () => {
+        const newShowForm = !showForm;
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/formstate", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ show_form: newShowForm }),
+        });
+      
+        if (response.ok) {
+          setShowForm(newShowForm); // Update state if request is successful
+        } else {
+          console.error("Error updating form state");
+        }
+      };
+      
     
     // Move an entry down
     const moveDown = (index) => {
@@ -66,6 +96,7 @@ export default function KaraokeSignup() {
   
   useEffect(() => {
     fetchSignups();
+    fetchFormState();
   }, []);
 
   // GET: Fetch all signups
@@ -135,11 +166,28 @@ export default function KaraokeSignup() {
   </h1>
 
   {/* Subtitle */}
-  <h1 className="text-3xl mt-16  sm:text-4xl md:text-5xl font-extrabold mb-6 text-center text-white drop-shadow-lg">
-    🎤Sign-up 🎶
-  </h1>
+  <h1
+  className={`mt-16 font-extrabold mb-6 text-center text-white drop-shadow-lg 
+    ${showForm ? "text-2xl xs:text-3xl sm:text-4xl md:text-5xl" : "text-xl xs:text-2xl sm:text-3xl md:text-4xl"}`}
+>
+  {showForm ? "🎤Sign-up 🎶" : "🛑Sign Up is currently closed, Sorry!🛑"}
+</h1>
+
+
+  {/* {user?.is_admin && ( */}
+
+  <button
+  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
+  onClick={toggleFormVisibility}
+>
+  {showForm ? "Hide Sign-Up Form ⬆️" : "Show Sign-Up Form ⬇️"}
+</button>
+
+  {/* )} */}
 
   {/* Sign-up Form */}
+  {showForm && (
+
   <form 
     onSubmit={handleSubmit} 
     className="w-full max-w-md  bg-opacity-80 bg-white backdrop-blur-lg p-6 sm:p-8 rounded-2xl shadow-2xl space-y-4 border border-gray-700 flex flex-col items-center"
@@ -179,6 +227,7 @@ export default function KaraokeSignup() {
       Sign Up 🎶
     </button>
   </form>
+  )}
 </div>
       <div className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg shadow-lg overflow-y-auto mt-10 mb-10 max-h-64">
   <h2 className="text-3xl underline font-bold mb-2 text-center">🚦Karaoke Guidelines 🚦</h2>
