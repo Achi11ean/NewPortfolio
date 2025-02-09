@@ -6,6 +6,24 @@ export default function DJNotesApp({ user }) {
   const [formData, setFormData] = useState({ alert_type: "", alert_details: "" });
   const [editingId, setEditingId] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const getAlertStyles = (alertType) => {
+    if (alertType.startsWith("ALERT:")) {
+      return "bg-red-600 text-white border-red-800";
+    } else if (alertType.startsWith("HAPPY BIRTHDAY")) {
+      return "bg-pink-300 text-pink-800 border-pink-500";
+    } else if (alertType.startsWith("HAPPY ANNIVERSARY")) {
+      return "bg-purple-300 text-purple-800 border-purple-500";
+    } else if (alertType.startsWith("JUST MARRIED")) {
+      return "bg-green-500 text-white border-green-700";
+    } else if (alertType.startsWith("JUST DIVORCED")) {
+      return "bg-gray-600 text-white border-gray-800";
+    } else if (alertType.startsWith("IN MEMORY")) {
+      return "bg-black text-white border-gray-500";
+    } else {
+      return "bg-yellow-300 text-yellow-800 border-yellow-500"; // Default (Spotlight)
+    }
+  };
+  
   const [isFlipping, setIsFlipping] = useState(false); // Track if the flip is happening
   const handleFlipEnd = () => {
     setIsFlipping(false); // Reset flipping state

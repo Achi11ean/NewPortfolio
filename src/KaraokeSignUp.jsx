@@ -191,7 +191,7 @@ const moveDown = async (id) => {
 };
 const fetchSignups = async (searchTerm = "") => {
     try {
-        const response = await fetch(`http://127.0.0.1:5000/karaokesignup?search=${encodeURIComponent(searchTerm)}`, {
+        const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup?search=${encodeURIComponent(searchTerm)}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" }
         });
