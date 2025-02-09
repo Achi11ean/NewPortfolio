@@ -416,53 +416,61 @@ const moveDownFive = (index) => {
     {/* Admin-Only Buttons */}
     {user?.is_admin && (
       <>
-        <button
-          className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-md"
-          onClick={() => {
-            setEditingId(id);
-            setEditForm({ name, song, artist });
-          }}
-        >
-          Edit ✏️
-        </button>
-        <button
-          className="mt-2 bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-md ml-2"
-          onClick={() => handleDelete(id)}
-        >
-          Remove ❌
-        </button>
-        <button
-  className={`mt-2 text-white font-bold py-1 px-3 rounded-md ${
-    issues[id] ? 'bg-green-500 hover:bg-green-700' : 'bg-red-500 hover:bg-red-700'
-  }`}
-  onClick={() => toggleIssue(id, issues[id] || false)}
->
-  {issues[id] ? 'Clear Issue ✅' : 'Mark Issue 🚨'}
-</button>
-<button
-    className="mt-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-3 rounded-md"
+<div className="flex flex-wrap gap-4 justify-center mt-4">
+  <button
+    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
+    onClick={() => {
+      setEditingId(id);
+      setEditForm({ name, song, artist });
+    }}
+  >
+    Edit ✏️
+  </button>
+
+  <button
+    className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md"
+    onClick={() => handleDelete(id)}
+  >
+    Remove ❌
+  </button>
+
+  <button
+    className={`text-white font-bold py-2 px-4 rounded-md ${
+      issues[id] ? "bg-green-500 hover:bg-green-700" : "bg-red-500 hover:bg-red-700"
+    }`}
+    onClick={() => toggleIssue(id, issues[id] || false)}
+  >
+    {issues[id] ? "Clear Issue ✅" : "Mark Issue 🚨"}
+  </button>
+
+  <button
+    className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-md"
     onClick={() => moveToSecond(index)}
   >
     ⏩ UP NEXT
   </button>
+
   <button
-  className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
-  onClick={sortByTime}
->
-  ⏳ Sort by Time
-</button>
-<button
-      className="mt-2 bg-purple-500 hover:bg-purple-600 text-white font-bold py-1 px-3 rounded-md"
-      onClick={() => moveUpFive(index)}
-    >
-      ⬆️ Move Up 5
-    </button>
-    <button
-      className="mt-2 bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-3 rounded-md"
-      onClick={() => moveDownFive(index)}
-    >
-      ⬇️ Move Down 5
-    </button>
+    className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg"
+    onClick={sortByTime}
+  >
+    ⏳ Sort by Time
+  </button>
+
+  <button
+    className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-md"
+    onClick={() => moveUpFive(index)}
+  >
+    ⬆️ Up 5
+  </button>
+
+  <button
+    className="bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-md"
+    onClick={() => moveDownFive(index)}
+  >
+    ⬇️ Down 5
+  </button>
+</div>
 
       </>
     )} 
