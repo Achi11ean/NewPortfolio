@@ -162,6 +162,12 @@ export default function KaraokeSignup() {
     <li><strong>Leave a Review:</strong>  <br/>Loving the experience? Leave a review and snap a photo with the host to be featured!</li>
   </ul>
 </div>
+<button
+  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
+  onClick={fetchSignups}
+>
+  🔄 Refresh List
+</button>
 
       {/* Sign-up List */}
       <div className="space-y-4">
