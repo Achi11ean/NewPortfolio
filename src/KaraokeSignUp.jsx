@@ -27,11 +27,16 @@ export default function KaraokeSignup() {
         [newSignups[index], newSignups[index - 1]] = [newSignups[index - 1], newSignups[index]];
         setSignups(newSignups);
     };
-    const toggleIssue = (id) => {
-        setIssues((prev) => ({
-          ...prev,
-          [id]: !prev[id], // Toggle issue status
-        }));
+    const toggleIssue = async (id, currentStatus) => {
+        const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ is_flagged: !currentStatus }),
+        });
+      
+        if (response.ok) {
+          fetchSignups(); // Refresh the list after updating
+        }
       };
       
     const markIssue = (id) => {
@@ -285,13 +290,14 @@ export default function KaraokeSignup() {
           Remove ❌
         </button>
         <button
-    className={`mt-2 text-white font-bold py-1 px-3 rounded-md ${
-      issues[id] ? 'bg-green-500 hover:bg-green-700' : 'bg-red-500 hover:bg-red-700'
-    }`}
-    onClick={() => toggleIssue(id)}
-  >
-    {issues[id] ? 'Clear Issue ✅' : 'Mark Issue 🚨'}
-  </button>
+  className={`mt-2 text-white font-bold py-1 px-3 rounded-md ${
+    issues[id] ? 'bg-green-500 hover:bg-green-700' : 'bg-red-500 hover:bg-red-700'
+  }`}
+  onClick={() => toggleIssue(id, issues[id])} // Pass the current status
+>
+  {issues[id] ? 'Clear Issue ✅' : 'Mark Issue 🚨'}
+</button>
+
       </>
     )}
 </>
