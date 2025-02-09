@@ -466,11 +466,16 @@ const fetchSignups = async (searchTerm = "") => {
     <DJNotesApp user={user} />
     </div>
 
-<button
+    <button
   className="w-full mb-3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
   onClick={() => {
-    fetchSignups();
-    fetchFormState();
+    console.log("🔄 Refreshing Everything...");
+
+    fetchSignups();         // Refresh Karaoke Signups
+    fetchFormState();       // Refresh Form State Visibility
+    fetchDeletedSignups();  // Refresh Deleted Signups
+    fetchDeletedNotes();    // Refresh Deleted DJ Notes
+    fetchNotes();           // Refresh Active DJ Notes
   }}
 >
   🔄 Refresh Everything
