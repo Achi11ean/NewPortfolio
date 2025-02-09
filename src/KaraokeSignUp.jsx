@@ -169,7 +169,7 @@ const fetchFlaggedSignups = async () => {
       });
 
       console.log("🛠 Updating Issues State for Flagged Signups:", updatedIssues);
-      setIssues(prevIssues => ({ ...prevIssues, ...updatedIssues })); // ✅ Merge with existing state
+      setIssues(updatedIssues); // ✅ Ensure UI updates
 
   } catch (error) {
       console.error("Error fetching flagged signups:", error);
