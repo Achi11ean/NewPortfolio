@@ -121,7 +121,8 @@ export default function App() {
         </div>
       </div>
       <button
-  className="bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 
+  className="block sm:block md:block lg:hidden xl:hidden 2xl:hidden
+             bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 
              hover:from-pink-500 hover:via-purple-500 hover:to-indigo-500 
              text-white font-bold py-3 w-full rounded-lg shadow-lg transition-all transform hover:scale-105"
   onClick={() => setActiveTab("karaoke")}
@@ -129,9 +130,10 @@ export default function App() {
   🎤 Karaoke
 </button>
 
+
       <div className="w-full max-w-7.5xl mx-auto p-6">
-  {/* Mobile Menu Button */}
-  <div className="md:hidden flex justify-end mb-4">
+{/* Mobile & Tablet Menu Button */}
+<div className="lg:hidden flex justify-end mb-4">
   <button
     className="bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 px-4 rounded-lg shadow-md text-lg font-bold"
     onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -140,9 +142,10 @@ export default function App() {
   </button>
 </div>
 
+
   {/* Mobile Menu */}
   {isMenuOpen && (
-  <div className="md:hidden bg-gray-800 rounded-lg p-4 shadow-lg space-y-2">
+  <div className="lg:hidden bg-gray-800 rounded-lg p-4 shadow-lg space-y-2">
     {[
       { tab: "welcome", label: "Welcome" },
       { tab: "karaoke", label: "Karaoke Signup" },
