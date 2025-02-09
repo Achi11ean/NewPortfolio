@@ -166,13 +166,15 @@ export default function KaraokeSignup() {
   </h1>
 
   {/* Subtitle */}
+  {user?.is_admin && (
+
   <h1
   className={`mt-16 font-extrabold mb-6 text-center text-white drop-shadow-lg 
     ${showForm ? "text-2xl xs:text-3xl sm:text-4xl md:text-5xl" : "text-xl xs:text-2xl sm:text-3xl md:text-4xl"}`}
 >
   {showForm ? "🎤Sign-up 🎶" : "🛑Sign Up is currently closed, Sorry!🛑"}
 </h1>
-
+  )}
 
   {user?.is_admin && (
 
