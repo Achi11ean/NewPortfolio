@@ -1,8 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuth } from "./AuthContext"; // Adjust the path accordingly
 import DJNotesApp from "./DJNotes";
 
 export default function KaraokeSignup() {
+  const guidelinesRef = useRef(null);
+  useEffect(() => {
+    const scrollContainer = guidelinesRef.current;
+    if (!scrollContainer) return;
+
+    let scrollAmount = 0;
+    const scrollStep = 1; // Adjust speed (higher = slower)
+    const scrollInterval = 50; // Time between scrolls in ms
+
+    const scrollGuidelines = setInterval(() => {
+      if (scrollContainer) {
+        scrollContainer.scrollTop += scrollStep;
+        scrollAmount += scrollStep;
+
+        // If scrolled to the bottom, reset to the top
+        if (scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight) {
+          scrollContainer.scrollTop = 0;
+          scrollAmount = 0;
+        }
+      }
+    }, scrollInterval); 
+    return () => clearInterval(scrollGuidelines);
+}, []);
   const [signups, setSignups] = useState([]);
   const [form, setForm] = useState({ name: "", song: "", artist: "" });
   const [editingId, setEditingId] = useState(null);
@@ -489,19 +512,22 @@ const fetchSignups = async (searchTerm = "") => {
   </form>
   )}
 </div>
-      <div className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg shadow-lg overflow-y-auto mt-10 mb-10 max-h-64">
-  <h2 className="text-3xl underline font-bold mb-2 text-center">🚦Karaoke Guidelines 🚦</h2>
-  <ul className="list-disc text-lg text-center pl-5 space-y-2">
-    <li><strong>Respect:</strong> <br/>Everyone gets their moment to shine! Disrespect toward singers or staff will result in removal from the queue.</li>
-    <li><strong>Two Songs at a time</strong>  <br/>in order to keep it fair you can only submit two songs at one time. Once you sing it will be removed from queue so you can add another song!</li>
-    <li><strong>Tips Appreciated, Not Required:</strong> <br/> Tipping is welcome but does not guarantee priority in the queue.</li>
-    <li><strong>Song Availability:</strong> <br/>If your song isn't available, it will be flagged. Refresh the page to check for updates. if your song disappeared it may have been flagged. </li>
-    <li><strong>Celebrations:</strong>  <br/>Let us know if it's your birthday or a special occasion—we'd love to give you an epic introduction!</li>
-    <li><strong>Host Authority:</strong>  <br/>The host may adjust the queue as needed but will always aim to keep it fair for everyone.</li>
-    <li><strong>Most Important Rule:</strong>  <br/>HAVE FUN! Enjoy your time on stage and cheer for fellow performers.</li>
-    <li><strong>Leave a Review:</strong>  <br/>Loving the experience? Leave a review and snap a photo with the host to be featured!</li>
-  </ul>
-</div>
+<div 
+      className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg shadow-lg overflow-y-auto mt-10 mb-10 max-h-64"
+      ref={guidelinesRef} // 🔥 Reference the scroll container
+    >
+      <h2 className="text-3xl underline font-bold mb-2 text-center">🚦 Karaoke Guidelines 🚦</h2>
+      <ul className="list-disc text-lg text-center pl-5 space-y-2">
+        <li><strong>Respect:</strong> <br /> Everyone gets their moment to shine! Disrespect toward singers or staff will result in removal from the queue.</li>
+        <li><strong>Two Songs at a time:</strong> <br /> To keep it fair, you can only submit two songs at one time.</li>
+        <li><strong>Tips Appreciated, Not Required:</strong> <br /> Tipping is welcome but does not guarantee priority.</li>
+        <li><strong>Song Availability:</strong> <br /> If your song isn't available, it will be flagged.</li>
+        <li><strong>Celebrations:</strong> <br /> Let us know if it's your birthday or a special occasion!</li>
+        <li><strong>Host Authority:</strong> <br /> The host may adjust the queue but will keep it fair.</li>
+        <li><strong>Most Important Rule:</strong> <br /> HAVE FUN! Enjoy your time on stage and cheer for fellow performers.</li>
+        <li><strong>Leave a Review:</strong> <br /> Loving the experience? Leave a review and snap a photo!</li>
+      </ul>
+    </div>
 {/* Display Flagged Artists List */}
 {flaggedArtists.length > 0 && (
   <div className="max-w-lg mx-auto bg-red-700 text-white p-4 rounded-lg shadow-lg mt-6">
