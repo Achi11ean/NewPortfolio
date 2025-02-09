@@ -564,16 +564,18 @@ const fetchSignups = async (searchTerm = "") => {
     issues[id] ? "bg-red-600 text-white" : "bg-transparent"
   }`}
 >
-<h3 
-  className={`text-2xl font-extrabold text-white text-center transition-all 
-    ${index === 0 ? "animate-pulse bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 text-transparent bg-clip-text" : ""}
-    ${index === 1 ? "text-blue-400" : ""}
+<h3 className={`text-2xl font-extrabold text-white text-center transition-all 
+    ${signup.position === 1 ? "animate-pulse bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 text-transparent bg-clip-text" : ""}
+    ${signup.position === 2 ? "text-blue-400" : ""}
   `}
 >
-  {index === 0 ? "🎤 CURRENTLY ROCKING THE MIC: " : index === 1 ? "UP NEXT:👉 " : `🎶 Position #${index + 1}`}
+  {signup.position === 1 ? "🎤 CURRENTLY ROCKING THE MIC: " 
+  : signup.position === 2 ? "UP NEXT:👉 " 
+  : `🎶 Position #${signup.position}`}
   <br />
   <span className="uppercase tracking-wide drop-shadow-lg">{name}</span>
 </h3>
+
 <p className="text-lg text-green-300 font-medium text-center mt-1">
   {index === 0 
     ? "🔥 You're singing now! 🔥" 
