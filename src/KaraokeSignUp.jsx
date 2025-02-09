@@ -147,33 +147,41 @@ const fetchDeletedSignups = async () => {
         console.error("Error sorting by time:", error);
     }
 };
+const [flaggedSignups, setFlaggedSignups] = useState([]); // Store full flagged entries
 
-    const fetchFlaggedSignups = async () => {
-        try {
-            const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/flagged");
+const fetchFlaggedSignups = async () => {
+  try {
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/flagged");
 
-            if (!response.ok) {
-                throw new Error(`Failed to fetch flagged signups: ${response.status}`);
-            }
+      if (!response.ok) {
+          throw new Error(`Failed to fetch flagged signups: ${response.status}`);
+      }
 
-            const data = await response.json();
-            console.log("Flagged Signups Data:", data); // Debugging log
+      let data = await response.json();
+      console.log("🚨 Flagged Signups Data:", data); // Debugging log
 
-            // Extract unique flagged artists
-            const flaggedArtistsList = [...new Set(data.map(signup => signup.artist.trim()))];
+      setFlaggedSignups(data); // ✅ Store full flagged signup data
 
-            setFlaggedArtists(flaggedArtistsList);
-        } catch (error) {
-            console.error("Error fetching flagged signups:", error);
-        }
-    };
+      // ✅ Automatically update `issues` state
+      const updatedIssues = {};
+      data.forEach(signup => {
+          updatedIssues[signup.id] = true; // Ensure all flagged signups are marked as true
+      });
+
+      console.log("🛠 Updating Issues State for Flagged Signups:", updatedIssues);
+      setIssues(prevIssues => ({ ...prevIssues, ...updatedIssues })); // ✅ Merge with existing state
+
+  } catch (error) {
+      console.error("Error fetching flagged signups:", error);
+  }
+};
 
   const [lastUpdated, setLastUpdated] = useState(null);
 
   const handleDeleteAll = async () => {
     const confirmDelete = window.confirm("Are you sure you want to delete ALL signups? This action cannot be undone!");
     if (confirmDelete) {
-      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup", { method: "DELETE" });
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com", { method: "DELETE" });
       if (response.ok) {
         fetchSignups(); // Refresh the list
         alert("All signups have been deleted successfully!");
@@ -270,25 +278,41 @@ const moveDown = async (id) => {
     fetchSignups();
 };
 const fetchSignups = async (searchTerm = "") => {
-    try {
-        const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup?search=${encodeURIComponent(searchTerm)}`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" }
-        });
+  try {
+      const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup?search=${encodeURIComponent(searchTerm)}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" }
+      });
 
-        if (!response.ok) {
-            throw new Error(`Failed to fetch signups: ${response.status}`);
-        }
+      if (!response.ok) {
+          throw new Error(`Failed to fetch signups: ${response.status}`);
+      }
 
-        let data = await response.json();
+      let data = await response.json();
 
-        // Ensure it's sorted by position
-        data = data.sort((a, b) => a.position - b.position);
+      // Log each signup's is_flagged status
+      console.log("🚦 Signups received:");
+      data.forEach((signup, index) => {
+          console.log(`🎤 #${index + 1}: ID: ${signup.id}, Name: ${signup.name}, is_flagged: ${signup.is_flagged}`);
+      });
 
-        setSignups(data);
-    } catch (error) {
-        console.error("Error fetching signups:", error);
-    }
+      // Ensure it's sorted by position
+      data = data.sort((a, b) => a.position - b.position);
+
+      setSignups(data);
+
+      // ✅ Automatically update `issues` state
+      const updatedIssues = {};
+      data.forEach(signup => {
+          updatedIssues[signup.id] = signup.is_flagged;
+      });
+
+      console.log("🛠 Updating Issues State:", updatedIssues);
+      setIssues(updatedIssues); // ✅ Now the UI will reflect flags on load!
+      
+  } catch (error) {
+      console.error("Error fetching signups:", error);
+  }
 };
 
 
@@ -536,21 +560,21 @@ const fetchSignups = async (searchTerm = "") => {
       </ul>
     </div>
 {/* Display Flagged Artists List */}
-{flaggedArtists.length > 0 && (
+{flaggedSignups.length > 0 && (
   <div className="max-w-lg mx-auto bg-red-700 text-white p-4 rounded-lg shadow-lg mt-6">
-    <h3 className="text-xl font-bold text-center">🚨 Flagged Artists 🚨</h3>
-    <ul className="list-disc text-lg text-center pl-5 mt-2 space-y-1">
-      {flaggedArtists.map((artist, index) => {
-        console.log(`Rendering Flagged Artist #${index + 1}:`, artist); // Debugging log
-        return (
-          <li key={index} className="font-semibold">
-            {artist || "❌ Missing Artist Name"} {/* Handle undefined artist names */}
-          </li>
-        );
-      })}
+    <h3 className="text-xl font-bold text-center">🚨 Flagged Signups 🚨</h3>
+    <ul className="list-none text-lg text-center mt-2 space-y-2">
+      {flaggedSignups.map((signup, index) => (
+        <li key={signup.id} className="border-b border-gray-300 pb-2">
+          <p className="text-xl font-bold">{signup.name}</p>
+          <p className="text-lg">🎶 {signup.song} - {signup.artist}</p>
+          <p className="text-sm text-gray-200">⏰ {new Date(signup.created_at).toLocaleString()}</p>
+        </li>
+      ))}
     </ul>
   </div>
 )}
+
 
     <div>
     <DJNotesApp user={user} />
@@ -759,8 +783,7 @@ const fetchSignups = async (searchTerm = "") => {
 </div>
 
       </>
-    )} 
-</>
+)}</>
 )}
 
 
