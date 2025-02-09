@@ -346,7 +346,7 @@ const moveDown = async (id) => {
 </h1>
   )}
 
-  {/* {user?.is_admin && ( */}
+  {user?.is_admin && (
 
   <button
   className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
@@ -355,8 +355,7 @@ const moveDown = async (id) => {
   {showForm ? "Hide Sign-Up Form ⬆️" : "Show Sign-Up Form ⬇️"}
 </button>
 
-  {/* )}  */}
-
+  )}
   {/* Sign-up Form */}
   <h2 className="text-2xl sm:text-3xl md:text-4xl mb-5 lg:text-5xl font-extrabold text-white text-center drop-shadow-lg mt-6 p-4 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 rounded-xl">
   🕒 Karaoke Start/Stop Timestamp: 

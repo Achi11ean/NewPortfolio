@@ -120,6 +120,15 @@ export default function App() {
           </div> */}
         </div>
       </div>
+      <button
+  className="bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 
+             hover:from-pink-500 hover:via-purple-500 hover:to-indigo-500 
+             text-white font-bold py-3 w-full rounded-lg shadow-lg transition-all transform hover:scale-105"
+  onClick={() => setActiveTab("karaoke")}
+>
+  🎤 Karaoke
+</button>
+
       <div className="w-full max-w-7.5xl mx-auto p-6">
   {/* Mobile Menu Button */}
   <div className="md:hidden flex justify-end mb-4">
@@ -210,6 +219,7 @@ export default function App() {
         )
     )}
   </div>
+
 
         {/* Tab Content */}
         <div className="mt-4 p-6  text-white rounded-xl relative overflow-hidden shadow-lg">
