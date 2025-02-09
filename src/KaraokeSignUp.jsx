@@ -303,7 +303,7 @@ const fetchSignups = async (searchTerm = "") => {
   
     // Prevent submission if the name appears twice already
     if (nameCount >= 2) {
-      alert(`The name "${form.name}" is already used twice! Please use a different name.`);
+      alert(`The name "${form.name}" is already used twice! Only two song's at a time per person please! Use a different name if you are seeing this message and have not yet entered a song`);
       return;
     }
   

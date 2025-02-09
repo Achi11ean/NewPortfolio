@@ -208,10 +208,10 @@ const fetchDeletedNotes = async () => {
         🔥 🚨
       </button>
       <button className="bg-pink-500 text-white px-4 py-2 rounded" onClick={() => moveAlertToTop("HAPPY BIRTHDAY")}>
-        🎂 
+        🎂 🎁
       </button>
       <button className="bg-purple-500 text-white px-4 py-2 rounded" onClick={() => moveAlertToTop("HAPPY ANNIVERSARY")}>
-        💖 
+        💖 ♾️
       </button>
       <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => moveAlertToTop("JUST MARRIED")}>
         💍 + 💍
