@@ -236,7 +236,7 @@ export default function KaraokeSignup() {
       <strong>{name}</strong> wants to sing <em>{song}</em> by {artist}
     </p>
     <p className="text-sm text-gray-300">
-      Signed up at: {created_at ? new Date(created_at).toLocaleString() : "Unknown"}
+    Signed up at: {created_at ? new Date(new Date(created_at).getTime() - 5 * 60 * 60 * 1000).toLocaleString() : "Unknown"}
     </p>
     
     {issues[id] && (
