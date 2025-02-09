@@ -456,6 +456,7 @@ const fetchSignups = async (searchTerm = "") => {
       value={form.name}
       onChange={(e) => setForm({ ...form, name: e.target.value })}
       className="w-full px-4 py-3 bg-black text-white text-2xl text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+      required
     />
 
     {/* Song Input */}
@@ -465,6 +466,7 @@ const fetchSignups = async (searchTerm = "") => {
       value={form.song}
       onChange={(e) => setForm({ ...form, song: e.target.value })}
       className="w-full px-4 py-3 bg-black text-white text-2xl text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+      required
     />
 
     {/* Artist Input */}
@@ -474,6 +476,7 @@ const fetchSignups = async (searchTerm = "") => {
       value={form.artist}
       onChange={(e) => setForm({ ...form, artist: e.target.value })}
       className="w-full px-4 py-3 bg-black text-white text-2xl text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+      required
     />
 
     {/* Submit Button */}
@@ -578,18 +581,21 @@ const fetchSignups = async (searchTerm = "") => {
       value={editForm.name}
       onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
       className="w-full px-4 py-2 bg-black text-white rounded-md border border-gray-400"
+      required
     />
     <input
       type="text"
       value={editForm.song}
       onChange={(e) => setEditForm({ ...editForm, song: e.target.value })}
       className="w-full px-4 py-2 bg-black text-white rounded-md border border-gray-400"
+      required
     />
     <input
       type="text"
       value={editForm.artist}
       onChange={(e) => setEditForm({ ...editForm, artist: e.target.value })}
       className="w-full px-4 py-2 bg-black text-white rounded-md border border-gray-400"
+      required
     />
 
     {/* Save and Cancel Buttons - Only for Admins */}
