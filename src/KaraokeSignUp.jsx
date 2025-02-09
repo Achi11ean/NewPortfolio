@@ -28,24 +28,33 @@ export default function KaraokeSignup() {
         setSignups(newSignups);
     };
     const toggleIssue = async (id, currentStatus) => {
-        const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ is_flagged: !currentStatus }),
-        });
-      
-        if (response.ok) {
-          fetchSignups(); // Refresh the list after updating
+        console.log(`Toggling issue for ID: ${id}, current status: ${currentStatus}`);
+        try {
+            const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ is_flagged: !currentStatus }),
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+    
+            const result = await response.json();
+            console.log("Server response:", result);
+    
+            // Update local state immediately to reflect the change
+            setIssues((prev) => ({
+                ...prev,
+                [id]: !currentStatus, // Toggle the issue status
+            }));
+    
+            fetchSignups(); // Refresh the list after updating
+        } catch (error) {
+            console.error("Error toggling issue:", error);
         }
-      };
-      
-    const markIssue = (id) => {
-        setIssues((prev) => ({
-          ...prev,
-          [id]: true, // Mark this song as having an issue
-        }));
-      };
-      
+    };
+    
     // Move an entry down
     const moveDown = (index) => {
         if (index === signups.length - 1) return; // Can't move last item down
@@ -293,7 +302,7 @@ export default function KaraokeSignup() {
   className={`mt-2 text-white font-bold py-1 px-3 rounded-md ${
     issues[id] ? 'bg-green-500 hover:bg-green-700' : 'bg-red-500 hover:bg-red-700'
   }`}
-  onClick={() => toggleIssue(id, issues[id])} // Pass the current status
+  onClick={() => toggleIssue(id, issues[id] || false)}
 >
   {issues[id] ? 'Clear Issue ✅' : 'Mark Issue 🚨'}
 </button>
