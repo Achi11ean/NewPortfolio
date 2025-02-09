@@ -337,11 +337,12 @@ export default function KaraokeSignup() {
 >
   {index === 0 ? "🎤 CURRENTLY ROCKING THE MIC: " : index === 1 ? "⏭️ UP NEXT: " : "🎶"}
   <br />
-  <span className="uppercase tracking-wide drop-shadow-lg">{name}</span>
+
+  <span className="uppercase tracking-wide drop-shadow-lg">NAME:{name}</span>
 </h3>
 
 <p className="text-xl text-purple-300 font-medium text-center mt-2">
-  🎶 <span className="text-white font-extrabold">{song}</span> by <span className="text-yellow-400 font-extrabold">{artist}</span>
+  🎶 <span className="text-white font-extrabold">Performing:{song}</span> by <span className="text-yellow-400 font-extrabold">{artist}</span>
 </p>
 
 <p className="text-sm text-gray-400 text-center italic mt-2">
