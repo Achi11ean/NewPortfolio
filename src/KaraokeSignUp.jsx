@@ -34,13 +34,24 @@ const fetchDeletedSignups = async () => {
     }
   };
   const sortByTime = async () => {
-    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/sort`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "sort_by_time" }), // Ensure backend understands this
-    });
+    try {
+        const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/sort`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ action: "sort_by_time" }), // Correct backend action
+        });
 
-    fetchSignups();
+        if (!response.ok) {
+            throw new Error("Failed to sort signups by time.");
+        }
+
+        const result = await response.json();
+        console.log("Sort Response:", result); // Debugging log
+
+        fetchSignups(); // Refresh list to reflect sorted order
+    } catch (error) {
+        console.error("Error sorting by time:", error);
+    }
 };
 
 // Extract flagged artists
