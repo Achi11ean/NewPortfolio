@@ -275,11 +275,15 @@ button:focus-visible {
 
 @keyframes fall {
   0% {
-    transform: translateY(-50px) scale(1);
+    transform: translateY(-50px) translateX(0) scale(1);
     opacity: 1;
   }
+  50% {
+    transform: translateY(50vh) translateX(-20px) scale(1.2);
+    opacity: 0.9;
+  }
   100% {
-    transform: translateY(100vh) scale(1.5);
+    transform: translateY(100vh) translateX(20px) scale(1.5);
     opacity: 0;
   }
 }
@@ -287,8 +291,19 @@ button:focus-visible {
 .falling-effect {
   position: absolute;
   top: 0;
-  font-size: 2rem;
+  font-size: 1.5rem; /* Slightly smaller for a gentle snowfall look */
   opacity: 0.8;
   pointer-events: none;
-  animation: fall linear forwards;
+  animation: fall ease-in-out forwards;
+  animation-duration: calc(3s + (random() * 2s)); /* Random duration between 3s-5s */
+}
+
+@keyframes drift {
+  0% { transform: translateX(0px); }
+  50% { transform: translateX(10px); } /* Gentle side-to-side drifting */
+  100% { transform: translateX(-10px); }
+}
+
+.snowflake {
+  animation: drift 3s infinite alternate ease-in-out;
 }
