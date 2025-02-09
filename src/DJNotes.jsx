@@ -53,9 +53,14 @@ export default function DJNotesApp({ user }) {
   
   
   useEffect(() => {
-    fetchNotes();
-    fetchDeletedNotes();
-  }, []);
+    try {
+        fetchNotes();
+        fetchDeletedNotes();
+    } catch (error) {
+        console.error("Error loading notes:", error);
+    }
+}, []);
+
 
   const fetchNotes = async () => {
     try {
@@ -103,11 +108,10 @@ const fetchDeletedNotes = async () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
         const response = await fetch(
             editingId 
-                ? `http://127.0.0.1:5000/djnotesactive/${editingId}` 
+                ? `http://127.0.0.1:5000/djnotes/${editingId}`  // ✅ Corrected
                 : "http://127.0.0.1:5000/djnotes",
             {
                 method: editingId ? "PATCH" : "POST",
@@ -117,14 +121,12 @@ const fetchDeletedNotes = async () => {
                 body: JSON.stringify(formData),
             }
         );
-
         if (!response.ok) {
             throw new Error(`Failed to ${editingId ? "update" : "create"} note: ${response.status}`);
         }
-
         setFormData({ alert_type: "", alert_details: "" });
         setEditingId(null);
-        fetchNotes(); // Refresh the notes list
+        fetchNotes(); // Refresh list
     } catch (error) {
         console.error("Error submitting note:", error);
     }
@@ -135,12 +137,11 @@ const fetchDeletedNotes = async () => {
     setFormData({ alert_type: note.alert_type, alert_details: note.alert_details });
     setEditingId(note.id);
   };
-
   const handleSoftDelete = async (id) => {
     await fetch(`http://127.0.0.1:5000/djnotes/${id}`, { method: "DELETE" });
-    fetchNotes();
-    fetchDeletedNotes();
-  };
+    await fetchNotes();  // ✅ Refresh active notes
+    await fetchDeletedNotes(); // ✅ Refresh deleted notes
+};
 
   const handleHardDelete = async (id) => {
     await fetch(`http://127.0.0.1:5000/djnotes/${id}/hard_delete`, { method: "DELETE" });
