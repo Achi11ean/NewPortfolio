@@ -630,9 +630,10 @@ const moveDown = async (id) => {
     {user?.is_admin && (
 
         <div>
-        <button
+  <button
   className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
   onClick={() => {
+    console.log("Toggling Deleted Signups View. Fetching...");
     setShowDeleted(!showDeleted);
     if (!showDeleted) fetchDeletedSignups(); // Fetch only when opening
   }}
@@ -644,12 +645,15 @@ const moveDown = async (id) => {
 {showDeleted && (
   <div className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg shadow-lg mt-6">
     <h3 className="text-xl font-bold text-center">📜 Deleted Karaoke Signups</h3>
+
+    {console.log("Rendering Deleted Signups:", deletedSignups)} {/* Debugging Log */}
+
     <ul className="list-none text-lg text-center pl-5 mt-2 space-y-2">
       {deletedSignups.length > 0 ? (
         deletedSignups.map(({ id, name, song, artist, created_at }) => (
           <li key={id} className="border-b border-gray-700 pb-2 pt-2">
             <p><strong>{name}</strong> - "{song}" by {artist}</p>
-            <p className="text-sm text-gray-400">⏰ {new Date(created_at).toLocaleString()}</p>
+            <p className="text-sm text-gray-400">⏰ {created_at ? new Date(created_at).toLocaleString() : "Unknown"}</p>
           </li>
         ))
       ) : (
@@ -658,6 +662,7 @@ const moveDown = async (id) => {
     </ul>
   </div>
 )}
+
 
         </div>
     )}
