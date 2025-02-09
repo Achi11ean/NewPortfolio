@@ -864,20 +864,20 @@ const fetchSignups = async (searchTerm = "") => {
       className="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
       onClick={handleDeleteAll}
     >
-      🚨 DELETE ALL SIGNUPS 🚨
+      🚨 DELETE ALL SINGERS 🚨
     </button>
     <button
   className="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
   onClick={handleHardDeleteSoftDeleted}
 >
-  🚨 HARD DELETE ALL SOFT-DELETED SIGNUPS 🚨
+  🚨🚮 Prev Singers🚨
 </button>
 
     <button
     className="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
     onClick={handleHardDeleteAll}
   >
-    🚨 HARD DELETE ALL ALERTS 🚨
+    🚨 🚮  ALERTS 🚨
   </button>
     <button
       className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
