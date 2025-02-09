@@ -238,17 +238,25 @@ export default function KaraokeSignup() {
 ) : (
   // View Mode
   <>
-<h3 className="text-xl font-bold text-white">
-  {index === 0 ? "🎤 CURRENT SINGER: " : index === 1 ? "⏭️ UP NEXT!: " : ""}<br/>
-  {name}
+<h3 
+  className={`text-2xl font-extrabold text-white text-center transition-all 
+    ${index === 0 ? "animate-pulse bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 text-transparent bg-clip-text" : ""}
+    ${index === 1 ? "text-blue-400" : ""}
+  `}
+>
+  {index === 0 ? "🎤 CURRENTLY ROCKING THE MIC: " : index === 1 ? "⏭️ UP NEXT: " : "🎶"}
+  <br />
+  <span className="uppercase tracking-wide drop-shadow-lg">{name}</span>
 </h3>
-  <p className="text-lg text-purple-300">
-    🎶Song: <em className="font-semibold">{song}</em> by <span className="font-semibold">{artist}</span>
-  </p>
-  <p className="text-sm text-gray-400 mt-2">
-    ⏰ Signed up at: {created_at ? new Date(new Date(created_at).getTime() - 5 * 60 * 60 * 1000).toLocaleString() : "Unknown"}
-  </p>
-    
+
+<p className="text-xl text-purple-300 font-medium text-center mt-2">
+  🎶 <span className="text-white font-extrabold">{song}</span> by <span className="text-yellow-400 font-extrabold">{artist}</span>
+</p>
+
+<p className="text-sm text-gray-400 text-center italic mt-2">
+  ⏰ Signed up at: {created_at ? new Date(new Date(created_at).getTime() - 5 * 60 * 60 * 1000).toLocaleString() : "Unknown"}
+</p>
+
     {issues[id] && (
   <p className="text-white font-bold">⚠️ We had an issue with your song. Please see the host!</p>
 )}
