@@ -158,6 +158,15 @@ export default function KaraokeSignup() {
     await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, { method: "DELETE" });
     fetchSignups();
   };
+  const moveToSecond = (index) => {
+    if (index <= 1) return; // If already #1 or #2, do nothing
+
+    const newSignups = [...signups];
+    const [selectedEntry] = newSignups.splice(index, 1); // Remove selected entry
+    newSignups.splice(1, 0, selectedEntry); // Insert at index 1 (second position)
+    
+    setSignups(newSignups);
+};
 
   return (
 <div 
@@ -405,7 +414,12 @@ export default function KaraokeSignup() {
 >
   {issues[id] ? 'Clear Issue ✅' : 'Mark Issue 🚨'}
 </button>
-
+<button
+    className="mt-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-1 px-3 rounded-md"
+    onClick={() => moveToSecond(index)}
+  >
+    ⏩ UP NEXT
+  </button>
       </>
     )} 
 </>
