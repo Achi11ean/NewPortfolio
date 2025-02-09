@@ -181,7 +181,7 @@ const fetchFlaggedSignups = async () => {
   const handleDeleteAll = async () => {
     const confirmDelete = window.confirm("Are you sure you want to delete ALL signups? This action cannot be undone!");
     if (confirmDelete) {
-      const response = await fetch("https://portfoliobackend-ih6t.onrender.com", { method: "DELETE" });
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup", { method: "DELETE" });
       if (response.ok) {
         fetchSignups(); // Refresh the list
         alert("All signups have been deleted successfully!");
