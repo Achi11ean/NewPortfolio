@@ -146,75 +146,54 @@ export default function DJNotesApp() {
     : "✨ SPOTLIGHT ✨"}
 </h1>
 
+{user?.is_admin && (
+  <>
+    <div className="flex gap-2 mb-4">
+      <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={() => moveAlertToTop("ALERT:")}>
+        🔥 Bring Back Breaking News
+      </button>
+      <button className="bg-pink-500 text-white px-4 py-2 rounded" onClick={() => moveAlertToTop("HAPPY BIRTHDAY")}>
+        🎂 Show Birthday Shout Out
+      </button>
+      <button className="bg-purple-500 text-white px-4 py-2 rounded" onClick={() => moveAlertToTop("HAPPY ANNIVERSARY")}>
+        💖 Show Anniversary Shout Out
+      </button>
+      <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => moveAlertToTop("JUST MARRIED")}>
+        💍 Show Just Married
+      </button>
+      <button className="bg-gray-600 text-white px-4 py-2 rounded" onClick={() => moveAlertToTop("JUST DIVORCED")}>
+        💔 Show Just Divorced
+      </button>
+      <button className="bg-black text-white px-4 py-2 rounded" onClick={() => moveAlertToTop("IN MEMORY")}>
+        🕊️ Show In Memory
+      </button>
+    </div>
 
-      {/* {user?.is_admin && ( */}
-      <div className="flex gap-2 mb-4">
-  <button 
-    className="bg-red-500 text-white px-4 py-2 rounded"
-    onClick={() => moveAlertToTop("ALERT:")}
-  >
-    🔥 Bring Back Breaking News
-  </button>
+    <form onSubmit={handleSubmit} className="mb-6">
+      <input
+        type="text"
+        name="alert_type"
+        value={formData.alert_type}
+        onChange={handleChange}
+        placeholder="Alert Type"
+        className="border p-2 rounded w-full mb-2"
+        required
+      />
+      <textarea
+        name="alert_details"
+        value={formData.alert_details}
+        onChange={handleChange}
+        placeholder="Alert Details"
+        className="border p-2 rounded w-full mb-2"
+        required
+      ></textarea>
+      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+        {editingId ? "Update Note" : "Add Note"}
+      </button>
+    </form>
+  </>
+)}
 
-  <button 
-    className="bg-pink-500 text-white px-4 py-2 rounded"
-    onClick={() => moveAlertToTop("HAPPY BIRTHDAY")}
-  >
-    🎂 Show Birthday Shout Out
-  </button>
-
-  <button 
-    className="bg-purple-500 text-white px-4 py-2 rounded"
-    onClick={() => moveAlertToTop("HAPPY ANNIVERSARY")}
-  >
-    💖 Show Anniversary Shout Out
-  </button>
-
-  <button 
-    className="bg-green-500 text-white px-4 py-2 rounded"
-    onClick={() => moveAlertToTop("JUST MARRIED")}
-  >
-    💍 Show Just Married
-  </button>
-
-  <button 
-    className="bg-gray-600 text-white px-4 py-2 rounded"
-    onClick={() => moveAlertToTop("JUST DIVORCED")}
-  >
-    💔 Show Just Divorced
-  </button>
-
-  <button 
-    className="bg-black text-white px-4 py-2 rounded"
-    onClick={() => moveAlertToTop("IN MEMORY")}
-  >
-    🕊️ Show In Memory
-  </button>
-</div>
-
-      <form onSubmit={handleSubmit} className="mb-6">
-        <input
-          type="text"
-          name="alert_type"
-          value={formData.alert_type}
-          onChange={handleChange}
-          placeholder="Alert Type"
-          className="border p-2 rounded w-full mb-2"
-          required
-        />
-        <textarea
-          name="alert_details"
-          value={formData.alert_details}
-          onChange={handleChange}
-          placeholder="Alert Details"
-          className="border p-2 rounded w-full mb-2"
-          required
-        ></textarea>
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-          {editingId ? "Update Note" : "Add Note"}
-        </button>
-      </form>
-      {/* )} */}
       <div className="relative w-full max-w-md mx-auto mt-6">
       {notes.length > 0 && (
         <div
