@@ -79,12 +79,27 @@ export default function DJNotesApp({ user }) {
     }
 };
 
+const fetchDeletedNotes = async () => {
+    try {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/deleted", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${user?.token}`, // Ensure the user token is included
+            },
+            credentials: "include", // Allows cookies for session-based auth
+        });
 
-  const fetchDeletedNotes = async () => {
-    const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/deleted");
-    const data = await response.json();
-    setDeletedNotes(data);
-  };
+        if (!response.ok) {
+            throw new Error(`Failed to fetch deleted notes: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setDeletedNotes(data);
+    } catch (error) {
+        console.error("Error fetching deleted notes:", error);
+    }
+};
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -92,23 +107,34 @@ export default function DJNotesApp({ user }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editingId) {
-      await fetch(`https://portfoliobackend-ih6t.onrender.com/djnotes/${editingId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-    } else {
-      await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+
+    try {
+        const response = await fetch(
+            editingId 
+                ? `https://portfoliobackend-ih6t.onrender.com/djnotes/${editingId}` 
+                : "https://portfoliobackend-ih6t.onrender.com/djnotes",
+            {
+                method: editingId ? "PATCH" : "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${user?.token}`, // Ensure the user token is included
+                },
+                credentials: "include", // Allows cookies for session-based auth
+                body: JSON.stringify(formData),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(`Failed to ${editingId ? "update" : "create"} note: ${response.status}`);
+        }
+
+        setFormData({ alert_type: "", alert_details: "" });
+        setEditingId(null);
+        fetchNotes(); // Refresh the notes list
+    } catch (error) {
+        console.error("Error submitting note:", error);
     }
-    setFormData({ alert_type: "", alert_details: "" });
-    setEditingId(null);
-    fetchNotes();
-  };
+};
 
   const handleEdit = (note) => {
     setFormData({ alert_type: note.alert_type, alert_details: note.alert_details });
