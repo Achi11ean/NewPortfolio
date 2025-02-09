@@ -27,7 +27,13 @@ export default function KaraokeSignup() {
     );
     setSignups(sortedSignups);
 };
-
+// Extract flagged artists
+const flaggedArtists = [...new Set(
+    signups
+      .filter((signup) => issues[signup.id]) // Get only flagged signups
+      .map((signup) => signup.artist) // Extract artist names
+  )];
+  
   const [lastUpdated, setLastUpdated] = useState(null);
 
   const handleDeleteAll = async () => {
@@ -144,6 +150,18 @@ const moveDownFive = (index) => {
   // POST: Add new signup
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    // Count occurrences of the entered name (case insensitive)
+    const nameCount = signups.filter(
+      (signup) => signup.name.toLowerCase() === form.name.toLowerCase()
+    ).length;
+  
+    // Prevent submission if the name appears twice already
+    if (nameCount >= 2) {
+      alert(`The name "${form.name}" is already used twice! Please use a different name.`);
+      return;
+    }
+  
     const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -162,6 +180,7 @@ const moveDownFive = (index) => {
       setForm({ name: "", song: "", artist: "" });
     }
   };
+  
   
   const { user } = useAuth();
 
@@ -295,15 +314,29 @@ const moveDownFive = (index) => {
   <h2 className="text-3xl underline font-bold mb-2 text-center">🚦Karaoke Guidelines 🚦</h2>
   <ul className="list-disc text-lg text-center pl-5 space-y-2">
     <li><strong>Respect:</strong> <br/>Everyone gets their moment to shine! Disrespect toward singers or staff will result in removal from the queue.</li>
-    <li><strong>One Song at a Time:</strong>  <br/>If you enter multiple songs, your next turn may be moved to ensure fairness for all participants.</li>
+    <li><strong>Two Songs at a time</strong>  <br/>in order to keep it fair you can only submit two songs at one time. Once you sing it will be removed from queue so you can add another song!</li>
     <li><strong>Tips Appreciated, Not Required:</strong> <br/> Tipping is welcome but does not guarantee priority in the queue.</li>
-    <li><strong>Song Availability:</strong> <br/>If your song isn't available, it will be flagged. Refresh the page to check for updates.</li>
+    <li><strong>Song Availability:</strong> <br/>If your song isn't available, it will be flagged. Refresh the page to check for updates. if your song disappeared it may have been flagged. </li>
     <li><strong>Celebrations:</strong>  <br/>Let us know if it's your birthday or a special occasion—we'd love to give you an epic introduction!</li>
     <li><strong>Host Authority:</strong>  <br/>The host may adjust the queue as needed but will always aim to keep it fair for everyone.</li>
     <li><strong>Most Important Rule:</strong>  <br/>HAVE FUN! Enjoy your time on stage and cheer for fellow performers.</li>
     <li><strong>Leave a Review:</strong>  <br/>Loving the experience? Leave a review and snap a photo with the host to be featured!</li>
   </ul>
 </div>
+{/* Display Flagged Artists List */}
+{flaggedArtists.length > 0 && (
+  <div className="max-w-lg mx-auto bg-red-700 text-white p-4 rounded-lg shadow-lg mt-6">
+    <h3 className="text-xl font-bold text-center">🚨 Flagged Artists 🚨</h3>
+    <ul className="list-disc text-lg text-center pl-5 mt-2 space-y-1">
+      {flaggedArtists.map((artist, index) => (
+        <li key={index} className="font-semibold">
+          {artist}
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
 <button
   className="w-full mb-3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
   onClick={() => {
