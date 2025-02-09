@@ -23,7 +23,28 @@ export default function DJNotesApp({ user }) {
       return "bg-yellow-300 text-yellow-800 border-yellow-500"; // Default (Spotlight)
     }
   };
-  
+  const handleHardDeleteAll = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to PERMANENTLY DELETE ALL DJ NOTES? This action CANNOT be undone!");
+
+    if (!confirmDelete) return;
+
+    try {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/hard_delete_all", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to delete all notes: ${response.status}`);
+        }
+
+        alert("All DJ Notes have been permanently deleted.");
+        fetchDeletedNotes(); // Refresh the deleted notes list
+    } catch (error) {
+        console.error("Error deleting all DJ Notes:", error);
+    }
+};
+
   const [isFlipping, setIsFlipping] = useState(false); // Track if the flip is happening
   const handleFlipEnd = () => {
     setIsFlipping(false); // Reset flipping state
@@ -309,7 +330,15 @@ const fetchDeletedNotes = async () => {
       )}
     </div>
 
-    
+    {user?.is_admin && (
+  <button
+    className="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
+    onClick={handleHardDeleteAll}
+  >
+    🚨 HARD DELETE ALL ALERTS 🚨
+  </button>
+)}
+
 
     </div>
   );
