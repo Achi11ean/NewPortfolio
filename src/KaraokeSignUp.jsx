@@ -16,11 +16,14 @@ export default function KaraokeSignup() {
       }
       const data = await response.json();
       setShowForm(data.show_form || false); // Default to false if no value exists
+      setLastUpdated(data.last_updated ? new Date(data.last_updated).toLocaleString() : "Unknown"); // Store formatted timestamp
     } catch (error) {
       console.error("Error fetching form state:", error);
     }
   };
   
+  const [lastUpdated, setLastUpdated] = useState(null);
+
   const handleDeleteAll = async () => {
     const confirmDelete = window.confirm("Are you sure you want to delete ALL signups? This action cannot be undone!");
     if (confirmDelete) {
@@ -191,6 +194,14 @@ export default function KaraokeSignup() {
   )} 
 
   {/* Sign-up Form */}
+  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white text-center drop-shadow-lg mt-6 p-4 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 rounded-xl">
+  🕒 Karaoke Start/Stop Timestamp: 
+  <br />
+  <span className="text-yellow-200 text-3xl sm:text-4xl md:text-5xl block mt-2">
+    {lastUpdated}
+  </span>
+</h2>
+
   {showForm && (
 
   <form 
