@@ -454,11 +454,11 @@ const fetchSignups = async (searchTerm = "") => {
             throw new Error("Failed to soft delete signup.");
         }
 
-        console.log(`Signup ID ${id} marked as deleted.`); // Debugging log
-        fetchSignups(); // ✅ Refresh active signups
-        fetchDeletedSignups(); // ✅ Refresh deleted signups
+        console.log(`✅ Signup ID ${id} soft deleted. Fetching updated signups...`);
+        await fetchSignups(); // ✅ Refresh the list after soft delete
+
     } catch (error) {
-        console.error("Error soft deleting signup:", error);
+        console.error("❌ Error soft deleting signup:", error);
     }
 };
 
