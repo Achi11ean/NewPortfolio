@@ -11,14 +11,32 @@ export default function KaraokeSignup() {
   const [deletedSignups, setDeletedSignups] = useState([]);
 const [showDeleted, setShowDeleted] = useState(false); // Toggle state
 const fetchDeletedSignups = async () => {
-    const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/deleted");
-    const data = await response.json();
+    try {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/deleted");
 
-    // Sort by creation time
-    const sortedDeletedSignups = data.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-    
-    setDeletedSignups(sortedDeletedSignups);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch deleted signups: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        console.log("Deleted Signups Data:", data); // Debugging log
+
+        // Ensure data is not null/undefined
+        if (!Array.isArray(data)) {
+            console.error("Invalid response format:", data);
+            return;
+        }
+
+        // Sort by creation time
+        const sortedDeletedSignups = data.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+
+        setDeletedSignups(sortedDeletedSignups);
+    } catch (error) {
+        console.error("Error fetching deleted signups:", error);
+    }
 };
+
 
   const fetchFormState = async () => {
     try {
