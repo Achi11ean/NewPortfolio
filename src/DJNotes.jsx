@@ -207,12 +207,12 @@ const fetchDeletedNotes = async () => {
       ? "text-white bg-gray-600" 
       : notes.length > 0 && notes[currentIndex].alert_type.startsWith("IN MEMORY")
       ? "text-white bg-black"
-      : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SHAME")
-      ? "text-white bg-red-900"  // 🚨 New SHAME styling
-      : "text-yellow-800 bg-yellow-300" 
+      : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SHAME") // 🚨 SHAME moved up
+      ? "text-white bg-red-900"  
+      : "text-yellow-800 bg-yellow-300" // Default: SPOTLIGHT
   }`}
 >
-{notes.length > 0 && notes[currentIndex].alert_type.startsWith("ALERT:")
+  {notes.length > 0 && notes[currentIndex].alert_type.startsWith("ALERT:")
     ? "🚨 BREAKING NEWS 🚨"
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("HAPPY BIRTHDAY")
     ? "🎂 BIRTHDAY SHOUT OUT! 🎉"
@@ -224,10 +224,11 @@ const fetchDeletedNotes = async () => {
     ? "🔥 JUST DIVORCED! 🍻"
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("IN MEMORY")
     ? "🕊️ IN LOVING MEMORY 🕯️"
-    : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SHAME")
-    ? "🗑️SHAME ALERT🤬" 
+    : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SHAME") // 🚨 Moved up before SPOTLIGHT
+    ? "🗑️ SHAME ALERT 🤬" 
     : "✨ SPOTLIGHT ✨"}
 </h1>
+
 
 {user?.is_admin && (
   <>
