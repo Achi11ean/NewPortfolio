@@ -305,7 +305,9 @@ const fetchDeletedNotes = async () => {
 
           <div className="border p-4 rounded-lg bg-white shadow-md flex flex-col items-center">
             <p className="font-semibold text-lg">{notes[currentIndex].alert_type}</p>
-            <p className="text-gray-700 italic">{notes[currentIndex].alert_details}</p>
+            <p className="text-gray-700 italic max-h-32 overflow-auto break-words p-2 rounded bg-gray-100">
+  {notes[currentIndex].alert_details}
+</p>
 
             <div className="flex space-x-2 mt-4">
   {user?.is_admin && ( // ✅ Restricts buttons to admins only
