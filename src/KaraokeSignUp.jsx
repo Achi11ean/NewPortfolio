@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useAuth } from "./AuthContext"; // Adjust the path accordingly
 import DJNotesApp from "./DJNotes";
+import Promotions from "./Promotions"; // Adjust the path based on where the file is
 
 export default function KaraokeSignup() {
   const guidelinesRef = useRef(null);
@@ -536,6 +537,7 @@ const fetchSignups = async (searchTerm = "") => {
   <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white text-center drop-shadow-lg p-4 sm:p-6 bg-gradient-to-r from-purple-500 to-orange-500 rounded-xl inline-block font-[Aspire]">
     🎤 Jwhit Karaoke 🎶
   </h1>
+  <Promotions />
 
   {/* Subtitle */}
   {user?.is_admin && (
