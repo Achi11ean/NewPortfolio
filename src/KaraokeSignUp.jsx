@@ -911,23 +911,28 @@ const fetchSignups = async (searchTerm = "") => {
     {user?.is_admin && (
 
         <div>
-<button
-  className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
-  onClick={() => {
-    console.log("Toggling Deleted DJ Notes View. Fetching...");
-    
-    if (!showDeletedNotes) {
-      fetchDeletedNotes();  // ✅ Fetch if opening
-    } else {
-      fetchDeletedNotes();  // ✅ Always refresh, even if closing
-    }
-    
-    setShowDeletedNotes(!showDeletedNotes);
-  }}
->
-  {showDeletedNotes ? "❌ Hide Deleted DJ Notes" : "📜 View Deleted DJ Notes"}
-</button>
+    <button
+      className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
+      onClick={() => {
+        console.log("Toggling Deleted Signups View...");
+        setShowDeleted(!showDeleted); // Toggle state
+        if (!showDeleted) fetchDeletedSignups(); // Fetch only when opening
+      }}
+    >
+      {showDeleted ? "❌ Hide Deleted Signups" : "📜 View Deleted Signups"}
+    </button>
 
+    {/* View Deleted DJ Notes Button (Only One Instance) */}
+    <button
+      className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
+      onClick={() => {
+        console.log("Toggling Deleted DJ Notes View...");
+        setShowDeletedNotes(!showDeletedNotes);
+        if (!showDeletedNotes) fetchDeletedNotes(); // Fetch only when opening
+      }}
+    >
+      {showDeletedNotes ? "❌ Hide Deleted DJ Notes" : "📜 View Deleted DJ Notes"}
+    </button>
 
 
 {showDeleted && (
