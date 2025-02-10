@@ -65,3 +65,23 @@
   filter: blur(.02px); /* Soft blur to simulate distance */
   transition: background 0.3s ease-in-out;
 }
+
+@keyframes glow {
+  0% { text-shadow: 0 0 5px #d946ef, 0 0 10px #d946ef; }
+  50% { text-shadow: 0 0 15px #f472b6, 0 0 20px #f472b6; }
+  100% { text-shadow: 0 0 5px #d946ef, 0 0 10px #d946ef; }
+}
+
+.animate-glow {
+  animation: glow 10s ease-in-out infinite;
+}
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-rainbow {
+  background-size: 300% 300%;
+  animation: rainbow 15s linear infinite;
+}

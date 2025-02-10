@@ -4,8 +4,8 @@ const Navbar = ({ activeTab, setActiveTab, user, token, logout }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
-      <div className="container mx-auto flex justify-between items-center px-6 p-1">
+<nav className="bg-blue/10 backdrop-blur-lg shadow-lg sticky top-0 z-50 border border-white/20 ">
+<div className="container mx-auto flex justify-between items-center px-6 p-1">
         {/* Logo */}
 {/* Logo */}
 <div className="overflow-hidden">
@@ -16,7 +16,7 @@ const Navbar = ({ activeTab, setActiveTab, user, token, logout }) => {
   />
 </div>
 
-        <div className="text-2xl font-extrabold text-gray-800 hover:text-gray-600 transition duration-300">
+        <div className="text-2xl font-extrabold text-white hover:text-blue-600 transition duration-300">
           
         </div>
 
@@ -40,7 +40,7 @@ const Navbar = ({ activeTab, setActiveTab, user, token, logout }) => {
               (!adminOnly || user?.is_admin) && (
                 <button
                   key={tab}
-                  className={`text-gray-700 text-lg font-medium hover:text-blue-500 transition duration-300 ${
+                  className={`text-white text-lg font-medium hover:text-blue-500 transition duration-300 ${
                     activeTab === tab
                       ? "text-blue-600 border-b-2 border-blue-500"
                       : ""
@@ -62,7 +62,7 @@ const Navbar = ({ activeTab, setActiveTab, user, token, logout }) => {
         <div className="md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-700 hover:text-gray-500 focus:outline-none transition duration-300"
+            className="text-white hover:text-blue-500 focus:outline-none transition duration-300"
           >
             <svg
               className="w-8 h-8"

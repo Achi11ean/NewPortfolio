@@ -86,9 +86,20 @@ export default function App() {
               className="w-full  h-full object-cover"
             />
           </div>
-          <h1 className="text-4xl underline sm:text-6xl font-aspire font-bold">
-            Welcome To JWhit Productions
-          </h1>
+          <h1 className="text-4xl sm:text-6xl font-bold">
+  <span className="font-aspire font-bold pl-4 text-transparent bg-clip-text 
+    bg-gradient-to-r from-red-500 via-yellow-500   to-purple-500 
+    italic animate-glow">
+    JWhit
+  </span> 
+  <br/>
+  <span className="text-red-600 rounded font-serif animate-pulse  p-1 tracking-wide">
+    Productions
+  </span>
+</h1>
+
+
+
           <p className="text-sm sm:text-3xl mt-2 max-w-lg font-aspire">
             By Jonathen Whitford
           </p>
