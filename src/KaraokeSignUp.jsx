@@ -990,7 +990,8 @@ const fetchSignups = async (searchTerm = "") => {
       {showDeletedNotes ? "❌ Hide Deleted DJ Notes" : "📜 View Deleted DJ Notes"}
     </button>
   </div>
-)}      {user?.is_admin && showDeletedNotes && (
+)}   
+   {user?.is_admin && showDeletedNotes && (
   <div className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg shadow-lg mt-6">
     <h3 className="text-xl font-bold text-center">📜 Deleted DJ Notes</h3>
 
