@@ -950,11 +950,46 @@ const fetchSignups = async (searchTerm = "") => {
 
         </div>
     )}
-      </div>
+      </div>  
+      {user?.is_admin && (
 
+      
+        <button
+      className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
+      onClick={() => {
+        console.log("Toggling Deleted DJ Notes View. Fetching...");
+        setShowDeletedNotes(!showDeletedNotes);
+        if (!showDeletedNotes) fetchDeletedNotes(); // Fetch only when opening
+      }}
+    >
+      {showDeletedNotes ? "❌ Hide Deleted DJ Notes" : "📜 View Deleted DJ Notes"}
+    </button>
+      )}
+      {user?.is_admin && showDeletedNotes && (
+  <div className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg shadow-lg mt-6">
+    <h3 className="text-xl font-bold text-center">📜 Deleted DJ Notes</h3>
+
+    {console.log("Rendering Deleted DJ Notes:", deletedNotes)} {/* Debugging Log */}
+
+    <ul className="list-none text-lg text-center pl-5 mt-2 space-y-2">
+      {deletedNotes.length > 0 ? (
+        deletedNotes.map(({ id, content, created_at }) => (
+          <li key={id} className="border-b border-gray-700 pb-2 pt-2">
+            <p className="text-white font-medium">📝 {content}</p>
+            <p className="text-sm text-gray-400">⏰ {created_at ? new Date(created_at).toLocaleString() : "Unknown"}</p>
+          </li>
+        ))
+      ) : (
+        <p className="text-center text-gray-400">No deleted DJ Notes found.</p>
+      )}
+    </ul>
+  </div>
+  
+)}
 
 
 {user?.is_admin && (
+  
   <div>  {/* ✅ Wrap in a div */}
     <button
       className="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
@@ -975,38 +1010,9 @@ const fetchSignups = async (searchTerm = "") => {
   >
     🚨 🚮  ALERTS 🚨
   </button>
-    <button
-      className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
-      onClick={() => {
-        console.log("Toggling Deleted DJ Notes View. Fetching...");
-        setShowDeletedNotes(!showDeletedNotes);
-        if (!showDeletedNotes) fetchDeletedNotes(); // Fetch only when opening
-      }}
-    >
-      {showDeletedNotes ? "❌ Hide Deleted DJ Notes" : "📜 View Deleted DJ Notes"}
-    </button>
+
   </div>
 )}   
-   {user?.is_admin && showDeletedNotes && (
-  <div className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg shadow-lg mt-6">
-    <h3 className="text-xl font-bold text-center">📜 Deleted DJ Notes</h3>
-
-    {console.log("Rendering Deleted DJ Notes:", deletedNotes)} {/* Debugging Log */}
-
-    <ul className="list-none text-lg text-center pl-5 mt-2 space-y-2">
-      {deletedNotes.length > 0 ? (
-        deletedNotes.map(({ id, content, created_at }) => (
-          <li key={id} className="border-b border-gray-700 pb-2 pt-2">
-            <p className="text-white font-medium">📝 {content}</p>
-            <p className="text-sm text-gray-400">⏰ {created_at ? new Date(created_at).toLocaleString() : "Unknown"}</p>
-          </li>
-        ))
-      ) : (
-        <p className="text-center text-gray-400">No deleted DJ Notes found.</p>
-      )}
-    </ul>
-  </div>
-)}
 
 
                     </div>
