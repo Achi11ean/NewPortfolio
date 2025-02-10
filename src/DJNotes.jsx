@@ -234,28 +234,28 @@ const fetchDeletedNotes = async () => {
   <>
     <div className="flex gap-2 mb-4 overflow-x-auto whitespace-nowrap min-w-max p-2">
       <button className="bg-red-500 text-white px-3 py-2 rounded text-sm sm:text-base" onClick={() => moveAlertToTop("ALERT:")}>
-        🔥 🚨
+         🚨
       </button>
       <button className="bg-pink-500 text-white px-3 py-2 rounded text-sm sm:text-base" onClick={() => moveAlertToTop("HAPPY BIRTHDAY")}>
-        🎂 🎁
+        🎂 
       </button>
       <button className="bg-purple-500 text-white px-3 py-2 rounded text-sm sm:text-base" onClick={() => moveAlertToTop("HAPPY ANNIVERSARY")}>
-        💖 ♾️
+        💞
       </button>
       <button className="bg-green-500 text-white px-3 py-2 rounded text-sm sm:text-base" onClick={() => moveAlertToTop("JUST MARRIED")}>
-        💍 + 💍
+        💒
       </button>
       <button className="bg-gray-600 text-white px-3 py-2 rounded text-sm sm:text-base" onClick={() => moveAlertToTop("JUST DIVORCED")}>
-        💔 ❌
+        💔 
       </button>
       <button className="bg-black text-white px-3 py-2 rounded text-sm sm:text-base" onClick={() => moveAlertToTop("IN MEMORY")}>
-        🕊️ 🪦
+        🪦
       </button>
       <button 
-    className="bg-red-900 text-white px-3 py-2 rounded text-sm sm:text-base animate-pulse" 
+    className="bg-red-900 text-white px-3 py-2 rounded text-sm sm:text-base" 
     onClick={() => moveAlertToTop("SHAME")}
   >
-    😡 SHAME
+    😡 
   </button>
     </div>
 
