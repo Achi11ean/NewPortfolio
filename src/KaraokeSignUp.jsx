@@ -414,13 +414,45 @@ const fetchSignups = async (searchTerm = "") => {
     }, []);
     
   // POST: Add new signup
-  const handleSubmit = async (e) => {
+
+
+  const fetchRestrictedWords = async () => {
+    try {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/restricted_words"); // ✅ Fetch restricted words from backend
+        if (response.ok) {
+            const words = await response.json();
+            return words.map(word => word.toLowerCase().trim()); // Normalize words for case-insensitive check
+        } else {
+            console.error("Failed to fetch restricted words.");
+            return [];
+        }
+    } catch (error) {
+        console.error("Error fetching restricted words:", error);
+        return [];
+    }
+};
+
+const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    // Fetch all signups, including soft-deleted ones
+
+    // ✅ Fetch restricted words from backend
+    const restrictedWords = await fetchRestrictedWords();
+
+    // ✅ Normalize user input (convert to lowercase)
+    const userInput = `${form.name} ${form.song} ${form.artist}`.toLowerCase();
+
+    // ✅ Check if input contains any restricted word
+    const containsRestrictedWord = restrictedWords.some(word => userInput.includes(word));
+
+    if (containsRestrictedWord) {
+        alert("🚨 Your submission contains inappropriate words! Please revise and try again.");
+        return; // Stop the submission
+    }
+
+    // ✅ Fetch all signups, including soft-deleted ones
     let allSignups = [];
     try {
-        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/all"); // ✅ New endpoint for ALL signups
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/all");
         if (response.ok) {
             allSignups = await response.json();
         } else {
@@ -429,8 +461,8 @@ const fetchSignups = async (searchTerm = "") => {
     } catch (error) {
         console.error("Error fetching all signups:", error);
     }
-  
-    // Check if the song has already been performed tonight
+
+    // ✅ Check if the song has already been performed tonight
     const songAlreadySung = allSignups.some(
         (signup) =>
             signup.song.toLowerCase() === form.song.toLowerCase() &&
@@ -443,20 +475,20 @@ const fetchSignups = async (searchTerm = "") => {
         );
         if (!confirmProceed) return; // If they click "No", stop submission
     }
-  
-    // Count occurrences of the entered name (case insensitive)
+
+    // ✅ Count occurrences of the entered name (case insensitive)
     const nameCount = signups.filter(
         (signup) => signup.name.toLowerCase() === form.name.toLowerCase()
     ).length;
-  
-    // Prevent submission if the name appears twice already
+
+    // ✅ Prevent submission if the name appears twice already
     if (nameCount >= 2) {
         alert(`The name "${form.name}" is already used twice! Only two songs at a time per person please!`);
         return;
     }
-  
+
     setIsSubmitting(true); // Start animation
-  
+
     const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -464,23 +496,26 @@ const fetchSignups = async (searchTerm = "") => {
     });
 
     const data = await response.json();
-  
+
     if (response.status === 403) {
         alert(data.error);
         setIsSubmitting(false); // Stop animation if failed
         return;
     }
-  
+
     if (response.ok) {
         fetchSignups();
         setForm({ name: "", song: "", artist: "" });
-      
-        // Trigger falling effects
+
+        // ✅ Trigger falling effects
         triggerEffects();
 
         setTimeout(() => setIsSubmitting(false), 1500); // Reset after 1.5s
     }
 };
+
+
+
 
   const triggerEffects = () => {
     let newEffects = [];
