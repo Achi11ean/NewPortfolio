@@ -417,43 +417,67 @@ const fetchSignups = async (searchTerm = "") => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
+    // Fetch all signups, including soft-deleted ones
+    let allSignups = [];
+    try {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/all"); // ✅ New endpoint for ALL signups
+        if (response.ok) {
+            allSignups = await response.json();
+        } else {
+            console.error("Failed to fetch all signups.");
+        }
+    } catch (error) {
+        console.error("Error fetching all signups:", error);
+    }
+  
+    // Check if the song has already been performed tonight
+    const songAlreadySung = allSignups.some(
+        (signup) =>
+            signup.song.toLowerCase() === form.song.toLowerCase() &&
+            signup.artist.toLowerCase() === form.artist.toLowerCase()
+    );
+
+    if (songAlreadySung) {
+        alert("⚠️ This song has been performed tonight already! We don’t mind if you perform it again, but just wanted to give you a heads-up!");
+    }
+  
     // Count occurrences of the entered name (case insensitive)
     const nameCount = signups.filter(
-      (signup) => signup.name.toLowerCase() === form.name.toLowerCase()
+        (signup) => signup.name.toLowerCase() === form.name.toLowerCase()
     ).length;
   
     // Prevent submission if the name appears twice already
     if (nameCount >= 2) {
-      alert(`The name "${form.name}" is already used twice! Only two song's at a time per person please! Use a different name if you are seeing this message and have not yet entered a song`);
-      return;
+        alert(`The name "${form.name}" is already used twice! Only two songs at a time per person please!`);
+        return;
     }
   
     setIsSubmitting(true); // Start animation
   
     const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
     });
 
     const data = await response.json();
   
     if (response.status === 403) {
-      alert(data.error);
-      setIsSubmitting(false); // Stop animation if failed
-      return;
+        alert(data.error);
+        setIsSubmitting(false); // Stop animation if failed
+        return;
     }
   
     if (response.ok) {
-      fetchSignups();
-      setForm({ name: "", song: "", artist: "" });
+        fetchSignups();
+        setForm({ name: "", song: "", artist: "" });
       
-      // Trigger falling effects
-      triggerEffects();
+        // Trigger falling effects
+        triggerEffects();
 
-      setTimeout(() => setIsSubmitting(false), 1500); // Reset after 1.5s
+        setTimeout(() => setIsSubmitting(false), 1500); // Reset after 1.5s
     }
-  };
+};
 
   const triggerEffects = () => {
     let newEffects = [];
