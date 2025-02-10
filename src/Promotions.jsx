@@ -1,10 +1,25 @@
 import { useState, useEffect } from "react";
+import { useAuth } from "./AuthContext";
 
 export default function Promotions() {
+    const { user } = useAuth();
+
     const [promotions, setPromotions] = useState([]);
     const [form, setForm] = useState({ event_type: "", event_date: "", location: "", image_url: "", description: "" });
     const [editingId, setEditingId] = useState(null);
+    const [showPromotions, setShowPromotions] = useState(false);
 
+    const handleEdit = (promo) => {
+        setEditingId(promo.id);
+        setForm({
+            event_type: promo.event_type,
+            event_date: promo.event_date.slice(0, 16), // Ensure datetime-local format
+            location: promo.location,
+            image_url: promo.image_url || "", // Ensure it's not undefined
+            description: promo.description,
+        });
+    };
+    
     useEffect(() => {
         fetchPromotions();
     }, []);
@@ -59,34 +74,42 @@ export default function Promotions() {
 
     return (
         <div className="max-w-4xl mx-auto p-4">
-            <h1 className="text-3xl font-bold text-center mb-4">🎤 Promotions 🎶</h1>
-            <form onSubmit={handleSubmit} className="bg-white p-4 rounded shadow-lg space-y-4">
-                <input type="text" placeholder="Event Type" value={form.event_type} onChange={(e) => setForm({ ...form, event_type: e.target.value })} className="w-full p-2 border rounded" required />
-                <input type="datetime-local" value={form.event_date} onChange={(e) => setForm({ ...form, event_date: e.target.value })} className="w-full p-2 border rounded" required />
-                <input type="text" placeholder="Location" value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} className="w-full p-2 border rounded" required />
-                <input type="text" placeholder="Image URL" value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} className="w-full p-2 border rounded" />
-                <textarea placeholder="Description" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} className="w-full p-2 border rounded" required />
-                <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700">{editingId ? "Update Promotion" : "Add Promotion"}</button>
-            </form>
-
-            <div className="mt-6 space-y-4">
-    {Array.isArray(promotions) && promotions.length > 0 ? (
-        promotions.map((promo) => (
-            <div key={promo.id} className="bg-gray-100 p-4 rounded shadow-md">
-                <h2 className="text-xl font-bold">{promo.event_type} - {new Date(promo.event_date).toLocaleString()}</h2>
-                <p className="text-gray-700">📍 {promo.location}</p>
-                {promo.image_url && <img src={promo.image_url} alt="Promotion" className="mt-2 w-full h-40 object-cover rounded" />}
-                <p className="text-gray-600 mt-2">{promo.description}</p>
-                <div className="mt-4 flex gap-2">
-                    <button className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-700" onClick={() => setEditingId(promo.id) && setForm(promo)}>Edit</button>
-                    <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700" onClick={() => handleDelete(promo.id)}>Delete</button>
+<button 
+    className="w-full bg-purple-500 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mb-4"
+    onClick={() => setShowPromotions(!showPromotions)}
+>
+    {showPromotions ? "Hope to see you there! 🎉" : "🎤 Coming Soon!"}
+</button>
+{showPromotions && (
+    <div className="mt-6 space-y-4 max-h-96 overflow-y-auto p-2 border border-gray-600 rounded-lg scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-700">
+        {Array.isArray(promotions) && promotions.length > 0 ? (
+            promotions.map((promo) => (
+                <div key={promo.id} className="bg-blue-800 rounded-xl p-4 shadow-md">
+                    <h2 className="text-xl font-bold text-center">
+                        Event: {promo.event_type} - When: {new Date(promo.event_date).toLocaleString()}
+                    </h2>
+                    <p className="text-white-700 text-lg text-center font-bold">📍Where: {promo.location}</p>
+                    {promo.image_url && <img src={promo.image_url} alt="Promotion" className="mt-2 w-full h-40 object-cover rounded" />}
+                    <div className="max-h-16 overflow-auto p-2 bg-gray-800 text-white rounded-lg">
+                        <p className="text-white text-center font-bold">{promo.description}</p>
+                    </div>
+                    {user?.is_admin && (
+                        <div className="mt-4 flex gap-2">
+                            <button className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-700" onClick={() => handleEdit(promo)}>
+                                Edit
+                            </button>
+                            <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700" onClick={() => handleDelete(promo.id)}>
+                                Delete
+                            </button>
+                        </div>
+                    )}
                 </div>
-            </div>
-        ))
-    ) : (
-        <p className="text-center text-gray-500">No promotions found.</p>
-    )}
-</div>
+            ))
+        ) : (
+            <p className="text-center text-gray-500">No promotions found.</p>
+        )}
+    </div>
+)}
 
         </div>
     );
