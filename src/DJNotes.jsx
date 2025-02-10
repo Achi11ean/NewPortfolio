@@ -19,10 +19,13 @@ export default function DJNotesApp({ user }) {
       return "bg-gray-600 text-white border-gray-800";
     } else if (alertType.startsWith("IN MEMORY")) {
       return "bg-black text-white border-gray-500";
+    } else if (alertType.startsWith("SHAME")) {
+      return "bg-gradient-to-r from-red-900 via-gray-800 to-red-900 text-white border-red-700 animate-pulse"; // New SHAME style
     } else {
       return "bg-yellow-300 text-yellow-800 border-yellow-500"; // Default (Spotlight)
     }
   };
+  
   const handleHardDeleteAll = async () => {
     const confirmDelete = window.confirm("Are you sure you want to PERMANENTLY DELETE ALL DJ NOTES? This action CANNOT be undone!");
 
@@ -193,21 +196,23 @@ const fetchDeletedNotes = async () => {
 <h1
   className={`text-3xl text-center font-extrabold py-3 rounded shadow-lg animate-pulse ${
     notes.length > 0 && notes[currentIndex].alert_type.startsWith("ALERT:")
-      ? "text-white bg-red-600" // Breaking News
+      ? "text-white bg-red-600" 
       : notes.length > 0 && notes[currentIndex].alert_type.startsWith("HAPPY BIRTHDAY")
-      ? "text-pink-800 bg-pink-300" // Birthday Shout Out
+      ? "text-pink-800 bg-pink-300" 
       : notes.length > 0 && notes[currentIndex].alert_type.startsWith("HAPPY ANNIVERSARY")
-      ? "text-purple-800 bg-purple-300" // Anniversary Shout Out
+      ? "text-purple-800 bg-purple-300" 
       : notes.length > 0 && notes[currentIndex].alert_type.startsWith("JUST MARRIED")
-      ? "text-white bg-green-500" // Just Married
+      ? "text-white bg-green-500" 
       : notes.length > 0 && notes[currentIndex].alert_type.startsWith("JUST DIVORCED")
-      ? "text-white bg-gray-600" // Just Divorced
+      ? "text-white bg-gray-600" 
       : notes.length > 0 && notes[currentIndex].alert_type.startsWith("IN MEMORY")
-      ? "text-white bg-black" // In Memory (solemn)
-      : "text-yellow-800 bg-yellow-300" // Spotlight
+      ? "text-white bg-black"
+      : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SHAME")
+      ? "text-white bg-red-900 animate-pulse"  // 🚨 New SHAME styling
+      : "text-yellow-800 bg-yellow-300" 
   }`}
 >
-  {notes.length > 0 && notes[currentIndex].alert_type.startsWith("ALERT:")
+{notes.length > 0 && notes[currentIndex].alert_type.startsWith("ALERT:")
     ? "🚨 BREAKING NEWS 🚨"
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("HAPPY BIRTHDAY")
     ? "🎂 BIRTHDAY SHOUT OUT! 🎉"
@@ -219,6 +224,8 @@ const fetchDeletedNotes = async () => {
     ? "🔥 JUST DIVORCED! 🍻"
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("IN MEMORY")
     ? "🕊️ IN LOVING MEMORY 🕯️"
+    : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SHAME")
+    ? "🗑️SHAME ALERT🤬" 
     : "✨ SPOTLIGHT ✨"}
 </h1>
 
@@ -243,6 +250,12 @@ const fetchDeletedNotes = async () => {
       <button className="bg-black text-white px-3 py-2 rounded text-sm sm:text-base" onClick={() => moveAlertToTop("IN MEMORY")}>
         🕊️ 🪦
       </button>
+      <button 
+    className="bg-red-900 text-white px-3 py-2 rounded text-sm sm:text-base animate-pulse" 
+    onClick={() => moveAlertToTop("SHAME")}
+  >
+    😡 SHAME
+  </button>
     </div>
 
     <form onSubmit={handleSubmit} className="mb-6">
@@ -261,6 +274,8 @@ const fetchDeletedNotes = async () => {
   <option value="JUST DIVORCED">💔 Just Divorced</option>
   <option value="IN MEMORY">🕊️ In Memory</option>
   <option value="SPOTLIGHT">Spotlight</option>
+  <option value="SHAME">😡 SHAME!</option>
+
 
 </select>
       <textarea

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useAuth } from "./AuthContext"; // Adjust the path accordingly
 import DJNotesApp from "./DJNotes";
 import Promotions from "./Promotions"; // Adjust the path based on where the file is
-
+import "./App.css"
 export default function KaraokeSignup() {
   const guidelinesRef = useRef(null);
   useEffect(() => {
@@ -651,11 +651,15 @@ const fetchSignups = async (searchTerm = "") => {
   </form>
   )}
 </div>
+<h2 className="text-3xl underline font-bold mb-2 mt-10 text-center text-white 
+               bg-black p-3 rounded-lg animate-police-siren">
+  🚦 Karaoke Guidelines 🚦
+</h2>
+
 <div 
-      className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg shadow-lg overflow-y-auto mt-10 mb-10 max-h-64"
+      className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg shadow-lg overflow-y-auto  mb-10 max-h-64"
       ref={guidelinesRef} // 🔥 Reference the scroll container
     >
-      <h2 className="text-3xl underline font-bold mb-2 text-center">🚦 Karaoke Guidelines 🚦</h2>
       <ul className="list-disc text-lg text-center pl-5 space-y-2">
         <li><strong>Respect:</strong> <br /> Everyone gets their moment to shine! Disrespect toward singers or staff will result in removal from the queue.</li>
         <li><strong>Two Songs at a time:</strong> <br /> To keep it fair, you can only submit two songs at one time.</li>
