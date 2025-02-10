@@ -12,15 +12,17 @@ import Gallery from "./Gallery"; // Import the Gallery component
 import Snowfall from "./Snowfall";
 import CalendarComponent from "./Calendar";
 import Karaoke from "./KaraokeSignUp"; // Add this import
-
+import Navbar from "./Navbar";
 import "./App.css"
 export default function App() {
-  const [activeTab, setActiveTab] = useState("welcome"); // Default active tab
+  const [activeTab, setActiveTab] = useState("welcome"); 
+  const [collapsed, setCollapsed] = useState(false);
+
   const { token, logout, user } = useAuth();
   const [showEmojis, setShowEmojis] = useState(false);
   const triggerEmojis = () => {
     setShowEmojis(true);
-    setTimeout(() => setShowEmojis(false), 3000); // Hide after 3 seconds
+    setTimeout(() => setShowEmojis(false), 3000); 
   };
   const [showContactInfo, setShowContactInfo] = useState(true);
   const [showPerformanceForm, setShowPerformanceForm] = useState(false); // State for toggling Performance Booking Form
@@ -71,6 +73,7 @@ export default function App() {
       <div className="absolute inset-0 bg-gray-600 opacity-50 pointer-events-none"></div>
       <div className="relative w-full pb-20">
         {" "}
+        <Navbar activeTab={activeTab} setActiveTab={setActiveTab} user={user} token={token} logout={logout} />
         <AnimatedBackground />
         {/* <Snowfall /> */}
         <div className="absolute inset-0 bg-black/30"></div>{" "}
@@ -132,96 +135,7 @@ export default function App() {
 
 
       <div className="w-full max-w-7.5xl mx-auto p-6">
-{/* Mobile & Tablet Menu Button */}
-<div className="lg:hidden flex justify-end mb-4">
-  <button
-    className="bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 px-4 rounded-lg shadow-md text-lg font-bold"
-    onClick={() => setIsMenuOpen(!isMenuOpen)}
-  >
-    {isMenuOpen ? "Close Menu ✖" : "Menu ☰"}
-  </button>
-</div>
 
-
-  {/* Mobile Menu */}
-  {isMenuOpen && (
-  <div className="lg:hidden bg-gray-800 rounded-lg p-4 shadow-lg space-y-2">
-    {[
-      { tab: "welcome", label: "Welcome" },
-      { tab: "karaoke", label: "Karaoke Signup" },
-      { tab: "education", label: "Websites by Jwhit ©" },
-      { tab: "employment", label: "Employment" },
-      { tab: "reviews", label: "Reviews" },
-      { tab: "passion", label: "Passion" },
-      { tab: "basic-services", label: "Services" },
-      { tab: "gallery", label: "Gallery" },
-      { tab: "contact", label: "Contact" },
-      { tab: "businessweekly", label: "Inc + AI" },
-
-      { tab: "admin-dashboard", label: "Admin Dashboard", adminOnly: true },
-      { tab: "admin-signin", label: token ? "Sign In" : "Admin" },
-    ].map(
-      ({ tab, label, adminOnly }) =>
-        (!adminOnly || user?.is_admin) && (
-          <button
-            key={tab}
-            className={`w-full text-left py-2 px-4 rounded-lg ${
-              activeTab === tab
-                ? "bg-blue-500 text-white"
-                : "hover:bg-gray-700 text-gray-300"
-            }`}
-            onClick={() => {
-              setActiveTab(tab);
-              if (tab === "admin-signin") {
-                token ? logout() : setActiveTab("admin-signin");
-              }
-              setIsMenuOpen(false); 
-            }}
-          >
-            {label}
-          </button>
-        )
-    )}
-  </div>
-)}
-
-  {/* Desktop Tabs */}
-  <div className="hidden md:flex justify-center space-x-8 mb-6 border-b border-white">
-    {[
-      { tab: "welcome", label: "Welcome" },
-      { tab: "karaoke", label: "Karaoke Signup" }, 
-      { tab: "education", label: "Jwhit ©" },
-      { tab: "employment", label: "Employment" },
-      { tab: "reviews", label: "Reviews" },
-      { tab: "passion", label: "Passion" },
-      { tab: "basic-services", label: "Services" },
-      { tab: "gallery", label: "Gallery" },
-      { tab: "contact", label: "Contact" },
-      { tab: "businessweekly", label: "Inc. + AI" },
-      { tab: "admin-dashboard", label: "Admin Dashboard", adminOnly: true },
-      { tab: "admin-signin", label: token ? "Sign In" : "Admin" },
-    ].map(
-      ({ tab, label, adminOnly }) =>
-        (!adminOnly || user?.is_admin) && (
-          <button
-            key={tab}
-            className={`relative py-2 px-4 text-2xl font-bold rounded-lg ${
-              activeTab === tab
-                ? "border-b-2 border-white text-white bg-gradient-to-r from-yellow-400 to-red-400"
-                : "text-gray-300 hover:bg-white/10"
-            }`}
-            onClick={() => {
-              setActiveTab(tab);
-              if (tab === "admin-signin") {
-                token ? logout() : setActiveTab("admin-signin");
-              }
-            }}
-          >
-            {label}
-          </button>
-        )
-    )}
-  </div>
 
 
         {/* Tab Content */}
