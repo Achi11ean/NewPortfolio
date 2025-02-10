@@ -208,7 +208,7 @@ const fetchDeletedNotes = async () => {
       : notes.length > 0 && notes[currentIndex].alert_type.startsWith("IN MEMORY")
       ? "text-white bg-black"
       : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SHAME")
-      ? "text-white bg-red-900 animate-pulse"  // 🚨 New SHAME styling
+      ? "text-white bg-red-900"  // 🚨 New SHAME styling
       : "text-yellow-800 bg-yellow-300" 
   }`}
 >
