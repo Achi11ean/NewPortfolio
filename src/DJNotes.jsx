@@ -20,7 +20,7 @@ export default function DJNotesApp({ user }) {
     } else if (alertType.startsWith("IN MEMORY")) {
       return "bg-black text-white border-gray-500";
     } else if (alertType.startsWith("SHAME")) {
-      return "bg-gradient-to-r from-red-900 via-gray-800 to-red-900 text-white border-red-700 animate-pulse"; // New SHAME style
+      return "bg-gradient-to-r from-red-900 via-gray-800 to-red-900 text-white border-red-700"; // New SHAME style
     } else {
       return "bg-yellow-300 text-yellow-800 border-yellow-500"; // Default (Spotlight)
     }
