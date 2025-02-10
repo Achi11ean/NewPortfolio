@@ -74,13 +74,21 @@ export default function Promotions() {
 
     return (
         <div className="max-w-4xl mx-auto p-4">
-            <button 
-                className="w-full bg-purple-500 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mb-4"
-                onClick={() => setShowPromotions(!showPromotions)}
-            >
-                {showPromotions ? "Hope to see you there! 🎉" : "🎤 Coming Soon!"}
-            </button>
-    
+<div className="max-w-4xl mx-auto p-4">
+    <button 
+        className="w-full bg-purple-500 hover:bg-purple-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mb-4 relative group"
+        onClick={() => setShowPromotions(!showPromotions)}
+        title="Click here to find out where I'm hosting or performing next!"
+    >
+        {showPromotions ? "Hope to see you there! 🎉" : "🎤 Coming Soon!"}
+
+        {/* Tooltip (Visible on Hover) */}
+        <span className="absolute left-1/2 bottom-full mb-2 w-64 px-3 py-2 bg-gray-900 text-white text-sm rounded shadow-lg opacity-0 group-hover:opacity-100 transform -translate-x-1/2 transition-opacity duration-300">
+            Click here to find out where I'm hosting or performing next!
+        </span>
+    </button>
+</div>
+
             {showPromotions && user?.is_admin && (
                 <form onSubmit={handleSubmit} className="bg-blue-300 p-4 rounded shadow-lg space-y-4">
                                   <div className="relative group">
