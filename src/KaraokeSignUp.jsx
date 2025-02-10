@@ -438,7 +438,10 @@ const fetchSignups = async (searchTerm = "") => {
     );
 
     if (songAlreadySung) {
-        alert("⚠️ This song has been performed tonight already! We don’t mind if you perform it again, but just wanted to give you a heads-up!");
+        const confirmProceed = window.confirm(
+            "⚠️ This song has been performed tonight already! We don’t mind if you perform it again, but just wanted to give you a heads-up!\n\nDo you want to continue?"
+        );
+        if (!confirmProceed) return; // If they click "No", stop submission
     }
   
     // Count occurrences of the entered name (case insensitive)
