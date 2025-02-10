@@ -923,16 +923,7 @@ const fetchSignups = async (searchTerm = "") => {
     </button>
 
     {/* View Deleted DJ Notes Button (Only One Instance) */}
-    <button
-      className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-5 rounded-lg text-xl shadow-lg mt-4"
-      onClick={() => {
-        console.log("Toggling Deleted DJ Notes View...");
-        setShowDeletedNotes(!showDeletedNotes);
-        if (!showDeletedNotes) fetchDeletedNotes(); // Fetch only when opening
-      }}
-    >
-      {showDeletedNotes ? "❌ Hide Deleted DJ Notes" : "📜 View Deleted DJ Notes"}
-    </button>
+
 
 
 {showDeleted && (
