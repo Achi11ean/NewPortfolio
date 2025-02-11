@@ -546,35 +546,31 @@ const fetchSignups = async (searchTerm = "") => {
 
     console.log("🚦 Signups received:");
     data.forEach((signup, index) => {
-      console.log(`🎤 #${index + 1}: ID: ${signup.id}, Name: ${signup.name}, is_flagged: ${signup.is_flagged}`);
+      console.log(`🎤 #${index + 1}: ID: ${signup.id}, Name: ${signup.name}, Position: ${signup.position}, is_flagged: ${signup.is_flagged}`);
     });
 
-    // ✅ Sort by position
-    data = data.sort((a, b) => a.position - b.position);
-
-    console.log("📋 Sorted Signups List:", data.map(s => ({
-      name: s.name,
-      position: s.position
-    })));
-
-    // ✅ Edge Case: If only ONE person is in the list, force them to position 0
-    if (data.length === 1) {
-      console.warn("⚠️ Only one singer present. Assigning them position 0.");
-      data[0].position = 0; 
+    // ✅ Only Sort by Position when Fetching the Full List
+    if (searchTerm === "") {
+      data = data.sort((a, b) => a.position - b.position);
+      console.log("📋 Sorted Full Signups List:", data.map(s => ({ name: s.name, position: s.position })));
+    } else {
+      console.log("🔍 Search Results (Positions Maintained):", data.map(s => ({ name: s.name, position: s.position })));
     }
 
-    // ✅ Assign Labels
-    data = data.map((signup, index) => {
-      let label =
-        index === 0 ? "🎤 CURRENTLY ROCKING THE MIC!" :
-        index === 1 ? "UP NEXT!" :
-        `🎶 Position #${index + 1}`;
+    // ✅ Assign Labels Only When Not Searching
+    if (searchTerm === "") {
+      data = data.map((signup, index) => {
+        let label =
+          index === 0 ? "🎤 CURRENTLY ROCKING THE MIC!" :
+          index === 1 ? "UP NEXT!" :
+          `🎶 Position #${index + 1}`;
 
-      console.log(`✅ Assigning Label: ${label} to ${signup.name} (Position: ${signup.position})`);
-      return { ...signup, label };
-    });
+        console.log(`✅ Assigning Label: ${label} to ${signup.name} (Position: ${signup.position})`);
+        return { ...signup, label };
+      });
+    }
 
-    // ✅ Update state
+    // ✅ Update State Without Altering Positions During Search
     setSignups(data);
 
     // ✅ Automatically update `issues` state
@@ -590,6 +586,7 @@ const fetchSignups = async (searchTerm = "") => {
     console.error("❌ Error fetching signups:", error);
   }
 };
+
 
 
     const toggleIssue = async (id, currentStatus) => {
