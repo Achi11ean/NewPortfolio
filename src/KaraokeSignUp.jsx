@@ -808,7 +808,7 @@ const handleSubmit = async (e) => {
 <div 
   className="max-w-4xl item-center justify-center mx-auto p-4 rounded-3xl shadow-lg"
   style={{
-    background: "linear-gradient(to bottom right, #0a192f, #1a1a2e, #16213e)", // Deep modern blue tones
+    background: "linear-gradient(to bottom right, purple, #1a1a2e, #16213e)", // Deep modern blue tones
   }}
 >
 
@@ -831,9 +831,14 @@ const handleSubmit = async (e) => {
 <div className="flex flex-col items-center justify-center  px-4 sm:px-8 md:px-16 lg:px-24">
   
   {/* Title */}
-  <h1 className="text-3xl sm:text-5xl md:text-6xl shadow-2xl lg:text-7xl font-bold text-white text-center drop-shadow-lg p-4 sm:p-6 bg-gradient-to-r from-purple-500 to-orange-500 rounded-xl inline-block font-[Aspire]">
-     Jwhit <br/><span className="font-mono"> .°˖✧Karaoke</span>✧˖°.
-  </h1>
+  <h1 className="text-3xl sm:text-5xl md:text-6xl shadow-2xl shadow-white rounded-3xl lg:text-7xl 
+               font-bold text-center drop-shadow-lg p-4 sm:p-6 
+               bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 
+               bg-clip-text text-transparent inline-block font-[Aspire]">
+  Jwhit <br/>
+  <span className="font-mono">⭑ Karaoke</span> ⭑
+</h1>
+
   <Promotions />
   {user?.is_admin && (
   <div className="mt-6 text-center bg-gradient-to-r from-purple-600 to-pink-600 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
@@ -1091,7 +1096,10 @@ const handleSubmit = async (e) => {
       className={`p-6 rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 ${
         issues[id] 
           ? "bg-gradient-to-r from-red-600 to-red-800 shadow-red-500/50" 
-          : "bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-800 shadow-indigo-700/50"
+          : "bg-gradient-to-b from-red-500 via-black to-black shadow-yellow-100/50"
+
+
+
 
       }`}
     >
