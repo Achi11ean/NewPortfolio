@@ -1001,16 +1001,6 @@ useEffect(() => {
         <li>🤝 Acted as a trusted advisor, guiding clients through complex loans.</li>
       </ul>
 
-      <p className="text-lg">
-        <span className="text-pink-400 font-bold">Relationship Banker</span>  
-        <br />
-        <span className="text-gray-300 italic">📅 Oct 2018 - Mar 2022</span>
-      </p>
-      <ul className="list-none space-y-2 text-lg">
-        <li>💳 Delivered custom financial solutions including credit & loan products.</li>
-        <li>🏢 Assisted business clients with banking solutions for growth.</li>
-        <li>💰 Referred high-net-worth clients to wealth management specialists.</li>
-      </ul>
 
 
       {/* 📊 Risk Analysis */}
@@ -1028,6 +1018,16 @@ useEffect(() => {
       {/* 🛒 Retail & Management Experience */}
 
 
+      <p className="text-lg">
+        <span className="text-pink-400 font-bold">Relationship Banker</span>  
+        <br />
+        <span className="text-gray-300 italic">📅 Oct 2018 - Mar 2022</span>
+      </p>
+      <ul className="list-none space-y-2 text-lg">
+        <li>💳 Delivered custom financial solutions including credit & loan products.</li>
+        <li>🏢 Assisted business clients with banking solutions for growth.</li>
+        <li>💰 Referred high-net-worth clients to wealth management specialists.</li>
+      </ul>
 
 
       {/* 🏦 JPMorgan Chase */}
