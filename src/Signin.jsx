@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 
-export default function Signin({ setActiveTab }) { // Accept setActiveTab as a prop
+export default function Signin({ setActiveTab }) {
   const { login, error } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(false); // For flashing message
+  const [showWelcome, setShowWelcome] = useState(false);
+  const [showErrorBackground, setShowErrorBackground] = useState(false);
+  
+  // 🔊 Reference for audio playback
+  const audioRef = useState(new Audio("https://www.myinstants.com/media/sounds/wrong-answer-sound-effect.mp3"))[0];
+
+  useEffect(() => {
+    if (showErrorBackground) {
+      audioRef.play().catch(err => console.error("Audio play failed:", err)); // Play sound
+    }
+  }, [showErrorBackground]); // Runs when showErrorBackground changes
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,62 +25,89 @@ export default function Signin({ setActiveTab }) { // Accept setActiveTab as a p
     setLoading(false);
 
     if (success) {
-      setShowWelcome(true); // Show welcome message
+      setShowWelcome(true);
       setTimeout(() => {
-        setShowWelcome(false); // Hide welcome message after 5 seconds
-        setActiveTab("admin-dashboard"); // Change tab to Admin Dashboard
-      }, 5000);
+        setShowWelcome(false);
+        setActiveTab("admin-dashboard");
+      }, 4000);
+    } else {
+      setShowErrorBackground(true);
     }
   };
 
   return (
     <div
-      className="flex rounded-2xl items-center justify-center min-h-screen overflow-hidden"
-
+      className={`flex items-center justify-center min-h-screen transition-all duration-500 ease-in-out ${
+        showErrorBackground ? "bg-cover bg-center" : "bg-gradient-to-r from-gray-900 via-black to-gray-900"
+      }`}
+      style={{
+        backgroundImage: showErrorBackground
+          ? "url('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDhuazMzZnYyeWYxOGR3NWk5N283aGt5Z3NqYmZxZ2p2dDVjZnJ4bCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5ftsmLIqktHQA/giphy.gif')"
+          : "linear-gradient(to right, #1a1a2e, #16213e, #0f3460)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
+      {/* Audio element for error sound */}
+      <audio ref={audioRef} src="https://www.myinstants.com/media/sounds/wrong-answer-sound-effect.mp3" preload="auto"></audio>
+
       {showWelcome ? (
-        <div className="text-6xl sm:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-red-500 to-pink-600 
-  animate-pulse shadow-2xl shadow-yellow-400 p-10 rounded-2xl border-4 border-pink-400 border-dashed transform scale-105 hover:scale-110 transition-all duration-500 ease-out">
-  🎉 Welcome Back Daddy 🎉
-</div>
-
+        <div className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-red-500 to-pink-600 
+          animate-pulse shadow-2xl shadow-yellow-400 p-10 rounded-3xl border-4 border-pink-400 border-dashed transform scale-105 hover:scale-110 transition-all duration-500 ease-out">
+          🎉 Welcome Back, Boss 🎉
+        </div>
       ) : (
-        <div className="bg-red-200 p-8 rounded-lg shadow-md w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-4 text-center">Sign In</h2>
-          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
+        <div className="w-full max-w-md p-8 bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl shadow-2xl border border-gray-600 relative">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-white drop-shadow-lg mb-6">
+            🔐 Sign In
+          </h2>
 
+          {error && (
+            <p className="text-red-500 text-center font-semibold animate-pulse">
+              🚨 Access Denied 🚨
+            </p>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="relative">
               <input
                 type="text"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="w-full border text-center text-black rounded-lg p-2"
-                placeholder="Welcome Back"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                  setShowErrorBackground(false);
+                }}
+                className="w-full bg-black bg-opacity-50 text-white text-center text-lg px-4 py-3 rounded-xl border border-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all"
+                placeholder="👤 Username"
                 required
               />
             </div>
-            <div>
 
+            <div className="relative">
               <input
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full text-center text-black border rounded-lg p-2"
-                placeholder="Password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setShowErrorBackground(false);
+                }}
+                className="w-full bg-black bg-opacity-50 text-white text-center text-lg px-4 py-3 rounded-xl border border-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all"
+                placeholder="🔑 Password"
                 required
               />
             </div>
+
             <button
               type="submit"
-              className={`w-full py-2 rounded-lg text-white font-semibold ${
+              className={`w-full py-3 text-lg font-bold text-white rounded-xl shadow-lg transform transition-all duration-300 ${
                 loading
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-blue-600 hover:bg-blue-700"
+                  ? "bg-gray-600 cursor-not-allowed animate-pulse"
+                  : "bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 hover:scale-105 active:scale-95"
               }`}
               disabled={loading}
             >
-              {loading ? "Signing in..." : "Sign In"}
+              {loading ? "🔄 Signing in..." : "🚀 Sign In"}
             </button>
           </form>
         </div>

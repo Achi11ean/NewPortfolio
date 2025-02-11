@@ -712,11 +712,19 @@ export default function Admin() {
   
   return (
     <div className="p-6">
-<div className="bg-white p-6 rounded-lg shadow-md">
-  <h1 className="text-4xl sm:text-6xl lg:text-8xl text-center font-extrabold mb-6 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent drop-shadow-md font-[Aspire]">
-    Admin Dashboard
+<div className="bg-gradient-to-b from-gray-900 to-gray-800 p-10 sm:p-12 lg:p-16 rounded-3xl shadow-2xl border-4 border-gray-700 relative">
+  {/* Subtle Glow Effect */}
+  <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-yellow-500 opacity-20 blur-2xl"></div>
+
+  {/* Title */}
+  <h1 className="text-4xl sm:text-6xl lg:text-8xl text-center font-extrabold mb-6 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent drop-shadow-xl font-[Aspire] animate-text-glow">
+    ⚡ Admin Dashboard ⚡
   </h1>
+
+  {/* Floating Gradient Accent */}
+  <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-32 h-32 bg-gradient-to-r from-yellow-500 to-pink-500 opacity-50 rounded-full blur-3xl"></div>
 </div>
+
 
 
   <Calendar token={token} />

@@ -88,7 +88,7 @@ const Navbar = ({ activeTab, setActiveTab, user, token, logout }) => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-gray-100 py-4 space-y-4 text-center">
+  <div className="md:hidden bg-black  bg-opacity-20 backdrop-blur-lg shadow-lg rounded-xl   space-y-4 text-center mx-4 border border-gray-300">
           {[
             { tab: "welcome", label: "Welcome" },
             { tab: "karaoke", label: "Karaoke Signup" },
@@ -107,7 +107,7 @@ const Navbar = ({ activeTab, setActiveTab, user, token, logout }) => {
               (!adminOnly || user?.is_admin) && (
                 <button
                   key={tab}
-                  className="block text-gray-700 text-lg hover:text-blue-500 transition py-2"
+                  className="block text-white w-full text-center mx-auto text-lg hover:text-blue-500 transition py-2"
                   onClick={() => {
                     setActiveTab(tab); // Updates the active tab correctly
                     if (tab === "admin-signin") {

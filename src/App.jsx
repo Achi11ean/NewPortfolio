@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import AnimatedBackground from "./AnimatedBackground";
 import ContactForm from "./ContactForm";
 import PerformanceForm from "./PerformanceForm";
@@ -13,10 +13,12 @@ import Snowfall from "./Snowfall";
 import CalendarComponent from "./Calendar";
 import Karaoke from "./KaraokeSignUp"; // Add this import
 import Navbar from "./Navbar";
+
 import "./App.css"
 export default function App() {
   const [activeTab, setActiveTab] = useState("welcome"); 
   const [collapsed, setCollapsed] = useState(false);
+  const scrollContainerRef = useRef(null);
 
   const { token, logout, user } = useAuth();
   const [showEmojis, setShowEmojis] = useState(false);
@@ -31,7 +33,28 @@ export default function App() {
   const [selectedVideo, setSelectedVideo] = useState(""); // State for selected video
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
+useEffect(() => {
+  const scrollContainer = scrollContainerRef.current;
+  if (!scrollContainer) return;
 
+  let scrollAmount = 0;
+  const scrollStep = 1;
+  const scrollInterval = 50;
+
+  const autoScroll = setInterval(() => {
+    if (scrollContainer) {
+      scrollContainer.scrollTop += scrollStep;
+      scrollAmount += scrollStep;
+
+      if (scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight) {
+        scrollContainer.scrollTop = 0;
+        scrollAmount = 0;
+      }
+    }
+  }, scrollInterval);
+
+  return () => clearInterval(autoScroll);
+}, []);
   const [openSection, setOpenSection] = useState(null); // State for open dropdown
   const toggleSection = (section) => {
     setOpenSection((prevSection) => (prevSection === section ? null : section));
@@ -123,7 +146,7 @@ export default function App() {
 
 
 
-          {/* <div className="mt-6 flex justify-center w-full">
+          <div className="mt-6 flex justify-center w-full">
             <iframe
               allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
               frameBorder="0"
@@ -131,28 +154,33 @@ export default function App() {
               sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
               src="https://embed.music.apple.com/us/playlist/favorite-songs/pl.u-m6UB7NWme"
             ></iframe>
-          </div> */}
+          </div>
         </div>
       </div>
+      <div className="relative mb-2 w-full h-1  bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-300 shadow-lg overflow-hidden">
+  <div className="absolute inset-0 w-full h-full animate-flashy-sparkle"></div>
+</div>
       <button
-  className="block sm:block md:block lg:hidden xl:hidden 2xl:hidden
+  className="block  sm:block md:block lg:hidden xl:hidden 2xl:hidden
              bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 
              hover:from-pink-500 hover:via-purple-500 hover:to-indigo-500 
-             text-white font-bold py-3 w-full rounded-lg shadow-lg transition-all transform hover:scale-105"
+             text-white font-bold py-3 w-full animate-none rounded-lg shadow-lg transition-all transform hover:scale-105"
   onClick={() => setActiveTab("karaoke")}
 >
   🎤 Karaoke Sign up Sheet  📝
 </button>
 
 
-      <div className="w-full max-w-7.5xl mx-auto p-6">
+
+
+      <div className="w-full  max-w-7.5xl mx-auto p-6">
 
 
 
         {/* Tab Content */}
-        <div className="mt-4 p-6  text-white rounded-xl relative overflow-hidden shadow-lg">
+        <div className="mt-4 p-6 justify-center flex items-center text-white rounded-xl relative overflow-hidden shadow-lg">
           {showEmojis && (
-            <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-50">
+            <div className="fixed top-0 left-0 w-full justify-center items-center h-full pointer-events-none overflow-hidden z-50">
               {Array.from({ length: 20 }).map((_, index) => (
                 <span
                   key={index}
@@ -190,7 +218,7 @@ export default function App() {
 
 <div className="max-w-45l">
 <p className="text-xl text-center font-semibold text-white  pr-6 mt-4">
-  🚀 **Weekly AI-Powered Business Insights!** 🚀  
+  🚀Weekly AI-Powered Business Insights 🚀  
   <br/><br/>
   Get ahead of the curve with the latest tech trends designed to elevate your small business in the era of AI!  
 
@@ -202,14 +230,14 @@ export default function App() {
 </p>
 
 <ul className="text-lg text-center text-white mt-4 space-y-2">
-  <li>🛍️ **Retail & E-commerce:** Local shops, online stores, thrift boutiques</li>
-  <li>🏠 **Home & Trade Services:** Electricians, roofers, plumbers, HVAC, landscapers</li>
-  <li>💼 **Professional Services:** Marketing agencies, financial consultants, IT support</li>
-  <li>🏥 **Health & Wellness:** Healthcare providers, personal trainers, yoga studios</li>
-  <li>🚗 **Automotive & Transportation:** Auto repair, mobile mechanics, taxis, towing</li>
-  <li>🍽️ **Food & Hospitality:** Restaurants, cafés, food trucks, catering</li>
-  <li>🎨 **Creative & Media:** Photographers, content creators, musicians</li>
-  <li>📚 **Education & Coaching:** Tutors, online course creators, music teachers</li>
+  <li>🛍️ Retail & E-commerce: Local shops, online stores, thrift boutiques</li>
+  <li>🏠 Home & Trade Services: Electricians, roofers, plumbers, HVAC, landscapers</li>
+  <li>💼 Professional Services: Marketing agencies, financial consultants, IT support</li>
+  <li>🏥 Health & Wellness: Healthcare providers, personal trainers, yoga studios</li>
+  <li>🚗 Automotive & Transportation: Auto repair, mobile mechanics, taxis, towing</li>
+  <li>🍽️ Food & Hospitality: Restaurants, cafés, food trucks, catering</li>
+  <li>🎨 Creative & Media Photographers, content creators, musicians</li>
+  <li>📚 Education & Coaching Tutors, online course creators, music teachers</li>
   <li>🏠 Real Estate Agents & Brokers – Residential & commercial property sales</li>
   <li>🏢 Property Management Companies – Rental management, tenant screening, maintenance</li>
   <li>🏡 Real Estate Investors & House Flippers – Buying, renovating, and selling properties</li>
@@ -241,94 +269,111 @@ export default function App() {
 )}
 
           {/* Glowing Border Effect */}
-          {/* <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 blur-lg opacity-50"></div> */}
 
           {/* Content */}
           {activeTab === "welcome" && (
-            <div className="relative z-10 text-center p-6">
-              {/* <h2
-                className="text-5xl font-extrabold text-transparent pb-2 bg-clip-text bg-gradient-to-r from-red-500 via-yellow-400 to-green-600 mb-9 animate-pulse drop-shadow-lg"
-                style={{ fontFamily: "Aspire, sans-serif" }}
-              >
-                {" "}
-                <span className="text-white">🎄</span> Welcome!{" "}
-                <span className="text-white">🎅</span> <br />
-                Wishing you and your loved ones a Magical Holiday Season{" "}
-                <span className="text-white">✨</span>
-              </h2> */}
+            <div className="relative z-10 rounded-3xl max-w-7xl mx-auto justify-center items-center 
+  bg-gray-700 bg-opacity-50 backdrop-blur-lg shadow-2xl 
+  border border-gray-500 p-6">
+    
+    {/* Social Media Links */}
+    <div className="flex justify-center items-center mt-6 space-x-6">
+      <a
+        href="https://github.com/Achi11ean"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:scale-105 transform transition-transform"
+      >
+        <img src="/github.webp" alt="GitHub" className="w-20 h-20 rounded-full" />
+        GitHub
+      </a>
+      <a
+        href="https://www.linkedin.com/in/jonathen-whitford/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:scale-105 transform transition-transform"
+      >
+        <img src="/linkedin.webp" alt="LinkedIn" className="w-20 h-20 rounded-full" />
+        LinkedIn
+      </a>
+      <a
+        href="https://1drv.ms/w/c/5752b0b995ca8e1e/EWuCsvWBBr1HosYQAxQwp7YBL83c-7iSUww3Vb0Iu8d4Vg"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:scale-105 transform transition-transform"
+      >
+        <img src="resume.webp" alt="Resume" className="w-20 h-20 rounded-full" />
+        Resume
+      </a>
+    </div>
 
-              {/* Social Media Links */}
-              <div className="flex justify-center mt-6 space-x-6">
-                <a
-                  href="https://github.com/Achi11ean"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:scale-105 transform transition-transform"
-                >
-                  <img
-                    src="/github.webp"
-                    alt="GitHub"
-                    className="w-20 h-20 rounded-full"
-                  />
-                  GitHub
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/jonathen-whitford/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:scale-105 transform transition-transform"
-                >
-                  <img
-                    src="/linkedin.webp"
-                    alt="LinkedIn"
-                    className="w-20 h-20 rounded-full"
-                  />
-                  LinkedIn
-                </a>
-                <a
-                  href="https://1drv.ms/w/c/5752b0b995ca8e1e/EWuCsvWBBr1HosYQAxQwp7YBL83c-7iSUww3Vb0Iu8d4Vg" // Replace with the actual path or URL to your resume
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:scale-105 transform transition-transform"
-                >
-                  <img
-                    src="resume.webp"
-                    alt="Resume"
-                    className="w-20 h-20 rounded-full"
-                  />
-                  Resume
-                </a>
-              </div>
-              {/* Toggle Button */}
-              <div className="text-center mt-6">
-                <button
-                  onClick={() => setShowEducationSkills(!showEducationSkills)}
-                  className="py-2 px-6 bg-purple-700 hover:bg-purple-600 text-white font-bold rounded-lg shadow-lg transition-all"
-                >
-                  {showEducationSkills
-                    ? "Hide Education and Skills"
-                    : "Show Education and Skills"}
-                </button>
-                {showEducationSkills && <EducationSkills />}
-              </div>
-              <p className="text-lg sm:text-2xl md:text-3xl font-bold leading-relaxed text-white">
-   I'm <span className="text-white font-bold">Jonathen</span>, a software engineer with a passion for creating
-  <span className="text-red-300 font-bold"> user-centric web applications.</span>
-  <br />
+    {/* Toggle Button */}
+    <div className="text-center mt-6">
+      <button
+        onClick={() => setShowEducationSkills(!showEducationSkills)}
+        className="py-2 px-6 bg-purple-700 hover:bg-purple-600 text-white font-bold rounded-lg shadow-lg transition-all"
+      >
+        {showEducationSkills ? "Hide Education and Skills" : "Show Education and Skills"}
+      </button>
+      {showEducationSkills && <EducationSkills />}
+    </div>
 
-  Explore the tabs to learn more about my projects, passion, and professional journey. On the last tab, you can use the contact form to send me an inquiry, or visit the Services tab to book and pay for services directly through my portfolio! I look forward to connecting with you!
-  <br />
+    {/* Auto-Scrolling Section */}
+    <div
+      ref={scrollContainerRef}
+      className="max-h-96 overflow-y-auto p-6  bg-gray-900 bg-opacity-80 rounded-2xl shadow-lg border border-gray-700 text-white text-center leading-relaxed"
+    >
+      <p className="text-lg pt-3 sm:text-2xl pb-14 md:text-3xl font-bold">
+        I'm <span className="text-white font-bold">Jonathen</span>, a software engineer and passionate{" "}
+        <span className="text-blue-500 font-bold">Karaoke Host</span> who thrives on building{" "}
+        <span className="text-green-300 font-bold">user-centric web applications</span> and creating{" "}
+        <span className="text-yellow-300 font-bold">unforgettable entertainment experiences.</span>
+        <br /><br />
 
-  This website was built using{" "}
-  <span className="text-blue-600 font-bold">React</span> and{" "}
-  <span className="text-green-300 font-bold">Vite</span> for fast development, styled with{" "}
-  <span className="text-teal-200 font-bold">Tailwind CSS</span> for modern and responsive design, and powered by Stripe for seamless booking and payment functionality.
-</p>
+        By day, I develop high-performance web solutions, and by night, I host Unforgettable Karaoke experiences. 🎤✨  
+        Singers can sign up through the <button className="text-blue-400 font-bold underline hover:text-yellow-500 transition"
+          onClick={() => setActiveTab("karaoke")}>Karaoke Signup</button> tab to get their moment on stage!
+        <br /><br />
 
+        Curious about my engineering work? Dive into <button className="text-green-400 font-bold underline hover:text-green-500 transition"
+          onClick={() => setActiveTab("education")}>Jwhit©️</button>, where I showcase my latest software innovations.
+        <br /><br />
 
-              {/* Conditionally Render EducationSkills */}
-            </div>
-          )}
+        Want to explore my career journey? Check out my <button className="text-green-300 font-bold underline hover:text-blue-400 transition"
+          onClick={() => setActiveTab("employment")}>Employment History</button>, where I detail my experience in software engineering and much more!
+        <br /><br />
+
+        I’m also deeply passionate about the impact of AI across industries. My upcoming <button className="text-red-400 font-bold underline hover:text-red-500 transition"
+          onClick={() => setActiveTab("businessweekly")}>Inc & AI</button> tab will cover the effects of AI in various industries—stay tuned!
+        <br /><br />
+
+        Want to see what my clients are saying about their experience? Head over to the <button className="text-purple-400 font-bold underline hover:text-purple-500 transition"
+          onClick={() => setActiveTab("reviews")}>Reviews</button> tab to hear from those I’ve worked with, whether it’s software clients or Karaoke guests!
+        <br /><br />
+
+        Have some questions about the services I offer or make a payment for a service? visit the <button className="text-pink-800 font-bold underline hover:text-pink-900 transition"
+          onClick={() => setActiveTab("basic-services")}>Services</button> tab and lock in an unforgettable night of entertainment!
+        <br /><br />
+
+        Browse through my <button className="text-yellow-500 font-bold underline hover:text-yellow-600 transition"
+          onClick={() => setActiveTab("gallery")}>Gallery</button> for some local modeling and images of volunteering events!
+        <br /><br />
+
+        Ready to Book or just have a question about services? Reach out through the <button className="text-cyan-400 font-bold underline hover:text-cyan-500 transition"
+          onClick={() => setActiveTab("contact")}>Contact</button> tab—I’d love to hear from you!
+        <br /><br />
+
+        This website was built using{" "}
+        <span className="text-blue-600 font-bold">React</span> and{" "}
+        <span className="text-green-300 font-bold">Vite</span> for fast development, styled with{" "}
+        <span className="text-teal-200 font-bold">Tailwind CSS</span> for a modern and responsive design, and powered by <span className="text-purple-300 font-bold">Stripe</span> for seamless booking and payment functionality.
+        This site also features dynamic graphs 📊, embedded real-time analytics and an interactive experience powered by Python-based data processing
+
+      </p>
+    </div>
+  </div>
+)} {/* ✅ Closing Parentheses Here */}
+
 
           {activeTab === "education" && (
             <div className="space-y-8">
