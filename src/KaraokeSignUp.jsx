@@ -1096,7 +1096,9 @@ const handleSubmit = async (e) => {
       className={`p-6 rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 ${
         issues[id] 
           ? "bg-gradient-to-r from-red-600 to-red-800 shadow-red-500/50" 
-          : "bg-gradient-to-b from-red-500 via-black to-black shadow-yellow-100/50"
+          : "bg-gradient-to-b from-[#16213e] via-[#16213e] to-yellow-700 shadow-[0px_-4px_8px_rgba(255,255,255,0.5),0px_4px_0px_rgba(0,0,0,0)]"
+
+
 
 
 
@@ -1183,8 +1185,8 @@ const handleSubmit = async (e) => {
 </p>
 
 
-<p className="text-xl text-purple-300 font-medium text-center mt-2">
-  🎶 <span className="text-white font-extrabold">Performing: <br/>{song}</span> <br/>by <span className="text-yellow-400 font-extrabold"><br/>{artist}</span>
+<p className="text-xl  font-medium text-center mt-2">
+ <span className="text-pink-500 font-extrabold">Performing: <br/></span><span className="font-white">{song}</span> <br/><span className="text-purple-300 "> Original Artist:</span> <span className="text-white font-extrabold"><br/>{artist}</span>
 </p>
 
 <p className="text-sm text-gray-400 text-center italic mt-2">
