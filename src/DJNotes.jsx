@@ -22,7 +22,7 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
     } else if (alertType.startsWith("IN MEMORY")) {
       return "bg-black text-white border-gray-500";
     } else if (alertType.startsWith("JOKES")) {
-      return "bg-yellow-500 text-black border-yellow-700";
+      return "bg-blue-500 text-white border-blue-700";
     } else if (alertType.startsWith("SHAME")) {
       return "bg-gradient-to-r from-red-900 via-gray-800 to-red-900 text-white border-red-700"; // New SHAME style
     } else {
@@ -206,7 +206,7 @@ const fetchDeletedNotes = async () => {
         <button className="bg-black text-white px-4 py-2 rounded-lg text-base font-bold transform transition-all hover:scale-110 hover:bg-gray-900" onClick={() => moveAlertToTop("IN MEMORY")}>
           🪦 MEMORY
         </button>
-        <button className="bg-yellow-500 text-black px-4 py-2 rounded-lg text-base font-bold transform transition-all hover:scale-110 hover:bg-yellow-600" onClick={() => moveAlertToTop("JOKES")}>
+        <button className="bg-blue-500 text-black px-4 py-2 rounded-lg text-base font-bold transform transition-all hover:scale-110 hover:bg-yellow-600" onClick={() => moveAlertToTop("JOKES")}>
           😂 JOKES
         </button>
         <button className="bg-red-900 text-white px-4 py-2 rounded-lg text-base font-bold transform transition-all hover:scale-110 hover:bg-red-800" onClick={() => moveAlertToTop("SHAME")}>
@@ -306,7 +306,7 @@ const fetchDeletedNotes = async () => {
                 notes.length > 0 && notes[currentIndex].alert_type.startsWith("ALERT:")
                   ? "text-white bg-red-600" 
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("JOKES")
-                  ? "text-black bg-blue-500"
+                  ? "text-yellow-500 bg-blue-500"
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("HAPPY BIRTHDAY")
                   ? "text-pink-800 bg-pink-300" 
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("HAPPY ANNIVERSARY")
@@ -325,7 +325,7 @@ const fetchDeletedNotes = async () => {
   {notes.length > 0 && notes[currentIndex].alert_type.startsWith("ALERT:")
     ? "🚨 HOST ALERTS 🚨"
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("JOKES")
-    ? "😂 KARAJOKE😆"
+    ? "🤡 KARA-JOKé 🤡"
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("HAPPY BIRTHDAY")
     ? "🎂BIRTHDAY!🎉"
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("HAPPY ANNIVERSARY")
