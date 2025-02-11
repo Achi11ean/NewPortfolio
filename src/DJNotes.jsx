@@ -179,7 +179,7 @@ const fetchDeletedNotes = async () => {
   return (
     
     <div className="p-6 max-w-3xl  mx-auto">
-<div className="mt-6 max-w-md mb-2 mx-auto p-6 bg-gradient-to-r from-gray-900 to-black rounded-2xl shadow-xl border-2 border-gray-700">
+<div className="mt-6 max-w-md mb-2 mx-auto p-6 rounded-2xl shadow-xl  border-gray-700">
   {user?.is_admin && (
     <>
       <h2 className="text-center text-white text-2xl font-bold mb-4 uppercase tracking-wider">
@@ -259,10 +259,49 @@ const fetchDeletedNotes = async () => {
     </>
   )}
 </div>
+
+<div className="mt-8 text-center  p-6 bg-black bg-opacity-10 backdrop-blur-md rounded-3xl shadow-xl border border-gray-700 max-w-lg mx-auto">
+  {/* Title */}
+  <h2 className="text-md sm:text-4xl underline font-extrabold  bg-gradient-to-r from-yellow-300 via-red-500 to-pink-600  text-transparent bg-clip-text drop-shadow-xl p-3 rounded-lg shadow-md backdrop-blur-md bg-opacity-90">
+  🎤 Show Some Love! 💕
+</h2>
+
+  <p className="text-lg text-black mt-2">
+    Enjoying the show? Tips are always appreciated, and never required but your support sure does cheer the host up! 🙌✨
+  </p>
+
+  {/* Venmo */}
+  <div className="mt-5">
+    <a 
+      href="https://venmo.com/u/Jonathen-Whitford" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="block bg-blue-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105"
+    >
+      💙 Tip via Venmo
+    </a>
+  </div>
+
+  {/* Cash App */}
+  <div className="mt-4">
+    <a 
+      href="https://cash.app/$pikachu55" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="block bg-green-500 hover:bg-yellow-600 hover:text-white text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105"
+    >
+      💚 Tip via Cash App
+    </a>
+  </div>
+
+  {/* Fun Message */}
+
+</div>
+
 <h1
   className={`text-lg sm:text-xl md:text-2xl lg:text-3xl 
               text-center font-extrabold py-2 sm:py-3 rounded shadow-lg 
-              animate-pulse font-serif break-words px-4 w-full max-w-4xl mx-auto
+              animate-pulse font-serif break-words px-4 mt-6 w-full max-w-4xl mx-auto
               ${
                 notes.length > 0 && notes[currentIndex].alert_type.startsWith("ALERT:")
                   ? "text-white bg-red-600" 
