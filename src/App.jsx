@@ -178,9 +178,9 @@ useEffect(() => {
 
 
         {/* Tab Content */}
-        <div className="mt-4 p-6 justify-center flex items-center text-white rounded-xl relative overflow-hidden shadow-lg">
+        <div className="mt-4 p-6 justify-center items-center text-white rounded-xl relative overflow-hidden shadow-lg">
           {showEmojis && (
-            <div className="fixed top-0 left-0 w-full justify-center items-center h-full pointer-events-none overflow-hidden z-50">
+            <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-50">
               {Array.from({ length: 20 }).map((_, index) => (
                 <span
                   key={index}
@@ -218,7 +218,7 @@ useEffect(() => {
 
 <div className="max-w-45l">
 <p className="text-xl text-center font-semibold text-white  pr-6 mt-4">
-  🚀Weekly AI-Powered Business Insights 🚀  
+  🚀 **Weekly AI-Powered Business Insights!** 🚀  
   <br/><br/>
   Get ahead of the curve with the latest tech trends designed to elevate your small business in the era of AI!  
 
@@ -230,14 +230,14 @@ useEffect(() => {
 </p>
 
 <ul className="text-lg text-center text-white mt-4 space-y-2">
-  <li>🛍️ Retail & E-commerce: Local shops, online stores, thrift boutiques</li>
-  <li>🏠 Home & Trade Services: Electricians, roofers, plumbers, HVAC, landscapers</li>
-  <li>💼 Professional Services: Marketing agencies, financial consultants, IT support</li>
-  <li>🏥 Health & Wellness: Healthcare providers, personal trainers, yoga studios</li>
-  <li>🚗 Automotive & Transportation: Auto repair, mobile mechanics, taxis, towing</li>
-  <li>🍽️ Food & Hospitality: Restaurants, cafés, food trucks, catering</li>
-  <li>🎨 Creative & Media Photographers, content creators, musicians</li>
-  <li>📚 Education & Coaching Tutors, online course creators, music teachers</li>
+  <li>🛍️ **Retail & E-commerce:** Local shops, online stores, thrift boutiques</li>
+  <li>🏠 **Home & Trade Services:** Electricians, roofers, plumbers, HVAC, landscapers</li>
+  <li>💼 **Professional Services:** Marketing agencies, financial consultants, IT support</li>
+  <li>🏥 **Health & Wellness:** Healthcare providers, personal trainers, yoga studios</li>
+  <li>🚗 **Automotive & Transportation:** Auto repair, mobile mechanics, taxis, towing</li>
+  <li>🍽️ **Food & Hospitality:** Restaurants, cafés, food trucks, catering</li>
+  <li>🎨 **Creative & Media:** Photographers, content creators, musicians</li>
+  <li>📚 **Education & Coaching:** Tutors, online course creators, music teachers</li>
   <li>🏠 Real Estate Agents & Brokers – Residential & commercial property sales</li>
   <li>🏢 Property Management Companies – Rental management, tenant screening, maintenance</li>
   <li>🏡 Real Estate Investors & House Flippers – Buying, renovating, and selling properties</li>
@@ -272,12 +272,10 @@ useEffect(() => {
 
           {/* Content */}
           {activeTab === "welcome" && (
-            <div className="relative z-10 rounded-3xl max-w-7xl mx-auto justify-center items-center 
-  bg-gray-700 bg-opacity-50 backdrop-blur-lg shadow-2xl 
-  border border-gray-500 p-6">
+  <div className="relative z-10  rounded-3xl bg-gray-700 text-center p-6">
     
     {/* Social Media Links */}
-    <div className="flex justify-center items-center mt-6 space-x-6">
+    <div className="flex justify-center mt-6 space-x-6">
       <a
         href="https://github.com/Achi11ean"
         target="_blank"
@@ -321,45 +319,45 @@ useEffect(() => {
     {/* Auto-Scrolling Section */}
     <div
       ref={scrollContainerRef}
-      className="max-h-96 overflow-y-auto p-6  bg-gray-900 bg-opacity-80 rounded-2xl shadow-lg border border-gray-700 text-white text-center leading-relaxed"
+      className="max-h-96 mb-10 mt-2 overflow-y-auto p-6 bg-gray-900 bg-opacity-80 rounded-2xl shadow-lg border border-gray-700 text-white text-center leading-relaxed"
     >
-      <p className="text-lg pt-3 sm:text-2xl pb-14 md:text-3xl font-bold">
+      <p className="text-lg mb-16 pt-3 sm:text-2xl md:text-3xl font-bold">
         I'm <span className="text-white font-bold">Jonathen</span>, a software engineer and passionate{" "}
-        <span className="text-blue-500 font-bold">Karaoke Host</span> who thrives on building{" "}
-        <span className="text-green-300 font-bold">user-centric web applications</span> and creating{" "}
-        <span className="text-yellow-300 font-bold">unforgettable entertainment experiences.</span>
+        <span className="text-pink-800 font-bold">Karaoke Host</span> who thrives on building{" "}
+        <span className="text-red-300 font-bold">user-centric web applications</span> and creating{" "}
+        <span className="text-pink-300 font-bold">unforgettable entertainment experiences.</span>
         <br /><br />
 
-        By day, I develop high-performance web solutions, and by night, I host Unforgettable Karaoke experiences. 🎤✨  
-        Singers can sign up through the <button className="text-blue-400 font-bold underline hover:text-yellow-500 transition"
+        By day, I develop high-performance web solutions, and by night, I host **unforgettable Karaoke experiences**. 🎤✨  
+        Singers can sign up through the <button className="text-yellow-400 font-bold underline hover:text-yellow-500 transition"
           onClick={() => setActiveTab("karaoke")}>Karaoke Signup</button> tab to get their moment on stage!
         <br /><br />
 
-        Curious about my engineering work? Dive into <button className="text-green-400 font-bold underline hover:text-green-500 transition"
-          onClick={() => setActiveTab("education")}>Jwhit©️</button>, where I showcase my latest software innovations.
+        **Curious about my engineering work?** Dive into <button className="text-green-400 font-bold underline hover:text-green-500 transition"
+          onClick={() => setActiveTab("education")}>Jwhit©️</button>, where I showcase my latest software and AI-driven innovations.
         <br /><br />
 
-        Want to explore my career journey? Check out my <button className="text-green-300 font-bold underline hover:text-blue-400 transition"
-          onClick={() => setActiveTab("employment")}>Employment History</button>, where I detail my experience in software engineering and much more!
+        Want to **explore my career journey**? Check out my <button className="text-blue-300 font-bold underline hover:text-blue-400 transition"
+          onClick={() => setActiveTab("employment")}>Employment History</button>, where I detail my experience in software engineering and technology.
         <br /><br />
 
-        I’m also deeply passionate about the impact of AI across industries. My upcoming <button className="text-red-400 font-bold underline hover:text-red-500 transition"
+        I’m also deeply passionate about **the impact of AI across industries.** My upcoming <button className="text-red-400 font-bold underline hover:text-red-500 transition"
           onClick={() => setActiveTab("businessweekly")}>Inc & AI</button> tab will cover the effects of AI in various industries—stay tuned!
         <br /><br />
 
-        Want to see what my clients are saying about their experience? Head over to the <button className="text-purple-400 font-bold underline hover:text-purple-500 transition"
+        **Want to see what others are saying?** Head over to the <button className="text-purple-400 font-bold underline hover:text-purple-500 transition"
           onClick={() => setActiveTab("reviews")}>Reviews</button> tab to hear from those I’ve worked with, whether it’s software clients or Karaoke guests!
         <br /><br />
 
-        Have some questions about the services I offer or make a payment for a service? visit the <button className="text-pink-800 font-bold underline hover:text-pink-900 transition"
+        If you’d like to book me for a **private event**, visit the <button className="text-pink-800 font-bold underline hover:text-pink-900 transition"
           onClick={() => setActiveTab("basic-services")}>Services</button> tab and lock in an unforgettable night of entertainment!
         <br /><br />
 
-        Browse through my <button className="text-yellow-500 font-bold underline hover:text-yellow-600 transition"
-          onClick={() => setActiveTab("gallery")}>Gallery</button> for some local modeling and images of volunteering events!
+        **Want to check out my work in action?** Browse through my <button className="text-yellow-500 font-bold underline hover:text-yellow-600 transition"
+          onClick={() => setActiveTab("gallery")}>Gallery</button> for event highlights and coding projects.
         <br /><br />
 
-        Ready to Book or just have a question about services? Reach out through the <button className="text-cyan-400 font-bold underline hover:text-cyan-500 transition"
+        Have a question or want to collaborate? Reach out through the <button className="text-cyan-400 font-bold underline hover:text-cyan-500 transition"
           onClick={() => setActiveTab("contact")}>Contact</button> tab—I’d love to hear from you!
         <br /><br />
 
@@ -367,7 +365,7 @@ useEffect(() => {
         <span className="text-blue-600 font-bold">React</span> and{" "}
         <span className="text-green-300 font-bold">Vite</span> for fast development, styled with{" "}
         <span className="text-teal-200 font-bold">Tailwind CSS</span> for a modern and responsive design, and powered by <span className="text-purple-300 font-bold">Stripe</span> for seamless booking and payment functionality.
-        This site also features dynamic graphs 📊, embedded real-time analytics and an interactive experience powered by Python-based data processing
+        This site also features **dynamic graphs** 📊, embedded **real-time analytics**, and an **interactive experience** powered by **Python-based data processing**.
 
       </p>
     </div>

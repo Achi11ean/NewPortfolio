@@ -913,10 +913,10 @@ const handleSubmit = async (e) => {
 
 
   {/* Sign-up Form */}
-  <h2 className="text-lg sm:text-xl md:text-3xl lg:text-4xl xl:text-5xl 
+  <h2 className="text-lg sm:text-xl  md:text-3xl lg:text-4xl xl:text-5xl 
               font-extrabold text-white text-center drop-shadow-lg 
               mt-4 sm:mt-6 p-2 sm:p-4 bg-gradient-to-r 
-              from-yellow-400 via-red-500 to-pink-500 rounded-xl w-full max-w-4xl mx-auto">
+              from-yellow-400 via-red-500 to-pink-500 rounded-xl  mx-auto">
   {showForm ? "🕒 Sign ups opened at:" : "🛑 Sign ups closed at:"}
   <br />
   <span className="text-yellow-200 text-xl sm:text-2xl md:text-3xl lg:text-4xl 
@@ -997,7 +997,7 @@ const handleSubmit = async (e) => {
 </div>
 <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold 
                mb-4 sm:mb-3 mt-6 sm:mt-10 text-center text-black 
-               bg-black p-2 sm:p-3 rounded-lg animate-police-siren w-full max-w-lg mx-auto">
+               bg-black p-2 sm:p-3 rounded-lg animate-police-siren max-w-lg mx-auto">
   🚦<span className="underline font-serif "> Karaoke Guidelines</span> 🚦
 </h2>
 

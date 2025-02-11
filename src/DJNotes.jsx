@@ -178,8 +178,8 @@ const fetchDeletedNotes = async () => {
 
   return (
     
-    <div className="p-6 max-w-4xl  mx-auto">
-<div className="mt-6 max-w-3xl mb-2 mx-auto p-6 bg-gradient-to-r from-gray-900 to-black rounded-2xl shadow-xl border-2 border-gray-700">
+    <div className="p-6 max-w-3xl  mx-auto">
+<div className="mt-6 max-w-md mb-2 mx-auto p-6 bg-gradient-to-r from-gray-900 to-black rounded-2xl shadow-xl border-2 border-gray-700">
   {user?.is_admin && (
     <>
       <h2 className="text-center text-white text-2xl font-bold mb-4 uppercase tracking-wider">
