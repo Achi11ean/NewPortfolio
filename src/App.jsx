@@ -1194,120 +1194,206 @@ useEffect(() => {
             </p>
             {/* "Submit A Booking Request" Button */}
             <div className="relative z-20 mb-6 flex justify-center">
-              <button
-                onClick={() => setActiveTab("contact")} // Set the activeTab to "contact"
-                className="px-6 py-3 text-xl font-bold text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-transform"
-              >
-                Submit A Booking Request
-              </button>
-            </div>
+  <button
+    onClick={() => setActiveTab("contact")}
+    className="w-full py-4 px-8 text-3xl font-bold text-white bg-gradient-to-r from-blue-500 to-purple-600 
+               rounded-full shadow-lg hover:scale-105 transition-all hover:shadow-purple-500/50 
+               animate-bounce border-4 border-transparent hover:border-white 
+               backdrop-blur-lg bg-opacity-90 relative overflow-hidden"
+  >
+    <span className="relative z-10">✨ BOOK SERVICES ✨</span>
+    <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-blue-500 opacity-20 blur-md"></div>
+  </button>
+</div>
+
             {/* Service Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Performance Services Card */}
-              <div className="bg-white rounded-lg shadow-lg p-6 text-left">
-                <h3 className="text-4xl font-bold text-black mb-4">
-                  Performance Services
-                </h3>
-                <p className="text-gray-700 mb-4">
-                  Enjoy karaoke hosting, DJ services, and live performances for
-                  parties, company events, weddings, and more. Customized
-                  playlists and add-ons available!
-                </p>
-                <p className="text-lg text-gray-600 mb-4">
-                  <strong>Pricing:</strong>
-                  <br /> - Private Parties: $120 (4 hours)
-                  <br /> - Company Events: $200 minimum (4 hours)
-                  <br /> - Weddings: $350 minimum (6 hours)
-                  <br /> - Deluxe All-Day Event: $500
-                </p>
-                <a
-                  href="https://buy.stripe.com/aEU4gvdOa6qi8kEfYZ" // Replace with actual link
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-6 py-3 text-center text-2xl rounded-full bg-gradient-to-r from-yellow-500 to-red-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
-                >
-                  Performance Services Payment
-                </a>
-              </div>
+              <div className="bg-white rounded-lg shadow-lg p-6 text-left max-h-[500px] overflow-y-auto">
+  <h3 className="text-4xl font-bold text-black mb-4 text-center">
+    🎶 Performance Services 🎤
+  </h3>
+
+  <p className="text-gray-700 text-lg mb-4">
+    Elevate your event with **professional karaoke hosting, DJ services, and live performances** tailored to your audience. Whether you're planning a private party, corporate event, wedding, or large-scale celebration, we provide an **unforgettable musical experience** with custom playlists, state-of-the-art sound, and optional add-ons to personalize your event.
+  </p>
+
+  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+    🎵 Available Services:
+  </h4>
+  <ul className="list-disc list-inside text-gray-700 text-lg mb-4 space-y-2">
+    <li>🎤 **Karaoke Hosting** – Professional setup with a vast song library.</li>
+    <li>🎧 **DJ Services** – Curated playlists & live mixing for any occasion.</li>
+    <li>🎸 **Live Performances** – Acoustic sets, guest singers, and interactive entertainment.</li>
+    <li>🔊 **Premium Sound & Lighting** – High-quality audio and vibrant lighting effects.</li>
+    <li>📀 **Custom Playlists & Requests** – Tailored music selection to match your event's theme.</li>
+  </ul>
+
+  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+    💰 Pricing & Packages:
+  </h4>
+  <p className="text-gray-600 text-lg mb-4">
+    <strong>Transparent pricing for every event:</strong>
+    <br /> 🎈 **Private Parties** – $200 (4 hours)
+    <br /> 🏢 **Company Events** – $300 minimum (4 hours)
+    <br /> 💍 **Weddings** – $450 minimum (6 hours)
+    <br /> 🎊 **Deluxe All-Day Event** – $600
+  </p>
+
+  <p className="text-gray-600 text-lg mb-4">
+    **Additional Services & Custom Quotes Available!** Need extra hours, specific equipment, or a unique entertainment package? Let’s discuss how we can make your event exceptional.
+  </p>
+
+  <a
+    href="https://buy.stripe.com/aEU4gvdOa6qi8kEfYZ" // Replace with actual link
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block px-6 py-3 text-center text-2xl rounded-full bg-gradient-to-r from-yellow-500 to-red-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
+  >
+    💳 Pay for Performance Services
+  </a>
+</div>
+
 
               {/* Software Engineering Services Card */}
-              <div className="bg-white rounded-lg shadow-lg p-6 text-left">
-                <h3 className="text-2xl font-bold text-black mb-4">
-                  Software Engineering Services
-                </h3>
-                <p className="text-gray-700 mb-4">
-                  Professional website development for static and dynamic
-                  applications, as well as enterprise solutions. Consultation
-                  and code reviews available.
-                </p>
-                <p className="text-lg text-gray-600 mb-4">
-                  <strong>Pricing:</strong>
-                  <br /> - Static Websites: Starting at $65/page
-                  <br /> - Dynamic Applications: Starting at $250
-                  <br /> - Enterprise Applications: Starting at $400
-                </p>
-                <a
-                  href="https://buy.stripe.com/bIY14j9xUcOG58sfZ0" // Replace with actual link
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-6 py-3 text-center rounded-full text-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
-                >
-                  Engineering Services Payment
-                </a>
-              </div>
+              <div className="bg-white rounded-lg shadow-lg p-6 text-left max-h-[500px] overflow-y-auto">
+  <h3 className="text-4xl font-bold text-black mb-4 text-center">
+    💻 Software Engineering Services 🚀
+  </h3>
+
+  <p className="text-gray-700 text-lg mb-4">
+    Offering **professional website development, dynamic applications, and enterprise solutions** tailored to your business needs. Whether you need a sleek static website, a powerful web application, or a custom-built enterprise platform, I provide **high-quality, scalable, and secure solutions** to bring your vision to life.
+  </p>
+
+  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+    🛠 Available Services:
+  </h4>
+  <ul className="list-disc list-inside text-gray-700 text-lg mb-4 space-y-2">
+    <li>🌐 **Website Development** – Responsive, modern, and mobile-friendly sites.</li>
+    <li>⚙️ **Full-Stack Web Applications** – Custom-built apps with backend & frontend development.</li>
+    <li>🏢 **Enterprise Solutions** – Large-scale, business-grade applications with advanced features.</li>
+    <li>📋 **Consultations & Code Reviews** – Get expert insights, performance improvements, and security evaluations.</li>
+    <li>🔍 **Database & API Integration** – Seamless data management and third-party service integration.</li>
+  </ul>
+
+  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+    💰 Pricing & Packages:
+  </h4>
+  <p className="text-gray-600 text-lg mb-4">
+    <strong>Transparent pricing for every project:</strong>
+    <br /> 🖥️ **Static Websites** – Starting at **$65 per page**
+    <br /> 🔄 **Dynamic Applications** – Starting at **$250**
+    <br /> 🏢 **Enterprise Applications** – Starting at **$400**
+  </p>
+
+  <p className="text-gray-600 text-lg mb-4">
+    **Custom Quotes Available!** Whether you need an MVP, an e-commerce store, or a scalable SaaS platform, I can build a tailored solution that meets your requirements.
+  </p>
+
+  <a
+    href="https://buy.stripe.com/bIY14j9xUcOG58sfZ0" // Replace with actual link
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block px-6 py-3 text-center rounded-full text-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
+  >
+    💳 Pay for Engineering Services
+  </a>
+</div>
+
 
               {/* Consultation Services Card */}
-              <div className="bg-white rounded-lg shadow-lg p-6 text-left">
-                <h3 className="text-2xl font-bold text-black mb-4">
-                  Consultation Services
-                </h3>
-                <p className="text-gray-700 mb-4 text-lg">
-                  Get expert guidance on software engineering, project
-                  architecture, debugging, and tech stack selection. Tailored
-                  advice for your specific needs.
-                </p>
-                <p className="text-lg text-gray-600 mb-4">
-                  <strong>Pricing:</strong>
-                  <br /> - Software Consultation: $30/hr
-                  <br /> - Code Review: $50 flat fee
-                  <br /> - API Integration: Starting at $75/service
-                </p>
-                <a
-                  href="https://buy.stripe.com/4gwbIX8tQcOG8kE000" // Replace with actual link
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-6 py-3 text-2xl text-center rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
-                >
-                  Consultation Services Payment
-                </a>
-              </div>
+{/* Consultation Services Card */}
+<div className="bg-white rounded-lg shadow-lg p-6 text-left max-h-[500px] overflow-y-auto">
+  <h3 className="text-4xl font-bold text-black mb-4 text-center">
+    📞 Consultation Services 🔍
+  </h3>
+
+  <p className="text-gray-700 text-lg mb-4">
+    Need expert guidance on software development, project architecture, debugging, or tech stack selection? Whether you're a business owner, a developer, or someone with a tech idea, **I provide professional consultations tailored to your needs**.
+  </p>
+
+  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+    🔧 Available Services:
+  </h4>
+  <ul className="list-disc list-inside text-gray-700 text-lg mb-4 space-y-2">
+    <li>🛠 **Software Consultation** – Get expert advice on architecture, scalability, and best practices.</li>
+    <li>👨‍💻 **Code Review & Debugging** – Identify inefficiencies, improve security, and optimize performance.</li>
+    <li>🔌 **API Integration** – Seamlessly integrate third-party services and automate workflows.</li>
+    <li>🎟️ **Tech Setup & Digital Solutions** – Need a QR code for your business, a quick automation script, or a small digital request? I offer **affordable micro-tech solutions**.</li>
+    <li>💡 **Tech Stack Selection** – Not sure which technologies to use? I'll help you choose the right tools for your project.</li>
+  </ul>
+
+  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+    💰 Pricing & Packages:
+  </h4>
+  <p className="text-gray-600 text-lg mb-4">
+    <strong>Flexible pricing for different needs:</strong>
+    <br /> 🏗️ **Software Consultation** – **$30/hr**
+    <br /> 📝 **Code Review** – **$50 flat fee**
+    <br /> 🔌 **API Integration** – Starting at **$75 per service**
+    <br /> 📱 **Small Tech Requests** (QR codes, automation scripts, custom embeds) <br/> (prices vary upon request complexity)
+  </p>
+
+  <p className="text-gray-600 text-lg mb-4">
+    **Not sure what you need?** Book a consultation and let's discuss your project!
+  </p>
+
+  <a
+    href="https://buy.stripe.com/4gwbIX8tQcOG8kE000" // Replace with actual link
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block px-6 py-3 text-2xl text-center rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
+  >
+    💳 Pay for a Consultation
+  </a>
+</div>
+
 
               {/* Bartending Services Card */}
-              <div className="bg-white rounded-lg shadow-lg p-6 text-left">
-                <h3 className="text-2xl font-bold text-black mb-4">
-                  Bartending Services
-                </h3>
-                <p className="text-gray-700 mb-4 text-lg">
-                  Professional bartending services for private parties,
-                  weddings, and corporate events. Experienced and TIPS-certified
-                  for responsible alcohol service.
-                </p>
-                <p className="text-lg text-gray-600 mb-4">
-                  <strong>Pricing:</strong>
-                  <br /> - Starting at $25/hr
-                  <br /> - Includes setup and cleanup
-                  <br /> - Custom drink menus available
-                </p>
-                <a
-                  href="https://buy.stripe.com/cN27sH11o15Y44o8wz" // Replace with actual link
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-6 py-3 text-center text-2xl rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
-                >
-                  Bartending Services Payment
-                </a>
-              </div>
-             
+{/* 🍹 Bartending Services Card */}
+<div className="bg-white rounded-lg shadow-lg p-6 text-left max-h-[500px] overflow-y-auto">
+  <h3 className="text-4xl font-bold text-black mb-4 text-center">
+    🍸 Bartending Services
+  </h3>
+
+  <p className="text-gray-700 text-lg mb-4">
+    Elevate your event with **professional bartending services** for **private parties, weddings, corporate events, and special occasions**. With years of experience and **TIPS certification**, I ensure **exceptional service and responsible alcohol handling**.
+  </p>
+
+  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+    🎉 What's Included:
+  </h4>
+  <ul className="list-disc list-inside text-gray-700 text-lg mb-4 space-y-2">
+    <li>🍷 **Full bartending service** – Mixing, garnishing, and serving drinks professionally.</li>
+    <li>📋 **Custom Drink Menus** – Craft a signature cocktail menu tailored to your event.</li>
+    <li>🔞 **Responsible Service** – TIPS-certified to ensure compliance with alcohol laws and safety.</li>
+    <li>🎭 **Engaging Experience** – Friendly and interactive service to keep guests entertained.</li>
+  </ul>
+
+  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+    💰 Pricing & Packages:
+  </h4>
+  <p className="text-gray-600 text-lg mb-4">
+    <strong>Transparent pricing for every event:</strong>
+    <br /> 🍹 **Hourly Rate** – **Starting at $25/hr**
+    <br /> 📋 **Custom Drink Menu** – Available upon request
+    <br /> 🎯 **Full Service Package** – Includes **setup, bartending, and cleanup**
+  </p>
+
+  <p className="text-gray-600 text-lg mb-4">
+    **Book your event today** and let’s craft unforgettable cocktails for your guests!
+  </p>
+
+  <a
+    href="https://buy.stripe.com/cN27sH11o15Y44o8wz" // Replace with actual link
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block px-6 py-3 text-2xl text-center rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold hover:scale-105 hover:shadow-lg transition-transform"
+  >
+    🍸 Pay for Bartending Services
+  </a>
+</div>
+
             </div>
             
           </div>
