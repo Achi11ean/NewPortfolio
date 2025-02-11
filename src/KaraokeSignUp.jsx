@@ -806,9 +806,16 @@ const handleSubmit = async (e) => {
 
   return (
 <div 
-  className="max-w-4xl item-center justify-center mx-auto p-4 bg-cover bg-center" 
-  style={{ backgroundImage: "url('party.webp')" }}
->    <div className="relative">
+  className="max-w-4xl item-center justify-center mx-auto p-4 rounded-3xl shadow-lg"
+  style={{
+    background: "linear-gradient(to bottom right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3)",
+    backgroundSize: "200% 200%",
+    animation: "gradientAnimation 6s ease infinite",
+  }}
+>
+
+
+  <div className="relative">
       {/* 🎤 Falling sparkles & mic effects */}
       {effects.map((effect) => (
         <span
