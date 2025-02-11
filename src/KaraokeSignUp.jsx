@@ -1169,7 +1169,7 @@ const handleSubmit = async (e) => {
 
 
 <p className="text-xl text-purple-300 font-medium text-center mt-2">
-  🎶 <span className="text-white font-extrabold">Performing:{song}</span> by <span className="text-yellow-400 font-extrabold">{artist}</span>
+  🎶 <span className="text-white font-extrabold">Performing: <br/>{song}</span> <br/>by <span className="text-yellow-400 font-extrabold"><br/>{artist}</span>
 </p>
 
 <p className="text-sm text-gray-400 text-center italic mt-2">
