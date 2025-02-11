@@ -218,7 +218,7 @@ useEffect(() => {
 
 <div className="max-w-45l">
 <p className="text-xl text-center font-semibold text-white  pr-6 mt-4">
-  🚀 **Weekly AI-Powered Business Insights!** 🚀  
+  🚀 Weekly AI-Powered Business Insights 🚀  
   <br/><br/>
   Get ahead of the curve with the latest tech trends designed to elevate your small business in the era of AI!  
 
@@ -230,14 +230,14 @@ useEffect(() => {
 </p>
 
 <ul className="text-lg text-center text-white mt-4 space-y-2">
-  <li>🛍️ **Retail & E-commerce:** Local shops, online stores, thrift boutiques</li>
-  <li>🏠 **Home & Trade Services:** Electricians, roofers, plumbers, HVAC, landscapers</li>
-  <li>💼 **Professional Services:** Marketing agencies, financial consultants, IT support</li>
-  <li>🏥 **Health & Wellness:** Healthcare providers, personal trainers, yoga studios</li>
-  <li>🚗 **Automotive & Transportation:** Auto repair, mobile mechanics, taxis, towing</li>
-  <li>🍽️ **Food & Hospitality:** Restaurants, cafés, food trucks, catering</li>
-  <li>🎨 **Creative & Media:** Photographers, content creators, musicians</li>
-  <li>📚 **Education & Coaching:** Tutors, online course creators, music teachers</li>
+  <li>🛍️ Retail & E-commerce: Local shops, online stores, thrift boutiques</li>
+  <li>🏠 Home & Trade Services: Electricians, roofers, plumbers, HVAC, landscapers</li>
+  <li>💼 Professional Services: Marketing agencies, financial consultants, IT support</li>
+  <li>🏥 Health & Wellness: Healthcare providers, personal trainers, yoga studios</li>
+  <li>🚗 Automotive & Transportation: Auto repair, mobile mechanics, taxis, towing</li>
+  <li>🍽️ Food & Hospitality: Restaurants, cafés, food trucks, catering</li>
+  <li>🎨 Creative & Media: Photographers, content creators, musicians</li>
+  <li>📚 Education & Coaching: Tutors, online course creators, music teachers</li>
   <li>🏠 Real Estate Agents & Brokers – Residential & commercial property sales</li>
   <li>🏢 Property Management Companies – Rental management, tenant screening, maintenance</li>
   <li>🏡 Real Estate Investors & House Flippers – Buying, renovating, and selling properties</li>
@@ -328,32 +328,32 @@ useEffect(() => {
         <span className="text-pink-300 font-bold">unforgettable entertainment experiences.</span>
         <br /><br />
 
-        By day, I develop high-performance web solutions, and by night, I host **unforgettable Karaoke experiences**. 🎤✨  
+        By day, I develop high-performance web solutions, and by night, I host unforgettable Karaoke experiences. 🎤✨  
         Singers can sign up through the <button className="text-yellow-400 font-bold underline hover:text-yellow-500 transition"
           onClick={() => setActiveTab("karaoke")}>Karaoke Signup</button> tab to get their moment on stage!
         <br /><br />
 
-        **Curious about my engineering work?** Dive into <button className="text-green-400 font-bold underline hover:text-green-500 transition"
+        Curious about my engineering work? Dive into <button className="text-green-400 font-bold underline hover:text-green-500 transition"
           onClick={() => setActiveTab("education")}>Jwhit©️</button>, where I showcase my latest software and AI-driven innovations.
         <br /><br />
 
-        Want to **explore my career journey**? Check out my <button className="text-blue-300 font-bold underline hover:text-blue-400 transition"
+        Want to explore my career journey? Check out my <button className="text-blue-300 font-bold underline hover:text-blue-400 transition"
           onClick={() => setActiveTab("employment")}>Employment History</button>, where I detail my experience in software engineering and technology.
         <br /><br />
 
-        I’m also deeply passionate about **the impact of AI across industries.** My upcoming <button className="text-red-400 font-bold underline hover:text-red-500 transition"
+        I’m also deeply passionate about the impact of AI across industries. My upcoming <button className="text-red-400 font-bold underline hover:text-red-500 transition"
           onClick={() => setActiveTab("businessweekly")}>Inc & AI</button> tab will cover the effects of AI in various industries—stay tuned!
         <br /><br />
 
-        **Want to see what others are saying?** Head over to the <button className="text-purple-400 font-bold underline hover:text-purple-500 transition"
+        Want to see what others are saying? Head over to the <button className="text-purple-400 font-bold underline hover:text-purple-500 transition"
           onClick={() => setActiveTab("reviews")}>Reviews</button> tab to hear from those I’ve worked with, whether it’s software clients or Karaoke guests!
         <br /><br />
 
-        If you’d like to book me for a **private event**, visit the <button className="text-pink-800 font-bold underline hover:text-pink-900 transition"
+        If you’d like to book me for a private event, visit the <button className="text-pink-800 font-bold underline hover:text-pink-900 transition"
           onClick={() => setActiveTab("basic-services")}>Services</button> tab and lock in an unforgettable night of entertainment!
         <br /><br />
 
-        **Want to check out my work in action?** Browse through my <button className="text-yellow-500 font-bold underline hover:text-yellow-600 transition"
+        Want to check out my work in action? Browse through my <button className="text-yellow-500 font-bold underline hover:text-yellow-600 transition"
           onClick={() => setActiveTab("gallery")}>Gallery</button> for event highlights and coding projects.
         <br /><br />
 
@@ -365,7 +365,7 @@ useEffect(() => {
         <span className="text-blue-600 font-bold">React</span> and{" "}
         <span className="text-green-300 font-bold">Vite</span> for fast development, styled with{" "}
         <span className="text-teal-200 font-bold">Tailwind CSS</span> for a modern and responsive design, and powered by <span className="text-purple-300 font-bold">Stripe</span> for seamless booking and payment functionality.
-        This site also features **dynamic graphs** 📊, embedded **real-time analytics**, and an **interactive experience** powered by **Python-based data processing**.
+        This site also features dynamic graphs 📊, embedded real-time analytics, and an interactive experience powered by Python-based data processing.
 
       </p>
     </div>
@@ -940,101 +940,136 @@ useEffect(() => {
             </div>
           )}
 
-          {activeTab === "employment" && (
-            <div className="relative p-6 text-white rounded-lg shadow overflow-hidden">
-              {/* Background Animation */}
-              <div className="absolute inset-0 z-0 bg-[url('/money.webp')] bg-cover bg-center opacity-70"></div>
-              <div className="absolute inset-0 bg-black/50 z-5"></div>
+{activeTab === "employment" && (
+  <div className="relative p-6 text-white rounded-lg shadow-lg overflow-hidden text-center">
+    {/* Background Animation */}
+    <div className="absolute inset-0 z-0 bg-[url('/money.webp')] bg-cover bg-center opacity-60"></div>
+    <div className="absolute inset-0 bg-black/50 z-5"></div>
 
-              {/* Content */}
-              <div className="relative z-10">
-                <h4 className="font-semibold text-2xl mb-4">Webster Bank</h4>
-                <p className="mt-2 text-lg leading-relaxed">
-                  <strong>Assistant Manager</strong> (Mar 2023 - Jun 2024):
-                  <ul className="list-disc list-inside mt-2">
-                    <li>
-                      Leadership and team development: Led a dynamic team of
-                      financial advisors, fostering a collaborative and positive
-                      work environment while mentoring staff to achieve their
-                      individual performance goals.
-                    </li>
-                    <li>
-                      Change management expertise: Played a critical role in the
-                      successful transition to new banking systems,
-                      troubleshooting issues, and minimizing disruptions.
-                    </li>
-                    <li>
-                      Advanced Client Advisory: Delivered exceptional financial
-                      advice, helping clients reach their goals through
-                      strategic product recommendations and referrals.
-                    </li>
-                  </ul>
-                </p>
+    {/* Content */}
+    <div className="relative z-10 space-y-8">
 
-                <h4 className="font-semibold text-2xl mt-6">Bank of America</h4>
-                <p className="mt-2 text-lg leading-relaxed">
-                  <strong>Home Services Specialist I</strong> (Mar 2022 - Mar
-                  2023):
-                  <ul className="list-disc list-inside mt-2">
-                    <li>
-                      Expert applicant processor: Analyzed borrower income and
-                      legal documentation to ensure regulatory compliance.
-                    </li>
-                    <li>
-                      Advanced data integrity management: Validated financial
-                      data with precision, ensuring accuracy and completeness.
-                    </li>
-                    <li>
-                      Strategic client engagement: Guided clients through the
-                      loan process, providing expert guidance and resolving
-                      complex issues.
-                    </li>
-                  </ul>
-                </p>
+      {/* 🔥 Current Role */}
+      <h4 className="text-3xl font-extrabold text-yellow-400">Jwhit Productions</h4>
+      <p className="text-lg">
+        <span className="text-pink-400 font-bold">Founder & Full Stack Software Engineer | Karaoke Host</span>  
+        <br />
+        <span className="text-gray-300 italic">📅 Jun 2024 - Present</span>
+      </p>
+      <ul className="list-none space-y-2 text-lg">
+        <li>🎤 Launched <span className="font-bold text-blue-400">Jwhit Productions</span>, blending custom software engineering and karaoke entertainment.</li>
+        <li>💻 Built full-stack web applications for clients, utilizing modern tech stacks.</li>
+        <li>🎶 Hosted high-energy karaoke nights, earning rave client reviews.</li>
+      </ul>
 
-                <h4 className="font-semibold text-2xl mt-6">
-                  Relationship Banker
-                </h4>
-                <p className="mt-2 text-lg leading-relaxed">
-                  <strong>Wethersfield, Connecticut</strong> (Oct 2018 - Mar
-                  2022):
-                  <ul className="list-disc list-inside mt-2">
-                    <li>
-                      Client-centered financial strategy: Provided tailored
-                      financial solutions, including credit cards, home loans,
-                      and savings accounts.
-                    </li>
-                    <li>
-                      Comprehensive product knowledge: Advised clients on an
-                      extensive portfolio of financial products.
-                    </li>
-                    <li>
-                      Investment referral excellence: Referred high-net-worth
-                      clients to specialists for advanced financial strategies.
-                    </li>
-                  </ul>
-                </p>
+      {/* 🌟 Webster Bank */}
+      <h4 className="text-3xl font-extrabold text-yellow-400">Webster Bank</h4>
+      <p className="text-lg">
+        <span className="text-pink-400 font-bold">Assistant Manager</span>  
+        <br />
+        <span className="text-gray-300 italic">📅 Mar 2023 - Jun 2024</span>
+      </p>
+      <ul className="list-none space-y-2 text-lg">
+        <li>🛠 Led a team of financial advisors, fostering collaboration and training.</li>
+        <li>🔄 Managed a major banking system transition, ensuring seamless implementation.</li>
+        <li>📊 Provided strategic financial advice to individuals and businesses.</li>
+      </ul>
 
-                <h4 className="font-semibold text-2xl mt-6">
-                  Risk Analyst – PPP Loan Processing
-                </h4>
-                <p className="mt-2 text-lg leading-relaxed">
-                  <strong>Full-time, WFH</strong> (2020 - Mar 2020):
-                  <ul className="list-disc list-inside mt-2">
-                    <li>
-                      Reviewed income and tax documents for PPP loan
-                      eligibility, ensuring compliance.
-                    </li>
-                    <li>
-                      Worked overnight shifts, earning commendations for
-                      exceptional accuracy and dedication in a fast-paced
-                      environment.
-                    </li>
-                  </ul>
-                </p>
-              </div>
-            </div>
-          )}
+      {/* 🏡 Bank of America */}
+      <h4 className="text-3xl font-extrabold text-yellow-400">Bank of America</h4>
+      <p className="text-lg">
+        <span className="text-pink-400 font-bold">Home Services Specialist I</span>  
+        <br />
+        <span className="text-gray-300 italic">📅 Mar 2022 - Mar 2023</span>
+      </p>
+      <ul className="list-none space-y-2 text-lg">
+        <li>📄 Processed loan applications, ensuring regulatory compliance.</li>
+        <li>✅ Maintained high data integrity, reducing errors and improving efficiency.</li>
+        <li>🤝 Acted as a trusted advisor, guiding clients through complex loans.</li>
+      </ul>
+
+      <p className="text-lg">
+        <span className="text-pink-400 font-bold">Relationship Banker</span>  
+        <br />
+        <span className="text-gray-300 italic">📅 Oct 2018 - Mar 2022</span>
+      </p>
+      <ul className="list-none space-y-2 text-lg">
+        <li>💳 Delivered custom financial solutions including credit & loan products.</li>
+        <li>🏢 Assisted business clients with banking solutions for growth.</li>
+        <li>💰 Referred high-net-worth clients to wealth management specialists.</li>
+      </ul>
+
+      {/* 🏦 JPMorgan Chase */}
+      <h4 className="text-3xl font-extrabold text-yellow-400">JPMorgan Chase & Co.</h4>
+      <p className="text-lg">
+        <span className="text-pink-400 font-bold">Bank Teller</span>  
+        <br />
+        <span className="text-gray-300 italic">📅 Jul 2017 - Jul 2018</span>
+      </p>
+      <ul className="list-none space-y-2 text-lg">
+        <li>🏦 Managed $175K+ in cash transactions, ensuring accuracy & security.</li>
+        <li>💬 Provided personalized financial solutions to customers.</li>
+        <li>📍 ATM custodianship, ensuring functionality & security.</li>
+      </ul>
+
+      {/* 📊 Risk Analysis */}
+      <h4 className="text-3xl font-extrabold text-yellow-400">Risk Analyst – PPP Loan Processing</h4>
+      <p className="text-lg">
+        <span className="text-pink-400 font-bold">Remote Role</span>  
+        <br />
+        <span className="text-gray-300 italic">📅 2020 - Mar 2020</span>
+      </p>
+      <ul className="list-none space-y-2 text-lg">
+        <li>📑 Reviewed PPP loan applications, assessing eligibility based on tax, state and insurance documents.</li>
+        <li>🌙 Worked overnight shifts, earning commendations for accuracy & efficiency.</li>
+      </ul>
+
+      {/* 🛒 Retail & Management Experience */}
+      <h4 className="text-3xl font-extrabold text-yellow-400">Retail & Leadership Experience</h4>
+      <p className="text-lg">
+        <span className="text-pink-400 font-bold">Front-End Supervisor | Winn-Dixie</span>  
+        <br />
+        <span className="text-gray-300 italic">📅 Mar 2016 - Jan 2018</span>
+      </p>
+      <ul className="list-none space-y-2 text-lg">
+        <li>👥 Supervised 15+ employees, managing cashiers & store operations.</li>
+        <li>💵 Handled store cash orders, ensuring financial accuracy.</li>
+      </ul>
+
+      <p className="text-lg">
+        <span className="text-pink-400 font-bold">Customer Service Manager | Walmart</span>  
+        <br />
+        <span className="text-gray-300 italic">📅 Sep 2013 - Apr 2014</span>
+      </p>
+      <ul className="list-none space-y-2 text-lg">
+        <li>📊 Managed front-end operations, overseeing cash registers & self-checkouts</li>
+        <li>👥 Led a team of 15+ employees, ensuring smooth operations.</li>
+      </ul>
+
+      <p className="text-lg">
+        <span className="text-pink-400 font-bold">Bank Teller | Santander</span>  
+        <br />
+        <span className="text-gray-300 italic">📅 Apr 2014 - Sep 2015</span>
+      </p>
+      <ul className="list-none space-y-2 text-lg">
+        <li>💰 Managed high-value transactions, including $10K signing authority.</li>
+        <li>🏦 Oversaw  ATM operations with $120K cash management</li>
+      </ul>
+
+      <p className="text-lg">
+        <span className="text-pink-400 font-bold">Service Clerk | Walgreens</span>  
+        <br />
+        <span className="text-gray-300 italic">📅 May 2012 - May 2014</span>
+      </p>
+      <ul className="list-none space-y-2 text-lg">
+        <li>🌟 Delivered exceptional customer service, assisting with promotions & product knowledge.</li>
+        <li>🛒 Led merchandising & store resets, keeping displays fresh & engaging.</li>
+      </ul>
+
+    </div>
+  </div>
+)}
+
 
 {activeTab === "contact" && (
   <div className="relative p-6 text-white text-3xl font-bold rounded-lg shadow overflow-hidden">
