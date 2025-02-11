@@ -19,7 +19,7 @@ module.exports = {
         'fade-scale': 'fade-scale 1s ease-out',
         typing: 'typing 5s steps(20, end) infinite',
         blink: 'blink 1s step-end infinite',
-      
+        'rainbowShadow': 'rainbowShadow 6s infinite linear', // 🌈 Fix: Added animation
       },
       // Keyframes
       keyframes: {
@@ -46,21 +46,25 @@ module.exports = {
           '0%': { opacity: '0', transform: 'scale(0.8)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
         },
-        // Typing Effect Keyframes
         typing: {
-          '0%': { width: '0%' },    // Start hidden
-          '50%': { width: '100%' }, // Full text appears
-          '100%': { width: '0%' },  // Text is erased
+          '0%': { width: '0%' },
+          '50%': { width: '100%' },
+          '100%': { width: '0%' },
         },
-        // Blinking Cursor Keyframes
         blink: {
           '50%': { borderColor: 'transparent' },
           '100%': { borderColor: 'currentColor' },
         },
+        // 🌈 Fix: Added keyframes for rainbowShadow
+        rainbowShadow: {
+          "0%, 100%": { boxShadow: "0px 0px 15px 6px rgba(255,0,0,0.7)" },
+          "50%": { boxShadow: "0px 0px 35px 12px rgba(255,255,0,0.9)" },
+        }
+        
       },
       // Breakpoints
       screens: {
-        sm: '580px', // Customize the sm breakpoint to start at 480px
+        sm: '580px',
       },
     },
   },

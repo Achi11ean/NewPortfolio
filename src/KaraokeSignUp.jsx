@@ -883,6 +883,30 @@ const handleSubmit = async (e) => {
   </div>
 )}
 
+<h2 className="text-lg sm:text-xl  md:text-3xl lg:text-4xl xl:text-5xl 
+              font-extrabold text-white text-center drop-shadow-lg 
+              mt-4 sm:mt-6 p-2 sm:p-4 bg-gradient-to-r 
+              from-yellow-400 via-red-500 to-pink-500 rounded-xl  mx-auto">
+  {showForm ? "🕒 Sign ups opened at:" : "🛑 Sign ups closed at:"}
+  <br />
+  <span className="text-yellow-200 text-xl sm:text-2xl md:text-3xl lg:text-4xl 
+                  block mt-2 break-words">
+    {lastUpdated 
+      ? new Date(new Date(lastUpdated).getTime() - 5 * 60 * 60 * 1000).toLocaleString("en-US", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true, // Ensures AM/PM format
+        })
+      : "N/A"}
+  </span>
+</h2>
+
+
 
 {/* Subtitle */}
 <div className="text-center mt-6 bg-gradient-to-r from-blue-500 to-purple-500 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
@@ -921,36 +945,15 @@ const handleSubmit = async (e) => {
 
 
   {/* Sign-up Form */}
-  <h2 className="text-lg sm:text-xl  md:text-3xl lg:text-4xl xl:text-5xl 
-              font-extrabold text-white text-center drop-shadow-lg 
-              mt-4 sm:mt-6 p-2 sm:p-4 bg-gradient-to-r 
-              from-yellow-400 via-red-500 to-pink-500 rounded-xl  mx-auto">
-  {showForm ? "🕒 Sign ups opened at:" : "🛑 Sign ups closed at:"}
-  <br />
-  <span className="text-yellow-200 text-xl sm:text-2xl md:text-3xl lg:text-4xl 
-                  block mt-2 break-words">
-    {lastUpdated 
-      ? new Date(new Date(lastUpdated).getTime() - 5 * 60 * 60 * 1000).toLocaleString("en-US", {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "numeric",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: true, // Ensures AM/PM format
-        })
-      : "N/A"}
-  </span>
-</h2>
-
-
 
 {isPinValid && showForm && (
   <form 
   onSubmit={handleSubmit} 
-  className="w-full max-w-md mt-2 bg-white bg-opacity-10 backdrop-blur-lg p-6 sm:p-8 rounded-3xl shadow-lg border border-gray-600 flex flex-col items-center space-y-6"
+  className="w-full max-w-md mt-6 bg-white bg-opacity-10 backdrop-blur-lg p-6 sm:p-8 rounded-3xl border border-gray-600 flex flex-col items-center space-y-6 animate-rainbowShadow"
 >
+
+
+
 <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-white text-center tracking-wide">
   🎤 Step Up to the Mic! 🎶
 </h2>
