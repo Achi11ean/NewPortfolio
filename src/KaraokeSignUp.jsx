@@ -951,9 +951,9 @@ const handleSubmit = async (e) => {
   onSubmit={handleSubmit} 
   className="w-full max-w-md mt-2 bg-white bg-opacity-10 backdrop-blur-lg p-6 sm:p-8 rounded-3xl shadow-lg border border-gray-600 flex flex-col items-center space-y-6"
 >
-  <h2 className="text-2xl sm:text-3xl font-extrabold text-black text-center tracking-wide">
-    🎤 Step Up to the Mic! 🎶
-  </h2>
+<h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-white text-center tracking-wide">
+  🎤 Step Up to the Mic! 🎶
+</h2>
 
   {/* Name Input */}
   <div className="relative w-full">
