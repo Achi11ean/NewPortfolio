@@ -37,7 +37,7 @@ export default function Signin({ setActiveTab }) {
 
   return (
     <div
-      className={`flex items-center justify-center min-h-screen transition-all duration-500 ease-in-out ${
+      className={`flex items-center min-w-full justify-center min-h-screen transition-all duration-500 ease-in-out ${
         showErrorBackground ? "bg-cover bg-center" : "bg-gradient-to-r from-gray-900 via-black to-gray-900"
       }`}
       style={{
