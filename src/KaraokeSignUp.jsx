@@ -883,6 +883,27 @@ const handleSubmit = async (e) => {
   </div>
 )}
 
+<h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold 
+               mb-4 sm:mb-3 mt-6 sm:mt-10 text-center text-white 
+               bg-black p-2 sm:p-3 rounded-lg animate-police-siren max-w-lg mx-auto">
+  🚦<span className="underline font-serif "> Karaoke Guidelines</span> 🚦
+</h2>
+
+<div 
+      className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg  shadow-lg overflow-y-auto  mb-10 max-h-64"
+      ref={guidelinesRef} // 🔥 Reference the scroll container
+    >
+      <ul className="list-disc text-lg font-sans text-center pl-5 space-y-2">
+        <li><strong>Respect:</strong> <br /> Everyone gets their moment to shine! Disrespect toward singers or staff will result in removal from the queue.</li>
+        <li><strong>Two Songs at a time:</strong> <br /> To keep it fair, you can only submit two songs at one time.</li>
+        <li><strong>Tips Appreciated, Not Required:</strong> <br /> Tipping is welcome but does not guarantee priority.</li>
+        <li><strong>Song Availability:</strong> <br /> If your song isn't available, it will be flagged.</li>
+        <li><strong>Celebrations:</strong> <br /> Let us know if it's your birthday or a special occasion!</li>
+        <li><strong>Host Authority:</strong> <br /> The host may adjust the queue but will keep it fair.</li>
+        <li><strong>Most Important Rule:</strong> <br /> HAVE FUN! Enjoy your time on stage and cheer for fellow performers.</li>
+        <li><strong>Leave a Review:</strong> <br /> Loving the experience? Leave a review and snap a photo!</li>
+      </ul>
+    </div>
 <h2 className="text-lg sm:text-xl  md:text-3xl lg:text-4xl xl:text-5xl 
               font-extrabold text-white text-center drop-shadow-lg 
               mt-4 sm:mt-6 p-2 sm:p-4 bg-gradient-to-r 
@@ -911,7 +932,7 @@ const handleSubmit = async (e) => {
 {/* Subtitle */}
 <div className="text-center mt-6 bg-gradient-to-r from-blue-500 to-purple-500 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
   <h2 className="text-white font-extrabold text-2xl mb-4">
-    🔑 PIN Entry
+    🔑 Enter Pin to Signup
   </h2>
 
   {/* PIN input is ALWAYS visible but gets disabled when valid */}
@@ -919,7 +940,7 @@ const handleSubmit = async (e) => {
     <input
       type="text"
       maxLength="4"
-      placeholder="🔢 Enter 4-digit PIN"
+      placeholder="🔢 Enter PIN"
       value={pin}
       onChange={(e) => setPin(e.target.value)}
       className="w-full px-5 py-3 text-xl text-white bg-black bg-opacity-50 border border-gray-400 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none text-center placeholder-gray-300 tracking-widest"
@@ -1006,29 +1027,10 @@ const handleSubmit = async (e) => {
 )}
 
 </div>
-<h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold 
-               mb-4 sm:mb-3 mt-6 sm:mt-10 text-center text-white 
-               bg-black p-2 sm:p-3 rounded-lg animate-police-siren max-w-lg mx-auto">
-  🚦<span className="underline font-serif "> Karaoke Guidelines</span> 🚦
-</h2>
 
 
 
-<div 
-      className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg  shadow-lg overflow-y-auto  mb-10 max-h-64"
-      ref={guidelinesRef} // 🔥 Reference the scroll container
-    >
-      <ul className="list-disc text-lg font-sans text-center pl-5 space-y-2">
-        <li><strong>Respect:</strong> <br /> Everyone gets their moment to shine! Disrespect toward singers or staff will result in removal from the queue.</li>
-        <li><strong>Two Songs at a time:</strong> <br /> To keep it fair, you can only submit two songs at one time.</li>
-        <li><strong>Tips Appreciated, Not Required:</strong> <br /> Tipping is welcome but does not guarantee priority.</li>
-        <li><strong>Song Availability:</strong> <br /> If your song isn't available, it will be flagged.</li>
-        <li><strong>Celebrations:</strong> <br /> Let us know if it's your birthday or a special occasion!</li>
-        <li><strong>Host Authority:</strong> <br /> The host may adjust the queue but will keep it fair.</li>
-        <li><strong>Most Important Rule:</strong> <br /> HAVE FUN! Enjoy your time on stage and cheer for fellow performers.</li>
-        <li><strong>Leave a Review:</strong> <br /> Loving the experience? Leave a review and snap a photo!</li>
-      </ul>
-    </div>
+
 {/* Display Flagged Artists List */}
 {flaggedSignups.length > 0 && (
   <div className="max-w-lg mx-auto bg-red-700 text-white p-4 rounded-lg shadow-lg mt-6">
@@ -1286,7 +1288,11 @@ const handleSubmit = async (e) => {
 
 
           </div>
+
         ))}
+
+
+        
 {user?.is_admin && (
   <div className="w-full max-w-2xl mx-auto mt-6 p-6 bg-gradient-to-b from-gray-900 to-gray-800 rounded-3xl shadow-xl border border-gray-700">
     <h2 className="text-2xl sm:text-3xl text-center font-bold text-white mb-6">
@@ -1399,6 +1405,43 @@ const handleSubmit = async (e) => {
       </div>  
 
 
+      <div className="mt-8 text-center  p-6 bg-white rounded-3xl shadow-xl border border-gray-700 max-w-lg mx-auto">
+  {/* Title */}
+  <h2 className="text-md sm:text-4xl underline font-extrabold  bg-gradient-to-r from-yellow-300 via-red-500 to-pink-600  text-transparent bg-clip-text drop-shadow-xl p-3 rounded-lg shadow-md backdrop-blur-md shadow-black bg-opacity-90">
+  🎤 Show Some Love! 💕
+</h2>
+
+  <p className="text-lg text-black mt-2">
+    Enjoying the show? Tips are always appreciated, and never required but your support sure does cheer the host up! 🙌✨
+  </p>
+
+  {/* Venmo */}
+  <div className="mt-5">
+    <a 
+      href="https://venmo.com/u/Jonathen-Whitford" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="block bg-blue-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105"
+    >
+      💙 Tip via Venmo
+    </a>
+  </div>
+
+  {/* Cash App */}
+  <div className="mt-4">
+    <a 
+      href="https://cash.app/$pikachu55" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="block bg-green-500 hover:bg-yellow-600 hover:text-white text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105"
+    >
+      💚 Tip via Cash App
+    </a>
+  </div>
+
+  {/* Fun Message */}
+
+</div>
 
   
 
