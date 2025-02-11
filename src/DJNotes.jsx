@@ -29,7 +29,8 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
       return "bg-yellow-300 text-yellow-800 border-yellow-500"; // Default (Spotlight)
     }
   };
-  
+  const [selectedAlertId, setSelectedAlertId] = useState(null);
+
   const handleHardDeleteAll = async () => {
     const confirmDelete = window.confirm("Are you sure you want to PERMANENTLY DELETE ALL DJ NOTES? This action CANNOT be undone!");
 
@@ -59,17 +60,27 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
   };
   useEffect(() => {
     if (notes.length > 1) {
+      const currentNote = notes[currentIndex]; // Get the current note
+      let displayTime = currentNote?.position === 0 ? 25000 : 6000; // 25s for top, 15s for others
+  
+      // Log the note in position 0
+      if (currentNote?.position === 0) {
+        console.log("🔝 Alert at position 0:", currentNote);
+      }
+  
       const interval = setInterval(() => {
         setIsFlipping(true); // Start flip animation
         setTimeout(() => {
           setIsFlipping(false); // Reset animation after it completes
           setCurrentIndex((prev) => (prev + 1) % notes.length); // Change alert
-        }, 3000); // Flip duration (adjust if needed)
-      }, 15000); // Change alert every 15 sec
-
+        }, 3000); // Flip duration
+      }, displayTime); // Dynamic display time based on position
+  
       return () => clearInterval(interval);
     }
-  }, [notes]);
+  }, [notes, currentIndex]);
+  
+
   const triggerFlip = () => {
     if (notes.length > 1) {
       setIsFlipping(true); // Start flip
@@ -83,19 +94,47 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
 
     return () => clearInterval(interval);
   }, [notes]);
-  const moveAlertToTop = (type) => {
-    setNotes((prevNotes) => {
-      const matchingAlerts = prevNotes.filter((note) => note.alert_type.startsWith(type));
-      const otherAlerts = prevNotes.filter((note) => !note.alert_type.startsWith(type));
+  const moveSpecificAlertToTop = async (alertId) => {
+    if (!alertId) return;
   
-      // Reset index to show the moved alert immediately
-      if (matchingAlerts.length > 0) {
-        setCurrentIndex(0);
+    try {
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/reorder", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: alertId }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Failed to move alert to top: ${response.status}`);
       }
   
-      return [...matchingAlerts, ...otherAlerts];
-    });
+      console.log(`✅ Alert moved to top!`);
+  
+      fetchNotes(); // Refresh list so all users see the update
+    } catch (error) {
+      console.error("❌ Error moving alert to top:", error);
+    }
   };
+  
+  const updateNotesOrderInBackend = async (updatedNotes) => {
+    try {
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/reorder", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ notes: updatedNotes.map((note, index) => ({ id: note.id, position: index })) }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Failed to update note order: ${response.status}`);
+      }
+  
+      console.log("✅ Notes order updated in backend!");
+      fetchNotes(); // Refresh notes for all users
+    } catch (error) {
+      console.error("❌ Error updating note order:", error);
+    }
+  };
+  
   
   
   useEffect(() => {
@@ -187,32 +226,33 @@ const fetchDeletedNotes = async () => {
       </h2>
 
       {/* Quick Alert Buttons */}
-      <div className="flex gap-3 mb-6 overflow-x-auto whitespace-nowrap p-2 bg-gray-800 rounded-lg shadow-lg">
-        <button className="bg-red-600 text-white px-4 py-2 rounded-lg text-base font-bold transform transition-all hover:scale-110 hover:bg-red-700" onClick={() => moveAlertToTop("ALERT:")}>
-          🚨 ALERT
-        </button>
-        <button className="bg-pink-500 text-white px-4 py-2 rounded-lg text-base font-bold transform transition-all hover:scale-110 hover:bg-pink-600" onClick={() => moveAlertToTop("HAPPY BIRTHDAY")}>
-          🎂 BIRTHDAY
-        </button>
-        <button className="bg-purple-500 text-white px-4 py-2 rounded-lg text-base font-bold transform transition-all hover:scale-110 hover:bg-purple-600" onClick={() => moveAlertToTop("HAPPY ANNIVERSARY")}>
-          💞 ANNIVERSARY
-        </button>
-        <button className="bg-green-500 text-white px-4 py-2 rounded-lg text-base font-bold transform transition-all hover:scale-110 hover:bg-green-600" onClick={() => moveAlertToTop("JUST MARRIED")}>
-          💒 MARRIED
-        </button>
-        <button className="bg-gray-500 text-white px-4 py-2 rounded-lg text-base font-bold transform transition-all hover:scale-110 hover:bg-gray-700" onClick={() => moveAlertToTop("SINGLE")}>
-          💔 SINGLE
-        </button>
-        <button className="bg-black text-white px-4 py-2 rounded-lg text-base font-bold transform transition-all hover:scale-110 hover:bg-gray-900" onClick={() => moveAlertToTop("IN MEMORY")}>
-          🪦 MEMORY
-        </button>
-        <button className="bg-blue-500 text-black px-4 py-2 rounded-lg text-base font-bold transform transition-all hover:scale-110 hover:bg-yellow-600" onClick={() => moveAlertToTop("JOKES")}>
-          😂 JOKES
-        </button>
-        <button className="bg-red-900 text-white px-4 py-2 rounded-lg text-base font-bold transform transition-all hover:scale-110 hover:bg-red-800" onClick={() => moveAlertToTop("SHAME")}>
-          😡 SHAME
-        </button>
-      </div>
+      <div className="mb-6 p-4 bg-gray-900 rounded-2xl shadow-xl border border-gray-700">
+    <label className="block text-white font-bold mb-2 text-lg">
+      🎯 Select Alert to Move to Top:
+    </label>
+    <div className="flex gap-3">
+      <select
+        className="w-full p-3 text-lg font-semibold bg-black text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+        onChange={(e) => setSelectedAlertId(e.target.value)}
+        value={selectedAlertId || ""}
+      >
+        <option value="">-- Select an Alert --</option>
+        {notes.map((note) => (
+          <option key={note.id} value={note.id}>
+            {note.alert_details}
+          </option>
+        ))}
+      </select>
+
+      <button
+        className="px-4 py-3 text-lg font-bold text-white bg-blue-500 rounded-lg shadow-md transform transition-all hover:scale-105 hover:bg-blue-600 active:scale-95"
+        onClick={() => moveSpecificAlertToTop(selectedAlertId)}
+        disabled={!selectedAlertId}
+      >
+        ⬆️ Move to Top
+      </button>
+    </div>
+  </div>
 
       {/* Alert Form */}
       <form onSubmit={handleSubmit} className="p-6 bg-gray-900 rounded-2xl shadow-xl border border-gray-700">

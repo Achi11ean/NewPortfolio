@@ -50,7 +50,7 @@ export default function Signin({ setActiveTab }) {
       }}
     >
       {/* Audio element for error sound */}
-      <audio ref={audioRef} src="https://www.myinstants.com/media/sounds/wrong-answer-sound-effect.mp3" preload="auto"></audio>
+      <audio ref={audioRef} src="magic2.mp3" preload="auto"></audio>
 
       {showWelcome ? (
         <div className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-red-500 to-pink-600 
