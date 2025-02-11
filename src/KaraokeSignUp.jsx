@@ -1196,68 +1196,70 @@ const handleSubmit = async (e) => {
 </div>
     {/* Admin-Only Buttons */}
     {user?.is_admin && (
-      <div className="flex flex-wrap gap-4 justify-center mt-6 bg-gradient-to-r from-blue-900 via-pink-900 to-purple-900 p-6 rounded-2xl shadow-lg">
+  <div className="mt-6 bg-gradient-to-r from-blue-900 via-pink-900 to-purple-900 p-4 rounded-2xl shadow-lg">
+    
+    {/* Scrollable Button Container */}
+    <div className="flex gap-3 overflow-x-auto pb-2 whitespace-nowrap">
       {/* Row 1: Edit, Remove, Toggle Issue */}
-    <button
-      className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-5 rounded-lg shadow-lg transition-all"
-      onClick={() => {
-        setEditingId(id);
-        setEditForm({ name, song, artist });
-      }}
-    >
-      ✏️ Edit
-    </button>
-
-    <button
-      className="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-5 rounded-lg shadow-lg transition-all"
-      onClick={() => handleSoftDelete(id)}
-    >
-      ❌ Remove
-    </button>
-
-    <button
-      className={`py-3 px-5 rounded-lg font-bold text-white shadow-lg transition-all ${
-        issues[id] ? "bg-green-500 hover:bg-green-600" : "bg-red-500 hover:bg-red-600"
-      }`}
-      onClick={() => toggleIssue(id, issues[id] || false)}
-    >
-      {issues[id] ? "✅ Clear Issue" : "🚨 Mark Issue"}
-    </button>
-
-    {/* Row 2: Move to Next / First / Sorting */}
-    <button
-      className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-5 rounded-lg shadow-lg transition-all"
-      onClick={() => moveToSecond(signups[index].id, index)}
-    >
-      ⏩ Move Up Next
-    </button>
-
-    <button
-      className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-5 rounded-lg shadow-lg transition-all"
-      onClick={() => moveToFirst(signups[index].id, index)}
-    >
-      ⬆️ Move to First
-    </button>
-
-    <button
-  className="bg-purple-500 hover:bg-purple-600 text-white font-bold px-4  rounded-lg shadow-lg transition-all"
-  onClick={sortByTime}
->
-  ⏳ sort by Time
-</button>
-
-    {/* Row 3: Move Controls */}
-    <div className="flex gap-3 mt-2">
       <button
-        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition-all"
-        onClick={() => moveUp(signups[index].id, index)}
-        disabled={index === 0}
+        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all"
+        onClick={() => {
+          setEditingId(id);
+          setEditForm({ name, song, artist });
+        }}
       >
-        ⬆️  Up 1
+        ✏️ Edit
       </button>
 
       <button
-        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition-all"
+        className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all"
+        onClick={() => handleSoftDelete(id)}
+      >
+        ❌ Remove
+      </button>
+
+      <button
+        className={`py-2 px-4 rounded-lg font-bold text-white shadow-md transition-all ${
+          issues[id] ? "bg-green-500 hover:bg-green-600" : "bg-red-500 hover:bg-red-600"
+        }`}
+        onClick={() => toggleIssue(id, issues[id] || false)}
+      >
+        {issues[id] ? "✅ Clear Issue" : "🚨 Mark Issue"}
+      </button>
+
+      {/* Row 2: Move to Next / First / Sorting */}
+      <button
+        className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all"
+        onClick={() => moveToSecond(signups[index].id, index)}
+      >
+        ⏩ Move Up Next
+      </button>
+
+      <button
+        className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all"
+        onClick={() => moveToFirst(signups[index].id, index)}
+      >
+        ⬆️ Move to First
+      </button>
+
+      <button
+        className="bg-purple-500 hover:bg-purple-600 text-white font-bold px-3 py-2 rounded-lg shadow-md transition-all"
+        onClick={sortByTime}
+      >
+        ⏳ Sort by Time
+      </button>
+
+      {/* Row 3: Move Controls */}
+      <button
+        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-3 rounded-lg shadow-md transition-all"
+        onClick={() => moveUp(signups[index].id, index)}
+        disabled={index === 0}
+      >
+        ⬆️ Up 1
+      </button>
+
+      <button
+        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-3 rounded-lg shadow-md transition-all"
         onClick={() => moveDown(signups[index].id, index)}
         disabled={index === signups.length - 1}
       >
@@ -1265,14 +1267,14 @@ const handleSubmit = async (e) => {
       </button>
 
       <button
-        className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition-all"
+        className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-3 rounded-lg shadow-md transition-all"
         onClick={() => moveUpFive(signups[index].id, index)}
       >
         ⬆️ Up 5
       </button>
 
       <button
-        className="bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition-all"
+        className="bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-3 rounded-lg shadow-md transition-all"
         onClick={() => moveDownFive(signups[index].id, index)}
       >
         ⬇️ Down 5
@@ -1280,6 +1282,7 @@ const handleSubmit = async (e) => {
     </div>
   </div>
 )}
+
 </>
 )}
 
