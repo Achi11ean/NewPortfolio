@@ -808,11 +808,10 @@ const handleSubmit = async (e) => {
 <div 
   className="max-w-4xl item-center justify-center mx-auto p-4 rounded-3xl shadow-lg"
   style={{
-    background: "linear-gradient(to bottom right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3)",
-    backgroundSize: "200% 200%",
-    animation: "gradientAnimation 6s ease infinite",
+    background: "linear-gradient(to bottom right, #0a192f, #1a1a2e, #16213e)", // Deep modern blue tones
   }}
 >
+
 
 
   <div className="relative">
@@ -832,8 +831,8 @@ const handleSubmit = async (e) => {
 <div className="flex flex-col items-center justify-center  px-4 sm:px-8 md:px-16 lg:px-24">
   
   {/* Title */}
-  <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white text-center drop-shadow-lg p-4 sm:p-6 bg-gradient-to-r from-purple-500 to-orange-500 rounded-xl inline-block font-[Aspire]">
-    🎤 Jwhit Karaoke 🎶
+  <h1 className="text-3xl sm:text-5xl md:text-6xl shadow-2xl lg:text-7xl font-bold text-white text-center drop-shadow-lg p-4 sm:p-6 bg-gradient-to-r from-purple-500 to-orange-500 rounded-xl inline-block font-[Aspire]">
+     Jwhit <br/><span className="font-mono"> .°˖✧Karaoke</span>✧˖°.
   </h1>
   <Promotions />
   {user?.is_admin && (
@@ -1000,7 +999,7 @@ const handleSubmit = async (e) => {
 
 </div>
 <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold 
-               mb-4 sm:mb-3 mt-6 sm:mt-10 text-center text-black 
+               mb-4 sm:mb-3 mt-6 sm:mt-10 text-center text-white 
                bg-black p-2 sm:p-3 rounded-lg animate-police-siren max-w-lg mx-auto">
   🚦<span className="underline font-serif "> Karaoke Guidelines</span> 🚦
 </h2>
@@ -1092,7 +1091,8 @@ const handleSubmit = async (e) => {
       className={`p-6 rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 ${
         issues[id] 
           ? "bg-gradient-to-r from-red-600 to-red-800 shadow-red-500/50" 
-          : "bg-gradient-to-r from-gray-800 to-gray-900 shadow-gray-600/50"
+          : "bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-800 shadow-indigo-700/50"
+
       }`}
     >
 

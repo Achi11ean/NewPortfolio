@@ -260,9 +260,9 @@ const fetchDeletedNotes = async () => {
   )}
 </div>
 
-<div className="mt-8 text-center  p-6 bg-black bg-opacity-10 backdrop-blur-md rounded-3xl shadow-xl border border-gray-700 max-w-lg mx-auto">
+<div className="mt-8 text-center  p-6 bg-white rounded-3xl shadow-xl border border-gray-700 max-w-lg mx-auto">
   {/* Title */}
-  <h2 className="text-md sm:text-4xl underline font-extrabold  bg-gradient-to-r from-yellow-300 via-red-500 to-pink-600  text-transparent bg-clip-text drop-shadow-xl p-3 rounded-lg shadow-md backdrop-blur-md bg-opacity-90">
+  <h2 className="text-md sm:text-4xl underline font-extrabold  bg-gradient-to-r from-yellow-300 via-red-500 to-pink-600  text-transparent bg-clip-text drop-shadow-xl p-3 rounded-lg shadow-md backdrop-blur-md shadow-black bg-opacity-90">
   🎤 Show Some Love! 💕
 </h2>
 
