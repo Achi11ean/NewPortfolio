@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
+import magicSound from "/magic2.mp3";
 
 export default function Signin({ setActiveTab }) {
   const { login, error } = useAuth();
@@ -8,9 +9,10 @@ export default function Signin({ setActiveTab }) {
   const [loading, setLoading] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
   const [showErrorBackground, setShowErrorBackground] = useState(false);
-  
+  const audioFile = "/magic.mp3"; // 🔥 Ensure it's inside `public/`
+
   // 🔊 Reference for audio playback
-  const audioRef = useState(new Audio("https://www.myinstants.com/media/sounds/wrong-answer-sound-effect.mp3"))[0];
+  const audioRef = useState(new Audio("/magic2.mp3"))[0];
 
   useEffect(() => {
     if (showErrorBackground) {
@@ -50,7 +52,7 @@ export default function Signin({ setActiveTab }) {
       }}
     >
       {/* Audio element for error sound */}
-      <audio ref={audioRef} src="magic2.mp3" preload="auto"></audio>
+      <audio ref={audioRef} src={audioFile} preload="auto"></audio>
 
       {showWelcome ? (
         <div className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-red-500 to-pink-600 
