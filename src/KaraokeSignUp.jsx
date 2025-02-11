@@ -874,42 +874,39 @@ const handleSubmit = async (e) => {
 
 
 {/* Subtitle */}
+<div className="text-center mt-6 bg-gradient-to-r from-blue-500 to-purple-500 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
+  <h2 className="text-white font-extrabold text-2xl mb-4">
+    🔑 PIN Entry
+  </h2>
 
-{!showForm && (
-  <div className="text-center mt-6 bg-gradient-to-r from-blue-500 to-purple-500 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
-    <h2 className="text-white font-extrabold text-2xl mb-4">
-      🔑 Enter PIN to Access Signups
-    </h2>
-
-    {/* Input Field with Lock Icon */}
-    <div className="relative mb-4">
-      <input
-        type="text"
-        maxLength="4"
-        placeholder="🔢 Enter 4-digit PIN"
-        value={pin}
-        onChange={(e) => setPin(e.target.value)}
-        className="w-full px-5 py-3 text-xl text-white bg-black bg-opacity-50 border border-gray-400 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none text-center placeholder-gray-300 tracking-widest"
-      />
-      <span className="absolute right-4 top-3 text-white text-lg">🔒</span>
-    </div>
-
-    {/* Submit Button */}
-    <button
-      onClick={handleEnterPin}
-      className="w-full px-4 py-3 text-lg font-bold text-white bg-gradient-to-r from-green-400 to-blue-500 rounded-lg shadow-md transform transition-all hover:scale-105 hover:from-green-500 hover:to-blue-600 active:scale-95"
-    >
-      🚀 Submit
-    </button>
-
-    {/* Animated Error Message */}
-    {pinError && (
-      <p className="mt-3 text-lg font-semibold text-red-400 animate-bounce">
-        ❌ {pinError}
-      </p>
-    )}
+  {/* PIN input is ALWAYS visible but gets disabled when valid */}
+  <div className="relative mb-4">
+    <input
+      type="text"
+      maxLength="4"
+      placeholder="🔢 Enter 4-digit PIN"
+      value={pin}
+      onChange={(e) => setPin(e.target.value)}
+      className="w-full px-5 py-3 text-xl text-white bg-black bg-opacity-50 border border-gray-400 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none text-center placeholder-gray-300 tracking-widest"
+      disabled={isPinValid} // 🔥 Disable input instead of hiding it
+    />
+    <span className="absolute right-4 top-3 text-white text-lg">🔒</span>
   </div>
-)}
+
+  <button
+    onClick={handleEnterPin}
+    className="w-full px-4 py-3 text-lg font-bold text-white bg-gradient-to-r from-green-400 to-blue-500 rounded-lg shadow-md transform transition-all hover:scale-105 hover:from-green-500 hover:to-blue-600 active:scale-95"
+    disabled={isPinValid} // 🔥 Disable button instead of hiding it
+  >
+    {isPinValid ? "✅ PIN Verified" : "🚀 Submit"}
+  </button>
+
+  {pinError && (
+    <p className="mt-3 text-lg font-semibold text-red-400 animate-bounce">
+      ❌ {pinError}
+    </p>
+  )}
+</div>
 
 
   {/* Sign-up Form */}
