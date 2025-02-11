@@ -1092,7 +1092,7 @@ const handleSubmit = async (e) => {
 
 
       {/* Sign-up List */}
-      <div className="space-y-6">
+      <div className="max-h-[70vh] overflow-y-auto space-y-6">
   {signups.map(({ id, name, song, artist, position, created_at }, index) => (
     <div
       key={id}
@@ -1100,14 +1100,9 @@ const handleSubmit = async (e) => {
         issues[id] 
           ? "bg-gradient-to-r from-red-600 to-red-800 shadow-red-500/50" 
           : "bg-gradient-to-b from-[#16213e] via-[#16213e] to-yellow-700 shadow-[0px_-4px_8px_rgba(255,255,255,0.5),0px_4px_0px_rgba(0,0,0,0)]"
-
-
-
-
-
-
       }`}
     >
+
 
 
     {/* Move Up/Down Buttons */}

@@ -88,7 +88,7 @@ useEffect(() => {
 <div
   className="relative min-h-screen bg-cover bg-center bg-no-repeat text-white overflow-auto"
   style={{
-    backgroundImage: "url('portrait2.webp')",
+    backgroundImage: "url('https://wallpapers.com/images/hd/valentines-day-desktop-4fa80xzglfmkmt7m.jpg')",
     backgroundPosition: "center  top 450px", // Adjust the vertical position
   }}
 >
