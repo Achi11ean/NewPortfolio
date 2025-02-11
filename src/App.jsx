@@ -948,7 +948,20 @@ useEffect(() => {
 
     {/* Content */}
     <div className="relative z-10 space-y-8">
-
+<div className="items-center justify-center flex">      <a
+        href="https://1drv.ms/w/c/5752b0b995ca8e1e/EWuCsvWBBr1HosYQAxQwp7YBL83c-7iSUww3Vb0Iu8d4Vg"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:scale-105 transform transition-transform"
+      >
+        <img src="resume.webp" alt="Resume" className="w-20 h-20 rounded-full" />
+        Resume
+      </a>      
+      
+      </div><div className="items-center justify-center flex">  
+      
+      <p className="bg-black  w-fit text-center">Be Advised: <br/> Dates may overlap due to working multiple jobs at the same time.</p>
+</div>
       {/* 🔥 Current Role */}
       <h4 className="text-3xl font-extrabold text-yellow-400">Jwhit Productions</h4>
       <p className="text-lg">
@@ -999,6 +1012,24 @@ useEffect(() => {
         <li>💰 Referred high-net-worth clients to wealth management specialists.</li>
       </ul>
 
+
+      {/* 📊 Risk Analysis */}
+      <h4 className="text-3xl font-extrabold text-yellow-400"> <br/> Bank of America</h4>
+      <p className="text-lg">
+        <span className="text-pink-400 font-bold">Remote Role <br/>Risk Analyst – PPP loan processing</span>  
+        <br />
+        <span className="text-gray-300 italic">📅 2020 - Mar 2020</span>
+      </p>
+      <ul className="list-none space-y-2 text-lg">
+        <li>📑 Reviewed PPP loan applications, assessing eligibility based on tax, state and insurance documents.</li>
+        <li>🌙 Worked overnight shifts, earning commendations for accuracy & efficiency.</li>
+      </ul>
+
+      {/* 🛒 Retail & Management Experience */}
+
+
+
+
       {/* 🏦 JPMorgan Chase */}
       <h4 className="text-3xl font-extrabold text-yellow-400">JPMorgan Chase & Co.</h4>
       <p className="text-lg">
@@ -1012,22 +1043,12 @@ useEffect(() => {
         <li>📍 ATM custodianship, ensuring functionality & security.</li>
       </ul>
 
-      {/* 📊 Risk Analysis */}
-      <h4 className="text-3xl font-extrabold text-yellow-400">Risk Analyst – PPP Loan Processing</h4>
-      <p className="text-lg">
-        <span className="text-pink-400 font-bold">Remote Role</span>  
-        <br />
-        <span className="text-gray-300 italic">📅 2020 - Mar 2020</span>
-      </p>
-      <ul className="list-none space-y-2 text-lg">
-        <li>📑 Reviewed PPP loan applications, assessing eligibility based on tax, state and insurance documents.</li>
-        <li>🌙 Worked overnight shifts, earning commendations for accuracy & efficiency.</li>
-      </ul>
 
-      {/* 🛒 Retail & Management Experience */}
-      <h4 className="text-3xl font-extrabold text-yellow-400">Retail & Leadership Experience</h4>
+      {/*  Winn Dixie */}
       <p className="text-lg">
-        <span className="text-pink-400 font-bold">Front-End Supervisor | Winn-Dixie</span>  
+      <h4 className="text-3xl font-extrabold text-yellow-400">Winn Dixie</h4>
+      <span className="text-pink-400 font-bold">Front End Supervisor</span>  
+
         <br />
         <span className="text-gray-300 italic">📅 Mar 2016 - Jan 2018</span>
       </p>
@@ -1035,19 +1056,11 @@ useEffect(() => {
         <li>👥 Supervised 15+ employees, managing cashiers & store operations.</li>
         <li>💵 Handled store cash orders, ensuring financial accuracy.</li>
       </ul>
+      
 
       <p className="text-lg">
-        <span className="text-pink-400 font-bold">Customer Service Manager | Walmart</span>  
-        <br />
-        <span className="text-gray-300 italic">📅 Sep 2013 - Apr 2014</span>
-      </p>
-      <ul className="list-none space-y-2 text-lg">
-        <li>📊 Managed front-end operations, overseeing cash registers & self-checkouts</li>
-        <li>👥 Led a team of 15+ employees, ensuring smooth operations.</li>
-      </ul>
-
-      <p className="text-lg">
-        <span className="text-pink-400 font-bold">Bank Teller | Santander</span>  
+      <h4 className="text-3xl font-extrabold text-yellow-400"> <br/> Santander N.A. </h4>
+      <span className="text-pink-400 font-bold">Bank Teller</span>  
         <br />
         <span className="text-gray-300 italic">📅 Apr 2014 - Sep 2015</span>
       </p>
@@ -1056,15 +1069,40 @@ useEffect(() => {
         <li>🏦 Oversaw  ATM operations with $120K cash management</li>
       </ul>
 
+
       <p className="text-lg">
-        <span className="text-pink-400 font-bold">Service Clerk | Walgreens</span>  
+      <h4 className="text-3xl font-extrabold text-yellow-400"> <br/> Walmart</h4>
+      <span className="text-pink-400 font-bold">Customer Service Manager</span>  
+
         <br />
+        <span className="text-gray-300 italic">📅 Sep 2013 - Apr 2014</span>
+      </p>
+      <ul className="list-none space-y-2 text-lg">
+        <li>📊 Managed front-end operations, overseeing cash registers & self-checkouts</li>
+        <li>👥 Led a team of 15+ employees, ensuring smooth operations.</li>
+      </ul>
+
+
+      <p className="text-lg">
+      <h4 className="text-3xl font-extrabold text-yellow-400">Walgreens</h4>
+      <span className="text-pink-400 font-bold">Service Clerk</span>          <br />
         <span className="text-gray-300 italic">📅 May 2012 - May 2014</span>
       </p>
       <ul className="list-none space-y-2 text-lg">
         <li>🌟 Delivered exceptional customer service, assisting with promotions & product knowledge.</li>
         <li>🛒 Led merchandising & store resets, keeping displays fresh & engaging.</li>
       </ul>
+      <h4 className="text-3xl font-extrabold pb-10 text-yellow-400"> <br/> Summer youth Employment program </h4>
+
+
+<span className="text-pink-400 font-bold">Bristol City Hall</span><br/>
+<span className="text-gray-300 italic">📅 Summer 2011</span>
+
+<ul className="list-none space-y-2 pb-10 text-lg"> <li>📞 Managed incoming calls, assisting residents with inquiries and directing them to the correct departments.</li> <li>📂 Handled clerical tasks, including data entry, filing, and document organization.</li> <li>🤝 Provided customer service, greeting visitors and scheduling appointments for town officials.</li> </ul>
+<span className="text-pink-400  font-bold">Imagination Museum</span> <br/>
+<span className="text-gray-300 italic">📅 Summer 2010</span>
+
+<ul className="list-none space-y-2 text-lg"> <li>🎨 Assisted museum staff in hosting engaging youth events and interactive exhibits.</li> <li>🧹 Performed light maintenance to keep displays and public areas clean & functional.</li> <li>🛡️ Helped enforce safety protocols, ensuring a fun and secure environment for children and families.</li> </ul>
 
     </div>
   </div>
