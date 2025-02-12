@@ -28,9 +28,12 @@ export default function Promotions() {
         try {
             const response = await fetch("https://portfoliobackend-ih6t.onrender.com/promotions");
             const data = await response.json();
-            
+    
             if (Array.isArray(data)) {
-                setPromotions(data);
+                // ✅ Sort promotions by date (earliest event first)
+                const sortedPromotions = data.sort((a, b) => new Date(a.event_date) - new Date(b.event_date));
+    
+                setPromotions(sortedPromotions);
             } else {
                 console.error("Unexpected data format:", data);
                 setPromotions([]); // Ensure promotions is always an array
@@ -40,6 +43,7 @@ export default function Promotions() {
             setPromotions([]); // Set an empty array in case of failure
         }
     };
+
     
     const handleSubmit = async (e) => {
         e.preventDefault();
