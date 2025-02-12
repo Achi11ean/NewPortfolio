@@ -1293,7 +1293,12 @@ const handleSubmit = async (e) => {
 
 
         
-{user?.is_admin && (
+
+
+
+
+      </div>  
+      {user?.is_admin && (
   <div className="w-full max-w-2xl mx-auto mt-6 p-6 bg-gradient-to-b from-gray-900 to-gray-800 rounded-3xl shadow-xl border border-gray-700">
     <h2 className="text-2xl sm:text-3xl text-center font-bold text-white mb-6">
       🛠 Admin Panel
@@ -1399,11 +1404,6 @@ const handleSubmit = async (e) => {
   </div>
   </div>
 )}
-
-
-
-      </div>  
-
 
       <div className="mt-8 text-center  p-6 bg-white rounded-3xl shadow-xl border border-gray-700 max-w-lg mx-auto">
   {/* Title */}

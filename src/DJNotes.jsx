@@ -226,33 +226,38 @@ const fetchDeletedNotes = async () => {
       </h2>
 
       {/* Quick Alert Buttons */}
-      <div className="mb-6 p-4 bg-gray-900 rounded-2xl shadow-xl border border-gray-700">
-    <label className="block text-white font-bold mb-2 text-lg">
-      🎯 Select Alert to Move to Top:
-    </label>
-    <div className="flex gap-3">
-      <select
-        className="w-full p-3 text-lg font-semibold bg-black text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-        onChange={(e) => setSelectedAlertId(e.target.value)}
-        value={selectedAlertId || ""}
-      >
-        <option value="">-- Select an Alert --</option>
-        {notes.map((note) => (
-          <option key={note.id} value={note.id}>
-            {note.alert_details}
-          </option>
-        ))}
-      </select>
+      <div className="mb-6 p-5 bg-gray-900 rounded-2xl shadow-xl border border-gray-700 max-w-md mx-auto w-full">
+  <label className="block text-white font-bold mb-3 text-lg sm:text-xl flex items-center gap-2">
+    🎯 Select Alert to Move to Top:
+  </label>
 
-      <button
-        className="px-4 py-3 text-lg font-bold text-white bg-blue-500 rounded-lg shadow-md transform transition-all hover:scale-105 hover:bg-blue-600 active:scale-95"
-        onClick={() => moveSpecificAlertToTop(selectedAlertId)}
-        disabled={!selectedAlertId}
-      >
-        ⬆️ Move to Top
-      </button>
-    </div>
+  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+    <select
+      className="w-full p-3 text-base sm:text-lg font-semibold bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none transition-all hover:border-yellow-400"
+      onChange={(e) => setSelectedAlertId(e.target.value)}
+      value={selectedAlertId || ""}
+    >
+      <option value="" disabled>-- Select an Alert --</option>
+      {notes.map((note) => (
+        <option key={note.id} value={note.id}>
+          {note.alert_details}
+        </option>
+      ))}
+    </select>
+
+    <button
+      className={`px-4 py-3 text-base sm:text-lg font-bold text-white rounded-lg shadow-md transition-all transform ${
+        selectedAlertId
+          ? "bg-blue-500 hover:scale-105 hover:bg-blue-600 active:scale-95"
+          : "bg-gray-600 cursor-not-allowed"
+      }`}
+      onClick={() => moveSpecificAlertToTop(selectedAlertId)}
+      disabled={!selectedAlertId}
+    >
+      ⬆️ Move to Top
+    </button>
   </div>
+</div>
 
       {/* Alert Form */}
       <form onSubmit={handleSubmit} className="p-6 bg-gray-900 rounded-2xl shadow-xl border border-gray-700">
