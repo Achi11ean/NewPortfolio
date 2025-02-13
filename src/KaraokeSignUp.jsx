@@ -1243,7 +1243,7 @@ const handleSubmit = async (e) => {
     issues[id] 
       ? "bg-red-600 text-white" 
       : warnings[id] 
-      ? "bg-yellow-600 text-black font-bold"
+      ? "bg-teal-700 text-black font-bold"
       : "bg-transparent"
   }`}
 >
