@@ -146,7 +146,7 @@ useEffect(() => {
 
 
 
-          <div className="mt-6 flex justify-center w-full">
+          {/* <div className="mt-6 flex justify-center w-full">
             <iframe
               allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
               frameBorder="0"
@@ -154,7 +154,7 @@ useEffect(() => {
               sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
               src="https://embed.music.apple.com/us/playlist/favorite-songs/pl.u-m6UB7NWme"
             ></iframe>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="relative mb-2 w-full h-1  bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-300 shadow-lg overflow-hidden">
