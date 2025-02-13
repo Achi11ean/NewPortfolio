@@ -12,6 +12,51 @@ export default function KaraokeSignup() {
   const [pinError, setPinError] = useState(""); // Error message for incorrect PIN
   const guidelinesRef = useRef(null);
 
+  const [activeSingers, setActiveSingers] = useState(0);
+  const [warnings, setWarnings] = useState({});
+  const toggleWarning = async (id, currentStatus) => {
+    console.log(`Toggling warning for ID: ${id}, current status: ${currentStatus}`);
+
+    try {
+        const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ is_warning: !currentStatus }),
+        });
+
+        console.log("Patch request sent:", {
+            id,
+            newWarningStatus: !currentStatus
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("✅ Server response after update:", result);
+
+        // ✅ Directly update signups state to reflect the change immediately
+        setSignups((prevSignups) =>
+            prevSignups.map((signup) =>
+                signup.id === id ? { ...signup, is_warning: result.is_warning } : signup
+            )
+        );
+
+        // ✅ Update warnings state to keep it in sync
+        setWarnings((prevWarnings) => ({
+            ...prevWarnings,
+            [id]: result.is_warning,
+        }));
+
+        // ✅ Fetch fresh data to ensure consistency
+        fetchSignups(); 
+
+    } catch (error) {
+        console.error("❌ Error toggling warning:", error);
+    }
+};
+
 
   const handleUpdatePin = async () => {
     if (adminPin.length !== 4 || isNaN(adminPin)) {
@@ -184,6 +229,23 @@ const handleSetPin = async () => {
         console.error("❌ Error fetching DJ Notes:", error);
     }
 };
+const fetchActiveSingers = async () => {
+  try {
+    const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/count");
+    if (!response.ok) throw new Error("Failed to fetch active signups count");
+
+    const data = await response.json();
+    console.log("🎤 Active Signups Count:", data.active_count);
+
+    setActiveSingers(data.active_count);
+  } catch (error) {
+    console.error("❌ Error fetching active singers count:", error);
+  }
+};
+
+useEffect(() => {
+  fetchActiveSingers(); // Now it's defined and can be used anywhere
+}, []);
 
   const [form, setForm] = useState({ name: "", song: "", artist: "" });
   const [editingId, setEditingId] = useState(null);
@@ -443,7 +505,8 @@ const handleRefresh = async () => {
       fetchDeletedSignups(),
       fetchDeletedNotes(),
       fetchFlaggedSignups(),
-      fetchNotes()
+      fetchNotes(),
+      fetchActiveSingers(),
     ]);
 
     // Ensure the list is sorted and properly positioned
@@ -621,13 +684,7 @@ const fetchSignups = async (searchTerm = "") => {
     // Move an entry down
 
   
-    useEffect(() => {
-        fetchSignups();
-        fetchFormState();
-        fetchDeletedNotes(); 
-        fetchNotes()
 
-    }, []);
     
   // POST: Add new signup
 
@@ -672,7 +729,6 @@ const handleSubmit = async (e) => {
           alert("🚨 Your submission contains inappropriate words! Please revise and try again.");
           return; // Stop submission if inappropriate words are detected
       }
-
       // ✅ Step 3: Check if the song has already been performed
       let allSignups = [];
       try {
@@ -685,6 +741,10 @@ const handleSubmit = async (e) => {
       } catch (error) {
           console.error("Error fetching all signups:", error);
       }
+
+
+
+
 
       const songAlreadySung = allSignups.some(
           (signup) =>
@@ -743,6 +803,7 @@ const handleSubmit = async (e) => {
 };
 
 
+
   const triggerEffects = () => {
     let newEffects = [];
     
@@ -763,6 +824,8 @@ const handleSubmit = async (e) => {
   
   const { user } = useAuth();
 
+  
+
   // PATCH: Update a signup
   const handleEditSubmit = async (id) => {
     const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, {
@@ -775,6 +838,17 @@ const handleSubmit = async (e) => {
       setEditingId(null); // Exit edit mode
     }
   };
+
+  useEffect(() => {
+    fetchSignups();
+    fetchFormState();
+    fetchDeletedNotes(); 
+    fetchNotes();
+    fetchActiveSingers(); 
+
+}, []);
+
+
   const handleSoftDelete = async (id) => {
     try {
         const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/soft_delete`, {
@@ -1047,6 +1121,26 @@ const handleSubmit = async (e) => {
     <DJNotesApp user={user} notes={notes} fetchNotes={fetchNotes} />
     </div>
 
+
+
+    <div className="flex items-center justify-center mt-6">
+  <div className="relative bg-gradient-to-b from-black to-blue-500 text-white text-center p-6 rounded-3xl shadow-xl border border-gray-300 max-w-lg mx-auto">
+    <h2 className="text-xl sm:text-xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-red-500 to-pink-600 drop-shadow-xl">
+      🎶 Total # Singers:
+    </h2>
+    
+    <div className="mt-4">
+      <span className="text-5xl sm:text-6xl md:text-7xl font-extrabold animate-bounce">
+        {activeSingers}
+      </span>
+      <p className="text-lg text-black font-bold sm:text-xl mt-2">🎤 Ready to rock the mic!</p>
+    </div>
+  </div>
+</div>
+
+
+
+
     <button
   className={`w-full mb-3 text-white font-bold py-3 px-6 rounded-2xl text-xl shadow-2xl mt-4 
     transition-all duration-300 transform active:scale-95 
@@ -1152,54 +1246,66 @@ const handleSubmit = async (e) => {
 ) : (
   // View Mode
   <>
-  <div 
-  className={`p-4 rounded-lg  transition-all ${
-    issues[id] ? "bg-red-600 text-white" : "bg-transparent"
+<div 
+  className={`p-4 rounded-lg transition-all ${
+    issues[id] 
+      ? "bg-red-600 text-white" 
+      : warnings[id] 
+      ? "bg-yellow-600 text-black font-bold"
+      : "bg-transparent"
   }`}
 >
-<h3
-            className={`text-2xl  font-extrabold text-white text-center tracking-wide drop-shadow-lg ${
-              position === 0
-                ? "animate-pulse bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 text-transparent bg-clip-text"
-                : position === 1
-                ? "text-blue-400"
-                : ""
-            }`}
-          >
-            {position === 0
-              ? "🎤 CURRENTLY ROCKING THE MIC!"
-              : position === 1
-              ? "UP NEXT!"
-              : `🎶 Position #${position}`}
-            <br />
-            <span className="uppercase  tracking-wider text-white">{name}</span>
-          </h3>
+  <h3
+    className={`text-2xl font-extrabold text-white text-center tracking-wide drop-shadow-lg ${
+      position === 0
+        ? "animate-pulse bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 text-transparent bg-clip-text"
+        : position === 1
+        ? "text-blue-400"
+        : ""
+    }`}
+  >
+    {position === 0
+      ? "🎤 CURRENTLY ROCKING THE MIC!"
+      : position === 1
+      ? "UP NEXT!"
+      : `🎶 Position #${position}`}
+    <br />
+    <span className="uppercase tracking-wider text-white">{name}</span>
+  </h3>
 
-<p className="text-lg text-green-300 font-medium text-center mt-1">
-  {index === 0 
-    ? "🔥 You're singing now! 🔥" 
-    : `🚶 ${index} ${index === 1 ? "person" : "people"} ahead of you! 🎶`}
-</p>
+  <p className="text-lg text-green-300 font-medium text-center mt-1">
+    {index === 0 
+      ? "🔥 You're singing now! 🔥" 
+      : `🚶 ${index} ${index === 1 ? "person" : "people"} ahead of you! 🎶`}
+  </p>
 
+  <p className="text-xl font-medium text-center mt-2">
+    <span className="text-pink-500 font-extrabold">Performing: <br/></span>
+    <span className="text-white">{song}</span> <br/>
+    <span className="text-purple-300">Original Artist:</span> 
+    <span className="text-white font-extrabold"><br/>{artist}</span>
+  </p>
 
-<p className="text-xl  font-medium text-center mt-2">
- <span className="text-pink-500 font-extrabold">Performing: <br/></span><span className="font-white">{song}</span> <br/><span className="text-purple-300 "> Original Artist:</span> <span className="text-white font-extrabold"><br/>{artist}</span>
-</p>
+  <p className="text-sm text-gray-400 text-center italic mt-2">
+    ⏰ Signed up at: {created_at ? new Date(new Date(created_at).getTime() - 5 * 60 * 60 * 1000).toLocaleString() : "Unknown"}
+  </p>
 
-<p className="text-sm text-gray-400 text-center italic mt-2">
-  ⏰ Signed up at: {created_at ? new Date(new Date(created_at).getTime() - 5 * 60 * 60 * 1000).toLocaleString() : "Unknown"}
-</p>
+  {issues[id] && (
+    <p className="text-white font-bold">⚠️ We had an issue with your song. Please see the host!</p>
+  )}
 
-    {issues[id] && (
-  <p className="text-white font-bold">⚠️ We had an issue with your song. Please see the host!</p>
-)}
+  {warnings[id] && (
+    <p className="text-black font-bold bg-yellow-300 p-2 rounded-lg text-center mt-2">
+      ⚠️ You were called once and missed your chance! You still have another shot—don't miss it! 🎤
+    </p>
+  )}
 </div>
     {/* Admin-Only Buttons */}
     {user?.is_admin && (
   <div className="mt-6 bg-gradient-to-r from-blue-900 via-pink-900 to-purple-900 p-4 rounded-2xl shadow-lg">
     
     {/* Scrollable Button Container */}
-    <div className="flex gap-3 overflow-x-auto pb-2 whitespace-nowrap">
+    <div className="flex gap-4 overflow-x-auto pb-2 whitespace-nowrap">
       {/* Row 1: Edit, Remove, Toggle Issue */}
       <button
         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all"
@@ -1217,6 +1323,31 @@ const handleSubmit = async (e) => {
       >
         ❌ Remove
       </button>
+
+      <button
+        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-3 rounded-lg shadow-md transition-all"
+        onClick={() => moveUp(signups[index].id, index)}
+        disabled={index === 0}
+      >
+        ⬆️ Up 1
+      </button>
+
+      <button
+        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-3 rounded-lg shadow-md transition-all"
+        onClick={() => moveDown(signups[index].id, index)}
+        disabled={index === signups.length - 1}
+      >
+        ⬇️ Down 1
+      </button>
+
+      <button
+    className={`py-6 px-4 rounded-lg font-bold text-white shadow-md transition-all ${
+      warnings[id] ? "bg-green-500 hover:bg-green-600" : "bg-yellow-500 hover:bg-yellow-600"
+    }`}
+    onClick={() => toggleWarning(id, warnings[id] || false)}
+  >
+    {warnings[id] ? "✅ Clear Warning" : "⚠️ Mark Warning"}
+  </button>
 
       <button
         className={`py-2 px-4 rounded-lg font-bold text-white shadow-md transition-all ${
@@ -1250,21 +1381,7 @@ const handleSubmit = async (e) => {
       </button>
 
       {/* Row 3: Move Controls */}
-      <button
-        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-3 rounded-lg shadow-md transition-all"
-        onClick={() => moveUp(signups[index].id, index)}
-        disabled={index === 0}
-      >
-        ⬆️ Up 1
-      </button>
 
-      <button
-        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-3 rounded-lg shadow-md transition-all"
-        onClick={() => moveDown(signups[index].id, index)}
-        disabled={index === signups.length - 1}
-      >
-        ⬇️ Down 1
-      </button>
 
       <button
         className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-3 rounded-lg shadow-md transition-all"
