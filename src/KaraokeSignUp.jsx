@@ -14,6 +14,73 @@ export default function KaraokeSignup() {
   const [pinError, setPinError] = useState(""); // Error message for incorrect PIN
   const guidelinesRef = useRef(null);
 
+
+  const [singerCounts, setSingerCounts] = useState([]);
+  useEffect(() => {
+    fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/singer_counts")
+      .then((res) => res.json())
+      .then((data) => {
+        setSingerCounts(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching singer counts:", error);
+      });
+  }, []);
+  
+  const fetchSingerCounts = async () => {
+    try {
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/singer_counts");
+      if (!response.ok) throw new Error("Failed to fetch singer counts");
+
+      const data = await response.json();
+      setSingerCounts(data);
+    } catch (error) {
+      console.error("Error fetching singer counts:", error);
+    }
+  };
+  useEffect(() => {
+    fetchSingerCounts();
+    fetchMusicBreakState();
+  }, []);
+  const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    fetch("https://portfoliobackend-ih6t.onrender.com/music-break")
+      .then((res) => res.json())
+      .then((data) => setShowAlert(data.show_alert))
+      .catch((err) => console.error("Error fetching alert state:", err));
+  }, []);
+  // Toggle Music Break state
+  const toggleAlert = async () => {
+    try {
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/music-break", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ show_alert: !showAlert }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setShowAlert(data.show_alert);
+      } else {
+        console.error("Failed to update music break state");
+      }
+    } catch (error) {
+      console.error("Error toggling music break:", error);
+    }
+  };
+
+  const fetchMusicBreakState = async () => {
+    try {
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/music-break");
+      if (!response.ok) throw new Error("Failed to fetch music break state");
+
+      const data = await response.json();
+      setShowAlert(data.show_alert);
+    } catch (error) {
+      console.error("Error fetching music break state:", error);
+    }
+  };
   const [activeSingers, setActiveSingers] = useState(0);
   const [warnings, setWarnings] = useState({});
   const toggleWarning = async (id, currentStatus) => {
@@ -257,7 +324,7 @@ useEffect(() => {
   fetchActiveSingers(); // Now it's defined and can be used anywhere
 }, []);
 
-  const [form, setForm] = useState({ name: "", song: "", artist: "" });
+const [form, setForm] = useState({ name: "", song: "", artist: "" });
   const [editingId, setEditingId] = useState(null);
   const [issues, setIssues] = useState({});
   const [showForm, setShowForm] = useState(false);
@@ -519,6 +586,8 @@ const handleRefresh = async () => {
       fetchFlaggedSignups(),
       fetchNotes(),
       fetchActiveSingers(),
+      fetchMusicBreakState(),
+      fetchSingerCounts(),
     ]);
 
     // Ensure the list is sorted and properly positioned
@@ -1231,10 +1300,10 @@ const handleSubmit = async (e) => {
   <span className="absolute right-4 top-3 text-gray-400 text-xl pointer-events-none">🔎</span>
 </div>
 
-<MusicBreakAlert/>
+<MusicBreakAlert showAlert={showAlert} toggleAlert={toggleAlert} />
 {user?.is_admin && (
 
-<SingerCount/>
+<SingerCount singerCounts={singerCounts} />
 )}
       {/* Sign-up List */}
       <div className="max-h-[70vh] overflow-y-auto space-y-6">
@@ -1496,27 +1565,32 @@ const handleSubmit = async (e) => {
       {showDeleted ? "❌ Hide Deleted Signups" : "📜 View Deleted Signups"}
     </button>
 
-    {/* 🗑 Deleted Signups List */}
-    {showDeleted && (
-      <div className="mt-6 p-5 bg-gray-900 rounded-xl shadow-lg">
-        <h3 className="text-xl font-semibold text-white text-center">📜 Deleted Karaoke Signups</h3>
-        <ul className="list-none mt-4 space-y-3">
-          {deletedSignups.length > 0 ? (
-            deletedSignups.map(({ id, name, song, artist, created_at }) => (
-              <li key={id} className="bg-gray-800 p-4 rounded-lg shadow-md">
-                <p className="text-white font-bold">{name}</p>
-                <p className="text-gray-300">🎶 "{song}" by {artist}</p>
-                <p className="text-xs text-gray-400 mt-2">
-                  ⏰ {created_at ? new Date(created_at).toLocaleString() : "Unknown"}
-                </p>
-              </li>
-            ))
-          ) : (
-            <p className="text-center text-gray-400">No deleted signups found.</p>
-          )}
-        </ul>
-      </div>
-    )}
+{/* 🗑 Deleted Signups List */}
+{showDeleted && (
+  <div className="mt-6 p-5 bg-gray-900 rounded-xl shadow-lg">
+    <h3 className="text-xl font-semibold text-white text-center">📜 Deleted Karaoke Signups</h3>
+    
+    {/* Scrollable Container */}
+    <div className="max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
+      <ul className="list-none mt-4 space-y-3">
+        {deletedSignups.length > 0 ? (
+          deletedSignups.map(({ id, name, song, artist, created_at }) => (
+            <li key={id} className="bg-gray-800 p-4 rounded-lg shadow-md">
+              <p className="text-white font-bold">{name}</p>
+              <p className="text-gray-300">🎶 "{song}" by {artist}</p>
+              <p className="text-xs text-gray-400 mt-2">
+                ⏰ {created_at ? new Date(created_at).toLocaleString() : "Unknown"}
+              </p>
+            </li>
+          ))
+        ) : (
+          <p className="text-center text-gray-400">No deleted signups found.</p>
+        )}
+      </ul>
+    </div>
+  </div>
+)}
+
       <div className="mt-6">
     {/* 🔄 Toggle Deleted DJ Notes */}
     <button
@@ -1535,24 +1609,29 @@ const handleSubmit = async (e) => {
 
     {/* 🗑 Deleted DJ Notes List */}
     {showDeletedNotes && (
-      <div className="mt-6 p-5 bg-gray-900 rounded-xl shadow-lg">
-        <h3 className="text-xl font-semibold text-white text-center">📜 Deleted DJ Notes</h3>
-        <ul className="list-none mt-4 space-y-3">
-          {deletedNotes.length > 0 ? (
-            deletedNotes.map(({ id, content, created_at }) => (
-              <li key={id} className="bg-gray-800 p-4 rounded-lg shadow-md">
-                <p className="text-white font-medium">📝 {content}</p>
-                <p className="text-xs text-gray-400 mt-2">
-                  ⏰ {created_at ? new Date(created_at).toLocaleString() : "Unknown"}
-                </p>
-              </li>
-            ))
-          ) : (
-            <p className="text-center text-gray-400">No deleted DJ Notes found.</p>
-          )}
-        </ul>
-      </div>
-    )}
+  <div className="mt-6 p-5 bg-gray-900 rounded-xl shadow-lg">
+    <h3 className="text-xl font-semibold text-white text-center">📜 Deleted DJ Notes</h3>
+    
+    {/* Scrollable Container */}
+    <div className="max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
+      <ul className="list-none mt-4 space-y-3">
+        {deletedNotes.length > 0 ? (
+          deletedNotes.map(({ id, content, created_at }) => (
+            <li key={id} className="bg-gray-800 p-4 rounded-lg shadow-md">
+              <p className="text-white font-medium">📝 {content}</p>
+              <p className="text-xs text-gray-400 mt-2">
+                ⏰ {created_at ? new Date(created_at).toLocaleString() : "Unknown"}
+              </p>
+            </li>
+          ))
+        ) : (
+          <p className="text-center text-gray-400">No deleted DJ Notes found.</p>
+        )}
+      </ul>
+    </div>
+  </div>
+)}
+
   </div>
   <div className="mt-6 space-y-4">
     {/* 🚨 Delete All Signups */}

@@ -1,39 +1,17 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
-export default function MusicBreakAlert() {
-  const [showAlert, setShowAlert] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    fetch("https://portfoliobackend-ih6t.onrender.com/music-break")
-      .then((res) => res.json())
-      .then((data) => setShowAlert(data.show_alert))
-      .catch((err) => console.error("Error fetching alert state:", err));
-  }, []);
+
+
+
+
+
+export default function MusicBreakAlert({ showAlert, toggleAlert }) {
+    const [loading, setLoading] = useState(false);
+
+
   const { user } = useAuth();
 
-  const toggleAlert = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/music-break", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ show_alert: !showAlert }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setShowAlert(data.show_alert);
-      } else {
-        console.error("Failed to update alert state");
-      }
-    } catch (error) {
-      console.error("Error toggling alert:", error);
-    }
-    setLoading(false);
-  };
 
   return (
     <div className="flex flex-col items-center justify-center">
