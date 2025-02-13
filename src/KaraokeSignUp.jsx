@@ -500,6 +500,8 @@ const moveToSecond = async (id, index) => {
     fetchSignups();
 };
 const [isRefreshing, setIsRefreshing] = useState(false);
+
+
 const handleRefresh = async () => {
   console.log("🔄 Refreshing Everything...");
   
@@ -601,9 +603,6 @@ const moveDown = async (id) => {
 
     fetchSignups();
 };
-
-
-
 const fetchSignups = async (searchTerm = "") => {
   try {
     console.log("🔄 Fetching Karaoke Signups...");
@@ -617,31 +616,45 @@ const fetchSignups = async (searchTerm = "") => {
       throw new Error(`Failed to fetch signups: ${response.status}`);
     }
 
-    let data = await response.json();
-    console.log("✅ Fetched signups data:", data);
+    let filteredData = await response.json();
+    console.log("✅ Fetched signups data:", filteredData);
 
-    // ✅ Update Warnings State from Backend Response
-    const updatedWarnings = {};
-    data.forEach(signup => {
-      updatedWarnings[signup.id] = signup.is_warning; // ✅ Ensure it's pulling actual DB values
+    // ✅ Fetch full list of signups to maintain correct positions
+    const fullResponse = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup`);
+    if (!fullResponse.ok) throw new Error("Failed to fetch full signup list.");
+
+    const fullSignups = await fullResponse.json();
+    fullSignups.sort((a, b) => a.position - b.position); // Ensure proper sorting
+
+    // ✅ Create a position map from the full signup list
+    const positionMap = {};
+    fullSignups.forEach((signup, index) => {
+      positionMap[signup.id] = index; // Store true index position
     });
 
-    console.log("🚨 Updating warnings state with:", updatedWarnings);
-    setWarnings(updatedWarnings); // ✅ Now it should persist properly!
+    // ✅ Assign true queue positions for search results
+    filteredData = filteredData.map(signup => ({
+      ...signup,
+      true_position: positionMap[signup.id] ?? -1, // Get position from full queue or -1 if missing
+    }));
 
-    // ✅ Sort data for display
-    if (searchTerm === "") {
-      data = data.sort((a, b) => a.position - b.position);
+    // ✅ Sort the filtered data only if there's no search term
+    if (!searchTerm) {
+      filteredData.sort((a, b) => a.position - b.position);
     }
 
-    console.log("📋 Final signups data:", data);
-    setSignups(data); // ✅ Ensure signups update correctly
+    // ✅ Ensure the first singer gets the correct label
+    if (!searchTerm && filteredData.length === 1) {
+      filteredData[0].position = 0; // Ensure correct labeling
+    }
+
+    console.log("📋 Final processed signups data:", filteredData);
+    setSignups(filteredData);
 
   } catch (error) {
     console.error("❌ Error fetching signups:", error);
   }
 };
-
 
 
 useEffect(() => {
@@ -1265,11 +1278,15 @@ const handleSubmit = async (e) => {
     <span className="uppercase tracking-wider text-white">{name}</span>
   </h3>
 
-  <p className="text-lg text-green-300 font-medium text-center mt-1">
-    {index === 0 
-      ? "🔥 You're singing now! 🔥" 
-      : `🚶 ${index} ${index === 1 ? "person" : "people"} ahead of you! 🎶`}
-  </p>
+<p className="text-lg text-green-300 font-medium text-center mt-1">
+  {position === 0 
+    ? "🔥 You're singing now! 🔥" 
+    : position > 0
+      ? `🚶 ${position} ${position === 1 ? "person" : "people"} ahead of you! 🎶`
+      : "🔍 Position unknown"}
+</p>
+
+
 
   <p className="text-xl font-medium text-center mt-2">
     <span className="text-pink-500 font-extrabold">Performing: <br/></span>
