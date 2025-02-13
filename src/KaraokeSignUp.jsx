@@ -3,6 +3,8 @@ import { useAuth } from "./AuthContext"; // Adjust the path accordingly
 import DJNotesApp from "./DJNotes";
 import Promotions from "./Promotions"; // Adjust the path based on where the file is
 import "./App.css"
+import MusicBreakAlert from "./MusicBreak";
+import SingerCount from "./SingerCount";
 export default function KaraokeSignup() {
   const [notes, setNotes] = useState([]);
   const [pin, setPin] = useState(""); // User-entered PIN
@@ -618,6 +620,10 @@ const fetchSignups = async (searchTerm = "") => {
 
     let filteredData = await response.json();
     console.log("✅ Fetched signups data:", filteredData);
+    filteredData.forEach((signup, index) => {
+      console.log(`🎶 Signup #${index + 1}:`, signup);
+      console.log(`⚖️ Adjustment Received:`, signup.adjustment);
+    });
 
     // ✅ Fetch full list of signups to maintain correct positions
     const fullResponse = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup`);
@@ -711,6 +717,8 @@ useEffect(() => {
         return [];
     }
 };
+
+
 const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -735,6 +743,7 @@ const handleSubmit = async (e) => {
           alert("🚨 Your submission contains inappropriate words! Please revise and try again.");
           return; // Stop submission if inappropriate words are detected
       }
+
       // ✅ Step 3: Check if the song has already been performed
       let allSignups = [];
       try {
@@ -747,10 +756,6 @@ const handleSubmit = async (e) => {
       } catch (error) {
           console.error("Error fetching all signups:", error);
       }
-
-
-
-
 
       const songAlreadySung = allSignups.some(
           (signup) =>
@@ -766,7 +771,7 @@ const handleSubmit = async (e) => {
       }
 
       // ✅ Step 4: Enforce the two-song limit per person
-      const nameCount = signups.filter(
+      const nameCount = allSignups.filter(
           (signup) => signup.name.toLowerCase() === form.name.toLowerCase()
       ).length;
 
@@ -775,13 +780,17 @@ const handleSubmit = async (e) => {
           return; // Stop if the person already has two songs
       }
 
-      // ✅ Step 5: Proceed with submission
+      // ✅ Step 5: Determine adjustment value (default 0 if not set)
+      const adjustmentValue = form.adjustment !== undefined ? parseFloat(form.adjustment) : 0.0;
+      console.log("⚖️ Adjustment Value Before Submission:", adjustmentValue);
+
+      // ✅ Step 6: Proceed with submission
       setIsSubmitting(true); // Start animation
 
       const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify({ ...form, adjustment: adjustmentValue }), // Include adjustment field
       });
 
       const data = await response.json();
@@ -794,7 +803,10 @@ const handleSubmit = async (e) => {
 
       if (response.ok) {
           fetchSignups(); // Refresh the list
-          setForm({ name: "", song: "", artist: "" });
+          setForm({ name: "", song: "", artist: "", adjustment: 0.0 }); // Reset form, including adjustment
+
+          // ✅ Notify user of successful submission
+          alert("🎉 Your song has been submitted successfully! Get ready to rock the mic! 🎤");
 
           // ✅ Trigger falling effects
           triggerEffects();
@@ -807,6 +819,7 @@ const handleSubmit = async (e) => {
       setIsSubmitting(false);
   }
 };
+
 
 
 
@@ -916,7 +929,7 @@ const handleSubmit = async (e) => {
 </h1>
 
   <Promotions />
-  {/* {user?.is_admin && ( */}
+  {user?.is_admin && (
   <div className="mt-6 text-center bg-gradient-to-r from-purple-600 to-pink-600 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
 
 
@@ -957,8 +970,7 @@ const handleSubmit = async (e) => {
       </button>
     </div>
   </div>
-{/* )} */}
-
+  )}
 <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold 
                mb-4 sm:mb-3 mt-6 sm:mt-10 text-center text-white 
                bg-black p-2 sm:p-3 rounded-lg animate-police-siren max-w-lg mx-auto">
@@ -1055,49 +1067,79 @@ const handleSubmit = async (e) => {
   🎤 Step Up to the Mic! 🎶
 </h2>
 
-  {/* Name Input */}
-  <div className="relative w-full">
+{/* Name Input */}
+<div className="relative w-full">
+<label htmlFor="name" className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer">
+    🌟 Your Superstar Name
+  </label>
+  <input
+    id="name"
+    type="text"
+    placeholder="Enter your name"
+    value={form.name}
+    onChange={(e) => setForm({ ...form, name: e.target.value })}
+    className="w-full px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+    required
+  />
+</div>
+
+{/* Song Input */}
+<div className="relative w-full mt-4">
+  <label htmlFor="song" className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer">
+    🎵 Song You'll Rock
+  </label>
+  <input
+    id="song"
+    type="text"
+    placeholder="Enter song title"
+    value={form.song}
+    onChange={(e) => setForm({ ...form, song: e.target.value })}
+    className="w-full px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+    required
+  />
+</div>
+
+{/* Artist Input */}
+<div className="relative w-full mt-4">
+  <label htmlFor="artist" className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer">
+    🎤 Original Artist
+  </label>
+  <input
+    id="artist"
+    type="text"
+    placeholder="Enter artist name"
+    value={form.artist}
+    onChange={(e) => setForm({ ...form, artist: e.target.value })}
+    className="w-full px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+    required
+  />
+</div>
+<div className="relative w-full mt-4">
+    <label htmlFor="adjustment" className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer">
+      ⚖️ Key Change (Optional)
+    </label>
     <input
-      type="text"
-      placeholder="Your Name"
-      value={form.name}
-      onChange={(e) => setForm({ ...form, name: e.target.value })}
+      id="adjustment"
+      type="number"
+      step="0.5"
+      placeholder="Enter adjustment value"
+      value={form.adjustment}
+      onChange={(e) => setForm({ ...form, adjustment: e.target.value })}
       className="w-full px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-      required
     />
+    <p className="text-gray-400 text-center text-sm mt-2">
+      Adjustments can be used for timing or other small tweaks.
+    </p>
   </div>
 
-  {/* Song Input */}
-  <div className="relative w-full">
-    <input
-      type="text"
-      placeholder="Song Title"
-      value={form.song}
-      onChange={(e) => setForm({ ...form, song: e.target.value })}
-      className="w-full px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-      required
-    />
-  </div>
+{/* Submit Button */}
+<button
+  type="submit"
+  className="w-full mt-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold text-xl sm:text-2xl py-4 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 active:scale-95"
+>
+  🎶 Sign Me Up! 🚀
+</button>
 
-  {/* Artist Input */}
-  <div className="relative w-full">
-    <input
-      type="text"
-      placeholder="Artist Name"
-      value={form.artist}
-      onChange={(e) => setForm({ ...form, artist: e.target.value })}
-      className="w-full px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-      required
-    />
-  </div>
-
-  {/* Submit Button */}
-  <button
-    type="submit"
-    className="w-full mt-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold text-xl sm:text-2xl py-4 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 active:scale-95"
-  >
-    🎶 Sign Me Up! 🚀
-  </button>
 </form>
 
 )}
@@ -1108,19 +1150,6 @@ const handleSubmit = async (e) => {
 
 
 {/* Display Flagged Artists List */}
-{flaggedSignups.length > 0 && (
-  <div className="max-w-lg mx-auto bg-red-700 text-white p-4 rounded-lg shadow-lg mt-6">
-    <h3 className="text-xl font-serif text-center">🚨 Please See Host: 🚨</h3>
-    <ul className="list-none text-lg text-center mt-2 space-y-2">
-      {flaggedSignups.map((signup, index) => (
-        <li key={signup.id} className="border-b border-gray-300 pb-2">
-          <p className="text-xl font-bold">{signup.name}</p>
-        </li>
-      ))}
-    </ul>
-  </div>
-)}
-
 
     <div>
     <DJNotesApp user={user} notes={notes} fetchNotes={fetchNotes} />
@@ -1143,9 +1172,22 @@ const handleSubmit = async (e) => {
   </div>
 </div>
 
+{/* Flagged Signups  */}
 
+{flaggedSignups.length > 0 && (
+  <div className="max-w-lg mx-auto bg-red-700 text-white p-4 rounded-lg shadow-lg mt-6">
+    <h3 className="text-xl font-serif text-center">🚨 Please See Host: 🚨</h3>
+    <ul className="list-none text-lg text-center mt-2 space-y-2">
+      {flaggedSignups.map((signup, index) => (
+        <li key={signup.id} className="border-b border-gray-300 pb-2">
+          <p className="text-xl font-bold">{signup.name}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
 
-
+{/* Refresh button */}
     <button
   className={`w-full mb-3 text-white font-bold py-3 px-6 rounded-2xl text-xl shadow-2xl mt-4 
     transition-all duration-300 transform active:scale-95 
@@ -1175,6 +1217,8 @@ const handleSubmit = async (e) => {
 </button>
 
 
+{/* Search Bar */}
+
 <div className="relative w-full mb-6">
   <input
     type="text"
@@ -1187,11 +1231,14 @@ const handleSubmit = async (e) => {
   <span className="absolute right-4 top-3 text-gray-400 text-xl pointer-events-none">🔎</span>
 </div>
 
+<MusicBreakAlert/>
+{user?.is_admin && (
 
-
+<SingerCount/>
+)}
       {/* Sign-up List */}
       <div className="max-h-[70vh] overflow-y-auto space-y-6">
-  {signups.map(({ id, name, song, artist, position, created_at }, index) => (
+      {signups.map(({ id, name, song, artist, position, created_at, adjustment }, index) => (
     <div
       key={id}
       className={`p-6 rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 ${
@@ -1202,8 +1249,7 @@ const handleSubmit = async (e) => {
     >
 
 
-
-    {/* Move Up/Down Buttons */}
+{/* Editing Screen */}
 
 {editingId === id ? (
   // Edit Mode
@@ -1256,7 +1302,7 @@ const handleSubmit = async (e) => {
     issues[id] 
       ? "bg-red-600 text-white" 
       : warnings[id] 
-      ? "bg-teal-700 text-black font-bold"
+      ? "bg-black text-black font-bold"
       : "bg-transparent"
   }`}
 >
@@ -1302,15 +1348,21 @@ const handleSubmit = async (e) => {
   {issues[id] && (
     <p className="text-white font-bold">⚠️ We had an issue with your song. Please see the host!</p>
   )}
+{adjustment !== 0 && adjustment !== null && (
+  <p className="text-lg font-bold text-yellow-300 text-center mt-2">
+    ⚖️ Adjustment: {typeof adjustment === "number" ? `${adjustment} semitones` : adjustment}
+  </p>
+)}
+
 
   {warnings[id] && (
-    <p className="text-black font-bold bg-yellow-300 p-2 rounded-lg text-center mt-2">
+    <p className="text-white font-bold bg-red-600 p-2 rounded-lg text-center mt-2">
       ⚠️ You were called once and missed your chance! You still have another shot—don't miss it! 🎤
     </p>
   )}
 </div>
     {/* Admin-Only Buttons */}
-    {/* {user?.is_admin && ( */}
+    {user?.is_admin && (
   <div className="mt-6 bg-gradient-to-r from-blue-900 via-pink-900 to-purple-900 p-4 rounded-2xl shadow-lg">
     
     {/* Scrollable Button Container */}
@@ -1407,8 +1459,7 @@ const handleSubmit = async (e) => {
       </button>
     </div>
   </div>
-{/* )} */}
-
+)}
 </>
 )}
 
