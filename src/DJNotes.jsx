@@ -37,7 +37,7 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
     if (!confirmDelete) return;
 
     try {
-        const response = await fetch("http://127.0.0.1:5000/djnotes/hard_delete_all", {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/hard_delete_all", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         });
@@ -98,7 +98,7 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
     if (!alertId) return;
   
     try {
-      const response = await fetch("http://127.0.0.1:5000/djnotes/reorder", {
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/reorder", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: alertId }),
@@ -118,7 +118,7 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
   
   const updateNotesOrderInBackend = async (updatedNotes) => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/djnotes/reorder", {
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/reorder", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ notes: updatedNotes.map((note, index) => ({ id: note.id, position: index })) }),
@@ -151,7 +151,7 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
 
 const fetchDeletedNotes = async () => {
     try {
-        const response = await fetch("http://127.0.0.1:5000/djnotes/deleted", {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/deleted", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -178,8 +178,8 @@ const fetchDeletedNotes = async () => {
     try {
         const response = await fetch(
             editingId 
-                ? `http://127.0.0.1:5000/djnotes/${editingId}`  // ✅ Corrected
-                : "http://127.0.0.1:5000/djnotes",
+                ? `https://portfoliobackend-ih6t.onrender.com/djnotes/${editingId}`  // ✅ Corrected
+                : "https://portfoliobackend-ih6t.onrender.com/djnotes",
             {
                 method: editingId ? "PATCH" : "POST",
                 headers: {
@@ -205,13 +205,13 @@ const fetchDeletedNotes = async () => {
     setEditingId(note.id);
   };
   const handleSoftDelete = async (id) => {
-    await fetch(`http://127.0.0.1:5000/djnotes/${id}`, { method: "DELETE" });
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/djnotes/${id}`, { method: "DELETE" });
     await fetchNotes();  // ✅ Refresh active notes
     await fetchDeletedNotes(); // ✅ Refresh deleted notes
 };
 
   const handleHardDelete = async (id) => {
-    await fetch(`http://127.0.0.1:5000/djnotes/${id}/hard_delete`, { method: "DELETE" });
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/djnotes/${id}/hard_delete`, { method: "DELETE" });
     fetchDeletedNotes();
   };
 

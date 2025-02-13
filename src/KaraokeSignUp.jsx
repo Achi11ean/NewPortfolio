@@ -19,7 +19,7 @@ export default function KaraokeSignup() {
         console.log("🔄 Toggling warning status...");
         console.log(`🟡 Current Warning Status: ${currentStatus} for ID: ${id}`);
 
-        const response = await fetch(`http://127.0.0.1:5000/karaokesignup/${id}`, {
+        const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ is_warning: !currentStatus }),
@@ -75,7 +75,7 @@ useEffect(() => {
     try {
         console.log("🔄 Updating PIN...");
 
-        const response = await fetch("http://127.0.0.1:5000/formstate/update_pin", {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/formstate/update_pin", {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ pin_code: adminPin }),
@@ -101,7 +101,7 @@ useEffect(() => {
     try {
         console.log("🔍 Fetching form state from backend...");
 
-        const response = await fetch("http://127.0.0.1:5000/formstate");
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/formstate");
         if (!response.ok) {
             throw new Error(`Failed to validate PIN. Status: ${response.status}`);
         }
@@ -138,7 +138,7 @@ const handleSetPin = async () => {
     console.log("🔍 Checking if a PIN already exists...");
 
     // Step 1: Fetch current PIN
-    const checkResponse = await fetch("http://127.0.0.1:5000/formstate");
+    const checkResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/formstate");
     if (!checkResponse.ok) throw new Error("Failed to check existing PIN.");
 
     const checkData = await checkResponse.json();
@@ -153,7 +153,7 @@ const handleSetPin = async () => {
     // Step 3: If no PIN exists, proceed with setting a new one
     console.log("✅ No existing PIN found. Setting new PIN...");
 
-    const response = await fetch("http://127.0.0.1:5000/formstate/set_pin", {
+    const response = await fetch("https://portfoliobackend-ih6t.onrender.com/formstate/set_pin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ pin_code: adminPin }),
@@ -174,7 +174,7 @@ const handleSetPin = async () => {
 
   const handleDeletePin = async () => {
     try {
-        const response = await fetch("http://127.0.0.1:5000/formstate/delete_pin", {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/formstate/delete_pin", {
             method: "DELETE",
         });
 
@@ -218,7 +218,7 @@ const handleSetPin = async () => {
     console.log("📢 Fetching DJ Notes..."); // ✅ Debugging log before fetch
 
     try {
-        const response = await fetch("http://127.0.0.1:5000/djnotesactive", {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotesactive", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -239,7 +239,7 @@ const handleSetPin = async () => {
 };
 const fetchActiveSingers = async () => {
   try {
-    const response = await fetch("http://127.0.0.1:5000/karaokesignup/count");
+    const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/count");
     if (!response.ok) throw new Error("Failed to fetch active signups count");
 
     const data = await response.json();
@@ -271,7 +271,7 @@ const handleHardDeleteAll = async () => {
     if (!confirmDelete) return;
 
     try {
-        const response = await fetch("http://127.0.0.1:5000/djnotes/hard_delete_all", {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/hard_delete_all", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         });
@@ -289,7 +289,7 @@ const handleHardDeleteAll = async () => {
 
 const fetchDeletedNotes = async () => {
     try {
-        const response = await fetch("http://127.0.0.1:5000/djnotes/deleted");
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/deleted");
 
         if (!response.ok) {
             throw new Error(`Failed to fetch deleted DJ Notes: ${response.status}`);
@@ -316,7 +316,7 @@ const fetchDeletedNotes = async () => {
 const [showDeleted, setShowDeleted] = useState(false); // Toggle state
 const fetchDeletedSignups = async () => {
     try {
-        const response = await fetch("http://127.0.0.1:5000/karaokesignup/deleted");
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/deleted");
 
         if (!response.ok) {
             throw new Error(`Failed to fetch deleted signups: ${response.status}`);
@@ -344,7 +344,7 @@ const fetchDeletedSignups = async () => {
 
 const fetchFormState = async () => {
   try {
-      const response = await fetch("http://127.0.0.1:5000/formstate");
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/formstate");
       if (!response.ok) {
           throw new Error("Failed to fetch form state");
       }
@@ -361,7 +361,7 @@ const fetchFormState = async () => {
 
   const sortByTime = async () => {
     try {
-        const response = await fetch(`http://127.0.0.1:5000/karaokesignup/sort`, {
+        const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/sort`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ action: "sort_by_time" }), // Correct backend action
@@ -383,7 +383,7 @@ const [flaggedSignups, setFlaggedSignups] = useState([]); // Store full flagged 
 
 const fetchFlaggedSignups = async () => {
   try {
-      const response = await fetch("http://127.0.0.1:5000/karaokesignup/flagged");
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/flagged");
 
       if (!response.ok) {
           throw new Error(`Failed to fetch flagged signups: ${response.status}`);
@@ -413,7 +413,7 @@ const fetchFlaggedSignups = async () => {
   const handleDeleteAll = async () => {
     const confirmDelete = window.confirm("Are you sure you want to delete ALL signups? This action cannot be undone!");
     if (confirmDelete) {
-      const response = await fetch("http://127.0.0.1:5000/karaokesignup", { method: "DELETE" });
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup", { method: "DELETE" });
       if (response.ok) {
         fetchSignups(); // Refresh the list
         alert("All signups have been deleted successfully!");
@@ -428,7 +428,7 @@ const fetchFlaggedSignups = async () => {
     if (!confirmDelete) return;
 
     try {
-        const response = await fetch("http://127.0.0.1:5000/karaokesignup/hard_delete", {
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/hard_delete", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" }
         });
@@ -453,7 +453,7 @@ const fetchFlaggedSignups = async () => {
   const moveUpFive = async (id, index) => {
     if (index < 5) return; 
 
-    await fetch(`http://127.0.0.1:5000/karaokesignup/${id}/move`, {
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "up5" }), // Corrected key
@@ -465,7 +465,7 @@ const fetchFlaggedSignups = async () => {
 const moveDownFive = async (id, index) => {
     if (index >= signups.length - 5) return;
 
-    await fetch(`http://127.0.0.1:5000/karaokesignup/${id}/move`, {
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "down5" }), // Corrected key
@@ -479,7 +479,7 @@ const moveToFirst = async (id) => {
         return;
     }
 
-    await fetch(`http://127.0.0.1:5000/karaokesignup/${id}/move`, {
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "to_first" }), // Matches backend
@@ -491,7 +491,7 @@ const moveToFirst = async (id) => {
 const moveToSecond = async (id, index) => {
     if (index <= 1) return; // Prevent unnecessary movement
 
-    await fetch(`http://127.0.0.1:5000/karaokesignup/${id}/move`, {
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "up_next" }), // Correct action for backend
@@ -577,7 +577,7 @@ const moveUp = async (id, index) => {
         return;
     }
     
-    await fetch(`http://127.0.0.1:5000/karaokesignup/${id}/move`, {
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "up" }),
@@ -593,7 +593,7 @@ const moveDown = async (id) => {
         return;
     }
     
-    await fetch(`http://127.0.0.1:5000/karaokesignup/${id}/move`, {
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "down" }),
@@ -608,7 +608,7 @@ const fetchSignups = async (searchTerm = "") => {
   try {
     console.log("🔄 Fetching Karaoke Signups...");
 
-    const response = await fetch(`http://127.0.0.1:5000/karaokesignup?search=${encodeURIComponent(searchTerm)}`, {
+    const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup?search=${encodeURIComponent(searchTerm)}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     });
@@ -650,7 +650,7 @@ useEffect(() => {
 
     const toggleIssue = async (id, currentStatus) => {
         try {
-            const response = await fetch(`http://127.0.0.1:5000/karaokesignup/${id}`, {
+            const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ is_flagged: !currentStatus }),
@@ -685,7 +685,7 @@ useEffect(() => {
 
   const fetchRestrictedWords = async () => {
     try {
-        const response = await fetch("http://127.0.0.1:5000/restricted_words"); // ✅ Fetch restricted words from backend
+        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/restricted_words"); // ✅ Fetch restricted words from backend
         if (response.ok) {
             const words = await response.json();
             return words.map(word => word.toLowerCase().trim()); // Normalize words for case-insensitive check
@@ -703,7 +703,7 @@ const handleSubmit = async (e) => {
 
   try {
       // ✅ Step 1: Check if signups are still open in the backend
-      const formStateResponse = await fetch("http://127.0.0.1:5000/formstate");
+      const formStateResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/formstate");
       if (!formStateResponse.ok) throw new Error("Failed to fetch form state.");
 
       const formState = await formStateResponse.json();
@@ -725,7 +725,7 @@ const handleSubmit = async (e) => {
       // ✅ Step 3: Check if the song has already been performed
       let allSignups = [];
       try {
-          const response = await fetch("http://127.0.0.1:5000/karaokesignup/all");
+          const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/all");
           if (response.ok) {
               allSignups = await response.json();
           } else {
@@ -765,7 +765,7 @@ const handleSubmit = async (e) => {
       // ✅ Step 5: Proceed with submission
       setIsSubmitting(true); // Start animation
 
-      const response = await fetch("http://127.0.0.1:5000/karaokesignup", {
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(form),
@@ -821,7 +821,7 @@ const handleSubmit = async (e) => {
 
   // PATCH: Update a signup
   const handleEditSubmit = async (id) => {
-    const response = await fetch(`http://127.0.0.1:5000/karaokesignup/${id}`, {
+    const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editForm),
@@ -844,7 +844,7 @@ const handleSubmit = async (e) => {
 
   const handleSoftDelete = async (id) => {
     try {
-        const response = await fetch(`http://127.0.0.1:5000/karaokesignup/${id}/soft_delete`, {
+        const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/soft_delete`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" }
         });
@@ -862,7 +862,7 @@ const handleSubmit = async (e) => {
 
   // DELETE: Remove a signup
   const handleDelete = async (id) => {
-    await fetch(`http://127.0.0.1:5000/karaokesignup/${id}`, { method: "DELETE" });
+    await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, { method: "DELETE" });
     fetchSignups();
   };
 

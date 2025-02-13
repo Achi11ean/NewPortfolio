@@ -38,7 +38,7 @@ export default function Admin() {
   const [updatedContactData, setUpdatedContactData] = useState({});
   const handleUpdateContact = async (id) => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/contacts/${id}`, {
+      const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/contacts/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +70,7 @@ export default function Admin() {
   const handleUpdateEngineeringBooking = async (id) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:5000/engineering-bookings/${id}`,
+        `https://portfoliobackend-ih6t.onrender.com/engineering-bookings/${id}`,
         {
           method: "PATCH",
           headers: {
@@ -127,7 +127,7 @@ export default function Admin() {
   
 
   const handleUpdatePerformanceBooking = (id) => {
-    fetch(`http://127.0.0.1:5000/performance-bookings/${id}`, {
+    fetch(`https://portfoliobackend-ih6t.onrender.com/performance-bookings/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -231,7 +231,7 @@ export default function Admin() {
     };
     const handleEditSubmit = async (id) => {
       try {
-        const response = await fetch(`http://127.0.0.1:5000/reviews/${id}`, {
+        const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/reviews/${id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -285,7 +285,7 @@ export default function Admin() {
   };
   const fetchPendingReviews = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/reviews/pending");
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/reviews/pending");
 
       
       const data = await response.json();
@@ -313,7 +313,7 @@ export default function Admin() {
 
   const handleApproveReview = async (id) => {
     try {
-      await fetch(`http://127.0.0.1:5000/reviews/${id}/approve`, {
+      await fetch(`https://portfoliobackend-ih6t.onrender.com/reviews/${id}/approve`, {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -325,7 +325,7 @@ export default function Admin() {
   
   const handleDeleteReview = async (id) => {
     try {
-      await fetch(`http://127.0.0.1:5000/reviews/${id}`, {
+      await fetch(`https://portfoliobackend-ih6t.onrender.com/reviews/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -349,9 +349,9 @@ export default function Admin() {
     try {
       console.log("Deleting booking...");
       const urlMap = {
-        contacts: `http://127.0.0.1:5000/contacts/${id}`,
-        engineering_bookings: `http://127.0.0.1:5000/engineering-bookings/${id}`,
-        performance_bookings: `http://127.0.0.1:5000/performance-bookings/${id}`,
+        contacts: `https://portfoliobackend-ih6t.onrender.com/contacts/${id}`,
+        engineering_bookings: `https://portfoliobackend-ih6t.onrender.com/engineering-bookings/${id}`,
+        performance_bookings: `https://portfoliobackend-ih6t.onrender.com/performance-bookings/${id}`,
       };
   
       const url = urlMap[type];
@@ -393,21 +393,21 @@ export default function Admin() {
     const fetchData = async () => {
       try {
         // Fetch contacts
-        const contactsResponse = await fetch("http://127.0.0.1:5000/contacts", {
+        const contactsResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/contacts", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const contactsData = await contactsResponse.json();
         console.log("Contacts Data:", contactsData);
   
         // Fetch engineering bookings
-        const engineeringResponse = await fetch("http://127.0.0.1:5000/engineering-bookings", {
+        const engineeringResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/engineering-bookings", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const engineeringData = await engineeringResponse.json();
         console.log("Engineering Bookings Data:", engineeringData);
   
         // Fetch performance bookings
-        const performanceResponse = await fetch("http://127.0.0.1:5000/performance-bookings", {
+        const performanceResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/performance-bookings", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const performanceData = await performanceResponse.json();
@@ -559,25 +559,25 @@ export default function Admin() {
     const fetchData = async () => {
         try {
           // Fetch all contact bookings
-          const contactsResponse = await fetch("http://127.0.0.1:5000/contacts", {
+          const contactsResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/contacts", {
             headers: { Authorization: `Bearer ${token}` },
           });
           const contactsData = await contactsResponse.json();
       
           // Fetch all engineering bookings
-          const engineeringResponse = await fetch("http://127.0.0.1:5000/engineering-bookings", {
+          const engineeringResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/engineering-bookings", {
             headers: { Authorization: `Bearer ${token}` },
           });
           const engineeringData = await engineeringResponse.json();
       
           // Fetch all performance bookings
-          const performanceResponse = await fetch("http://127.0.0.1:5000/performance-bookings", {
+          const performanceResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/performance-bookings", {
             headers: { Authorization: `Bearer ${token}` },
           });
           const performanceData = await performanceResponse.json();
       
           // Fetch total earnings
-          const earningsResponse = await fetch("http://127.0.0.1:5000/bookings/monthly-earnings", {
+          const earningsResponse = await fetch("https://portfoliobackend-ih6t.onrender.com/bookings/monthly-earnings", {
             headers: { Authorization: `Bearer ${token}` },
           });
           const earningsData = await earningsResponse.json();
@@ -639,9 +639,9 @@ export default function Admin() {
       console.log("New Price:", newPrice); // Log new price for debugging
   
       const urlMap = {
-        contacts: `http://127.0.0.1:5000/contacts/${id}`,
-        performance_bookings: `http://127.0.0.1:5000/performance-bookings/${id}`,
-        engineering_bookings: `http://127.0.0.1:5000/engineering-bookings/${id}`,
+        contacts: `https://portfoliobackend-ih6t.onrender.com/contacts/${id}`,
+        performance_bookings: `https://portfoliobackend-ih6t.onrender.com/performance-bookings/${id}`,
+        engineering_bookings: `https://portfoliobackend-ih6t.onrender.com/engineering-bookings/${id}`,
       };
   
       const stateMap = {

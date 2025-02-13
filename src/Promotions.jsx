@@ -26,7 +26,7 @@ export default function Promotions() {
 
     const fetchPromotions = async () => {
         try {
-            const response = await fetch("http://127.0.0.1:5000/promotions");
+            const response = await fetch("https://portfoliobackend-ih6t.onrender.com/promotions");
             const data = await response.json();
     
             if (Array.isArray(data)) {
@@ -48,7 +48,7 @@ export default function Promotions() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const method = editingId ? "PATCH" : "POST";
-        const url = editingId ? `http://127.0.0.1:5000/promotions/${editingId}` : "http://127.0.0.1:5000/promotions";
+        const url = editingId ? `https://portfoliobackend-ih6t.onrender.com/promotions/${editingId}` : "https://portfoliobackend-ih6t.onrender.com/promotions";
 
         try {
             const response = await fetch(url, {
@@ -69,7 +69,7 @@ export default function Promotions() {
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this promotion?")) return;
         try {
-            await fetch(`http://127.0.0.1:5000/promotions/${id}`, { method: "DELETE" });
+            await fetch(`https://portfoliobackend-ih6t.onrender.com/promotions/${id}`, { method: "DELETE" });
             fetchPromotions();
         } catch (error) {
             console.error("Error deleting promotion:", error);

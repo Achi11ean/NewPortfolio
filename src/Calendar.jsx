@@ -13,7 +13,7 @@ const Calendar = () => {
   useEffect(() => {
     const fetchBookingDates = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/api/bookings/dates");
+        const response = await axios.get("https://portfoliobackend-ih6t.onrender.com/api/bookings/dates");
         const data = response.data;
 
         if (!Array.isArray(data)) {
