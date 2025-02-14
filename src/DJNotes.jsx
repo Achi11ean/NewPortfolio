@@ -8,29 +8,27 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const getAlertStyles = (alertType) => {
     if (alertType.startsWith("ALERT:")) {
-      return "bg-gradient-to-r from-red-700 via-red-500 to-red-700 text-white border-red-900";
+      return "bg-red-600 text-white border-red-800";
     } else if (alertType.startsWith("HAPPY BIRTHDAY")) {
-      return "bg-gradient-to-r from-pink-500 via-pink-400 to-pink-600 text-pink-900 border-pink-700";
+      return "bg-pink-300 text-pink-800 border-pink-500";
     } else if (alertType.startsWith("HAPPY ANNIVERSARY")) {
-      return "bg-gradient-to-r from-purple-500 via-purple-400 to-purple-600 text-purple-900 border-purple-700";
+      return "bg-purple-300 text-purple-800 border-purple-500";
     } else if (alertType.startsWith("JUST MARRIED")) {
-      return "bg-gradient-to-r from-green-500 via-green-400 to-green-600 text-white border-green-700";
+      return "bg-green-500 text-white border-green-700";
     } else if (alertType.startsWith("SINGLE")) {
-      return "bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700 text-white border-gray-800";
+      return "bg-gray-600 text-white border-gray-800";
     } else if (alertType.startsWith("JOKES")) {
-      return "bg-gradient-to-r from-yellow-500 via-orange-400 to-pink-500 text-black border-yellow-700";
+      return "bg-yellow-500 text-black border-yellow-700";
     } else if (alertType.startsWith("IN MEMORY")) {
-      return "bg-gradient-to-r from-black via-gray-700 to-black text-white border-gray-500";
+      return "bg-black text-white border-gray-500";
+    } else if (alertType.startsWith("JOKES")) {
+      return "bg-blue-500 text-white border-blue-700";
     } else if (alertType.startsWith("SHAME")) {
-      return "bg-gradient-to-r from-red-900 via-gray-800 to-red-900 text-white border-red-700";
-    } else if (alertType.startsWith("SPOTLIGHT")) {
-      return "bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 text-yellow-900 border-yellow-600";
+      return "bg-gradient-to-r from-red-900 via-gray-800 to-red-900 text-white border-red-700"; // New SHAME style
     } else {
-      return "bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900 text-white border-blue-500"; // Default for unique alerts
+      return "bg-yellow-300 text-yellow-800 border-yellow-500"; // Default (Spotlight)
     }
-};
-
-
+  };
   const [selectedAlertId, setSelectedAlertId] = useState(null);
 
   const handleHardDeleteAll = async () => {
@@ -262,7 +260,7 @@ const fetchDeletedNotes = async () => {
 </div>
 
       {/* Alert Form */}
-      <form 
+<form 
   onSubmit={handleSubmit} 
   className="p-8 bg-gray-900 rounded-2xl shadow-2xl border border-gray-700 max-w-md mx-auto space-y-6 text-center"
 >
@@ -323,28 +321,25 @@ const fetchDeletedNotes = async () => {
               animate-pulse font-serif break-words px-4 mt-6 w-full max-w-4xl mx-auto
               ${
                 notes.length > 0 && notes[currentIndex].alert_type.startsWith("ALERT:")
-                  ? "text-yellow-300 bg-gradient-to-r from-red-700 via-red-500 to-red-700 border-red-900" 
+                  ? "text-white bg-red-600" 
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("JOKES")
-                  ? "text-cyan-300 bg-gradient-to-r from-yellow-500 via-orange-400 to-pink-500 border-yellow-700"
+                  ? "text-yellow-500 bg-blue-500"
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("HAPPY BIRTHDAY")
-                  ? "text-blue-500 bg-gradient-to-r from-pink-500 via-pink-400 to-pink-600 border-pink-700" 
+                  ? "text-pink-800 bg-pink-300" 
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("HAPPY ANNIVERSARY")
-                  ? "text-green-300 bg-gradient-to-r from-purple-500 via-purple-400 to-purple-600 border-purple-700" 
+                  ? "text-purple-800 bg-purple-300" 
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("JUST MARRIED")
-                  ? "text-purple-300 bg-gradient-to-r from-green-500 via-green-400 to-green-600 border-green-700" 
+                  ? "text-white bg-green-500" 
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SINGLE")
-                  ? "text-red-400 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700 border-gray-800" 
+                  ? "text-white bg-gray-600" 
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("IN MEMORY")
-                  ? "text-gray-400 bg-gradient-to-r from-black via-gray-700 to-black border-gray-500"
+                  ? "text-white bg-black"
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SHAME") 
-                  ? "text-yellow-300 bg-gradient-to-r from-red-900 via-gray-800 to-red-900 border-red-700"  
-                  : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SPOTLIGHT")
-                  ? "text-purple-500 bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 border-yellow-600"
-                  : "text-orange-300 bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900 border-blue-500" // Default for unique alerts
+                  ? "text-white bg-red-900"  
+                  : "text-yellow-800 bg-yellow-300"
               }`}
 >
-
-{notes.length > 0 && notes[currentIndex].alert_type.startsWith("ALERT:")
+  {notes.length > 0 && notes[currentIndex].alert_type.startsWith("ALERT:")
     ? "🚨 HOST ALERTS 🚨"
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("JOKES")
     ? "🤡 KARA-JOKé 🤡"
@@ -360,11 +355,7 @@ const fetchDeletedNotes = async () => {
     ? "🕊️ IN LOVING MEMORY 🕯️"
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SHAME") 
     ? "🗑️ SHAME ALERT 🤬" 
-    : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SPOTLIGHT") 
-    ? "📸 SPOTLIGHT 📸"
-    : notes[currentIndex].alert_type} 
-  
-
+    : "📸 SPOTLIGHT 📸"}
 </h1>
 
 
