@@ -438,7 +438,7 @@ const RandomSongGenerator = ({ onSelect }) => {
   
   
   return (
-<div className="relative w-full max-w-md mx-auto p-6 bg-gray-900 rounded-2xl shadow-white  shadow-xl">
+<>
 <button 
   type="button" // ⛔ Prevents form submission
   title="Trouble picking a song? Get some inspiration from our list of the most played karaoke songs!"
@@ -452,14 +452,14 @@ const RandomSongGenerator = ({ onSelect }) => {
 </button>
 
       {isDropdownOpen && (
-        <div className="mt-2 bg-white shadow-lg rounded-lg p-4">
-          <div className="flex flex-col items-center space-y-4">
+        <>
+          <div className="flex w-full flex-col items-center space-y-4">
           <button 
   onClick={(event) => {
     event.preventDefault(); // ⛔ Prevent form submission
     pickRandomSong();
   }} 
-  className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105"
+  className="px-6 py-3 bg-blue-600 text-white font-medium rounded-3xl w-full shadow-md shadow-pink-400 hover:bg-blue-700 transition-all duration-300 transform hover:scale-105"
 >
   Random Song
 </button>
@@ -469,7 +469,7 @@ const RandomSongGenerator = ({ onSelect }) => {
     event.preventDefault(); // ⛔ Prevent form submission
     pickRandomArtist();
   }} 
-  className="px-6 py-3 bg-green-600 text-white font-medium rounded-lg shadow-md hover:bg-green-700 transition-all duration-300 transform hover:scale-105"
+  className="w-full py-3 bg-green-600 text-white font-medium rounded-3xl shadow-md shadow-yellow-300 hover:bg-green-700 transition-all duration-300 transform hover:scale-105"
 >
   Random Artist
 </button>
@@ -491,7 +491,7 @@ const RandomSongGenerator = ({ onSelect }) => {
 
                 {randomSelection.title ? (
                     <div className="max-h-16 overflow-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-300">
-  <p className="text-lg font-semibold text-center break-words">
+  <p className="text-md font-semibold text-center break-words">
     {randomSelection.title} by {randomSelection.artist}
   </p>
 </div>
@@ -503,9 +503,9 @@ const RandomSongGenerator = ({ onSelect }) => {
               </motion.div>
             )}
           </div>
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 };
 
