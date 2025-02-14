@@ -6,9 +6,13 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
   const [formData, setFormData] = useState({ alert_type: "", alert_details: "" });
   const [editingId, setEditingId] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const getAlertStyles = (alertType) => {
+  
+const getAlertStyles = (alertType) => {
     if (alertType.startsWith("ALERT:")) {
-      return "bg-gradient-to-r from-red-700 via-red-600 to-red-500 text-white border border-red-800 shadow-lg";
+      return `animate-police-siren animate-alert-shake text-white font-extrabold text-2xl sm:text-3xl 
+              uppercase tracking-widest p-4 sm:p-6 border-4 border-red-800 
+              rounded-xl shadow-[0px_0px_25px_rgba(255,0,0,0.8),0px_0px_50px_rgba(0,0,255,0.7)] 
+              transform hover:scale-105 transition-all ease-in-out duration-300`;
     } else if (alertType.startsWith("HAPPY BIRTHDAY")) {
       return "bg-gradient-to-r from-pink-400 via-pink-300 to-pink-200 text-pink-900 border border-pink-500 shadow-md";
     } else if (alertType.startsWith("HAPPY ANNIVERSARY")) {
@@ -24,10 +28,18 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
     } else if (alertType.startsWith("SHAME")) {
       return "bg-gradient-to-r from-red-900 via-gray-800 to-red-900 text-white border border-red-700 shadow-xl";
     } else {
-      return "bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-200 text-yellow-900 border border-yellow-500 shadow-md"; // Default (Spotlight)
+      // 🌟 Spotlight effect with falling sparkles & neon siren effect
+      return `relative animate-award-spotlight sparkle-effect text-yellow-900 
+      border border-yellow-500 shadow-[0px_0px_20px_rgba(255,215,0,0.8),0px_0px_40px_rgba(255,255,255,0.7)] 
+      transform scale-105 transition-all duration-500 ease-in-out overflow-hidden`;
+
     }
 };
 
+
+  
+  
+  
   const [selectedAlertId, setSelectedAlertId] = useState(null);
 
   const handleHardDeleteAll = async () => {
@@ -58,22 +70,27 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
     setCurrentIndex((prev) => (prev + 1) % notes.length); // Move to next alert
   };
   useEffect(() => {
-    if (notes.length > 1) {
+    if (notes.length > 0) {
       const currentNote = notes[currentIndex]; // Get the current note
-      let displayTime = currentNote?.position === 0 ? 12000 : 6000; // 25s for top, 15s for others
+    
+      // ✅ Check if the alert type is "ALERT:" or "SPOTLIGHT"
+      let displayTime =
+        currentNote?.alert_type.startsWith("ALERT:") || currentNote?.alert_type.startsWith("SPOTLIGHT")
+          ? 18000 // ⏳ 12 seconds for Breaking News & Spotlight
+          : 6000; // ⏳ 6 seconds for all other alerts
   
-      // Log the note in position 0
-      if (currentNote?.position === 0) {
-        console.log("🔝 Alert at position 0:", currentNote);
-      }
+      console.log(
+        `🕒 Displaying Alert: ${currentNote?.alert_details} for ${displayTime / 1000} seconds`
+      );
   
       const interval = setInterval(() => {
         setIsFlipping(true); // Start flip animation
+  
         setTimeout(() => {
           setIsFlipping(false); // Reset animation after it completes
           setCurrentIndex((prev) => (prev + 1) % notes.length); // Change alert
         }, 3000); // Flip duration
-      }, displayTime); // Dynamic display time based on position
+      }, displayTime); // Dynamic display time based on alert type
   
       return () => clearInterval(interval);
     }
@@ -86,54 +103,6 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
     }
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      triggerFlip();
-    }, 5000); // Trigger flip every 5 sec
-
-    return () => clearInterval(interval);
-  }, [notes]);
-  const moveSpecificAlertToTop = async (alertId) => {
-    if (!alertId) return;
-  
-    try {
-      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/reorder", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: alertId }),
-      });
-  
-      if (!response.ok) {
-        throw new Error(`Failed to move alert to top: ${response.status}`);
-      }
-  
-      console.log(`✅ Alert moved to top!`);
-  
-      fetchNotes(); // Refresh list so all users see the update
-    } catch (error) {
-      console.error("❌ Error moving alert to top:", error);
-    }
-  };
-  
-  const updateNotesOrderInBackend = async (updatedNotes) => {
-    try {
-      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/djnotes/reorder", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ notes: updatedNotes.map((note, index) => ({ id: note.id, position: index })) }),
-      });
-  
-      if (!response.ok) {
-        throw new Error(`Failed to update note order: ${response.status}`);
-      }
-  
-      console.log("✅ Notes order updated in backend!");
-      fetchNotes(); // Refresh notes for all users
-    } catch (error) {
-      console.error("❌ Error updating note order:", error);
-    }
-  };
-  
   
   
   useEffect(() => {
@@ -214,10 +183,13 @@ const fetchDeletedNotes = async () => {
     fetchDeletedNotes();
   };
 
+
+
+  
   return (
     
     <div className="p-6 max-w-3xl  mx-auto">
-<div className="mt-6 max-w-md mb-2 mx-auto p-6 rounded-2xl shadow-xl  border-gray-700">
+<div className="mt-6 max-w-md mb-2 mx-auto p-6 rounded-2xl shadow-md  border-gray-700">
   {user?.is_admin && (
     <>
       <h2 className="text-center text-white text-2xl font-bold mb-4 uppercase tracking-wider">
@@ -225,38 +197,7 @@ const fetchDeletedNotes = async () => {
       </h2>
 
       {/* Quick Alert Buttons */}
-      <div className="mb-6 p-5 bg-gray-900 rounded-2xl shadow-xl border border-gray-700 max-w-md mx-auto w-full">
-  <label className="block text-white font-bold mb-3 text-lg sm:text-xl flex items-center gap-2">
-    🎯 Select Alert to Move to Top:
-  </label>
 
-  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-    <select
-      className="w-full p-3 text-base sm:text-lg font-semibold bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none transition-all hover:border-yellow-400"
-      onChange={(e) => setSelectedAlertId(e.target.value)}
-      value={selectedAlertId || ""}
-    >
-      <option value="" disabled>-- Select an Alert --</option>
-      {notes.map((note) => (
-        <option key={note.id} value={note.id}>
-          {note.alert_details}
-        </option>
-      ))}
-    </select>
-
-    <button
-      className={`px-4 py-3 text-base sm:text-lg font-bold text-white rounded-lg shadow-md transition-all transform ${
-        selectedAlertId
-          ? "bg-blue-500 hover:scale-105 hover:bg-blue-600 active:scale-95"
-          : "bg-gray-600 cursor-not-allowed"
-      }`}
-      onClick={() => moveSpecificAlertToTop(selectedAlertId)}
-      disabled={!selectedAlertId}
-    >
-      ⬆️ Move to Top
-    </button>
-  </div>
-</div>
 
       {/* Alert Form */}
       <form onSubmit={handleSubmit} className="p-6 bg-gray-900 rounded-2xl shadow-xl border border-gray-700">
@@ -359,9 +300,10 @@ const fetchDeletedNotes = async () => {
 >
 
       {/* Alert Content */}
-      <p className="text-lg italic max-h-32 overflow-auto break-words p-4 rounded-lg bg-white bg-opacity-70 border border-gray-300 shadow-inner backdrop-blur-md text-black font-bold tracking-wide">
-        {notes[currentIndex].alert_details}
-      </p>
+      <p className="text-lg  max-h-32 overflow-auto break-words p-4 rounded-lg bg-white bg-opacity-70 border border-gray-300 shadow-inner backdrop-blur-md text-black font- font-bold tracking-wider">
+  {notes[currentIndex].alert_details}
+</p>
+
 
       {/* 🎉 Action Buttons - Admin Only */}
       {user?.is_admin && (
