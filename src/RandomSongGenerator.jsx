@@ -295,12 +295,17 @@ const RandomSongGenerator = ({ onSelect }) => {
   return (
 <div className="relative w-full max-w-md mx-auto p-6 bg-gray-900 rounded-2xl shadow-white  shadow-xl">
 <button 
-        title="Trouble picking a song? Get some inspiration from our list of the most played karaoke songs!"
-        className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-      >
-        Random Song Generator ⬇️
-      </button>
+  type="button" // ⛔ Prevents form submission
+  title="Trouble picking a song? Get some inspiration from our list of the most played karaoke songs!"
+  className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+  onClick={(event) => {
+    event.preventDefault(); // Ensures no form submission
+    setIsDropdownOpen(!isDropdownOpen);
+  }}
+>
+  Random Song Generator ⬇️
+</button>
+
       {isDropdownOpen && (
         <div className="mt-2 bg-white shadow-lg rounded-lg p-4">
           <div className="flex flex-col items-center space-y-4">
