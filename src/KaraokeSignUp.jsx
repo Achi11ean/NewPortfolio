@@ -13,7 +13,13 @@ export default function KaraokeSignup() {
   const [showPinInput, setShowPinInput] = useState(false); // Controls PIN entry visibility
   const [pinError, setPinError] = useState(""); // Error message for incorrect PIN
   const guidelinesRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true); // ✅ Loading state
+  const [isReversed, setIsReversed] = useState(false);
 
+  const toggleReverseOrder = () => {
+    setIsReversed((prev) => !prev);
+  };
+  
 
   const [singerCounts, setSingerCounts] = useState([]);
   useEffect(() => {
@@ -27,21 +33,32 @@ export default function KaraokeSignup() {
       });
   }, []);
   
-  const fetchSingerCounts = async () => {
-    try {
-      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/singer_counts");
-      if (!response.ok) throw new Error("Failed to fetch singer counts");
+// Fetch function for singer counts
+const fetchSingerCounts = async () => {
+  try {
+    setIsLoading(true); // ✅ Start loading before fetching
+    const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaokesignup/singer_counts");
+    if (!response.ok) throw new Error("Failed to fetch singer counts");
 
-      const data = await response.json();
-      setSingerCounts(data);
-    } catch (error) {
-      console.error("Error fetching singer counts:", error);
-    }
-  };
+    const data = await response.json();
+    setSingerCounts(data);
+  } catch (error) {
+    console.error("Error fetching singer counts:", error);
+  } finally {
+    setIsLoading(false); // ✅ Stop loading when fetch is complete
+  }
+};
+
+
+
+
+
   useEffect(() => {
-    fetchSingerCounts();
-    fetchMusicBreakState();
-  }, []);
+    if (singerCounts.length > 0 || singerCounts.length === 0) {
+      setIsLoading(false);
+    }
+  }, [singerCounts]);
+
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
@@ -1047,20 +1064,57 @@ const handleSubmit = async (e) => {
 </h2>
 
 <div 
-      className="max-w-lg mx-auto bg-gray-800 text-white p-4 rounded-lg  shadow-lg overflow-y-auto  mb-10 max-h-64"
-      ref={guidelinesRef} // 🔥 Reference the scroll container
-    >
-      <ul className="list-disc text-lg font-sans text-center pl-5 space-y-2">
-        <li><strong>Respect:</strong> <br /> Everyone gets their moment to shine! Disrespect toward singers or staff will result in removal from the queue.</li>
-        <li><strong>Two Songs at a time:</strong> <br /> To keep it fair, you can only submit two songs at one time.</li>
-        <li><strong>Tips Appreciated, Not Required:</strong> <br /> Tipping is welcome but does not guarantee priority.</li>
-        <li><strong>Song Availability:</strong> <br /> If your song isn't available, it will be flagged.</li>
-        <li><strong>Celebrations:</strong> <br /> Let us know if it's your birthday or a special occasion!</li>
-        <li><strong>Host Authority:</strong> <br /> The host may adjust the queue but will keep it fair.</li>
-        <li><strong>Most Important Rule:</strong> <br /> HAVE FUN! Enjoy your time on stage and cheer for fellow performers.</li>
-        <li><strong>Leave a Review:</strong> <br /> Loving the experience? Leave a review and snap a photo!</li>
-      </ul>
-    </div>
+  className="max-w-lg mx-auto bg-gray-900 text-white p-6 rounded-2xl shadow-2xl overflow-y-auto mb-10 max-h-64 border border-yellow-400"
+  ref={guidelinesRef} 
+>
+  <h2 className="text-2xl font-extrabold text-yellow-300 text-center mb-4 underline decoration-wavy decoration-yellow-400">
+    🎤 Karaoke Guidelines
+  </h2>
+
+  <ul className="list-none text-lg pb-80 font-sans space-y-4">
+    <li className="flex items-start space-x-2">
+      <span className="text-red-500 text-xl">🚫</span>
+      <p><strong className="underline text-red-500">Respect:</strong> Everyone gets their moment to shine! Disrespect toward singers or staff will result in <strong className="underline">removal</strong> from the queue.</p>
+    </li>
+    
+    <li className="flex items-start space-x-2">
+      <span className="text-blue-400 text-xl">🎶</span>
+      <p><strong className="underline">Two Songs at a Time:</strong> To keep it fair, you can only submit two songs at once.</p>
+    </li>
+
+    <li className="flex items-start space-x-2">
+      <span className="text-green-400 text-xl">💰</span>
+      <p><strong className="underline">Tips Appreciated, Not Required:</strong> Tipping is welcome but does not guarantee priority.</p>
+    </li>
+
+    <li className="flex items-start space-x-2">
+      <span className="text-yellow-300 text-xl">⚠️</span>
+      <p><strong className="underline">Song Availability:</strong> If your song isn't available, it will be flagged.</p>
+    </li>
+
+    <li className="flex items-start space-x-2">
+      <span className="text-pink-400 text-xl">🎉</span>
+      <p><strong className="underline">Celebrations:</strong> Let us know if it's your birthday or a special occasion!</p>
+    </li>
+
+    <li className="flex items-start space-x-2">
+      <span className="text-purple-400 text-xl">🎤</span>
+      <p><strong className="underline">Host Authority:</strong> The host may adjust the queue but will <strong className="underline">always keep it fair</strong>.</p>
+    </li>
+
+    <li className="flex items-start space-x-2">
+      <span className="text-teal-300 text-xl">🔥</span>
+      <p><strong className="underline text-yellow-300">Most Important Rule:</strong> HAVE FUN! Enjoy your time on stage and cheer for fellow performers.</p>
+    </li>
+
+    <li className="flex items-start space-x-2 pb-20">
+      <span className="text-gray-300 text-xl">⭐</span>
+      <p><strong className="underline">Leave a Review:</strong> Loving the experience? Leave a review and snap a photo!</p>
+    </li>
+  </ul>
+</div>
+
+
 <h2 className="text-lg sm:text-xl  md:text-3xl lg:text-4xl xl:text-5xl 
               font-extrabold text-white text-center drop-shadow-lg 
               mt-4 sm:mt-6 p-2 sm:p-4 bg-gradient-to-r 
@@ -1139,12 +1193,12 @@ const handleSubmit = async (e) => {
 {/* Name Input */}
 <div className="relative w-full">
 <label htmlFor="name" className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer">
-    🌟 Your Superstar Name
+    🌟 Your Stage Name
   </label>
   <input
     id="name"
     type="text"
-    placeholder="Enter your name"
+    placeholder="First Name, Last Initial"
     value={form.name}
     onChange={(e) => setForm({ ...form, name: e.target.value })}
     className="w-full px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
@@ -1183,22 +1237,43 @@ const handleSubmit = async (e) => {
     required
   />
 </div>
-<div className="relative w-full mt-4">
-    <label htmlFor="adjustment" className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer">
-      ⚖️ Key Change (Optional)
-    </label>
+<label htmlFor="adjustment" className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer">
+     Key Change (Optional) 
+  </label>
+  <p>+/- by 1/2 step Increments</p>
+  <div className="flex items-center space-x-3">
+    {/* Decrease Button */}
+    <button
+  onClick={(e) => {
+    e.preventDefault(); // Prevent form submission
+    setForm((prev) => ({ ...prev, adjustment: (parseFloat(prev.adjustment) || 0) - 0.5 }));
+  }}
+  className="px-4 py-3 text-lg font-bold bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg transition-all"
+>
+  ➖
+</button>
+
+    {/* Input Field */}
     <input
       id="adjustment"
       type="number"
       step="0.5"
-      placeholder="Enter adjustment value"
+      placeholder="0"
       value={form.adjustment}
       onChange={(e) => setForm({ ...form, adjustment: e.target.value })}
-      className="w-full px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+      className="w-24 px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
     />
-    <p className="text-gray-400 text-center text-sm mt-2">
-      Adjustments can be used for timing or other small tweaks.
-    </p>
+
+    {/* Increase Button */}
+    <button
+  onClick={(e) => {
+    e.preventDefault(); // Prevent form submission
+    setForm((prev) => ({ ...prev, adjustment: (parseFloat(prev.adjustment) || 0) + 0.5 }));
+  }}
+  className="px-4 py-3 text-lg font-bold bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-lg transition-all"
+>
+  ➕
+</button>
   </div>
 
 {/* Submit Button */}
@@ -1285,6 +1360,16 @@ const handleSubmit = async (e) => {
   )}
 </button>
 
+{user?.is_admin && (
+  <div className="flex justify-center mt-4">
+    <button
+      className="px-6 w-full text-lg font-bold text-white bg-purple-600 hover:bg-purple-700 rounded-lg shadow-md transform transition-all hover:scale-105 active:scale-95"
+      onClick={toggleReverseOrder}
+    >
+      🔄 {isReversed ? "Show Oldest First" : "Show Newest First"}
+    </button>
+  </div>
+)}
 
 {/* Search Bar */}
 
@@ -1303,11 +1388,11 @@ const handleSubmit = async (e) => {
 <MusicBreakAlert showAlert={showAlert} toggleAlert={toggleAlert} />
 {user?.is_admin && (
 
-<SingerCount singerCounts={singerCounts} />
+<SingerCount singerCounts={singerCounts} isLoading={isLoading} />
 )}
       {/* Sign-up List */}
-      <div className="max-h-[70vh] overflow-y-auto space-y-6">
-      {signups.map(({ id, name, song, artist, position, created_at, adjustment }, index) => (
+      <div className="max-h-[120vh] mt-5 overflow-y-auto space-y-6">
+      {(isReversed ? [...signups].reverse() : signups).map(({ id, name, song, artist, position, created_at, adjustment }, index) => (
     <div
       key={id}
       className={`p-6 rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 ${
@@ -1419,7 +1504,7 @@ const handleSubmit = async (e) => {
   )}
 {adjustment !== 0 && adjustment !== null && (
   <p className="text-lg font-bold text-yellow-300 text-center mt-2">
-    ⚖️ Adjustment: {typeof adjustment === "number" ? `${adjustment} semitones` : adjustment}
+    🎹 Key Change <br/>{adjustment > 0 ? `+ ${adjustment}` : `- ${Math.abs(adjustment)}`} Step
   </p>
 )}
 

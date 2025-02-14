@@ -260,47 +260,56 @@ const fetchDeletedNotes = async () => {
 </div>
 
       {/* Alert Form */}
-      <form onSubmit={handleSubmit} className="p-6 bg-gray-900 rounded-2xl shadow-xl border border-gray-700">
-        {/* Dropdown Selection */}
-        <label className="block text-white font-bold mb-2 text-lg">📢 Select Alert Type:</label>
-        <select
-          name="alert_type"
-          value={formData.alert_type}
-          onChange={handleChange}
-          className="w-full p-3 text-lg font-semibold bg-black text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-          required
-        >
-          <option value="">-- Select Alert Type --</option>
-          <option value="ALERT:">🚨 Breaking News</option>
-          <option value="HAPPY BIRTHDAY">🎂 Birthday Shout Out</option>
-          <option value="HAPPY ANNIVERSARY">💖 Anniversary Shout Out</option>
-          <option value="JUST MARRIED">💍 Just Married</option>
-          <option value="SINGLE">💔 SINGLE</option>
-          <option value="IN MEMORY">🕊️ In Memory</option>
-          <option value="SPOTLIGHT">✨ Spotlight</option>
-          <option value="JOKES">😂 Funny Jokes</option>
-          <option value="SHAME">😡 SHAME!</option>
-        </select>
+      <form 
+  onSubmit={handleSubmit} 
+  className="p-8 bg-gray-900 rounded-2xl shadow-2xl border border-gray-700 max-w-md mx-auto space-y-6 text-center"
+>
+  {/* Alert Type - Hybrid Selector & Input */}
+  <label className="block text-white font-bold text-xl">📢 Select or Type Alert Type:</label>
+  <div className="relative">
+    <input
+      list="alertTypes"
+      name="alert_type"
+      value={formData.alert_type}
+      onChange={handleChange}
+      placeholder="Select or type your own..."
+      className="w-full p-4 text-lg font-semibold text-center bg-black text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none placeholder-gray-400"
+      required
+    />
+    <datalist id="alertTypes">
+      <option value="ALERT:">🚨 Breaking News</option>
+      <option value="HAPPY BIRTHDAY">🎂 Birthday Shout Out</option>
+      <option value="HAPPY ANNIVERSARY">💖 Anniversary Shout Out</option>
+      <option value="JUST MARRIED">💍 Just Married</option>
+      <option value="SINGLE">💔 SINGLE</option>
+      <option value="IN MEMORY">🕊️ In Memory</option>
+      <option value="SPOTLIGHT">✨ Spotlight</option>
+      <option value="JOKES">😂 Funny Jokes</option>
+      <option value="SHAME">😡 SHAME!</option>
+    </datalist>
+  </div>
 
-        {/* Alert Details Textarea */}
-        <label className="block text-white font-bold mt-4 mb-2 text-lg">✍️ Alert Details:</label>
-        <textarea
-          name="alert_details"
-          value={formData.alert_details}
-          onChange={handleChange}
-          placeholder="Enter the alert message here..."
-          className="w-full p-3 text-lg bg-black text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none placeholder-gray-400"
-          required
-        ></textarea>
+  {/* Alert Details Textarea */}
+  <label className="block text-white font-bold text-xl">✍️ Alert Details:</label>
+  <textarea
+    name="alert_details"
+    value={formData.alert_details}
+    onChange={handleChange}
+    placeholder="Enter the alert message here..."
+    className="w-full p-4 text-lg text-center bg-black text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none placeholder-gray-400 h-28 resize-none"
+    required
+  ></textarea>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full mt-4 px-6 py-3 text-lg font-bold text-white bg-blue-500 rounded-lg shadow-md transform transition-all hover:scale-105 hover:bg-blue-600 active:scale-95"
-        >
-          {editingId ? "✏️ Update Alert" : "➕ Add Alert"}
-        </button>
-      </form>
+  {/* Submit Button */}
+  <button
+    type="submit"
+    className="w-full mt-4 px-6 py-3 text-lg font-bold text-white bg-blue-500 rounded-xl shadow-lg transform transition-all hover:scale-105 hover:bg-blue-600 active:scale-95"
+  >
+    {editingId ? "✏️ Update Alert" : "➕ Add Alert"}
+  </button>
+</form>
+
+
     </>
   )}
 </div>
