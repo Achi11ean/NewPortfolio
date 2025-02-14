@@ -332,11 +332,17 @@ const RandomSongGenerator = ({ onSelect }) => {
           </div>
           <div className="mt-4">
             {randomSelection && (
- <motion.div 
- initial={{ opacity: 0, y: 10 }} 
- animate={{ opacity: 1, y: 0 }}
- className="cursor-pointer p-6 text-center bg-gray-800 text-white rounded-xl shadow-md hover:bg-gray-700 transition-all duration-300"
+                <motion.div 
+  initial={{ opacity: 0, y: 10 }} 
+  animate={{ opacity: 1, y: 0 }}
+  className="cursor-pointer p-6 text-center bg-gray-800 text-white rounded-xl shadow-md hover:bg-gray-700 transition-all duration-300"
+  onClick={() => {
+    if (onSelect && randomSelection) {
+      onSelect(randomSelection); // ✅ Ensure onSelect passes the full object
+    }
+  }}
 >
+
 
                 {randomSelection.title ? (
                   <p className="text-lg font-semibold">
