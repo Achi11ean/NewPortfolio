@@ -316,7 +316,7 @@ const RandomSongGenerator = ({ onSelect }) => {
   }} 
   className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105"
 >
-  Pick a Random Song
+  Random Song
 </button>
 
 <button 
@@ -326,7 +326,7 @@ const RandomSongGenerator = ({ onSelect }) => {
   }} 
   className="px-6 py-3 bg-green-600 text-white font-medium rounded-lg shadow-md hover:bg-green-700 transition-all duration-300 transform hover:scale-105"
 >
-  Pick a Random Artist
+  Random Artist
 </button>
 
           </div>
