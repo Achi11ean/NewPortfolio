@@ -644,14 +644,14 @@ const handleRefresh = async () => {
       fetchFormState(),
       fetchDeletedSignups(),
       fetchDeletedNotes(),
-      fetchFlaggedSignups(),
+      fetchFlaggedSignups(),  // ✅ Re-fetch flagged signups to check if flags were cleared
       fetchNotes(),
       fetchActiveSingers(),
       fetchMusicBreakState(),
       fetchSingerCounts(),
     ]);
 
-    // Ensure the list is sorted and properly positioned
+    // ✅ Ensure the UI updates if flags were cleared
     setTimeout(() => {
       setSignups((prevSignups) => {
         if (!prevSignups || prevSignups.length === 0) {
@@ -663,6 +663,15 @@ const handleRefresh = async () => {
         const sortedSignups = [...prevSignups].sort((a, b) => a.position - b.position);
         
         console.log("📋 Sorted Signups:", sortedSignups);
+
+        // ✅ Ensure any cleared flags are reflected in state
+        const updatedIssues = {};
+        sortedSignups.forEach(signup => {
+          updatedIssues[signup.id] = signup.is_flagged; // ✅ Sync flags after refresh
+        });
+
+        setIssues(updatedIssues); // ✅ Force UI update to remove flags that were cleared
+        console.log("🚨 Updated Issues State after Refresh:", updatedIssues);
 
         // Assign correct labels
         const updatedSignups = sortedSignups.map((signup, index) => {
@@ -699,6 +708,7 @@ const handleRefresh = async () => {
     setTimeout(() => setIsRefreshing(false), 1000); // Stop after 1 sec (smooth UI)
   }
 };
+
 
 const [isSubmitting, setIsSubmitting] = useState(false);
   const [effects, setEffects] = useState([]);
