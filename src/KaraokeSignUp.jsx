@@ -1545,6 +1545,11 @@ export default function KaraokeSignup() {
           </div>
         )}
 
+
+
+{user?.is_admin && (
+          <SingerCount singerCounts={singerCounts} isLoading={isLoading} />
+        )}
         {/* Refresh button */}
         <button
           className={`relative w-full mb-3 text-white font-bold py-4 px-8 rounded-2xl text-2xl shadow-2xl mt-4 
@@ -1625,9 +1630,7 @@ export default function KaraokeSignup() {
         </div>
 
         <MusicBreakAlert showAlert={showAlert} toggleAlert={toggleAlert} />
-        {user?.is_admin && (
-          <SingerCount singerCounts={singerCounts} isLoading={isLoading} />
-        )}
+
         {/* Sign-up List */}
         <div className="max-h-[120vh] mt-5 overflow-y-auto space-y-6">
           {(isReversed ? [...signups].reverse() : signups).map(
