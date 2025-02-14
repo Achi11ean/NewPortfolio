@@ -103,17 +103,11 @@ const fetchSingerCounts = async () => {
   const toggleWarning = async (id, currentStatus) => {
     try {
         console.log("🔄 Toggling warning status...");
-        console.log(`🟡 Current Warning Status: ${currentStatus} for ID: ${id}`);
-
+        
         const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ is_warning: !currentStatus }),
-        });
-
-        console.log("📡 Sent PATCH request:", {
-            id,
-            sentWarningStatus: !currentStatus
         });
 
         if (!response.ok) {
@@ -131,21 +125,29 @@ const fetchSingerCounts = async () => {
 
         console.log(`🚀 Backend confirmed is_warning: ${result.is_warning}`);
 
-        // ✅ Update warnings state immediately for UI feedback
-        setWarnings(prev => ({
-            ...prev,
-            [id]: result.is_warning  // Use backend-confirmed value
-        }));
+        // ✅ Use functional state update to ensure correct reactivity
+        setWarnings((prevWarnings) => {
+          const updatedWarnings = {
+              ...prevWarnings,
+              [id]: result.is_warning,
+          };
+      
+          console.log("⚡ Updated warnings state:", updatedWarnings);
+          return updatedWarnings;
+      });
+      
 
-        console.log("⚡ Updated warnings state:", warnings);
+        console.log("⚡ Updated warnings state:", warnings); 
 
-        // ✅ Fetch fresh data to ensure correct state
+        // ✅ Fetch fresh data to ensure UI reflects the correct status
         await fetchSignups(); 
 
     } catch (error) {
         console.error("❌ Error toggling warning:", error);
     }
 };
+
+
 
 useEffect(() => {
   console.log("Updated warnings state:", warnings);
@@ -706,9 +708,11 @@ const fetchSignups = async (searchTerm = "") => {
 
     let filteredData = await response.json();
     console.log("✅ Fetched signups data:", filteredData);
-    filteredData.forEach((signup, index) => {
-      console.log(`🎶 Signup #${index + 1}:`, signup);
-      console.log(`⚖️ Adjustment Received:`, signup.adjustment);
+
+    // ✅ Extract warnings from backend response
+    const updatedWarnings = {};
+    filteredData.forEach(signup => {
+      updatedWarnings[signup.id] = signup.is_warning;  // Ensure warning state is included
     });
 
     // ✅ Fetch full list of signups to maintain correct positions
@@ -741,7 +745,12 @@ const fetchSignups = async (searchTerm = "") => {
     }
 
     console.log("📋 Final processed signups data:", filteredData);
+
+    // ✅ Update state
     setSignups(filteredData);
+    setWarnings(updatedWarnings); // ✅ Update warnings state
+
+    console.log("🚨 Updated Warnings State:", updatedWarnings);
 
   } catch (error) {
     console.error("❌ Error fetching signups:", error);
@@ -1192,7 +1201,10 @@ const handleSubmit = async (e) => {
 
 {/* Name Input */}
 <div className="relative w-full">
-<label htmlFor="name" className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer">
+  <label 
+    htmlFor="name" 
+    className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer"
+  >
     🌟 Your Stage Name
   </label>
   <input
@@ -1200,15 +1212,22 @@ const handleSubmit = async (e) => {
     type="text"
     placeholder="First Name, Last Initial"
     value={form.name}
-    onChange={(e) => setForm({ ...form, name: e.target.value })}
+    onChange={(e) => {
+      const value = e.target.value.slice(0, 20); // Limit to 20 characters
+      setForm({ ...form, name: value });
+    }}
     className="w-full px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
     required
   />
 </div>
 
+
 {/* Song Input */}
 <div className="relative w-full mt-4">
-  <label htmlFor="song" className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer">
+  <label 
+    htmlFor="song" 
+    className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer"
+  >
     🎵 Song You'll Rock
   </label>
   <input
@@ -1216,7 +1235,10 @@ const handleSubmit = async (e) => {
     type="text"
     placeholder="Enter song title"
     value={form.song}
-    onChange={(e) => setForm({ ...form, song: e.target.value })}
+    onChange={(e) => {
+      const value = e.target.value.slice(0, 100); // Limit to 100 characters
+      setForm({ ...form, song: value });
+    }}
     className="w-full px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
     required
   />
@@ -1224,7 +1246,10 @@ const handleSubmit = async (e) => {
 
 {/* Artist Input */}
 <div className="relative w-full mt-4">
-  <label htmlFor="artist" className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer">
+  <label 
+    htmlFor="artist" 
+    className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer"
+  >
     🎤 Original Artist
   </label>
   <input
@@ -1232,11 +1257,15 @@ const handleSubmit = async (e) => {
     type="text"
     placeholder="Enter artist name"
     value={form.artist}
-    onChange={(e) => setForm({ ...form, artist: e.target.value })}
+    onChange={(e) => {
+      const value = e.target.value.slice(0, 50); // Limit to 50 characters
+      setForm({ ...form, artist: value });
+    }}
     className="w-full px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
     required
   />
 </div>
+
 <label htmlFor="adjustment" className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer">
      Key Change (Optional) 
   </label>
@@ -1475,7 +1504,12 @@ const handleSubmit = async (e) => {
       ? "UP NEXT!"
       : `🎶 Position #${position}`}
     <br />
-    <span className="uppercase tracking-wider text-white">{name}</span>
+    <span 
+  className="uppercase tracking-wider text-white overflow-x-auto whitespace-nowrap block max-w-full"
+  style={{ display: 'inline-block' }}
+>
+  {name}
+</span>
   </h3>
 
 <p className="text-lg text-green-300 font-medium text-center mt-1">
@@ -1488,12 +1522,22 @@ const handleSubmit = async (e) => {
 
 
 
-  <p className="text-xl font-medium text-center mt-2">
-    <span className="text-pink-500 font-extrabold">Performing: <br/></span>
-    <span className="text-white">{song}</span> <br/>
-    <span className="text-purple-300">Original Artist:</span> 
-    <span className="text-white font-extrabold"><br/>{artist}</span>
-  </p>
+<p className="text-xl font-medium text-center mt-2">
+  <span className="text-pink-500 font-extrabold">Performing:</span>
+</p>
+
+<div className="max-h-6 overflow-y-auto text-white text-center">
+  <span>{song}</span>
+</div>
+
+<p className="text-xl font-medium text-center mt-2">
+  <span className="text-purple-300">Original Artist:</span>
+</p>
+
+<div className="max-h-16 overflow-y-auto text-white font-extrabold text-center">
+  <span>{artist}</span>
+</div>
+
 
   <p className="text-sm text-gray-400 text-center italic mt-2">
     ⏰ Signed up at: {created_at ? new Date(new Date(created_at).getTime() - 5 * 60 * 60 * 1000).toLocaleString() : "Unknown"}
@@ -1509,11 +1553,14 @@ const handleSubmit = async (e) => {
 )}
 
 
-  {warnings[id] && (
-    <p className="text-white font-bold bg-red-600 p-2 rounded-lg text-center mt-2">
-      ⚠️ You were called once and missed your chance! You still have another shot—don't miss it! 🎤
-    </p>
-  )}
+{warnings && console.log("🚨 Current warnings state:", warnings)}
+
+{warnings[id] && (
+  <p className="text-white font-bold bg-red-600 p-2 rounded-lg text-center mt-2">
+    ⚠️ You were called once and missed your chance! You still have another shot—don't miss it! 🎤
+  </p>
+)}
+
 </div>
     {/* Admin-Only Buttons */}
     {user?.is_admin && (
