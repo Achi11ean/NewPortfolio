@@ -1429,7 +1429,7 @@ export default function KaraokeSignup() {
                   htmlFor="name"
                   className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer"
                 >
-                  🌟 Your Stage Name
+                  🌟 Stage Name 🌟
                 </label>
                 <input
                   id="name"
@@ -1451,7 +1451,7 @@ export default function KaraokeSignup() {
                   htmlFor="song"
                   className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer"
                 >
-                  🎵 Song You'll Rock
+                  🎵 Song You'll Rock 🎸
                 </label>
                 <input
                   id="song"
@@ -1473,7 +1473,7 @@ export default function KaraokeSignup() {
                   htmlFor="artist"
                   className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer"
                 >
-                  🎤 Original Artist
+                  🎤 Original Artist 🎧
                 </label>
                 <input
                   id="artist"
@@ -1493,7 +1493,7 @@ export default function KaraokeSignup() {
                 htmlFor="adjustment"
                 className="block text-purple-400 text-lg sm:text-xl font-bold  text-center cursor-pointer"
               >
-                Key Change (Optional)
+                🔑 Change (Optional)
               </label>
               <p>+/- by 1/2 step Increments</p>
               <div className="flex items-center space-x-1">
