@@ -16,6 +16,7 @@ export default function KaraokeSignup() {
   const guidelinesRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true); // ✅ Loading state
   const [isReversed, setIsReversed] = useState(false);
+  const djNotesRef = useRef(null);
 
   const toggleReverseOrder = () => {
     setIsReversed((prev) => !prev);
@@ -293,7 +294,7 @@ export default function KaraokeSignup() {
 
     let scrollAmount = 0;
     const scrollStep = 1; // Adjust speed (higher = slower)
-    const scrollInterval = 50; // Time between scrolls in ms
+    const scrollInterval = 40; // Time between scrolls in ms
 
     const scrollGuidelines = setInterval(() => {
       if (scrollContainer) {
@@ -933,36 +934,35 @@ export default function KaraokeSignup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       // ✅ Step 1: Check if signups are still open in the backend
       const formStateResponse = await fetch(
         "https://portfoliobackend-ih6t.onrender.com/formstate"
       );
       if (!formStateResponse.ok) throw new Error("Failed to fetch form state.");
-
+  
       const formState = await formStateResponse.json();
-
+  
       if (!formState.show_form) {
         alert("⚠️ Signups are currently closed! Please check back later.");
         return; // Stop submission if signups are closed
       }
-
+  
       // ✅ Step 2: Fetch restricted words
       const restrictedWords = await fetchRestrictedWords();
-      const userInput =
-        `${form.name} ${form.song} ${form.artist}`.toLowerCase();
+      const userInput = `${form.name} ${form.song} ${form.artist}`.toLowerCase();
       const containsRestrictedWord = restrictedWords.some((word) =>
         userInput.includes(word)
       );
-
+  
       if (containsRestrictedWord) {
         alert(
           "🚨 Your submission contains inappropriate words! Please revise and try again."
         );
         return; // Stop submission if inappropriate words are detected
       }
-
+  
       // ✅ Step 3: Check if the song has already been performed
       let allSignups = [];
       try {
@@ -977,40 +977,40 @@ export default function KaraokeSignup() {
       } catch (error) {
         console.error("Error fetching all signups:", error);
       }
-
+  
       const songAlreadySung = allSignups.some(
         (signup) =>
           signup.song.toLowerCase() === form.song.toLowerCase() &&
           signup.artist.toLowerCase() === form.artist.toLowerCase()
       );
-
+  
       if (songAlreadySung) {
         const confirmProceed = window.confirm(
           "⚠️ This song has been performed tonight already! We don’t mind if you perform it again, but just wanted to give you a heads-up!\n\nDo you want to continue?"
         );
         if (!confirmProceed) return; // Stop if the user declines
       }
-
+  
       // ✅ Step 4: Enforce the two-song limit per person
       const nameCount = allSignups.filter(
         (signup) => signup.name.toLowerCase() === form.name.toLowerCase()
       ).length;
-
+  
       if (nameCount >= 2) {
         alert(
           `⚠️ The name "${form.name}" is already used twice! Only two songs at a time per person, please.`
         );
         return; // Stop if the person already has two songs
       }
-
+  
       // ✅ Step 5: Determine adjustment value (default 0 if not set)
       const adjustmentValue =
         form.adjustment !== undefined ? parseFloat(form.adjustment) : 0.0;
       console.log("⚖️ Adjustment Value Before Submission:", adjustmentValue);
-
+  
       // ✅ Step 6: Proceed with submission
       setIsSubmitting(true); // Start animation
-
+  
       const response = await fetch(
         "https://portfoliobackend-ih6t.onrender.com/karaokesignup",
         {
@@ -1019,27 +1019,34 @@ export default function KaraokeSignup() {
           body: JSON.stringify({ ...form, adjustment: adjustmentValue }), // Include adjustment field
         }
       );
-
+  
       const data = await response.json();
-
+  
       if (response.status === 403) {
         alert(data.error);
         setIsSubmitting(false); // Stop animation if failed
         return;
       }
-
+  
       if (response.ok) {
         fetchSignups(); // Refresh the list
         setForm({ name: "", song: "", artist: "", adjustment: 0.0 }); // Reset form, including adjustment
-
+  
         // ✅ Notify user of successful submission
         alert(
-          "🎉 Your song has been submitted successfully! Get ready to rock the mic! 🎤"
+          "🎉 Your song has been submitted successfully! Get ready to rock the mic!🎤"
         );
-
+  
         // ✅ Trigger falling effects
         triggerEffects();
-
+  
+        // ✅ Scroll to DJ Notes section after submission
+        setTimeout(() => {
+          if (djNotesRef.current) {
+            djNotesRef.current.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 800); // Slight delay for smooth transition
+  
         setTimeout(() => setIsSubmitting(false), 1500); // Reset after 1.5s
       }
     } catch (error) {
@@ -1048,6 +1055,7 @@ export default function KaraokeSignup() {
       setIsSubmitting(false);
     }
   };
+  
 
   const triggerEffects = () => {
     let newEffects = [];
@@ -1216,7 +1224,7 @@ export default function KaraokeSignup() {
               🎤 Karaoke Guidelines
             </h2>
 
-            <ul className="list-none text-lg pb-80 font-sans space-y-4">
+            <ul className="list-none text-lg  font-sans space-y-4">
               <li className="flex items-start space-x-2">
                 <span className="text-red-500 text-xl">🚫</span>
                 <p>
@@ -1281,7 +1289,7 @@ export default function KaraokeSignup() {
                 </p>
               </li>
 
-              <li className="flex items-start space-x-2 pb-20">
+              <li className="flex items-start space-x-2 ">
                 <span className="text-gray-300 text-xl">⭐</span>
                 <p>
                   <strong className="underline">Leave a Review:</strong> Loving
@@ -1289,6 +1297,43 @@ export default function KaraokeSignup() {
                 </p>
               </li>
             </ul>
+            <div className=" text-center mb-44 p-6 bg-white rounded-3xl shadow-xl border border-gray-700 max-w-lg mx-auto">
+          {/* Title */}
+          <h2 className="text-md sm:text-4xl underline font-extrabold  bg-gradient-to-r from-yellow-300 via-red-500 to-pink-600  text-transparent bg-clip-text drop-shadow-xl p-3 rounded-lg shadow-md backdrop-blur-md shadow-black bg-opacity-90">
+            🎤 Show Some Love! 💕
+          </h2>
+
+          <p className="text-lg text-black mt-2">
+            Enjoying the show? Tips are always appreciated, and never required
+            but your support sure does cheer the host up! 🙌✨
+          </p>
+
+          {/* Venmo */}
+          <div className="mt-5">
+            <a
+              href="https://venmo.com/u/Jonathen-Whitford"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block bg-blue-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105"
+            >
+              💙 Tip via Venmo
+            </a>
+          </div>
+
+          {/* Cash App */}
+          <div className="mt-4">
+            <a
+              href="https://cash.app/$pikachu55"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block bg-green-500 hover:bg-yellow-600 hover:text-white text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105"
+            >
+              💚 Tip via Cash App
+            </a>
+          </div>
+
+          {/* Fun Message */}
+        </div>
           </div>
 
           <h2
@@ -1507,9 +1552,9 @@ export default function KaraokeSignup() {
 
         {/* Display Flagged Artists List */}
 
-        <div>
-          <DJNotesApp user={user} notes={notes} fetchNotes={fetchNotes} />
-        </div>
+        <div ref={djNotesRef}>
+  <DJNotesApp user={user} notes={notes} fetchNotes={fetchNotes} />
+</div>
 
         <div className="flex items-center justify-center mt-6">
           <div className="relative bg-gradient-to-b from-black to-blue-500 text-white text-center p-6 rounded-3xl shadow-xl border border-gray-300 max-w-lg mx-auto">
@@ -2060,43 +2105,7 @@ export default function KaraokeSignup() {
             </div>
           </div>
         )}
-        <div className="mt-8 text-center  p-6 bg-white rounded-3xl shadow-xl border border-gray-700 max-w-lg mx-auto">
-          {/* Title */}
-          <h2 className="text-md sm:text-4xl underline font-extrabold  bg-gradient-to-r from-yellow-300 via-red-500 to-pink-600  text-transparent bg-clip-text drop-shadow-xl p-3 rounded-lg shadow-md backdrop-blur-md shadow-black bg-opacity-90">
-            🎤 Show Some Love! 💕
-          </h2>
 
-          <p className="text-lg text-black mt-2">
-            Enjoying the show? Tips are always appreciated, and never required
-            but your support sure does cheer the host up! 🙌✨
-          </p>
-
-          {/* Venmo */}
-          <div className="mt-5">
-            <a
-              href="https://venmo.com/u/Jonathen-Whitford"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block bg-blue-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105"
-            >
-              💙 Tip via Venmo
-            </a>
-          </div>
-
-          {/* Cash App */}
-          <div className="mt-4">
-            <a
-              href="https://cash.app/$pikachu55"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block bg-green-500 hover:bg-yellow-600 hover:text-white text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105"
-            >
-              💚 Tip via Cash App
-            </a>
-          </div>
-
-          {/* Fun Message */}
-        </div>
       </div>
     </div>
   );
