@@ -8,27 +8,26 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const getAlertStyles = (alertType) => {
     if (alertType.startsWith("ALERT:")) {
-      return "bg-red-600 text-white border-red-800";
+      return "bg-gradient-to-r from-red-700 via-red-600 to-red-500 text-white border border-red-800 shadow-lg";
     } else if (alertType.startsWith("HAPPY BIRTHDAY")) {
-      return "bg-pink-300 text-pink-800 border-pink-500";
+      return "bg-gradient-to-r from-pink-400 via-pink-300 to-pink-200 text-pink-900 border border-pink-500 shadow-md";
     } else if (alertType.startsWith("HAPPY ANNIVERSARY")) {
-      return "bg-purple-300 text-purple-800 border-purple-500";
+      return "bg-gradient-to-r from-purple-500 via-purple-400 to-purple-300 text-purple-900 border border-purple-500 shadow-md";
     } else if (alertType.startsWith("JUST MARRIED")) {
-      return "bg-green-500 text-white border-green-700";
+      return "bg-gradient-to-r from-green-600 via-green-500 to-green-400 text-white border border-green-700 shadow-lg";
     } else if (alertType.startsWith("SINGLE")) {
-      return "bg-gray-600 text-white border-gray-800";
+      return "bg-gradient-to-r from-gray-700 via-gray-600 to-gray-500 text-white border border-gray-800 shadow-md";
     } else if (alertType.startsWith("JOKES")) {
-      return "bg-yellow-500 text-black border-yellow-700";
+      return "bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-400 text-black border border-yellow-700 shadow-md";
     } else if (alertType.startsWith("IN MEMORY")) {
-      return "bg-black text-white border-gray-500";
-    } else if (alertType.startsWith("JOKES")) {
-      return "bg-blue-500 text-white border-blue-700";
+      return "bg-gradient-to-r from-black via-gray-800 to-gray-700 text-white border border-gray-500 shadow-lg";
     } else if (alertType.startsWith("SHAME")) {
-      return "bg-gradient-to-r from-red-900 via-gray-800 to-red-900 text-white border-red-700"; // New SHAME style
+      return "bg-gradient-to-r from-red-900 via-gray-800 to-red-900 text-white border border-red-700 shadow-xl";
     } else {
-      return "bg-yellow-300 text-yellow-800 border-yellow-500"; // Default (Spotlight)
+      return "bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-200 text-yellow-900 border border-yellow-500 shadow-md"; // Default (Spotlight)
     }
-  };
+};
+
   const [selectedAlertId, setSelectedAlertId] = useState(null);
 
   const handleHardDeleteAll = async () => {
@@ -61,7 +60,7 @@ export default function DJNotesApp({ user, notes, fetchNotes }) {
   useEffect(() => {
     if (notes.length > 1) {
       const currentNote = notes[currentIndex]; // Get the current note
-      let displayTime = currentNote?.position === 0 ? 25000 : 6000; // 25s for top, 15s for others
+      let displayTime = currentNote?.position === 0 ? 12000 : 6000; // 25s for top, 15s for others
   
       // Log the note in position 0
       if (currentNote?.position === 0) {
@@ -260,60 +259,50 @@ const fetchDeletedNotes = async () => {
 </div>
 
       {/* Alert Form */}
-<form 
-  onSubmit={handleSubmit} 
-  className="p-8 bg-gray-900 rounded-2xl shadow-2xl border border-gray-700 max-w-md mx-auto space-y-6 text-center"
->
-  {/* Alert Type - Hybrid Selector & Input */}
-  <label className="block text-white font-bold text-xl">📢 Select or Type Alert Type:</label>
-  <div className="relative">
-    <input
-      list="alertTypes"
-      name="alert_type"
-      value={formData.alert_type}
-      onChange={handleChange}
-      placeholder="Select or type your own..."
-      className="w-full p-4 text-lg font-semibold text-center bg-black text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none placeholder-gray-400"
-      required
-    />
-    <datalist id="alertTypes">
-      <option value="ALERT:">🚨 Breaking News</option>
-      <option value="HAPPY BIRTHDAY">🎂 Birthday Shout Out</option>
-      <option value="HAPPY ANNIVERSARY">💖 Anniversary Shout Out</option>
-      <option value="JUST MARRIED">💍 Just Married</option>
-      <option value="SINGLE">💔 SINGLE</option>
-      <option value="IN MEMORY">🕊️ In Memory</option>
-      <option value="SPOTLIGHT">✨ Spotlight</option>
-      <option value="JOKES">😂 Funny Jokes</option>
-      <option value="SHAME">😡 SHAME!</option>
-    </datalist>
-  </div>
+      <form onSubmit={handleSubmit} className="p-6 bg-gray-900 rounded-2xl shadow-xl border border-gray-700">
+        {/* Dropdown Selection */}
+        <label className="block text-white font-bold mb-2 text-center text-lg">📢 Select Alert Type:</label>
+        <select
+          name="alert_type"
+          value={formData.alert_type}
+          onChange={handleChange}
+          className="w-full p-3 text-lg text-center font-semibold bg-black text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+          required
+        >
+          <option value="">select alert</option>
+          <option value="ALERT:">🚨 Breaking News</option>
+          <option value="HAPPY BIRTHDAY">🎂 Birthday Shout Out</option>
+          <option value="HAPPY ANNIVERSARY">💖 Anniversary Shout Out</option>
+          <option value="JUST MARRIED">💍 Just Married</option>
+          <option value="SINGLE">💔 SINGLE</option>
+          <option value="IN MEMORY">🕊️ In Memory</option>
+          <option value="SPOTLIGHT">✨ Spotlight</option>
+          <option value="JOKES">😂 Funny Jokes</option>
+          <option value="SHAME">😡 SHAME!</option>
+        </select>
 
-  {/* Alert Details Textarea */}
-  <label className="block text-white font-bold text-xl">✍️ Alert Details:</label>
-  <textarea
-    name="alert_details"
-    value={formData.alert_details}
-    onChange={handleChange}
-    placeholder="Enter the alert message here..."
-    className="w-full p-4 text-lg text-center bg-black text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none placeholder-gray-400 h-28 resize-none"
-    required
-  ></textarea>
+        {/* Alert Details Textarea */}
+        <label className="block text-white font-bold mt-4 mb-2 text-lg">✍️ Alert Details:</label>
+        <textarea
+          name="alert_details"
+          value={formData.alert_details}
+          onChange={handleChange}
+          placeholder="Enter the alert message here..."
+          className="w-full p-3 text-lg bg-black text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none placeholder-gray-400"
+          required
+        ></textarea>
 
-  {/* Submit Button */}
-  <button
-    type="submit"
-    className="w-full mt-4 px-6 py-3 text-lg font-bold text-white bg-blue-500 rounded-xl shadow-lg transform transition-all hover:scale-105 hover:bg-blue-600 active:scale-95"
-  >
-    {editingId ? "✏️ Update Alert" : "➕ Add Alert"}
-  </button>
-</form>
-
-
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full mt-4 px-6 py-3 text-lg font-bold text-white bg-blue-500 rounded-lg shadow-md transform transition-all hover:scale-105 hover:bg-blue-600 active:scale-95"
+        >
+          {editingId ? "✏️ Update Alert" : "➕ Add Alert"}
+        </button>
+      </form>
     </>
   )}
 </div>
-
 
 <h1
   className={`text-lg sm:text-xl md:text-2xl lg:text-3xl 
@@ -321,22 +310,22 @@ const fetchDeletedNotes = async () => {
               animate-pulse font-serif break-words px-4 mt-6 w-full max-w-4xl mx-auto
               ${
                 notes.length > 0 && notes[currentIndex].alert_type.startsWith("ALERT:")
-                  ? "text-white bg-red-600" 
+                  ? "text-white bg-gradient-to-r from-red-700 via-red-600 to-red-500" 
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("JOKES")
-                  ? "text-yellow-500 bg-blue-500"
+                  ? "text-black bg-gradient-to-r from-yellow-500 via-orange-400 to-yellow-300"
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("HAPPY BIRTHDAY")
-                  ? "text-pink-800 bg-pink-300" 
+                  ? "text-pink-900 bg-gradient-to-r from-pink-500 via-pink-400 to-pink-300" 
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("HAPPY ANNIVERSARY")
-                  ? "text-purple-800 bg-purple-300" 
+                  ? "text-purple-900 bg-gradient-to-r from-purple-600 via-purple-500 to-purple-400" 
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("JUST MARRIED")
-                  ? "text-white bg-green-500" 
+                  ? "text-white bg-gradient-to-r from-green-600 via-green-500 to-green-400" 
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SINGLE")
-                  ? "text-white bg-gray-600" 
+                  ? "text-white bg-gradient-to-r from-gray-700 via-gray-600 to-gray-500" 
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("IN MEMORY")
-                  ? "text-white bg-black"
+                  ? "text-white bg-gradient-to-r from-black via-gray-800 to-gray-700"
                   : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SHAME") 
-                  ? "text-white bg-red-900"  
-                  : "text-yellow-800 bg-yellow-300"
+                  ? "text-white bg-gradient-to-r from-red-900 via-gray-800 to-red-900"  
+                  : "text-yellow-900 bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-200"
               }`}
 >
   {notes.length > 0 && notes[currentIndex].alert_type.startsWith("ALERT:")
@@ -344,11 +333,11 @@ const fetchDeletedNotes = async () => {
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("JOKES")
     ? "🤡 KARA-JOKé 🤡"
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("HAPPY BIRTHDAY")
-    ? "🎂BIRTHDAY!🎉"
+    ? "🎂 BIRTHDAY! 🎉"
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("HAPPY ANNIVERSARY")
     ? "💖 ANNIVERSARY 💍"
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("JUST MARRIED")
-    ? "💍 NEWLY WEDS!💞"
+    ? "💍 NEWLY WEDS! 💞"
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("SINGLE")
     ? "🔥 SINGLE! 🍻"
     : notes.length > 0 && notes[currentIndex].alert_type.startsWith("IN MEMORY")
