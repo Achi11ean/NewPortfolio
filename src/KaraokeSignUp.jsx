@@ -5,6 +5,7 @@ import Promotions from "./Promotions"; // Adjust the path based on where the fil
 import "./App.css"
 import MusicBreakAlert from "./MusicBreak";
 import SingerCount from "./SingerCount";
+import RandomSongGenerator from "./RandomSongGenerator";
 export default function KaraokeSignup() {
   const [notes, setNotes] = useState([]);
   const [pin, setPin] = useState(""); // User-entered PIN
@@ -1193,7 +1194,13 @@ const handleSubmit = async (e) => {
   className="w-full max-w-md mt-6 bg-white bg-opacity-10 backdrop-blur-lg p-6 sm:p-8 rounded-3xl border border-gray-600 flex flex-col items-center space-y-6 animate-rainbowShadow"
 >
 
-
+<RandomSongGenerator onSelect={(selectedSong) => 
+  setForm((prevForm) => ({
+    ...prevForm,
+    song: selectedSong.title,
+    artist: selectedSong.artist,
+  }))
+}/>
 
 <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-white text-center tracking-wide">
   🎤 Step Up to the Mic! 🎶
@@ -1266,11 +1273,11 @@ const handleSubmit = async (e) => {
   />
 </div>
 
-<label htmlFor="adjustment" className="block text-purple-400 text-lg sm:text-xl font-bold mb-2 text-center cursor-pointer">
+<label htmlFor="adjustment" className="block text-purple-400 text-lg sm:text-xl font-bold  text-center cursor-pointer">
      Key Change (Optional) 
   </label>
   <p>+/- by 1/2 step Increments</p>
-  <div className="flex items-center space-x-3">
+  <div className="flex items-center space-x-1">
     {/* Decrease Button */}
     <button
   onClick={(e) => {

@@ -123,7 +123,7 @@ useEffect(() => {
 
 
 
-          <p className="text-sm sm:text-3xl mt-2 max-w-lg font-aspire">
+          <p className="text-xl sm:text-4xl  font-aspire">
             By Jonathen Whitford
           </p>
 
@@ -157,7 +157,7 @@ useEffect(() => {
           </div> */}
         </div>
       </div>
-      <div className="relative mb-2 w-full h-1  bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-300 shadow-lg overflow-hidden">
+      <div className="relative  w-full h-1  bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-300 shadow-lg overflow-hidden">
   <div className="absolute inset-0 w-full h-full animate-flashy-sparkle"></div>
 </div>
       <button
