@@ -283,17 +283,20 @@ const RandomSongGenerator = ({ onSelect }) => {
   
 
   const pickRandomArtist = () => {
-    if (artistQueue.length === 0) setArtistQueue(shuffleArray([...new Set(songs.map(song => song.artist))])); // Reshuffle when empty
-    const nextArtist = artistQueue.pop();
-    setArtistQueue([...artistQueue]); // Update queue state
-    setRandomSelection({ artist: nextArtist });
+    if (songs.length === 0) return; // Ensure there's data
+  
+    const uniqueArtists = [...new Set(songs.map(song => song.artist))]; // Extract unique artists
+    const artist = uniqueArtists[Math.floor(Math.random() * uniqueArtists.length)];
+  
+    setRandomSelection({ artist }); // Store as an object to match existing selection format
   };
   
+  
   return (
-    <div className="relative w-full max-w-md mx-auto">
-      <button 
+<div className="relative w-full max-w-md mx-auto p-6 bg-gray-900 rounded-2xl shadow-white  shadow-xl">
+<button 
         title="Trouble picking a song? Get some inspiration from our list of the most played karaoke songs!"
-        className="w-full bg-purple-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg"
+        className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
         Random Song Generator ⬇️
@@ -306,7 +309,7 @@ const RandomSongGenerator = ({ onSelect }) => {
     event.preventDefault(); // ⛔ Prevent form submission
     pickRandomSong();
   }} 
-  className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md"
+  className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105"
 >
   Pick a Random Song
 </button>
@@ -316,7 +319,7 @@ const RandomSongGenerator = ({ onSelect }) => {
     event.preventDefault(); // ⛔ Prevent form submission
     pickRandomArtist();
   }} 
-  className="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md"
+  className="px-6 py-3 bg-green-600 text-white font-medium rounded-lg shadow-md hover:bg-green-700 transition-all duration-300 transform hover:scale-105"
 >
   Pick a Random Artist
 </button>
@@ -324,20 +327,20 @@ const RandomSongGenerator = ({ onSelect }) => {
           </div>
           <div className="mt-4">
             {randomSelection && (
-              <motion.div 
-                initial={{ opacity: 0 }} 
-                animate={{ opacity: 1 }}
-                onClick={() => onSelect(randomSelection)} // ✅ Pass the whole object
-                className="cursor-pointer p-4 text-center bg-blue-400 rounded-lg shadow-md hover:bg-blue-500 transition-all"
-              >
+ <motion.div 
+ initial={{ opacity: 0, y: 10 }} 
+ animate={{ opacity: 1, y: 0 }}
+ className="cursor-pointer p-6 text-center bg-gray-800 text-white rounded-xl shadow-md hover:bg-gray-700 transition-all duration-300"
+>
+
                 {randomSelection.title ? (
                   <p className="text-lg font-semibold">
                     {randomSelection.title} by {randomSelection.artist}
                   </p>
                 ) : (
-                  <p className="text-lg font-semibold">🎤 Artist: {randomSelection.artist}</p>
+                  <p className="text-lg font-semibold">🎤 Artist:<br/> {randomSelection.artist}</p>
                 )}
-                <p className="text-sm text-gray-700 italic">(Click to select)</p>
+                <p className="text-sm text-white italic">(Click to autofill)</p>
               </motion.div>
             )}
           </div>
