@@ -94,58 +94,117 @@ export default function Promotions() {
 </div>
 
             {showPromotions && user?.is_admin && (
-                <form onSubmit={handleSubmit} className="bg-blue-300 p-4 rounded shadow-lg space-y-4">
-                                  <div className="relative group">
-                <a
-                  href="https://imgur.com/upload"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative inline-block w-full font-bold text-white text-center mb-2 uppercase rounded-lg
-                       bg-gradient-to-r from-green-400 via-green-500 to-green-600 shadow-lg transition-all duration-300 ease-in-out 
-                       hover:scale-105 hover:from-green-500 hover:via-green-600 hover:to-green-700 hover:shadow-2xl
-                       before:absolute before:-inset-1 before:rounded-lg before:bg-green-300 before:blur-lg before:opacity-30"
-                >
-                  <span className="relative z-10">Upload Photo to Imgur</span>
-                </a>
+                <form 
+  onSubmit={handleSubmit} 
+  className="w-full max-w-lg mx-auto p-6 bg-gradient-to-b from-blue-900 via-purple-800 to-indigo-900 
+             rounded-3xl shadow-2xl border border-gray-700 backdrop-blur-lg text-white space-y-5"
+>
 
-                {/* Tooltip */}
-                <div
-                  className="absolute bottom-full mb-2 w-64 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg shadow-lg 
-                       opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                  style={{ left: "50%", transform: "translateX(-50%)" }}
-                >
-                  Don't have a URL for your image yet? Click the link. <br />
-                  1. Add your image <br />
-                  2. Right-click on the image and "Copy Image Address" <br />
-                  If it doesn't look like this:
-                  "https://i.imgur.com/example.jpg" <br />
-                  try copying the address again.
-                </div>
-              </div>
-                    <input type="text" placeholder="Event Type" value={form.event_type} 
-                        onChange={(e) => setForm({ ...form, event_type: e.target.value })} 
-                        className="w-full p-2 border rounded" required />
-                    
-                    <input type="datetime-local" value={form.event_date} 
-                        onChange={(e) => setForm({ ...form, event_date: e.target.value })} 
-                        className="w-full p-2 border rounded" required />
-    
-                    <input type="text" placeholder="Location" value={form.location} 
-                        onChange={(e) => setForm({ ...form, location: e.target.value })} 
-                        className="w-full p-2 border rounded" required />
-    
-                    <input type="text" placeholder="Image URL" value={form.image_url} 
-                        onChange={(e) => setForm({ ...form, image_url: e.target.value })} 
-                        className="w-full p-2 border rounded" />
-    
-                    <textarea placeholder="Description" value={form.description} 
-                        onChange={(e) => setForm({ ...form, description: e.target.value })} 
-                        className="w-full p-2 border rounded" required />
-    
-                    <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700">
-                        {editingId ? "Update Promotion" : "Add Promotion"}
-                    </button>
-                </form>
+  {/* 📸 Image Upload Link */}
+  <div className="relative group text-center">
+    <a
+      href="https://imgur.com/upload"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block w-full font-bold text-white text-center uppercase tracking-wide rounded-2xl 
+                 bg-gradient-to-r from-green-400 via-green-500 to-green-600 shadow-lg transition-all duration-300 
+                 ease-in-out hover:scale-105 hover:from-green-500 hover:via-green-600 hover:to-green-700 hover:shadow-2xl"
+    >
+      📸 Upload Photo to Imgur
+    </a>
+
+    {/* Tooltip */}
+    <div
+      className="absolute bottom-full mb-3 left-1/2 transform -translate-x-1/2 px-4 py-3 bg-gray-800 text-white 
+                 text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 
+                 pointer-events-none max-w-xs"
+    >
+      Don't have an image URL? Click the link! <br />
+      1️⃣ Upload your image <br />
+      2️⃣ Right-click on it & "Copy Image Address" <br />
+      Ensure it looks like: <span className="text-green-300">"https://i.imgur.com/example.jpg"</span> ✨
+    </div>
+  </div>
+
+  {/* 🎭 Event Type */}
+  <div className="relative">
+    <label className="block text-lg font-semibold text-gray-200 mb-1">🎭 Event Type</label>
+    <input
+      type="text"
+      placeholder="e.g., Karaoke Night"
+      value={form.event_type}
+      onChange={(e) => setForm({ ...form, event_type: e.target.value })}
+      className="w-full p-3 bg-gray-900 text-white rounded-xl border border-gray-700 
+                 focus:ring-2 focus:ring-purple-500 transition-all placeholder-gray-400"
+      required
+    />
+  </div>
+
+  {/* 📅 Event Date */}
+  <div className="relative">
+    <label className="block text-lg font-semibold text-gray-200 mb-1">📅 Event Date & Time</label>
+    <input
+      type="datetime-local"
+      value={form.event_date}
+      onChange={(e) => setForm({ ...form, event_date: e.target.value })}
+      className="w-full p-3 bg-gray-900 text-white rounded-xl border border-gray-700 
+                 focus:ring-2 focus:ring-purple-500 transition-all placeholder-gray-400"
+      required
+    />
+  </div>
+
+  {/* 📍 Location */}
+  <div className="relative">
+    <label className="block text-lg font-semibold text-gray-200 mb-1">📍 Location</label>
+    <input
+      type="text"
+      placeholder="Venue Name | Address"
+      value={form.location}
+      onChange={(e) => setForm({ ...form, location: e.target.value })}
+      className="w-full p-3 bg-gray-900 text-white rounded-xl border border-gray-700 
+                 focus:ring-2 focus:ring-purple-500 transition-all placeholder-gray-400"
+      required
+    />
+  </div>
+
+  {/* 🖼️ Image URL */}
+  <div className="relative">
+    <label className="block text-lg font-semibold text-gray-200 mb-1">🖼️ Image URL</label>
+    <input
+      type="text"
+      placeholder="https://i.imgur.com/example.jpg"
+      value={form.image_url}
+      onChange={(e) => setForm({ ...form, image_url: e.target.value })}
+      className="w-full p-3 bg-gray-900 text-white rounded-xl border border-gray-700 
+                 focus:ring-2 focus:ring-purple-500 transition-all placeholder-gray-400"
+    />
+  </div>
+
+  {/* 📝 Description */}
+  <div className="relative">
+    <label className="block text-lg font-semibold text-gray-200 mb-1">📝 Event Description</label>
+    <textarea
+      placeholder="Tell us about the event!"
+      value={form.description}
+      onChange={(e) => setForm({ ...form, description: e.target.value })}
+      className="w-full p-3 bg-gray-900 text-white rounded-xl border border-gray-700 
+                 focus:ring-2 focus:ring-purple-500 transition-all placeholder-gray-400 h-28 resize-none"
+      required
+    />
+  </div>
+
+  {/* 🚀 Submit Button */}
+  <button
+    type="submit"
+    className="w-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 
+               hover:from-blue-600 hover:to-purple-600 text-white font-bold py-3 
+               rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
+  >
+    {editingId ? "✨ Update Promotion" : "🚀 Add Promotion"}
+  </button>
+
+</form>
+
             )}
     
             {showPromotions && (
@@ -153,10 +212,24 @@ export default function Promotions() {
                     {Array.isArray(promotions) && promotions.length > 0 ? (
                         promotions.map((promo) => (
                             <div key={promo.id} className="bg-blue-800 rounded-xl p-4 shadow-md">
-                                <h2 className="text-xl font-bold text-center">
-                                    Event: {promo.event_type} - When: {new Date(promo.event_date).toLocaleString()}
-                                </h2>
-                                <p className="text-white-700 text-lg text-center font-bold">📍Where: {promo.location}</p>
+<h2 className="text-xl font-bold text-center">
+     {promo.event_type} <br/>  {new Date(promo.event_date).toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    })}{" "}
+    {new Date(promo.event_date).toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+    })}
+</h2>
+
+<h2 className="text-xl font-bold text-center">
+  {promo.location.split("|")[0]} <br />
+  {promo.location.split("|")[1]}
+</h2>
                                 {promo.image_url && <img src={promo.image_url} alt="Promotion" className="mt-2 w-full h-40 object-cover rounded" />}
                                 <div className="max-h-16 overflow-auto p-2 bg-gray-800 text-white rounded-lg">
                                     <p className="text-white text-center font-bold">{promo.description}</p>
