@@ -1361,33 +1361,45 @@ const handleSubmit = async (e) => {
 )}
 
 {/* Refresh button */}
-    <button
-  className={`w-full mb-3 text-white font-bold py-3 px-6 rounded-2xl text-xl shadow-2xl mt-4 
-    transition-all duration-300 transform active:scale-95 
+<button
+  className={`relative w-full mb-3 text-white font-bold py-4 px-8 rounded-2xl text-2xl shadow-2xl mt-4 
+    transition-all duration-300 transform active:scale-90 animate-bounce
     ${
       isRefreshing
         ? "bg-gradient-to-r from-blue-700 to-blue-900 animate-pulse shadow-blue-500/50"
         : "bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 hover:shadow-lg hover:shadow-blue-400/50"
     }
+    before:absolute before:inset-0 before:rounded-2xl before:opacity-30 before:blur-lg 
+    before:bg-blue-300 before:transition-all before:duration-500 hover:before:opacity-50
   `}
   onClick={handleRefresh}
-  disabled={isRefreshing} // Prevent multiple clicks
+  disabled={isRefreshing}
 >
   {isRefreshing ? (
-    <span className="flex items-center justify-center">
-      <svg className="animate-spin h-6 w-6 mr-2 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <span className="flex items-center justify-center space-x-2">
+      <svg 
+        className="animate-spin h-8 w-8 text-white transition-transform duration-300" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        stroke="currentColor"
+      >
         <circle cx="12" cy="12" r="10" strokeWidth="4" stroke="white" fill="none"></circle>
         <path d="M12 2v4M12 22v-4M2 12h4M22 12h-4" strokeWidth="4" stroke="white"></path>
       </svg>
-      <span className="tracking-widest">Refreshing...</span>
+      <span className="tracking-widest text-xl font-extrabold">Refreshing...</span>
     </span>
   ) : (
-    <span className="flex items-center justify-center">
-      <span className="text-2xl">🔄</span>
-      <span className="ml-2 tracking-widest drop-shadow-lg">RELOAD</span>
+    <span className="flex items-center justify-center space-x-3">
+      <span className="text-3xl animate-pulse">🔄</span>
+      <span className="ml-2 tracking-widest drop-shadow-lg font-extrabold text-xl">
+        REFRESH QUEUE 
+      </span>
+      <span className="text-3xl animate-pulse">🔄</span>
+
     </span>
   )}
 </button>
+
 
 {user?.is_admin && (
   <div className="flex justify-center mt-4">
