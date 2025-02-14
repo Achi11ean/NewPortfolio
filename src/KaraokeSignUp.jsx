@@ -375,6 +375,47 @@ const handleHardDeleteAll = async () => {
         console.error("Error deleting all DJ Notes:", error);
     }
 };
+const toggleIssue = async (id, currentStatus) => {
+  try {
+    console.log(`🔄 Toggling issue status for ID ${id}... Current status: ${currentStatus}`);
+
+    const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ is_flagged: !currentStatus }),
+    });
+
+    if (!response.ok) {
+      console.error(`❌ PATCH request failed! Status: ${response.status}`);
+      return;
+    }
+    
+    const result = await response.json();
+    console.log("✅ Server response after update:", result);
+
+    if (typeof result.is_flagged !== "boolean") {
+      console.error("❌ Unexpected response format from backend:", result);
+      return;
+    }
+
+    console.log(`🚀 Backend confirmed is_flagged: ${result.is_flagged}`);
+
+    // ✅ Instantly update the UI state **before fetching fresh data**
+    setIssues(prevIssues => ({
+      ...prevIssues,
+      [id]: result.is_flagged,
+    }));
+
+    console.log("🚨 Updated Issues State:", setIssues);
+
+    // ✅ Fetch latest data to sync with backend
+    await fetchSignups();  // ✅ Ensure signups list updates
+    await fetchFlaggedSignups();  // ✅ Ensure flagged list updates
+
+  } catch (error) {
+    console.error("❌ Error toggling issue:", error);
+  }
+};
 
 const fetchDeletedNotes = async () => {
     try {
@@ -715,15 +756,16 @@ const fetchSignups = async (searchTerm = "") => {
     if (searchTerm) {
       filteredData = filteredData.filter(signup =>
         signup.name.toLowerCase().includes(searchTerm.toLowerCase()) 
-
       );
       console.log("🔍 Filtered Data (frontend filtering applied):", filteredData);
     }
 
-    // ✅ Extract warnings from backend response
+    // ✅ Extract warnings and flagged issues from backend response
     const updatedWarnings = {};
+    const updatedIssues = {};
     filteredData.forEach(signup => {
       updatedWarnings[signup.id] = signup.is_warning;
+      updatedIssues[signup.id] = signup.is_flagged;  // ✅ Ensure flagged state updates correctly
     });
 
     // ✅ Fetch full list of signups for position tracking
@@ -756,43 +798,21 @@ const fetchSignups = async (searchTerm = "") => {
     console.log("📋 Final processed signups data:", filteredData);
 
     // ✅ Update state
-    setSignups([...filteredData]); // Force re-render
+    setSignups([...filteredData]);  // ✅ Force re-render
     setWarnings({ ...updatedWarnings });
+    setIssues({ ...updatedIssues });  // ✅ Ensure issues reflect the latest state
 
-    console.log("🚨 Updated Warnings State:", updatedWarnings);
+    console.log("🚨 Updated Issues State:", updatedIssues);
 
   } catch (error) {
     console.error("❌ Error fetching signups:", error);
   }
 };
 
-    const toggleIssue = async (id, currentStatus) => {
-        try {
-            const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`, {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ is_flagged: !currentStatus }),
-            });
-    
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-    
-            const result = await response.json();
-    
-            // Update local state immediately to reflect the change
-            setIssues((prev) => ({
-                ...prev,
-                [id]: !currentStatus, // Toggle the issue status
-            }));
-    
-            fetchSignups(); // Refresh the list after updating
-        } catch (error) {
-            console.error("Error toggling issue:", error);
-        }
-    };
+    useEffect(() => {
+    console.log("Updated Issues State:", issues);
+}, [issues]);
 
-    
     // Move an entry down
 
   
@@ -1028,7 +1048,7 @@ const handleSubmit = async (e) => {
 </h1>
 
   <Promotions />
-  {user?.is_admin && (
+  {/* {user?.is_admin && ( */}
   <div className="mt-6 text-center bg-gradient-to-r from-purple-600 to-pink-600 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
 
 
@@ -1069,7 +1089,7 @@ const handleSubmit = async (e) => {
       </button>
     </div>
   </div>
-  )}
+  {/* )} */}
 <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold 
                mb-4 sm:mb-3 mt-6 sm:mt-10 text-center text-white 
                bg-black p-2 sm:p-3 rounded-lg animate-police-siren max-w-lg mx-auto">
@@ -1585,7 +1605,7 @@ const handleSubmit = async (e) => {
 
 </div>
     {/* Admin-Only Buttons */}
-    {user?.is_admin && (
+    {/* {user?.is_admin && ( */}
   <div className="mt-6 bg-gradient-to-r from-blue-900 via-pink-900 to-purple-900 p-4 rounded-2xl shadow-lg">
     
     {/* Scrollable Button Container */}
@@ -1682,7 +1702,7 @@ const handleSubmit = async (e) => {
       </button>
     </div>
   </div>
-)}
+{/* )} */}
 </>
 )}
 
@@ -1698,7 +1718,7 @@ const handleSubmit = async (e) => {
 
 
       </div>  
-      {user?.is_admin && (
+      {/* {user?.is_admin && ( */}
   <div className="w-full max-w-2xl mx-auto mt-6 p-6 bg-gradient-to-b from-gray-900 to-gray-800 rounded-3xl shadow-xl border border-gray-700">
     <h2 className="text-2xl sm:text-3xl text-center font-bold text-white mb-6">
       🛠 Admin Panel
@@ -1813,7 +1833,7 @@ const handleSubmit = async (e) => {
     </button>
   </div>
   </div>
-)}
+{/* )} */}
 
       <div className="mt-8 text-center  p-6 bg-white rounded-3xl shadow-xl border border-gray-700 max-w-lg mx-auto">
   {/* Title */}
