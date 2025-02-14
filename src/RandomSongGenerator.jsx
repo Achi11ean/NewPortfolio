@@ -345,9 +345,12 @@ const RandomSongGenerator = ({ onSelect }) => {
 
 
                 {randomSelection.title ? (
-                  <p className="text-lg font-semibold">
-                    {randomSelection.title} by {randomSelection.artist}
-                  </p>
+                    <div className="max-h-16 overflow-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-300">
+  <p className="text-lg font-semibold text-center break-words">
+    {randomSelection.title} by {randomSelection.artist}
+  </p>
+</div>
+
                 ) : (
                   <p className="text-lg font-semibold">🎤 Artist:<br/> {randomSelection.artist}</p>
                 )}
