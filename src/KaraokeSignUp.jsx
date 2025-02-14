@@ -697,6 +697,7 @@ const moveDown = async (id) => {
 const fetchSignups = async (searchTerm = "") => {
   try {
     console.log("🔄 Fetching Karaoke Signups...");
+    console.log(`🔎 Searching for: "${searchTerm}"`);
 
     const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup?search=${encodeURIComponent(searchTerm)}`, {
       method: "GET",
@@ -708,48 +709,55 @@ const fetchSignups = async (searchTerm = "") => {
     }
 
     let filteredData = await response.json();
-    console.log("✅ Fetched signups data:", filteredData);
+    console.log("✅ API Response (before filtering):", filteredData);
+
+    // ✅ Manually filter if backend doesn't return filtered results
+    if (searchTerm) {
+      filteredData = filteredData.filter(signup =>
+        signup.name.toLowerCase().includes(searchTerm.toLowerCase()) 
+
+      );
+      console.log("🔍 Filtered Data (frontend filtering applied):", filteredData);
+    }
 
     // ✅ Extract warnings from backend response
     const updatedWarnings = {};
     filteredData.forEach(signup => {
-      updatedWarnings[signup.id] = signup.is_warning;  // Ensure warning state is included
+      updatedWarnings[signup.id] = signup.is_warning;
     });
 
-    // ✅ Fetch full list of signups to maintain correct positions
+    // ✅ Fetch full list of signups for position tracking
     const fullResponse = await fetch(`https://portfoliobackend-ih6t.onrender.com/karaokesignup`);
     if (!fullResponse.ok) throw new Error("Failed to fetch full signup list.");
 
     const fullSignups = await fullResponse.json();
-    fullSignups.sort((a, b) => a.position - b.position); // Ensure proper sorting
+    fullSignups.sort((a, b) => a.position - b.position);
 
-    // ✅ Create a position map from the full signup list
+    // ✅ Create position map
     const positionMap = {};
     fullSignups.forEach((signup, index) => {
-      positionMap[signup.id] = index; // Store true index position
+      positionMap[signup.id] = index;
     });
 
-    // ✅ Assign true queue positions for search results
+    // ✅ Assign true queue positions
     filteredData = filteredData.map(signup => ({
       ...signup,
-      true_position: positionMap[signup.id] ?? -1, // Get position from full queue or -1 if missing
+      true_position: positionMap[signup.id] ?? -1,
     }));
 
-    // ✅ Sort the filtered data only if there's no search term
-    if (!searchTerm) {
-      filteredData.sort((a, b) => a.position - b.position);
-    }
+    // ✅ Sort results properly even when searching
+    filteredData.sort((a, b) => (a.true_position ?? 9999) - (b.true_position ?? 9999));
 
-    // ✅ Ensure the first singer gets the correct label
+    // ✅ Ensure the first singer gets position 0
     if (!searchTerm && filteredData.length === 1) {
-      filteredData[0].position = 0; // Ensure correct labeling
+      filteredData[0].position = 0;
     }
 
     console.log("📋 Final processed signups data:", filteredData);
 
     // ✅ Update state
-    setSignups(filteredData);
-    setWarnings(updatedWarnings); // ✅ Update warnings state
+    setSignups([...filteredData]); // Force re-render
+    setWarnings({ ...updatedWarnings });
 
     console.log("🚨 Updated Warnings State:", updatedWarnings);
 
@@ -757,11 +765,6 @@ const fetchSignups = async (searchTerm = "") => {
     console.error("❌ Error fetching signups:", error);
   }
 };
-
-
-useEffect(() => {
-  console.log("🚀 Warnings state updated:", warnings);
-}, [warnings]);
 
     const toggleIssue = async (id, currentStatus) => {
         try {
