@@ -8,13 +8,17 @@ const Navbar = ({ activeTab, setActiveTab, user, token, logout }) => {
 <div className="container mx-auto flex justify-between items-center px-6 p-1">
         {/* Logo */}
 {/* Logo */}
-<div className="overflow-hidden">
+<button 
+  onClick={() => setActiveTab("admin-signin")} 
+  className="overflow-hidden focus:outline-none"
+>
   <img 
     src="LOGO.webp" 
     alt="Karaoke Central Logo" 
     className="h-20 w-auto rounded-2xl object-cover scale-110 transition-transform duration-300 hover:scale-125 cursor-pointer"
   />
-</div>
+</button>
+
 
         <div className="text-2xl font-extrabold text-white hover:text-blue-600 transition duration-300">
           
