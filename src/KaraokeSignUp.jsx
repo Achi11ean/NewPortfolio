@@ -932,6 +932,23 @@ export default function KaraokeSignup() {
     }
   };
 
+
+  const checkActiveSongsForSinger = async (singerName) => {
+    try {
+      const response = await fetch(
+        `https://portfoliobackend-ih6t.onrender.com/karaokesignup/count?name=${encodeURIComponent(singerName)}`
+      );
+      if (!response.ok) throw new Error("Failed to fetch active song count");
+  
+      const data = await response.json();
+      return data.active_count; // Returns number of active songs for the singer
+    } catch (error) {
+      console.error("Error fetching active song count:", error);
+      return 0; // Default to 0 to avoid blocking if there's an error
+    }
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -992,27 +1009,14 @@ export default function KaraokeSignup() {
       }
   
       // ✅ Step 4: Enforce the two-song limit per person
-// ✅ Step 4: Enforce the two-song limit per person (ONLY check active songs)
-const activeSignupsResponse = await fetch(
-  "https://portfoliobackend-ih6t.onrender.com/karaokesignup/active"
-);
-if (!activeSignupsResponse.ok) {
-  console.error("Failed to fetch active signups.");
-  return;
-}
-const activeSignups = await activeSignupsResponse.json();
+      const activeSongs = await checkActiveSongsForSinger(form.name);
 
-const activeNameCount = activeSignups.filter(
-  (signup) => signup.name.toLowerCase() === form.name.toLowerCase()
-).length;
-
-if (activeNameCount >= 2) {
-  alert(
-    `⚠️ The name "${form.name}" already has two active songs! Only two at a time per person, please.`
-  );
-  return; // Stop if the person already has two songs
-}
-
+      if (activeSongs >= 2) {
+        alert(
+          `⚠️ The name "${form.name}" already has two active songs! Only two at a time per person, please.`
+        );
+        return; // Stop submission if they already have 2 active songs
+      }
   
       // ✅ Step 5: Determine adjustment value (default 0 if not set)
       const adjustmentValue =
