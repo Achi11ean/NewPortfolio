@@ -1384,26 +1384,35 @@ export default function KaraokeSignup() {
           )}
 
           {/* Subtitle */}
-          <div className="text-center mt-6 bg-gradient-to-r from-blue-500 to-purple-500 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
-            <h2 className="text-white font-extrabold text-2xl mb-4">
-              🔑 Venue Pin
-            </h2>
+{/* Subtitle */}
+<div className="text-center mt-6 bg-gradient-to-r from-blue-500 to-purple-500 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
+  <h2 className="text-white font-extrabold text-2xl mb-4">
+   <span className="underline"> Karaoke Sign Up:</span> <br/>
+    🔑 Venue Pin
+  </h2>
 
-            {/* PIN input is ALWAYS visible but gets disabled when valid */}
-            <div className="relative mb-4">
-              <input
-                type="text"
-                maxLength="4"
-                placeholder="🔢 PIN"
-                value={pin}
-                onChange={(e) => setPin(e.target.value)}
-                className="w-full px-5 py-3 text-xl text-white bg-black bg-opacity-50 border border-gray-400 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none text-center placeholder-gray-300 tracking-widest"
-                disabled={isPinValid} // 🔥 Disable input instead of hiding it
-              />
-              <span className="absolute right-4 top-3 text-white text-lg">
-                🔒
-              </span>
-            </div>
+  {/* PIN input with tooltip */}
+  <div className="relative mb-4 group">
+    {/* Tooltip (Hidden until hover) */}
+    <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-all duration-200">
+      Pin at Host table
+      
+    </span>
+
+    <input
+      type="text"
+      maxLength="4"
+      placeholder="####"
+      value={pin}
+      onChange={(e) => setPin(e.target.value)}
+      className="w-full px-5 py-3 text-xl text-white bg-black bg-opacity-50 border border-gray-400 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none text-center placeholder-gray-300 tracking-widest"
+      disabled={isPinValid} // 🔥 Disable input instead of hiding it
+    />
+    <span className="absolute right-4 top-3 text-white text-lg">
+      🔒
+    </span>
+  </div>
+
 
             <button
               onClick={handleEnterPin}
