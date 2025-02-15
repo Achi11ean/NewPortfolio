@@ -1508,7 +1508,7 @@ export default function KaraokeSignup() {
   htmlFor="adjustment"
   className="block text-purple-400 text-lg sm:text-xl font-bold text-center cursor-pointer"
 >
-  🔑 Change (Optional)
+  🔑 Key Change (Optional)
 </label>
 <p>+/- by 1/2 step Increments (Min: -10, Max: 10)</p>
 <div className="flex items-center space-x-1">
