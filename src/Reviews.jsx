@@ -19,10 +19,10 @@ export default function Reviews({ triggerEmojis }) {
 
   const [filter, setFilter] = useState("All");
   const categoryMap = {
-    "Performance": ["Acting", "Singing", "Modeling", "Musical Production"],
+    "Performance": ["Acting", "Singing", "Modeling", "Musical Production", "Performance Services", "Karaoke Host"],
     "Software": ["Software Engineering"],
     "Consultation": ["Consultation Services"],
-    "Miscellaneous": ["Bartending Services", "Karaoke Host"],
+    "Miscellaneous": ["Bartending Services"],
   };
   const gradientBackgrounds = [
     "bg-gradient-to-r from-blue-500 to-teal-400",
@@ -33,14 +33,18 @@ export default function Reviews({ triggerEmojis }) {
     "bg-gradient-to-r from-indigo-400 to-blue-500",
   ];
   
-  
+  console.log("All Reviews:", reviews);  // ✅ Check if Karaoke Host exists
+console.log("Category Map:", categoryMap);  // ✅ Verify correct mapping
+console.log("Filter Selected:", filter);  // ✅ See what filter is applied
+
   const filteredReviews =
   filter === "All"
-    ? reviews // All Reviews
+    ? reviews
     : filter in categoryMap
     ? reviews.filter((review) => categoryMap[filter].includes(review.service))
     : reviews.filter((review) => review.service === filter);
 
+    console.log(reviews.map(review => review.service));
 
 
   // Form state for adding a review
@@ -279,7 +283,7 @@ required
 <option value="" disabled>Select a service</option>
 <option value="Software Engineering">Software Engineering</option>
 <option value="Consultation Services">Consultation</option>
-<option value="Performance Services">Karaoke Host</option>
+<option value="Karaoke Host">Karaoke Host</option> 
 <option value="Bartending Services">Bartending</option>
 <option value="Musical Production">Muscial Production</option>
 <option value="Acting">Acting</option>
