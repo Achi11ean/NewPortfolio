@@ -152,17 +152,25 @@ console.log("Filter Selected:", filter);  // ✅ See what filter is applied
 
   return (
 <div
-  className="relative p-8 min-h-screen bg-cover bg-center bg-no-repeat text-gray-100 flex flex-col items-center justify-start"
+  className="relative  p-8 min-h-screen bg-cover bg-center bg-no-repeat text-gray-100 flex flex-col items-center justify-start"
   style={{
     backgroundImage: `url('https://source.unsplash.com/1600x900/?feedback,customers')`,
   }}
 >
-<h2
-  className="text-8xl sm:text-6xl md:text-8xl lg:text-9xl font-aspire font-extrabold tracking-wide text-center mb-12 rainbow-text animate-fade-scale"
+  <div className="bg-white rounded-3xl">
+    <h2
+  className="text-center font-serif font-extrabold tracking-wide text-white 
+             animate-fade-scale p-2 
+             text-4xl sm:text-4xl md:text-7xl lg:text-8xl"
 >
-  ✨ Reviews ✨
+  <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-orange-300 bg-clip-text text-transparent">
+    ✨ Reviews ✨
+  </span>
 </h2>
 
+</div>
+
+<p className="underline mt-2">Sort By Review Type</p>
 
 {showEmojis && (
   <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-50">
@@ -181,72 +189,112 @@ console.log("Filter Selected:", filter);  // ✅ See what filter is applied
     ))}
   </div>
 )}
-
-
-      {/* Loading State */}
-      {loading && (
-        <div className="text-center text-lg font-semibold">
-          Loading reviews...
-        </div>
-      )}
-
-      {/* Error State */}
-      {error && (
-        <div className="text-center text-red-400 font-bold">
-          {`Error: ${error}`}
-        </div>
-      )}
-            {/* Add Review Form */}
-
-      <button
-  onClick={() => setShowForm((prev) => !prev)} // Toggle form visibility
-  className="w-64  bg-gradient-to-r from-black to-red-800 text-white text-lg font-bold rounded-lg shadow-md  transition-all duration-300"
->
-{showSuccessPopup && (
-  <div
-  className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 transition-opacity duration-300 ease-in-out"
-  style={{ opacity: showSuccessPopup ? 1 : 0 }}
-      onClick={() => setShowSuccessPopup(false)} // Close popup on background click
-  >
-    <div
-      className="bg-white p-6 rounded-lg shadow-lg text-center"
-      onClick={(e) => e.stopPropagation()} // Prevent closing on content click
+<div className="flex flex-wrap justify-center gap-3 mb-4 mt-3 ml-2  whitespace-nowrap">
+  {[
+    { label: "All 📝", value: "All", colors: "from-purple-500 to-orange-400" },
+    { label: "Performance 🎭", value: "Performance", colors: "from-blue-500 to-indigo-400" },
+    { label: "Software 👨🏻‍💻", value: "Software", colors: "from-green-400 to-blue-500" },
+    { label: "Consultation 👨🏻‍🔧💬", value: "Consultation", colors: "from-yellow-400 to-orange-500" },
+    { label: "Misc 🧩", value: "Miscellaneous", colors: "from-pink-500 to-purple-600" },
+  ].map(({ label, value, colors }) => (
+    <button
+      key={value}
+      onClick={() => setFilter(value)}
+      className={`w-40 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ease-in-out shadow-md text-center
+        ${
+          filter === value
+            ? `bg-gradient-to-r ${colors} text-white shadow-lg scale-105 border-0`
+            : "bg-gray-100 text-gray-800 border border-gray-300 hover:bg-gradient-to-r hover:from-gray-200 hover:to-gray-400 hover:scale-105"
+        }`}
     >
-      <h2 className="text-2xl font-semibold text-green-600 mb-2">Success!</h2>
-      <p className="text-gray-700">{successMessage}</p>
-      <button
-        className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-        onClick={() => setShowSuccessPopup(false)}
-      >
-        Awesome!
-      </button>
+      {label}
+    </button>
+  ))}
+</div>
+
+
+{!loading && !error && (
+  <div className="w-full py-12 px-4 md:px-8 bg-gradient-to-b from-blue-900 via-blue-800 to-blue-950 rounded-xl shadow-lg">
+    <h2 className="text-center text-4xl font-bold text-white mb-8">
+      🌟 Community Reviews 🌟
+    </h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {currentReviews.map((review) => (
+        <div
+          key={review.id}
+          onClick={() => setSelectedReview(review)} // Open modal on click
+          className="cursor-pointer bg-blue-950/90 border border-blue-400/20 text-white rounded-lg shadow-xl p-6 flex flex-col items-center hover:scale-105 transition-transform duration-200 hover:shadow-2xl"
+        >
+          {/* Reviewer Name */}
+          <h3 className="text-xl font-bold text-white mb-2 text-center">
+            {review.name}
+          </h3>
+
+          {/* Service Type */}
+          <p className="text-sm text-gray-300 mb-3 italic">{review.service}</p>
+
+          {/* Profile Image or Placeholder */}
+          {review.image_url ? (
+            <img
+              src={review.image_url}
+              alt="Review"
+              className="w-28 h-28 rounded-full object-cover mb-3 border-2 border-white/40 shadow-md"
+            />
+          ) : (
+            <img
+              src="https://www.pokemoncenter.com/wcsstore/PokemonCatalogAssetStore/images/catalog/products/P5074/710-04027/P5074_710-04027_06.jpg"
+              alt="Placeholder"
+              className="w-28 h-28 rounded-full object-cover mb-3 border-2 border-white/40 shadow-md opacity-75"
+            />
+          )}
+
+          {/* Scrollable Review Text */}
+          <div className="w-full max-h-32 overflow-y-auto px-4 text-sm text-gray-200 text-center bg-blue-800/40 rounded-lg p-3 border border-blue-500/20 shadow-sm">
+            {review.description}
+          </div>
+
+          {/* Website Link (If Available) */}
+          {review.website_url?.trim() && (
+            <a
+              href={review.website_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 text-blue-300 text-sm underline hover:text-blue-400 transition"
+            >
+              Visit Website
+            </a>
+          )}
+
+          {/* Star Ratings */}
+          <div className="flex items-center text-yellow-400 mt-3">
+            {Array.from({ length: Math.floor(review.rating) }, (_, i) => (
+              <span key={i} className="text-xl">★</span>
+            ))}
+            {review.rating % 1 >= 0.5 && <span className="text-xl">★</span>}
+            {Array.from({ length: 5 - Math.ceil(review.rating) }, (_, i) => (
+              <span key={`empty-${i}`} className="text-xl text-gray-600">★</span>
+            ))}
+          </div>
+
+          {/* Delete Button for Admins */}
+          {user && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent modal click
+                handleDelete(review.id);
+              }}
+              className="mt-4 bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 transition"
+            >
+              Delete
+            </button>
+          )}
+        </div>
+      ))}
     </div>
   </div>
 )}
 
-  {showForm ? "Hide Form" : "Share Your Experience ✨"}
-</button>
-<br/>
-{showPopup && (
-  <div
-    className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50"
-    onClick={() => setShowPopup(false)} // Close popup on background click
-  >
-    <div
-      className="bg-white p-4 rounded-lg shadow-lg text-center"
-      onClick={(e) => e.stopPropagation()} // Prevent closing on content click
-    >
-      <h2 className="text-xl font-semibold text-red-600 mb-2">Oops!</h2>
-      <p className="text-gray-700">Please select a star rating before submitting.</p>
-      <button
-        className="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
-        onClick={() => setShowPopup(false)}
-      >
-        Okay
-      </button>
-    </div>
-  </div>
-)}
 
 
 
@@ -398,149 +446,9 @@ required
 )}
 <br/>
 
-<div className="flex flex-wrap justify-center mb-6 gap-4 overflow-x-auto">
-{/* All Reviews Button */}
-<button
-  onClick={() => setFilter("All")}
-  className={`w-40 h-6 text-sm rounded-full font-semibold transition-all duration-300 ease-in-out text-center ${
-    filter === "All"
-      ? "bg-gradient-to-r from-purple-500 to-orange-400 text-white shadow-lg scale-110 border-0 hover:from-purple-600 hover:to-orange-500"
-      : "bg-gradient-to-r from-gray-200 to-gray-300 text-gray-800 border border-gray-400 hover:from-yellow-300 hover:to-teal-300 hover:scale-105"
-  }`}
->
-  All 📝
-</button>
 
 
-
-
-<button
-  onClick={() => setFilter("Performance")}
-  className={`w-40 h-6 text-sm rounded-full font-semibold transition-all duration-300 ease-in-out text-center ${
-    filter === "Performance"
-      ? "bg-gradient-to-r from-blue-500 to-indigo-400 text-white shadow-lg scale-110 border-0 hover:from-blue-600 hover:to-indigo-500"
-      : "bg-gradient-to-r from-gray-200 to-gray-300 text-gray-800 border border-gray-400 hover:from-pink-300 hover:to-yellow-300 hover:scale-105"
-  }`}
->
-  Performance 🎭
-</button>
-
-{/* Software Button */}
-<button
-  onClick={() => setFilter("Software")}
-  className={`w-40 h-6 text-sm rounded-full font-semibold transition-all duration-300 ease-in-out text-center ${
-    filter === "Software"
-      ? "bg-gradient-to-r from-green-400 to-blue-500 text-white shadow-lg scale-110 border-0 hover:from-green-500 hover:to-blue-600"
-      : "bg-gradient-to-r from-gray-200 to-gray-300 text-gray-800 border border-gray-400 hover:from-pink-300 hover:to-yellow-300 hover:scale-105"
-  }`}
->
-  Software 👨🏻‍💻
-</button>
-
-{/* Consultation Button */}
-<button
-  onClick={() => setFilter("Consultation")}
-  className={`w-40 h-6 text-sm rounded-full font-semibold transition-all duration-300 ease-in-out text-center ${
-    filter === "Consultation"
-      ? "bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-lg scale-110 border-0 hover:from-yellow-500 hover:to-orange-600"
-      : "bg-gradient-to-r from-gray-200 to-gray-300 text-gray-800 border border-gray-400 hover:from-pink-300 hover:to-yellow-300 hover:scale-105"
-  }`}
->
-  Consultation 👨🏻‍🔧💬
-</button>
-
-{/* Miscellaneous Button */}
-<button
-  onClick={() => setFilter("Miscellaneous")}
-  className={`w-40 h-6 text-sm rounded-full font-semibold transition-all duration-300 ease-in-out text-center ${
-    filter === "Miscellaneous"
-      ? "bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg scale-110 border-0 hover:from-pink-600 hover:to-purple-700"
-      : "bg-gradient-to-r from-gray-200 to-gray-300 text-gray-800 border border-gray-400 hover:from-teal-200 hover:to-green-300 hover:scale-105"
-  }`}
->
-  Misc 🧩
-</button>
-
-</div>
-
-
-      {/* Reviews Grid */}
-{/* Reviews Grid */}
-{!loading && !error && (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-{currentReviews.map((review) => {
-    const randomGradient =
-      gradientBackgrounds[Math.floor(Math.random() * gradientBackgrounds.length)];
-
-    return (
-      <div
-        key={review.id}
-        onClick={() => setSelectedReview(review)} // Open modal on click
-        className={`cursor-pointer text-gray-800 rounded-lg shadow-md p-4 flex flex-col items-center hover:scale-105 transition-transform duration-200 ${randomGradient}`}
-      >
-        <h3 className="text-3xl font-bold text-white mb-1 text-center">
-          {review.name}
-        </h3>
-        <p className="text-md text-black mb-2 italic">{review.service}</p>
-
-        {review.image_url ? (
-          <img
-            src={review.image_url}
-            alt="Review"
-            className="w-60 h-28 rounded-full object-cover mb-2 shadow-sm"
-          />
-        ) : (
-          <img
-            src="https://www.pokemoncenter.com/wcsstore/PokemonCatalogAssetStore/images/catalog/products/P5074/710-04027/P5074_710-04027_06.jpg"
-            alt="Placeholder"
-            className="w-60 h-28 rounded-full object-cover mb-2 shadow-sm opacity-75"
-          />
-        )}
-
-        {review.website_url?.trim() && (
-          <a
-            href={review.website_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-400 text-sm underline mb-2 hover:text-blue-600 transition"
-          >
-            Visit Website
-          </a>
-        )}
-
-        <p className="text-sm text-gray-700 mb-2 text-center line-clamp-3">
-          {review.description}
-        </p>
-
-        {user && ( // Only show if the user is logged in
-          <button
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent modal click
-              handleDelete(review.id); // Pass the review.id for deletion
-            }}
-            className="mt-2 bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-          >
-            Delete
-          </button>
-        )}
-
-        <div className="flex items-center text-yellow-500">
-          {Array.from({ length: Math.floor(review.rating) }, (_, i) => (
-            <span key={i} className="text-lg">★</span>
-          ))}
-          {review.rating % 1 >= 0.5 && <span className="text-lg">★</span>}
-          {Array.from({ length: 5 - Math.ceil(review.rating) }, (_, i) => (
-            <span key={`empty-${i}`} className="text-lg text-gray-300">★</span>
-          ))}
-        </div>
-
-      </div>
-      
-      
-    );
-  })}
-</div> 
-)}
+  
 <div className="flex justify-center space-x-4 mt-4">
   <button
     onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
