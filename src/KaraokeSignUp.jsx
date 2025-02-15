@@ -360,7 +360,7 @@ export default function KaraokeSignup() {
     fetchActiveSingers(); // Now it's defined and can be used anywhere
   }, []);
 
-  const [form, setForm] = useState({ name: "", song: "", artist: "" });
+  const [form, setForm] = useState({ name: "", song: "", artist: "", adjustment: 0 }); 
   const [editingId, setEditingId] = useState(null);
   const [issues, setIssues] = useState({});
   const [showForm, setShowForm] = useState(false);
@@ -1505,54 +1505,61 @@ export default function KaraokeSignup() {
               </div>
 
               <label
-                htmlFor="adjustment"
-                className="block text-purple-400 text-lg sm:text-xl font-bold  text-center cursor-pointer"
-              >
-                🔑 Change (Optional)
-              </label>
-              <p>+/- by 1/2 step Increments</p>
-              <div className="flex items-center space-x-1">
-                {/* Decrease Button */}
-                <button
-                  onClick={(e) => {
-                    e.preventDefault(); // Prevent form submission
-                    setForm((prev) => ({
-                      ...prev,
-                      adjustment: (parseFloat(prev.adjustment) || 0) - 0.5,
-                    }));
-                  }}
-                  className="px-4 py-3 text-lg font-bold bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg transition-all"
-                >
-                  ➖
-                </button>
+  htmlFor="adjustment"
+  className="block text-purple-400 text-lg sm:text-xl font-bold text-center cursor-pointer"
+>
+  🔑 Change (Optional)
+</label>
+<p>+/- by 1/2 step Increments (Min: -10, Max: 10)</p>
+<div className="flex items-center space-x-1">
+  {/* Decrease Button */}
+  <button
+    onClick={(e) => {
+      e.preventDefault(); // Prevent form submission
+      setForm((prev) => ({
+        ...prev,
+        adjustment: Math.max((prev.adjustment || 0) - 0.5, -10), // ✅ Ensure valid number
+      }));
+    }}
+    className="px-4 py-3 text-lg font-bold bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg transition-all"
+    disabled={form.adjustment <= -10} // ✅ Disable button at min limit
+  >
+    ➖
+  </button>
 
-                {/* Input Field */}
-                <input
-                  id="adjustment"
-                  type="number"
-                  step="0.5"
-                  placeholder="0"
-                  value={form.adjustment}
-                  onChange={(e) =>
-                    setForm({ ...form, adjustment: e.target.value })
-                  }
-                  className="w-24 px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-                />
+  {/* Input Field */}
+  <input
+    id="adjustment"
+    type="number"
+    step="0.5"
+    min="-10"
+    max="10"
+    placeholder="0"
+    value={form.adjustment}
+    onChange={(e) => {
+      let value = parseFloat(e.target.value);
+      if (isNaN(value)) value = 0;
+      value = Math.max(-10, Math.min(value, 10)); // ✅ Keep within -10 to 10
+      setForm({ ...form, adjustment: value });
+    }}
+    className="w-24 px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+  />
 
-                {/* Increase Button */}
-                <button
-                  onClick={(e) => {
-                    e.preventDefault(); // Prevent form submission
-                    setForm((prev) => ({
-                      ...prev,
-                      adjustment: (parseFloat(prev.adjustment) || 0) + 0.5,
-                    }));
-                  }}
-                  className="px-4 py-3 text-lg font-bold bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-lg transition-all"
-                >
-                  ➕
-                </button>
-              </div>
+  {/* Increase Button */}
+  <button
+    onClick={(e) => {
+      e.preventDefault(); // Prevent form submission
+      setForm((prev) => ({
+        ...prev,
+        adjustment: Math.min((prev.adjustment || 0) + 0.5, 10), // ✅ Ensure valid number
+      }));
+    }}
+    className="px-4 py-3 text-lg font-bold bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-lg transition-all"
+    disabled={form.adjustment >= 10} // ✅ Disable button at max limit
+  >
+    ➕
+  </button>
+</div>
 
               {/* Submit Button */}
               <button
