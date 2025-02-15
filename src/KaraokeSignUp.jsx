@@ -1180,48 +1180,7 @@ export default function KaraokeSignup() {
           </h1>
 
           <Promotions />
-          {user?.is_admin && (
-            <div className="mt-6 text-center bg-gradient-to-r from-purple-600 to-pink-600 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
-              {/* Input Field */}
-              <div className="relative mb-4">
-                <input
-                  type="text"
-                  maxLength="4"
-                  placeholder="Enter 4-digit PIN"
-                  value={adminPin}
-                  onChange={(e) => setAdminPin(e.target.value)}
-                  className="w-full px-5 py-3 text-xl text-white bg-black bg-opacity-50 border border-gray-400 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none text-center placeholder-gray-300 tracking-widest"
-                />
-                <span className="absolute right-4 top-3 text-white text-lg">
-                  🔒
-                </span>
-              </div>
-
-              {/* Buttons Container */}
-              <div className="flex flex-wrap gap-3 justify-center">
-                <button
-                  onClick={handleSetPin}
-                  className="px-4 py-2 text-lg font-bold text-white bg-green-500 rounded-lg shadow-md transform transition-all hover:scale-105 hover:bg-green-600 active:scale-95"
-                >
-                  ✅ Set PIN
-                </button>
-
-                <button
-                  onClick={handleUpdatePin}
-                  className="px-4 py-2 text-lg font-bold text-white bg-blue-500 rounded-lg shadow-md transform transition-all hover:scale-105 hover:bg-blue-600 active:scale-95"
-                >
-                  🔄 Update PIN
-                </button>
-
-                <button
-                  onClick={handleDeletePin}
-                  className="px-4 py-2 text-lg font-bold text-white bg-red-500 rounded-lg shadow-md transform transition-all hover:scale-105 hover:bg-red-600 active:scale-95"
-                >
-                  ❌ Delete PIN
-                </button>
-              </div>
-            </div>
-          )}
+  
           <h2
             className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold 
                mb-4 sm:mb-3 mt-6 sm:mt-10 text-center text-white 
@@ -1379,6 +1338,50 @@ export default function KaraokeSignup() {
                 : "N/A"}
             </span>
           </h2>
+
+
+          {user?.is_admin && (
+            <div className="mt-6 text-center bg-gradient-to-r from-purple-600 to-pink-600 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
+              {/* Input Field */}
+              <div className="relative mb-4">
+                <input
+                  type="text"
+                  maxLength="4"
+                  placeholder="Enter 4-digit PIN"
+                  value={adminPin}
+                  onChange={(e) => setAdminPin(e.target.value)}
+                  className="w-full px-5 py-3 text-xl text-white bg-black bg-opacity-50 border border-gray-400 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none text-center placeholder-gray-300 tracking-widest"
+                />
+                <span className="absolute right-4 top-3 text-white text-lg">
+                  🔒
+                </span>
+              </div>
+
+              {/* Buttons Container */}
+              <div className="flex flex-wrap gap-3 justify-center">
+                <button
+                  onClick={handleSetPin}
+                  className="px-4 py-2 text-lg font-bold text-white bg-green-500 rounded-lg shadow-md transform transition-all hover:scale-105 hover:bg-green-600 active:scale-95"
+                >
+                  ✅ Set PIN
+                </button>
+
+                <button
+                  onClick={handleUpdatePin}
+                  className="px-4 py-2 text-lg font-bold text-white bg-blue-500 rounded-lg shadow-md transform transition-all hover:scale-105 hover:bg-blue-600 active:scale-95"
+                >
+                  🔄 Update PIN
+                </button>
+
+                <button
+                  onClick={handleDeletePin}
+                  className="px-4 py-2 text-lg font-bold text-white bg-red-500 rounded-lg shadow-md transform transition-all hover:scale-105 hover:bg-red-600 active:scale-95"
+                >
+                  ❌ Delete PIN
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Subtitle */}
           <div className="text-center mt-6 bg-gradient-to-r from-blue-500 to-purple-500 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
