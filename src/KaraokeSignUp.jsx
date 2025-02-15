@@ -1013,7 +1013,7 @@ export default function KaraokeSignup() {
 
       if (activeSongs >= 2) {
         alert(
-          `⚠️ "${form.name}" already has two  songs in queue! Only two at a time per person, please.⏰`
+          `⚠️ ${form.name} already has two songs in queue! Only two at a time per person, please.⏰`
         );
         return; // Stop submission if they already have 2 active songs
       }
@@ -2086,13 +2086,13 @@ export default function KaraokeSignup() {
                   <div className="max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
                     <ul className="list-none mt-4 space-y-3">
                       {deletedNotes.length > 0 ? (
-                        deletedNotes.map(({ id, content, created_at }) => (
+                        deletedNotes.map(({ id, alert_details, created_at }) => (
                           <li
                             key={id}
                             className="bg-gray-800 p-4 rounded-lg shadow-md"
                           >
                             <p className="text-white font-medium">
-                              📝 {content}
+                              📝 {alert_details}
                             </p>
                             <p className="text-xs text-gray-400 mt-2">
                               ⏰{" "}
