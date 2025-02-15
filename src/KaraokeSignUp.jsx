@@ -1013,7 +1013,7 @@ export default function KaraokeSignup() {
 
       if (activeSongs >= 2) {
         alert(
-          `⚠️ The name "${form.name}" already has two active songs! Only two at a time per person, please.`
+          `⚠️ "${form.name}" already has two  songs in queue! Only two at a time per person, please.⏰`
         );
         return; // Stop submission if they already have 2 active songs
       }
