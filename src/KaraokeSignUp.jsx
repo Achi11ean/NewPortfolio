@@ -1394,7 +1394,7 @@ export default function KaraokeSignup() {
               <input
                 type="text"
                 maxLength="4"
-                placeholder="🔢 Enter PIN"
+                placeholder="🔢 PIN"
                 value={pin}
                 onChange={(e) => setPin(e.target.value)}
                 className="w-full px-5 py-3 text-xl text-white bg-black bg-opacity-50 border border-gray-400 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:outline-none text-center placeholder-gray-300 tracking-widest"
