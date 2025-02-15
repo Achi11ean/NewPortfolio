@@ -992,16 +992,27 @@ export default function KaraokeSignup() {
       }
   
       // ✅ Step 4: Enforce the two-song limit per person
-      const nameCount = allSignups.filter(
-        (signup) => signup.name.toLowerCase() === form.name.toLowerCase()
-      ).length;
-  
-      if (nameCount >= 2) {
-        alert(
-          `⚠️ The name "${form.name}" is already used twice! Only two songs at a time per person, please.`
-        );
-        return; // Stop if the person already has two songs
-      }
+// ✅ Step 4: Enforce the two-song limit per person (ONLY check active songs)
+const activeSignupsResponse = await fetch(
+  "https://portfoliobackend-ih6t.onrender.com/karaokesignup/active"
+);
+if (!activeSignupsResponse.ok) {
+  console.error("Failed to fetch active signups.");
+  return;
+}
+const activeSignups = await activeSignupsResponse.json();
+
+const activeNameCount = activeSignups.filter(
+  (signup) => signup.name.toLowerCase() === form.name.toLowerCase()
+).length;
+
+if (activeNameCount >= 2) {
+  alert(
+    `⚠️ The name "${form.name}" already has two active songs! Only two at a time per person, please.`
+  );
+  return; // Stop if the person already has two songs
+}
+
   
       // ✅ Step 5: Determine adjustment value (default 0 if not set)
       const adjustmentValue =
