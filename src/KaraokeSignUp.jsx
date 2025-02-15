@@ -1386,7 +1386,7 @@ export default function KaraokeSignup() {
           {/* Subtitle */}
           <div className="text-center mt-6 bg-gradient-to-r from-blue-500 to-purple-500 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
             <h2 className="text-white font-extrabold text-2xl mb-4">
-              🔑 Enter Pin to Signup
+              🔑 Venue Pin
             </h2>
 
             {/* PIN input is ALWAYS visible but gets disabled when valid */}
