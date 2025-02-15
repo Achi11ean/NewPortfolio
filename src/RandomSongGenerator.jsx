@@ -428,12 +428,10 @@ const RandomSongGenerator = ({ onSelect }) => {
   
 
   const pickRandomArtist = () => {
-    if (songs.length === 0) return; // Ensure there's data
-  
-    const uniqueArtists = [...new Set(songs.map(song => song.artist))]; // Extract unique artists
-    const artist = uniqueArtists[Math.floor(Math.random() * uniqueArtists.length)];
-  
-    setRandomSelection({ artist }); // Store as an object to match existing selection format
+    if (artistQueue.length === 0) setArtistQueue(shuffleArray([...uniqueArtists])); // Reshuffle when empty
+    const nextArtist = artistQueue.pop(); // Pick the last artist from queue
+    setArtistQueue([...artistQueue]); // Update queue state
+    setRandomSelection({ artist: nextArtist }); // Store as an object to match existing format
   };
   
   
