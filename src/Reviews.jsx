@@ -169,136 +169,18 @@ console.log("Filter Selected:", filter);  // ✅ See what filter is applied
 </h2>
 
 </div>
-
-<p className="underline mt-2">Sort By Review Type</p>
-
-{showEmojis && (
-  <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-50">
-    {Array.from({ length: 20 }).map((_, index) => (
-      <span
-        key={index}
-        className="emoji absolute"
-        style={{
-          left: `${Math.random() * 100}vw`,
-          animationDelay: `${Math.random() * 2}s`,
-          animationDuration: `${Math.random() * 3 + 2}s`,
-        }}
-      >
-        {Math.random() > 0.5 ? "🌟" : "💕"}
-      </span>
-    ))}
-  </div>
-)}
-<div className="flex flex-wrap justify-center gap-3 mb-4 mt-3 ml-2  whitespace-nowrap">
-  {[
-    { label: "All 📝", value: "All", colors: "from-purple-500 to-orange-400" },
-    { label: "Performance 🎭", value: "Performance", colors: "from-blue-500 to-indigo-400" },
-    { label: "Software 👨🏻‍💻", value: "Software", colors: "from-green-400 to-blue-500" },
-    { label: "Consultation 👨🏻‍🔧💬", value: "Consultation", colors: "from-yellow-400 to-orange-500" },
-    { label: "Misc 🧩", value: "Miscellaneous", colors: "from-pink-500 to-purple-600" },
-  ].map(({ label, value, colors }) => (
-    <button
-      key={value}
-      onClick={() => setFilter(value)}
-      className={`w-40 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ease-in-out shadow-md text-center
-        ${
-          filter === value
-            ? `bg-gradient-to-r ${colors} text-white shadow-lg scale-105 border-0`
-            : "bg-gray-100 text-gray-800 border border-gray-300 hover:bg-gradient-to-r hover:from-gray-200 hover:to-gray-400 hover:scale-105"
-        }`}
-    >
-      {label}
-    </button>
-  ))}
-</div>
-
-
-{!loading && !error && (
-  <div className="w-full py-12 px-4 md:px-8 bg-gradient-to-b from-blue-900 via-blue-800 to-blue-950 rounded-xl shadow-lg">
-    <h2 className="text-center text-4xl font-bold text-white mb-8">
-      🌟 Community Reviews 🌟
-    </h2>
-
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {currentReviews.map((review) => (
-        <div
-          key={review.id}
-          onClick={() => setSelectedReview(review)} // Open modal on click
-          className="cursor-pointer bg-blue-950/90 border border-blue-400/20 text-white rounded-lg shadow-xl p-6 flex flex-col items-center hover:scale-105 transition-transform duration-200 hover:shadow-2xl"
-        >
-          {/* Reviewer Name */}
-          <h3 className="text-xl font-bold text-white mb-2 text-center">
-            {review.name}
-          </h3>
-
-          {/* Service Type */}
-          <p className="text-sm text-gray-300 mb-3 italic">{review.service}</p>
-
-          {/* Profile Image or Placeholder */}
-          {review.image_url ? (
-            <img
-              src={review.image_url}
-              alt="Review"
-              className="w-28 h-28 rounded-full object-cover mb-3 border-2 border-white/40 shadow-md"
-            />
-          ) : (
-            <img
-              src="https://www.pokemoncenter.com/wcsstore/PokemonCatalogAssetStore/images/catalog/products/P5074/710-04027/P5074_710-04027_06.jpg"
-              alt="Placeholder"
-              className="w-28 h-28 rounded-full object-cover mb-3 border-2 border-white/40 shadow-md opacity-75"
-            />
-          )}
-
-          {/* Scrollable Review Text */}
-          <div className="w-full max-h-32 overflow-y-auto px-4 text-sm text-gray-200 text-center bg-blue-800/40 rounded-lg p-3 border border-blue-500/20 shadow-sm">
-            {review.description}
-          </div>
-
-          {/* Website Link (If Available) */}
-          {review.website_url?.trim() && (
-            <a
-              href={review.website_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 text-blue-300 text-sm underline hover:text-blue-400 transition"
-            >
-              Visit Website
-            </a>
-          )}
-
-          {/* Star Ratings */}
-          <div className="flex items-center text-yellow-400 mt-3">
-            {Array.from({ length: Math.floor(review.rating) }, (_, i) => (
-              <span key={i} className="text-xl">★</span>
-            ))}
-            {review.rating % 1 >= 0.5 && <span className="text-xl">★</span>}
-            {Array.from({ length: 5 - Math.ceil(review.rating) }, (_, i) => (
-              <span key={`empty-${i}`} className="text-xl text-gray-600">★</span>
-            ))}
-          </div>
-
-          {/* Delete Button for Admins */}
-          {user && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent modal click
-                handleDelete(review.id);
-              }}
-              className="mt-4 bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 transition"
-            >
-              Delete
-            </button>
-          )}
-        </div>
-      ))}
-    </div>
-  </div>
-)}
+<button
+  onClick={() => setShowForm((prev) => !prev)}
+  className="mt-6 px-6 py-3 text-xl font-bold text-white uppercase 
+             bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 
+             hover:scale-105 hover:shadow-lg transform transition-all duration-300 rounded-2xl"
+>
+  {showForm ? "❌ Close Review Form" : "➕ Leave a Review"}
+</button>
 
 
 
-
-      {showForm && (
+{showForm && (
         <div
   className="rounded-lg p-8 text-gray-800 shadow-2xl w-full max-w-3xl mx-auto bg-cover bg-center"
 
@@ -444,6 +326,135 @@ required
 </form>
 </div>
 )}
+<p className="underline mt-2">Sort By Review Type</p>
+
+{showEmojis && (
+  <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-50">
+    {Array.from({ length: 20 }).map((_, index) => (
+      <span
+        key={index}
+        className="emoji absolute"
+        style={{
+          left: `${Math.random() * 100}vw`,
+          animationDelay: `${Math.random() * 2}s`,
+          animationDuration: `${Math.random() * 3 + 2}s`,
+        }}
+      >
+        {Math.random() > 0.5 ? "🌟" : "💕"}
+      </span>
+    ))}
+  </div>
+)}
+<div className="flex flex-wrap justify-center gap-3 mb-4 mt-3 ml-2  whitespace-nowrap">
+  {[
+    { label: "All 📝", value: "All", colors: "from-purple-500 to-orange-400" },
+    { label: "Performance 🎭", value: "Performance", colors: "from-blue-500 to-indigo-400" },
+    { label: "Software 👨🏻‍💻", value: "Software", colors: "from-green-400 to-blue-500" },
+    { label: "Consultation 👨🏻‍🔧💬", value: "Consultation", colors: "from-yellow-400 to-orange-500" },
+    { label: "Misc 🧩", value: "Miscellaneous", colors: "from-pink-500 to-purple-600" },
+  ].map(({ label, value, colors }) => (
+    <button
+      key={value}
+      onClick={() => setFilter(value)}
+      className={`w-40 py-1.5 text-sm font-semibold rounded-full transition-all duration-300 ease-in-out shadow-md text-center
+        ${
+          filter === value
+            ? `bg-gradient-to-r ${colors} text-white shadow-lg scale-105 border-0`
+            : "bg-gray-100 text-gray-800 border border-gray-300 hover:bg-gradient-to-r hover:from-gray-200 hover:to-gray-400 hover:scale-105"
+        }`}
+    >
+      {label}
+    </button>
+  ))}
+</div>
+
+
+{!loading && !error && (
+  <div className="w-full py-12 px-4 md:px-8 bg-gradient-to-b from-blue-900 via-blue-800 to-blue-950 rounded-xl shadow-lg">
+    <h2 className="text-center text-4xl font-bold text-white mb-8">
+      🌟 Community Reviews 🌟
+    </h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {currentReviews.map((review) => (
+        <div
+          key={review.id}
+          onClick={() => setSelectedReview(review)} // Open modal on click
+          className="cursor-pointer bg-blue-950/90 border border-blue-400/20 text-white rounded-lg shadow-xl p-6 flex flex-col items-center hover:scale-105 transition-transform duration-200 hover:shadow-2xl"
+        >
+          {/* Reviewer Name */}
+          <h3 className="text-xl font-bold text-white mb-2 text-center">
+            {review.name}
+          </h3>
+
+          {/* Service Type */}
+          <p className="text-sm text-gray-300 mb-3 italic">{review.service}</p>
+
+          {/* Profile Image or Placeholder */}
+          {review.image_url ? (
+            <img
+              src={review.image_url}
+              alt="Review"
+              className="w-28 h-28 rounded-full object-cover mb-3 border-2 border-white/40 shadow-md"
+            />
+          ) : (
+            <img
+              src="https://www.pokemoncenter.com/wcsstore/PokemonCatalogAssetStore/images/catalog/products/P5074/710-04027/P5074_710-04027_06.jpg"
+              alt="Placeholder"
+              className="w-28 h-28 rounded-full object-cover mb-3 border-2 border-white/40 shadow-md opacity-75"
+            />
+          )}
+
+          {/* Scrollable Review Text */}
+          <div className="w-full max-h-32 overflow-y-auto px-4 text-sm text-gray-200 text-center bg-blue-800/40 rounded-lg p-3 border border-blue-500/20 shadow-sm">
+            {review.description}
+          </div>
+
+          {/* Website Link (If Available) */}
+          {review.website_url?.trim() && (
+            <a
+              href={review.website_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 text-blue-300 text-sm underline hover:text-blue-400 transition"
+            >
+              Visit Website
+            </a>
+          )}
+
+          {/* Star Ratings */}
+          <div className="flex items-center text-yellow-400 mt-3">
+            {Array.from({ length: Math.floor(review.rating) }, (_, i) => (
+              <span key={i} className="text-xl">★</span>
+            ))}
+            {review.rating % 1 >= 0.5 && <span className="text-xl">★</span>}
+            {Array.from({ length: 5 - Math.ceil(review.rating) }, (_, i) => (
+              <span key={`empty-${i}`} className="text-xl text-gray-600">★</span>
+            ))}
+          </div>
+
+          {/* Delete Button for Admins */}
+          {user && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent modal click
+                handleDelete(review.id);
+              }}
+              className="mt-4 bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600 transition"
+            >
+              Delete
+            </button>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+
+
+
+ 
 <br/>
 
 
