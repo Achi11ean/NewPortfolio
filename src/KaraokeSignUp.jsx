@@ -8,6 +8,8 @@ import SingerCount from "./SingerCount";
 import RandomSongGenerator from "./RandomSongGenerator";
 export default function KaraokeSignup() {
   const [notes, setNotes] = useState([]);
+  const [autoRefresh, setAutoRefresh] = useState(false);
+
   const [pin, setPin] = useState(""); // User-entered PIN
   const [isPinValid, setIsPinValid] = useState(false); // Whether the entered PIN is correct
   const [adminPin, setAdminPin] = useState(""); // Admin setting a new PIN
@@ -17,7 +19,16 @@ export default function KaraokeSignup() {
   const [isLoading, setIsLoading] = useState(true); // ✅ Loading state
   const [isReversed, setIsReversed] = useState(false);
   const djNotesRef = useRef(null);
-
+  useEffect(() => {
+    if (!autoRefresh) return; // Stop if disabled
+  
+    const interval = setInterval(() => {
+      handleRefresh();
+    }, 30000); // 30 seconds
+  
+    return () => clearInterval(interval); // Cleanup
+  }, [autoRefresh]);
+  
   const toggleReverseOrder = () => {
     setIsReversed((prev) => !prev);
   };
@@ -1691,7 +1702,18 @@ export default function KaraokeSignup() {
             </button>
           </div>
         )}
-
+{user?.is_admin && (
+  <div className="mt-4 flex justify-center">
+    <button
+      className={`px-6 w-full text-lg font-bold text-white rounded-lg shadow-md transform transition-all
+        ${autoRefresh ? "bg-red-600 hover:bg-red-700" : "bg-green-500 hover:bg-green-600"} 
+        hover:scale-105 active:scale-95`}
+      onClick={() => setAutoRefresh(!autoRefresh)}
+    >
+      {autoRefresh ? "🛑 Stop Auto Refresh" : "🔄 Enable Auto Refresh"}
+    </button>
+  </div>
+)}
         {/* Search Bar */}
 
         <div className="relative w-full mb-6">
