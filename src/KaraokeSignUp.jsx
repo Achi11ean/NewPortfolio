@@ -3,6 +3,7 @@ import { useAuth } from "./AuthContext"; // Adjust the path accordingly
 import DJNotesApp from "./DJNotes";
 import Promotions from "./Promotions"; // Adjust the path based on where the file is
 import "./App.css";
+import RandomIntroGenerator from "./RamdomIntroGenerator";
 import MusicBreakAlert from "./MusicBreak";
 import SingerCount from "./SingerCount";
 import RandomSongGenerator from "./RandomSongGenerator";
@@ -1705,8 +1706,10 @@ export default function KaraokeSignup() {
           
         )}
 {user?.is_admin && (
+  
   <div className="mt-4 mb-4 flex justify-center">
-    
+    <RandomIntroGenerator singerName={name} />
+
     <button
       className={`px-6 w-full text-lg font-bold text-white rounded-lg shadow-md transform transition-all
         ${autoRefresh ? "bg-red-600 hover:bg-red-700" : "bg-green-500 hover:bg-green-600"} 
