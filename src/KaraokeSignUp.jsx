@@ -1700,10 +1700,13 @@ export default function KaraokeSignup() {
             >
               🔄 {isReversed ? "Show Oldest First" : "Show Newest First"}
             </button>
+
           </div>
+          
         )}
 {user?.is_admin && (
-  <div className="mt-4 flex justify-center">
+  <div className="mt-4 mb-4 flex justify-center">
+    
     <button
       className={`px-6 w-full text-lg font-bold text-white rounded-lg shadow-md transform transition-all
         ${autoRefresh ? "bg-red-600 hover:bg-red-700" : "bg-green-500 hover:bg-green-600"} 
@@ -1712,8 +1715,10 @@ export default function KaraokeSignup() {
     >
       {autoRefresh ? "🛑 Stop Auto Refresh" : "🔄 Enable Auto Refresh"}
     </button>
+    
   </div>
 )}
+
         {/* Search Bar */}
 
         <div className="relative w-full mb-6">
