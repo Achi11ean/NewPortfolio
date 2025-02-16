@@ -1642,6 +1642,7 @@ export default function KaraokeSignup() {
           <SingerCount singerCounts={singerCounts} isLoading={isLoading} />
         )}
         {/* Refresh button */}
+
         <button
           className={`relative w-full mb-3 text-white font-bold py-4 px-8 rounded-2xl text-2xl shadow-2xl mt-4 
     transition-all duration-300 transform active:scale-90 animate-bounce
@@ -1692,35 +1693,27 @@ export default function KaraokeSignup() {
             </span>
           )}
         </button>
-
-        {user?.is_admin && (
-          <div className="flex justify-center mt-4">
-            <button
-              className="px-6 w-full text-lg font-bold text-white bg-purple-600 hover:bg-purple-700 rounded-lg shadow-md transform transition-all hover:scale-105 active:scale-95"
-              onClick={toggleReverseOrder}
-            >
-              🔄 {isReversed ? "Show Oldest First" : "Show Newest First"}
-            </button>
-
-          </div>
-          
-        )}
-{user?.is_admin && (
-  
-  <div className="mt-4 mb-4 flex justify-center">
-    <RandomIntroGenerator singerName={name} />
-
+        <div className="flex justify-center gap-4 mt-4">
+  {user?.is_admin && (
     <button
-      className={`px-6 w-full text-lg font-bold text-white rounded-lg shadow-md transform transition-all
+      className="px-8 mb-2 text-lg font-bold text-white bg-purple-600 hover:bg-purple-700 rounded-lg shadow-md transform transition-all hover:scale-105 active:scale-95"
+      onClick={toggleReverseOrder}
+    >
+      🔄 {isReversed ? "Show Oldest First" : "Show Newest First"}
+    </button>
+  )}
+  
+  {user?.is_admin && (
+    <button
+      className={`px-8 text-lg mb-2 font-bold text-white rounded-lg shadow-md transform transition-all
         ${autoRefresh ? "bg-red-600 hover:bg-red-700" : "bg-green-500 hover:bg-green-600"} 
         hover:scale-105 active:scale-95`}
       onClick={() => setAutoRefresh(!autoRefresh)}
     >
       {autoRefresh ? "🛑 Stop Auto Refresh" : "🔄 Enable Auto Refresh"}
     </button>
-    
-  </div>
-)}
+  )}
+</div>
 
         {/* Search Bar */}
 
@@ -1739,6 +1732,8 @@ export default function KaraokeSignup() {
         </div>
 
         <MusicBreakAlert showAlert={showAlert} toggleAlert={toggleAlert} />
+        <br/>
+        <RandomIntroGenerator singerName={name} />
 
         {/* Sign-up List */}
         <div className="max-h-[120vh] mt-5 overflow-y-auto space-y-6">
