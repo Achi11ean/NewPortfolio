@@ -1733,8 +1733,10 @@ export default function KaraokeSignup() {
 
         <MusicBreakAlert showAlert={showAlert} toggleAlert={toggleAlert} />
         <br/>
-        <RandomIntroGenerator singerName={name} />
+        {user?.is_admin && (
 
+        <RandomIntroGenerator singerName={name} />
+        )}
         {/* Sign-up List */}
         <div className="max-h-[120vh] mt-5 overflow-y-auto space-y-6">
           {(isReversed ? [...signups].reverse() : signups).map(
