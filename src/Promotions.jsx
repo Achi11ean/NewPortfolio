@@ -89,7 +89,7 @@ export default function Promotions() {
     {/* Floating Microphone Animation */}
     <span className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl animate-bounce">🎤</span>
 
-    {showPromotions ? "Hope to see you there! 🎉" : "🎶 Coming Soon!"}
+    {showPromotions ? "Hope to see you there! 🎉" : "🎶 Future Events!"}
 
     {/* Glowing Overlay Effect */}
     <span className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-transparent opacity-0 group-hover:opacity-10 transition-all duration-300"></span>
