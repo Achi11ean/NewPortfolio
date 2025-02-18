@@ -376,7 +376,6 @@ useEffect(() => {
           {activeTab === "education" && (
             <div className="space-y-8">
               {/* Education and Skills Section */}
-              <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-6 rounded-lg shadow-lg"></div>
 
               {/* Project Cards */}
               <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">

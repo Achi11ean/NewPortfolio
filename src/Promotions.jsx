@@ -79,28 +79,17 @@ export default function Promotions() {
     return (
         <div className="max-w-4xl mx-auto p-4">
 <div className="max-w-4xl mx-auto p-4 flex justify-center items-center">
-  <button
-    className="w-full relative bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 text-white font-extrabold text-2xl 
-               px-6 py-4 rounded-2xl shadow-xl transition-all duration-300 ease-in-out 
-               hover:from-purple-700 hover:via-pink-600 hover:to-red-600 hover:shadow-2xl 
-               transform hover:scale-105 active:scale-95 group overflow-hidden"
-    onClick={() => setShowPromotions(!showPromotions)}
-  >
-    {/* Floating Microphone Animation */}
-    <span className="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl animate-bounce">🎤</span>
+<button
+  className="w-full relative bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 text-white font-extrabold 
+             text-xl sm:text-2xl px-6 shadow-white  rounded-2xl shadow-md transition-all duration-300 ease-in-out 
+             hover:from-purple-700 hover:via-pink-600 hover:to-red-600 hover:shadow-2xl 
+             transform hover:scale-105 active:scale-95 group animate-bounce overflow-hidden"
+  onClick={() => setShowPromotions(!showPromotions)}
+  title="Click here to find out where I'm hosting or performing next!"
+>
+  {showPromotions ? "Hope to see you there! 🎉" : " Events!🔜"}
+</button>
 
-    {showPromotions ? "Hope to see you there! 🎉" : "🎶 Future Events!"}
-
-    {/* Glowing Overlay Effect */}
-    <span className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-transparent opacity-0 group-hover:opacity-10 transition-all duration-300"></span>
-
-    {/* Tooltip - Now with a sleek animation */}
-    <span className="absolute left-1/2 bottom-full mb-3 w-64 px-4 py-2 text-sm text-white 
-                    bg-black bg-opacity-90 rounded-lg shadow-lg opacity-0 
-                    group-hover:opacity-100 group-hover:translate-y-2 transition-all duration-300 ease-in-out transform -translate-x-1/2">
-      Click here to find out where I'm hosting or performing next!
-    </span>
-  </button>
 </div>
 
 

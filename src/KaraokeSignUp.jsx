@@ -1189,8 +1189,8 @@ export default function KaraokeSignup() {
         <div className="flex flex-col items-center justify-center  px-4 sm:px-8 md:px-16 lg:px-24">
           {/* Title */}
           <h1
-            className="text-3xl sm:text-5xl md:text-6xl shadow-2xl shadow-white rounded-3xl lg:text-7xl 
-               font-bold text-center drop-shadow-lg p-4 sm:p-6 
+            className="text-3xl sm:text-5xl md:text-6xl shadow-md shadow-white rounded-3xl lg:text-7xl 
+               font-bold text-center  p-4 sm:p-6 
                bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 
                bg-clip-text text-transparent inline-block font-[Aspire]"
           >
@@ -1447,15 +1447,7 @@ export default function KaraokeSignup() {
               onSubmit={handleSubmit}
               className="w-full max-w-md mt-6 bg-white bg-opacity-10 backdrop-blur-lg p-6 sm:p-8 rounded-3xl border border-gray-600 flex flex-col items-center space-y-6 animate-rainbowShadow"
             >
-              <RandomSongGenerator
-                onSelect={(selectedSong) =>
-                  setForm((prevForm) => ({
-                    ...prevForm,
-                    song: selectedSong.title,
-                    artist: selectedSong.artist,
-                  }))
-                }
-              />
+
 
               <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-white text-center tracking-wide">
                 🎤 Step Up to the Mic! 🎶
@@ -1517,6 +1509,15 @@ export default function KaraokeSignup() {
 />
 
               </div>
+              <RandomSongGenerator
+                onSelect={(selectedSong) =>
+                  setForm((prevForm) => ({
+                    ...prevForm,
+                    song: selectedSong.title,
+                    artist: selectedSong.artist,
+                  }))
+                }
+              />
 
               {/* Song Input */}
               <div className="relative w-full mt-4">
@@ -1566,9 +1567,9 @@ export default function KaraokeSignup() {
   htmlFor="adjustment"
   className="block text-purple-400 text-lg sm:text-xl font-bold text-center cursor-pointer"
 >
-  🔑 Key Change (Optional)
+  🔑 Key Change <br/> (Optional)
 </label>
-<p>+/- by 1/2 step Increments (Min: -10, Max: 10)</p>
+<p>+/- by 1/2 step Increments</p>
 <div className="flex items-center space-x-1">
   {/* Decrease Button */}
   <button
@@ -1579,7 +1580,7 @@ export default function KaraokeSignup() {
         adjustment: Math.max((prev.adjustment || 0) - 0.5, -10), // ✅ Ensure valid number
       }));
     }}
-    className="px-4 py-3 text-lg font-bold bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg transition-all"
+    className="px-4 py-1 text-lg font-bold bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-lg transition-all"
     disabled={form.adjustment <= -10} // ✅ Disable button at min limit
   >
     ➖
@@ -1600,7 +1601,7 @@ export default function KaraokeSignup() {
       value = Math.max(-10, Math.min(value, 10)); // ✅ Keep within -10 to 10
       setForm({ ...form, adjustment: value });
     }}
-    className="w-24 px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+    className="w-16 py-1  text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
   />
 
   {/* Increase Button */}
@@ -1612,7 +1613,7 @@ export default function KaraokeSignup() {
         adjustment: Math.min((prev.adjustment || 0) + 0.5, 10), // ✅ Ensure valid number
       }));
     }}
-    className="px-4 py-3 text-lg font-bold bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-lg transition-all"
+    className="px-4  py-1 text-lg font-bold bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-lg transition-all"
     disabled={form.adjustment >= 10} // ✅ Disable button at max limit
   >
     ➕
