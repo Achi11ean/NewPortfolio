@@ -1222,20 +1222,19 @@ export default function KaraokeSignup() {
               </li>
 
               <li className="flex items-start space-x-2">
-                <span className="text-blue-400 text-xl">🎶</span>
+                <span className="text-purple-400 text-xl">🎤</span>
                 <p>
-                  <strong className="underline">Two Songs at a Time:</strong> To
-                  keep it fair, you can only submit two songs at once. 
+                  <strong className="underline">Host Authority:</strong> The
+                  host may adjust the queue but will{" "}
+                  <strong className="underline">always keep it fair</strong>.
                 </p>
               </li>
 
               <li className="flex items-start space-x-2">
-                <span className="text-green-400 text-xl">💰</span>
+                <span className="text-blue-400 text-xl">🎶</span>
                 <p>
-                  <strong className="underline">
-                    Tips Appreciated, Not Required:
-                  </strong>{" "}
-                  Tipping is welcome but does not guarantee priority.
+                  <strong className="underline">Two Songs at a Time:</strong> To
+                  keep it fair, you can only submit two songs at once. 
                 </p>
               </li>
 
@@ -1255,14 +1254,7 @@ export default function KaraokeSignup() {
                 </p>
               </li>
 
-              <li className="flex items-start space-x-2">
-                <span className="text-purple-400 text-xl">🎤</span>
-                <p>
-                  <strong className="underline">Host Authority:</strong> The
-                  host may adjust the queue but will{" "}
-                  <strong className="underline">always keep it fair</strong>.
-                </p>
-              </li>
+  
 
               <li className="flex items-start space-x-2">
                 <span className="text-teal-300 text-xl">🔥</span>
