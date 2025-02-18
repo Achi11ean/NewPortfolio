@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import Select from "react-select";
 import { useAuth } from "./AuthContext"; // Adjust the path accordingly
 import DJNotesApp from "./DJNotes";
 import Promotions from "./Promotions"; // Adjust the path based on where the file is
@@ -10,6 +11,9 @@ import RandomSongGenerator from "./RandomSongGenerator";
 export default function KaraokeSignup() {
   const [notes, setNotes] = useState([]);
   const [autoRefresh, setAutoRefresh] = useState(false);
+
+
+
 
   const [pin, setPin] = useState(""); // User-entered PIN
   const [isPinValid, setIsPinValid] = useState(false); // Whether the entered PIN is correct
@@ -67,11 +71,19 @@ export default function KaraokeSignup() {
   };
 
   useEffect(() => {
-    if (singerCounts.length > 0 || singerCounts.length === 0) {
-      setIsLoading(false);
+    if (singerCounts.length > 0) {
+      setSingerOptions(
+        singerCounts.map((singer) => ({
+          value: singer.name,
+          label: singer.name,
+        }))
+      );
+    } else {
+      // ✅ Default option when no singers exist
+      setSingerOptions([{ value: "", label: "No singers available" }]);
     }
-  }, [singerCounts]);
-
+  }, [singerCounts]); // ✅ Runs when singerCounts changes
+  
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
@@ -234,6 +246,7 @@ export default function KaraokeSignup() {
       console.error("❌ Error verifying PIN:", error);
     }
   };
+  
 
   const handleSetPin = async () => {
     if (adminPin.length !== 4 || isNaN(adminPin)) {
@@ -483,7 +496,14 @@ export default function KaraokeSignup() {
       console.error("Error fetching deleted DJ Notes:", error);
     }
   };
+  const [singerOptions, setSingerOptions] = useState(
+    singerCounts.map((singer) => ({
+      value: singer.name,
+      label: singer.name,
+    }))
+  );
 
+  
   const [showDeleted, setShowDeleted] = useState(false); // Toggle state
   const fetchDeletedSignups = async () => {
     try {
@@ -1462,18 +1482,69 @@ export default function KaraokeSignup() {
                 >
                   🌟 Stage Name 🌟
                 </label>
-                <input
-                  id="name"
-                  type="text"
-                  placeholder="First Name, Last Initial"
-                  value={form.name}
-                  onChange={(e) => {
-                    const value = e.target.value.slice(0, 20); // Limit to 20 characters
-                    setForm({ ...form, name: value });
-                  }}
-                  className="w-full px-5 py-4 text-lg sm:text-xl bg-gray-900 text-white text-center rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-                  required
-                />
+                <Select
+  options={singerOptions}
+  onChange={(selectedOption) =>
+    setForm({ ...form, name: selectedOption ? selectedOption.value : "" })
+  }
+  onInputChange={(inputValue, { action }) => {
+    if (action === "input-change") {
+      setForm({ ...form, name: inputValue });
+    }
+  }}
+  onBlur={() => {
+    if (
+      form.name &&
+      !singerOptions.some((option) => option.value.toLowerCase() === form.name.toLowerCase())
+    ) {
+      const newOption = { value: form.name, label: form.name };
+      setSingerOptions((prevOptions) => [...prevOptions, newOption]);
+    }
+  }}
+  
+  value={
+    singerOptions.find((option) => option.value === form.name) || {
+      value: form.name,
+      label: form.name,
+    }
+  }
+  placeholder="Select or enter your name..."
+  classNamePrefix="react-select"
+  className="w-full"
+  isSearchable
+  styles={{
+    control: (provided, state) => ({
+      ...provided,
+      backgroundColor: "black", // 🖤 Background color
+      borderColor: state.isFocused ? "yellow" : "gray", // ✨ Yellow border on focus
+      color: "white", // 🤍 Text color
+      padding: "10px", // 📏 Spacing
+      boxShadow: state.isFocused ? "0 0 10px yellow" : "none",
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "white", // ✅ Ensure selected value is visible
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: "gray", // 🎨 Placeholder color
+    }),
+    menu: (provided) => ({
+      ...provided,
+      backgroundColor: "black", // 🖤 Dropdown background
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected
+        ? "yellow"
+        : state.isFocused
+        ? "darkgray"
+        : "black", // 🎨 Highlight colors
+      color: state.isSelected ? "black" : "white", // ✅ Text color contrast
+    }),
+  }}
+/>
+
               </div>
 
               {/* Song Input */}
