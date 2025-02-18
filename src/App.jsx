@@ -1236,7 +1236,9 @@ useEffect(() => {
     <strong>Transparent pricing for every event:</strong>
     <br /> 🎈 **Private Parties** – $200 (4 hours)
     <br /> 🏢 **Company Events** – $300 minimum (4 hours)
-    <br /> 💍 **Weddings** – $450 minimum (6 hours)
+    <br /> 💍 **Weddings** – $450 minimum (6 hours) 
+    <br /> 💍 **BONUS** +250 for personalized wedding site 
+    <br /> features: allowing guests to upload photos, loving quotes, and well wishes during the event with no limit.
     <br /> 🎊 **Deluxe All-Day Event** – $600
   </p>
 
