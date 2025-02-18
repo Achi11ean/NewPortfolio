@@ -1644,6 +1644,7 @@ export default function KaraokeSignup() {
         {/* Refresh button */}
 
         <button
+          title="Use this button to refresh the queue line easily!"
           className={`relative w-full mb-3 text-white font-bold py-4 px-8 rounded-2xl text-2xl shadow-2xl mt-4 
     transition-all duration-300 transform active:scale-90 animate-bounce
     ${
