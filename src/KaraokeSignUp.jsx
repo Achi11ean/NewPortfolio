@@ -487,10 +487,17 @@ export default function KaraokeSignup() {
       console.error("Error fetching deleted DJ Notes:", error);
     }
   };
-  const singerOptions = singerCounts.map((singer) => ({
-    value: singer.name,
-    label: singer.name,
-  }));
+  const [singerOptions, setSingerOptions] = useState([]);
+
+
+  useEffect(() => {
+    setSingerOptions(
+      singerCounts.map((singer) => ({
+        value: singer.name,
+        label: singer.name,
+      }))
+    );
+  }, [singerCounts]); // ✅ Updates when singerCounts changes
   const [showDeleted, setShowDeleted] = useState(false); // Toggle state
   const fetchDeletedSignups = async () => {
     try {
@@ -1456,13 +1463,15 @@ export default function KaraokeSignup() {
               {/* Name Input */}
               <div className="relative w-full">
 
-                <Select
+<Select
   id="name"
   options={singerOptions}
   value={
     form.name
-      ? singerOptions.find((option) => option.value === form.name) || { value: form.name, label: form.name }
-      : null // 👈 Allows placeholder to be visible when no selection
+      ? singerOptions.find(
+          (option) => option.value.toLowerCase() === form.name.toLowerCase()
+        ) || { value: form.name, label: form.name }
+      : null
   }
   onChange={(selectedOption) =>
     setForm((prev) => ({ ...prev, name: selectedOption?.value || "" }))
@@ -1472,11 +1481,43 @@ export default function KaraokeSignup() {
       setForm((prev) => ({ ...prev, name: inputValue }));
     }
   }}
+  onBlur={() => {
+    if (
+      form.name &&
+      !singerOptions.some(
+        (option) => option.value.toLowerCase() === form.name.toLowerCase()
+      )
+    ) {
+      const newOption = { value: form.name, label: form.name };
+
+      setSingerOptions((prevOptions) => {
+        // Remove duplicates while keeping case consistency
+        const updatedOptions = [...prevOptions, newOption].filter(
+          (option, index, self) =>
+            index ===
+            self.findIndex((o) => o.value.toLowerCase() === option.value.toLowerCase())
+        );
+
+        return updatedOptions;
+      });
+    }
+  }}
   placeholder="🎤 Existing Singers..."
   isClearable
   isSearchable
   className="text-black pb-2 text-center font-bold"
+  styles={{
+    menu: (provided) => ({
+      ...provided,
+      maxHeight: "200px", // Adjust as needed
+      overflowY: "auto",
+    }),
+  }}
 />
+
+
+
+
 
 
 <label
