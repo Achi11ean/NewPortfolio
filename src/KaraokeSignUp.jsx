@@ -1225,7 +1225,7 @@ export default function KaraokeSignup() {
                 <span className="text-blue-400 text-xl">🎶</span>
                 <p>
                   <strong className="underline">Two Songs at a Time:</strong> To
-                  keep it fair, you can only submit two songs at once.
+                  keep it fair, you can only submit two songs at once. 
                 </p>
               </li>
 
