@@ -94,7 +94,7 @@ useEffect(() => {
 >
 
       <div className="absolute inset-0 bg-gray-600 opacity-50 pointer-events-none"></div>
-      <div className="relative w-full pb-20">
+      <div className="relative w-full ">
         {" "}
         <Navbar activeTab={activeTab} setActiveTab={setActiveTab} user={user} token={token} logout={logout} />
         <AnimatedBackground />
@@ -102,7 +102,7 @@ useEffect(() => {
         <div className="absolute inset-0 bg-black/30"></div>{" "}
         {/* Adds overlay */}
         <div className="relative flex flex-col items-center justify-center text-center z-10 pt-4 px-4 sm:px-8">
-          <div className="  mt-20 sm:mt-0 sm:h-80  bg-white overflow-hidden shadow-md mx-auto mb-4 ">
+          <div className="   sm:mt-0 sm:h-80  bg-white overflow-hidden shadow-md mx-auto mb-4 ">
             <img
               src="https://i.imgur.com/IEeLPPL.jpeg"
               alt="Your Headshot"
@@ -178,7 +178,7 @@ useEffect(() => {
 
 
         {/* Tab Content */}
-        <div className="mt-4 p-6 justify-center items-center text-white rounded-xl relative overflow-hidden shadow-lg">
+        <div className="mt-4 p-6 justify-center items-center text-white rounded-xl relative overflow-hidden ">
           {showEmojis && (
             <div className="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-50">
               {Array.from({ length: 20 }).map((_, index) => (
@@ -1196,12 +1196,12 @@ useEffect(() => {
             <div className="relative z-20 mb-6 flex justify-center">
   <button
     onClick={() => setActiveTab("contact")}
-    className="w-full py-4 px-8 text-3xl font-bold text-white bg-gradient-to-r from-blue-500 to-purple-600 
+    className="w-full py-4 px-8 text-2xl sm:text-2xl md:text-3xl font-bold text-white bg-gradient-to-r from-blue-500 to-purple-600 
                rounded-full shadow-lg hover:scale-105 transition-all hover:shadow-purple-500/50 
                animate-bounce border-4 border-transparent hover:border-white 
                backdrop-blur-lg bg-opacity-90 relative overflow-hidden"
   >
-    <span className="relative z-10">✨ BOOK SERVICES ✨</span>
+    <span className="relative  z-10">✨ BOOK SERVICES ✨</span>
     <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-blue-500 opacity-20 blur-md"></div>
   </button>
 </div>
@@ -1210,40 +1210,41 @@ useEffect(() => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Performance Services Card */}
               <div className="bg-white rounded-lg shadow-lg p-6 text-left max-h-[500px] overflow-y-auto">
-  <h3 className="text-4xl font-bold text-black mb-4 text-center">
-    🎶 Performance Services 🎤
-  </h3>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-4 text-center">
+  🎤 Performance: 🎶 <br/> DJ/KJ/Performer 
+</h3>
 
   <p className="text-gray-700 text-lg mb-4">
     Elevate your event with **professional karaoke hosting, DJ services, and live performances** tailored to your audience. Whether you're planning a private party, corporate event, wedding, or large-scale celebration, we provide an **unforgettable musical experience** with custom playlists, state-of-the-art sound, and optional add-ons to personalize your event.
   </p>
 
-  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+  <h4 className="text-2xl text-center underline font-semibold text-black mt-4 mb-2">
     🎵 Available Services:
   </h4>
   <ul className="list-disc list-inside text-gray-700 text-lg mb-4 space-y-2">
-    <li>🎤 **Karaoke Hosting** – Professional setup with a vast song library.</li>
-    <li>🎧 **DJ Services** – Curated playlists & live mixing for any occasion.</li>
-    <li>🎸 **Live Performances** – Acoustic sets, guest singers, and interactive entertainment.</li>
-    <li>🔊 **Premium Sound & Lighting** – High-quality audio and vibrant lighting effects.</li>
-    <li>📀 **Custom Playlists & Requests** – Tailored music selection to match your event's theme.</li>
+    <li>🎤 Karaoke Hosting<br/>Professional setup with a vast song library.</li>
+    <li>🎧 DJ Services<br/>Curated playlists & live mixing for any occasion.</li>
+    <li>🎸 Live Performances<br/>Acoustic sets, guest singers, and interactive entertainment.</li>
+    <li>🔊 Premium Sound & Lighting<br/> High-quality audio and vibrant lighting effects.</li>
+    <li>📀 Custom Playlists & Requests<br/> Tailored music selection to match your event's theme.</li>
   </ul>
 
-  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+  <h4 className="text-2xl underline text-center font-semibold text-black mt-4 mb-2">
     💰 Pricing & Packages:
   </h4>
-  <p className="text-gray-600 text-lg mb-4">
+  <p className="text-gray-600 text-center text-lg mb-4">
     <strong>Transparent pricing for every event:</strong>
-    <br /> 🎈 **Private Parties** – $200 (4 hours)
-    <br /> 🏢 **Company Events** – $300 minimum (4 hours)
-    <br /> 💍 **Weddings** – $450 minimum (6 hours) 
-    <br /> 💍 **BONUS** +250 for personalized wedding site 
+    <br /> 🎈 Private Parties <br/> $200 (4 hours)
+    <br /> 🏢 Company Events <br/> $300 minimum (4 hours)
+    <br /> 💍 Weddings <br/> $450 minimum (6 hours) 
+    <br /> 💍 **BONUS** <br/>+250 for personalized wedding site 
     <br /> features: allowing guests to upload photos, loving quotes, and well wishes during the event with no limit.
-    <br /> 🎊 **Deluxe All-Day Event** – $600
+    <br /> 💍 **BONUS** <br/> +150 for live performance during bride/groom dance 3x Slow/Modern Tempo Love Songs. Ex. Ed Sheeran "Perfect", Michael Buble "Everything", Sam Smith: "Lay Me Down"
+    <br /> 🎊 **Deluxe All-Day Event <br/> $600
   </p>
 
-  <p className="text-gray-600 text-lg mb-4">
-    **Additional Services & Custom Quotes Available!** Need extra hours, specific equipment, or a unique entertainment package? Let’s discuss how we can make your event exceptional.
+  <p className="text-gray-600 text-center text-lg mb-4">
+    **Additional Services & Custom Quotes Available!** <br/>Need extra hours, specific equipment, or a unique entertainment package? <br/> Let’s discuss how we can make your event exceptional.
   </p>
 
   <a
@@ -1259,37 +1260,38 @@ useEffect(() => {
 
               {/* Software Engineering Services Card */}
               <div className="bg-white rounded-lg shadow-lg p-6 text-left max-h-[500px] overflow-y-auto">
-  <h3 className="text-4xl font-bold text-black mb-4 text-center">
-    💻 Software Engineering Services 🚀
-  </h3>
+              <h3 className="text-2xl underline sm:text-3xl md:text-4xl font-bold text-black mb-4 text-center">
+  💻 Software Engineering  🚀
+</h3>
+
 
   <p className="text-gray-700 text-lg mb-4">
     Offering **professional website development, dynamic applications, and enterprise solutions** tailored to your business needs. Whether you need a sleek static website, a powerful web application, or a custom-built enterprise platform, I provide **high-quality, scalable, and secure solutions** to bring your vision to life.
   </p>
 
-  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+  <h4 className="text-2xl text-center underline font-semibold text-black mt-4 mb-2">
     🛠 Available Services:
   </h4>
   <ul className="list-disc list-inside text-gray-700 text-lg mb-4 space-y-2">
-    <li>🌐 **Website Development** – Responsive, modern, and mobile-friendly sites.</li>
-    <li>⚙️ **Full-Stack Web Applications** – Custom-built apps with backend & frontend development.</li>
-    <li>🏢 **Enterprise Solutions** – Large-scale, business-grade applications with advanced features.</li>
-    <li>📋 **Consultations & Code Reviews** – Get expert insights, performance improvements, and security evaluations.</li>
-    <li>🔍 **Database & API Integration** – Seamless data management and third-party service integration.</li>
+    <li>🌐 Website Development<br/>Responsive, modern, and mobile-friendly sites.</li>
+    <li>⚙️ Full-Stack Web Applications<br/>Custom-built apps with backend & frontend development.</li>
+    <li>🏢 Enterprise Solutions<br/>Large-scale, business-grade applications with advanced features.</li>
+    <li>📋 Consultations & Code Reviews<br/> Get expert insights, performance improvements, and security evaluations.</li>
+    <li>🔍 Database & API Integration<br/> Seamless data management and third-party service integration.</li>
   </ul>
 
-  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+  <h4 className="text-2xl underline text-center font-semibold text-black mt-4 mb-2">
     💰 Pricing & Packages:
   </h4>
-  <p className="text-gray-600 text-lg mb-4">
+  <p className="text-gray-600 text-center text-lg mb-4">
     <strong>Transparent pricing for every project:</strong>
-    <br /> 🖥️ **Static Websites** – Starting at **$65 per page**
-    <br /> 🔄 **Dynamic Applications** – Starting at **$250**
-    <br /> 🏢 **Enterprise Applications** – Starting at **$400**
+    <br /> 🖥️ Static Websites <br/>Starting at **$65 per page**
+    <br /> 🔄 Dynamic Applications <br/> Starting at **$250**
+    <br /> 🏢 Enterprise Applications <br/> Starting at **$400**
   </p>
 
-  <p className="text-gray-600 text-lg mb-4">
-    **Custom Quotes Available!** Whether you need an MVP, an e-commerce store, or a scalable SaaS platform, I can build a tailored solution that meets your requirements.
+  <p className="text-gray-600 text-center text-lg mb-4">
+    Custom Quotes Available! <br/> Whether you need an MVP, an e-commerce store, or a scalable SaaS platform, <br/> I can build a tailored solution that meets your requirements.
   </p>
 
   <a
@@ -1306,7 +1308,7 @@ useEffect(() => {
               {/* Consultation Services Card */}
 {/* Consultation Services Card */}
 <div className="bg-white rounded-lg shadow-lg p-6 text-left max-h-[500px] overflow-y-auto">
-  <h3 className="text-4xl font-bold text-black mb-4 text-center">
+  <h3 className="text-2xl sm:text-3xl md:text-4xl underline font-bold text-black mb-4 text-center">
     📞 Consultation Services 🔍
   </h3>
 
@@ -1314,29 +1316,29 @@ useEffect(() => {
     Need expert guidance on software development, project architecture, debugging, or tech stack selection? Whether you're a business owner, a developer, or someone with a tech idea, **I provide professional consultations tailored to your needs**.
   </p>
 
-  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+  <h4 className="text-2xl text-center underline font-semibold text-black mt-4 mb-2">
     🔧 Available Services:
   </h4>
   <ul className="list-disc list-inside text-gray-700 text-lg mb-4 space-y-2">
-    <li>🛠 **Software Consultation** – Get expert advice on architecture, scalability, and best practices.</li>
-    <li>👨‍💻 **Code Review & Debugging** – Identify inefficiencies, improve security, and optimize performance.</li>
-    <li>🔌 **API Integration** – Seamlessly integrate third-party services and automate workflows.</li>
-    <li>🎟️ **Tech Setup & Digital Solutions** – Need a QR code for your business, a quick automation script, or a small digital request? I offer **affordable micro-tech solutions**.</li>
-    <li>💡 **Tech Stack Selection** – Not sure which technologies to use? I'll help you choose the right tools for your project.</li>
+    <li>🛠 Software Consultation <br/> Get expert advice on architecture, scalability, and best practices.</li>
+    <li>👨‍💻 Code Review & Debugging <br/> Identify inefficiencies, improve security, and optimize performance.</li>
+    <li>🔌 API Integration <br/> Seamlessly integrate third-party services and automate workflows.</li>
+    <li>🎟️ Tech Setup & Digital Solutions <br/> Need a QR code for your business, a quick automation script, or a small digital request? I offer **affordable micro-tech solutions**.</li>
+    <li>💡 Tech Stack Selection <br/> Not sure which technologies to use? I'll help you choose the right tools for your project.</li>
   </ul>
 
-  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+  <h4 className="text-2xl text-center underline font-semibold text-black mt-4 mb-2">
     💰 Pricing & Packages:
   </h4>
-  <p className="text-gray-600 text-lg mb-4">
+  <p className="text-gray-600 text-center text-lg mb-4">
     <strong>Flexible pricing for different needs:</strong>
-    <br /> 🏗️ **Software Consultation** – **$30/hr**
-    <br /> 📝 **Code Review** – **$50 flat fee**
-    <br /> 🔌 **API Integration** – Starting at **$75 per service**
-    <br /> 📱 **Small Tech Requests** (QR codes, automation scripts, custom embeds) <br/> (prices vary upon request complexity)
+    <br /> 🏗️ Software Consultation** <br/> $30/hr
+    <br /> 📝Code Review** <br/> $50 flat fee
+    <br /> 🔌 API Integration** <br/> Starting at **$75 per service**
+    <br /> 📱 Small Tech Requests** <br/>(QR codes, automation scripts, custom embeds) <br/> (prices vary upon request complexity)
   </p>
 
-  <p className="text-gray-600 text-lg mb-4">
+  <p className="text-gray-600 text-center text-lg mb-4">
     **Not sure what you need?** Book a consultation and let's discuss your project!
   </p>
 
@@ -1354,35 +1356,35 @@ useEffect(() => {
               {/* Bartending Services Card */}
 {/* 🍹 Bartending Services Card */}
 <div className="bg-white rounded-lg shadow-lg p-6 text-left max-h-[500px] overflow-y-auto">
-  <h3 className="text-4xl font-bold text-black mb-4 text-center">
-    🍸 Bartending Services
+  <h3 className="text-2xl sm:text-3xl md:text-4xl underline font-bold text-black mb-4 text-center">
+    🍸 Bartending Services 🍺
   </h3>
 
   <p className="text-gray-700 text-lg mb-4">
-    Elevate your event with **professional bartending services** for **private parties, weddings, corporate events, and special occasions**. With years of experience and **TIPS certification**, I ensure **exceptional service and responsible alcohol handling**.
+    Elevate your event with Professional bartending services for private parties, weddings, corporate events, and special occasions**. With years of experience and **TIPS certification**, I ensure **exceptional service and responsible alcohol handling.
   </p>
 
-  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+  <h4 className="text-2xl text-center underline font-semibold text-black mt-4 mb-2">
     🎉 What's Included:
   </h4>
   <ul className="list-disc list-inside text-gray-700 text-lg mb-4 space-y-2">
-    <li>🍷 **Full bartending service** – Mixing, garnishing, and serving drinks professionally.</li>
-    <li>📋 **Custom Drink Menus** – Craft a signature cocktail menu tailored to your event.</li>
-    <li>🔞 **Responsible Service** – TIPS-certified to ensure compliance with alcohol laws and safety.</li>
-    <li>🎭 **Engaging Experience** – Friendly and interactive service to keep guests entertained.</li>
+    <li>🍷 Full bartending service <br/> Mixing, garnishing, and serving drinks professionally.</li>
+    <li>📋 Custom Drink Menus <br/> Craft a signature cocktail menu tailored to your event.</li>
+    <li>🔞 Responsible Service <br/> TIPS-certified to ensure compliance with alcohol laws and safety.</li>
+    <li>🎭 Engaging Experience <br/> Friendly and interactive service to keep guests entertained.</li>
   </ul>
 
-  <h4 className="text-2xl font-semibold text-black mt-4 mb-2">
+  <h4 className="text-2xl font-semibold text-center underline text-black mt-4 mb-2">
     💰 Pricing & Packages:
   </h4>
-  <p className="text-gray-600 text-lg mb-4">
+  <p className="text-gray-600 text-center  text-lg mb-4">
     <strong>Transparent pricing for every event:</strong>
-    <br /> 🍹 **Hourly Rate** – **Starting at $25/hr**
-    <br /> 📋 **Custom Drink Menu** – Available upon request
-    <br /> 🎯 **Full Service Package** – Includes **setup, bartending, and cleanup**
+    <br /> 🍹 Hourly Rate <br/> Starting at $25/hr
+    <br /> 📋 Custom Drink Menu <br/> Available upon request
+    <br /> 🎯 Full Service Package <br/> Includes bartending, and cleanup
   </p>
 
-  <p className="text-gray-600 text-lg mb-4">
+  <p className="text-gray-600 text-center text-lg mb-4">
     **Book your event today** and let’s craft unforgettable cocktails for your guests!
   </p>
 
