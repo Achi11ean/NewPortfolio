@@ -977,6 +977,9 @@ export default function KaraokeSignup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return; // ✅ Prevent multiple submissions if already submitting
+  
+    setIsSubmitting(true); // ✅ Immediately lock submission
   
     try {
       // ✅ Step 1: Check if signups are still open in the backend
@@ -986,7 +989,6 @@ export default function KaraokeSignup() {
       if (!formStateResponse.ok) throw new Error("Failed to fetch form state.");
   
       const formState = await formStateResponse.json();
-  
       if (!formState.show_form) {
         alert("⚠️ Signups are currently closed! Please check back later.");
         return; // Stop submission if signups are closed
@@ -1036,7 +1038,6 @@ export default function KaraokeSignup() {
   
       // ✅ Step 4: Enforce the two-song limit per person
       const activeSongs = await checkActiveSongsForSinger(form.name);
-
       if (activeSongs >= 2) {
         alert(
           `⚠️ ${form.name} already has two songs in queue! Only two at a time per person, please.⏰`
@@ -1050,14 +1051,12 @@ export default function KaraokeSignup() {
       console.log("⚖️ Adjustment Value Before Submission:", adjustmentValue);
   
       // ✅ Step 6: Proceed with submission
-      setIsSubmitting(true); // Start animation
-  
       const response = await fetch(
         "https://portfoliobackend-ih6t.onrender.com/karaokesignup",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...form, adjustment: adjustmentValue }), // Include adjustment field
+          body: JSON.stringify({ ...form, adjustment: adjustmentValue }),
         }
       );
   
@@ -1065,21 +1064,19 @@ export default function KaraokeSignup() {
   
       if (response.status === 403) {
         alert(data.error);
-        setIsSubmitting(false); // Stop animation if failed
-        return;
+        return; // Stop submission if backend rejects it
       }
   
       if (response.ok) {
         fetchSignups(); // Refresh the list
-        setForm({ name: "", song: "", artist: "", adjustment: 0.0 }); // Reset form, including adjustment
+        setForm({ name: "", song: "", artist: "", adjustment: 0.0 }); // Reset form
   
         // ✅ Notify user of successful submission
         alert(
           "🎉 Your song has been submitted successfully! Get ready to rock the mic!🎤"
         );
   
-        // ✅ Trigger falling effects
-        triggerEffects();
+        triggerEffects(); // ✅ Trigger falling effects
   
         // ✅ Scroll to DJ Notes section after submission
         setTimeout(() => {
@@ -1087,13 +1084,14 @@ export default function KaraokeSignup() {
             djNotesRef.current.scrollIntoView({ behavior: "smooth" });
           }
         }, 800); // Slight delay for smooth transition
-  
-        setTimeout(() => setIsSubmitting(false), 1500); // Reset after 1.5s
+      } else {
+        alert("❌ Something went wrong! Please try again.");
       }
     } catch (error) {
       console.error("❌ Error submitting form:", error);
       alert("❌ Something went wrong! Please try again.");
-      setIsSubmitting(false);
+    } finally {
+      setTimeout(() => setIsSubmitting(false), 1000); // ✅ Ensure unlock after processing
     }
   };
   
@@ -1530,7 +1528,7 @@ export default function KaraokeSignup() {
   <input
   id="name"
   type="text"
-  placeholder="Or enter your name..."
+  placeholder="First Name, Last Initial"
   value={form.name}
   onChange={(e) => {
     const value = e.target.value.slice(0, 20); // Limit to 20 characters
@@ -1815,7 +1813,7 @@ export default function KaraokeSignup() {
         <RandomIntroGenerator singerName={name} />
         )}
         {/* Sign-up List */}
-        <div className="max-h-[120vh] mt-5 overflow-y-auto space-y-6">
+        <div className="max-h-[100vh] mt-5 overflow-y-auto space-y-6">
           {(isReversed ? [...signups].reverse() : signups).map(
             (
               { id, name, song, artist, position, created_at, adjustment },
@@ -1908,7 +1906,7 @@ export default function KaraokeSignup() {
                           : `🎶 Position #${position}`}
                         <br />
                         <span
-                          className="uppercase tracking-wider text-white overflow-x-auto whitespace-nowrap block max-w-full"
+                          className="uppercase underline tracking-wider text-white overflow-x-auto whitespace-nowrap block max-w-full"
                           style={{ display: "inline-block" }}
                         >
                           {name}
@@ -1925,24 +1923,24 @@ export default function KaraokeSignup() {
                           : "🔍 Position unknown"}
                       </p>
 
-                      <p className="text-xl font-medium text-center mt-2">
-                        <span className="text-pink-500 font-extrabold">
+                      <p className="text-2xl font-medium text-center mt-2">
+                        <span className="text-pink-400 font-serif underline font-extrabold">
                           Performing:
                         </span>
                       </p>
 
-                      <div className="max-h-6 overflow-y-auto text-white text-center">
+                      <div className="max-h-6 overflow-y-auto text-white  text-xl font-extrabold text-center">
                         <span>{song}</span>
                       </div>
 
-                      <p className="text-xl font-medium text-center mt-2">
-                        <span className="text-purple-300">
+                      <p className="text-2xl font-medium font-serif text-center mt-2">
+                        <span className="underline text-purple-300">
                           Original Artist:
                         </span>
                       </p>
 
-                      <div className="max-h-16 overflow-y-auto text-white font-extrabold text-center">
-                        <span>{artist}</span>
+                      <div className="max-h-16 overflow-y-auto text-xl  text-white font-extrabold text-center">
+                        <span >{artist}</span>
                       </div>
 
                       <p className="text-sm text-gray-400 text-center italic mt-2">

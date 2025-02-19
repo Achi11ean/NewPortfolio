@@ -954,7 +954,56 @@ const songs = [
 { title: "Baddadan", artist: "Chase & Status & Bou ft. Flowdan, Trigga, Irah & Takura", decade: "2020s" },
 { title: "Turn The Lights Back On", artist: "Billy Joel", decade: "2020s" },
 { title: "Espresso", artist: "Sabrina Carpenter", decade: "2020s" },
-{ title: "What Was I Made For?", artist: "Billie Eilish", decade: "2020s" }
+{ title: "What Was I Made For?", artist: "Billie Eilish", decade: "2020s" },
+{ title: "Work Song", artist: "Hozier", decade: "2010s" },
+{ title: "Jolene", artist: "Beyoncé", decade: "2020s" },
+{ title: "Picture", artist: "Kid Rock featuring Sheryl Crow", decade: "2000s" },
+{ title: "In the End", artist: "Linkin Park", decade: "2000s" },
+{ title: "Too Sweet", artist: "Hozier", decade: "2020s" },
+{ title: "What You Won’t Do for Love", artist: "Bobby Caldwell", decade: "1970s" },
+{ title: "Beautiful Things", artist: "Benson Boone", decade: "2020s" },
+{ title: "Lose Control", artist: "Teddy Swims", decade: "2020s" },
+{ title: "Accidentally in Love", artist: "Counting Crows", decade: "2000s" },
+{ title: "Out Tonight", artist: "Rent (Movie Version)", decade: "2000s" },
+{ title: "Death of a Bachelor", artist: "Panic! At The Disco", decade: "2010s" },
+{ title: "Love Song", artist: "Sara Bareilles", decade: "2000s" },
+{ title: "Perfect", artist: "Ed Sheeran", decade: "2010s" },
+{ title: "She Will Be Loved", artist: "Maroon 5", decade: "2000s" },
+{ title: "Chop Suey", artist: "System of a Down", decade: "2000s" },
+{ title: "Someone Like You", artist: "Adele", decade: "2010s" },
+{ title: "Face Down", artist: "The Red Jumpsuit Apparatus", decade: "2000s" },
+{ title: "Beyond the Sea", artist: "Bobby Darin", decade: "1950s" },
+{ title: "Everybody Talks", artist: "Neon Trees", decade: "2010s" },
+{ title: "Under the Bridge", artist: "Red Hot Chili Peppers", decade: "1990s" },
+{ title: "My Way", artist: "Frank Sinatra", decade: "1960s" },
+{ title: "Black", artist: "Pearl Jam", decade: "1990s" },
+{ title: "Killing Me Softly", artist: "Lauryn Hill", decade: "1990s" },
+{ title: "When You Got a Good Friend", artist: "Eric Clapton", decade: "2000s" },
+{ title: "No One", artist: "Alicia Keys", decade: "2000s" },
+{ title: "Northern Downpour", artist: "Panic! At The Disco", decade: "2000s" },
+{ title: "Lithium", artist: "Evanescence", decade: "2000s" },
+{ title: "Somebody to Shove", artist: "Soul Asylum", decade: "1990s" },
+{ title: "Do I Wanna Know?", artist: "Arctic Monkeys", decade: "2010s" },
+{ title: "B.Y.O.B.", artist: "System of a Down", decade: "2000s" },
+{ title: "So What", artist: "P!nk", decade: "2000s" },
+{ title: "Titanium", artist: "Sia", decade: "2010s" },
+{ title: "One Man Band", artist: "Old Dominion", decade: "2010s" },
+{ title: "Got Me Wrong", artist: "Alice in Chains", decade: "1990s" },
+{ title: "2AM (Breathe)", artist: "Anna Nalick", decade: "2000s" },
+{ title: "Before He Cheats", artist: "Carrie Underwood", decade: "2000s" },
+{ title: "Country Roads", artist: "John Denver", decade: "1970s" },
+{ title: "Ordinary People", artist: "John Legend", decade: "2000s" },
+{ title: "Blinded by the Light", artist: "Manfred Mann's Earth Band", decade: "1970s" },
+{ title: "Livin' Thing", artist: "Electric Light Orchestra (ELO)", decade: "1970s" },
+{ title: "One Last Breath", artist: "Creed", decade: "2000s" },
+{ title: "My Own Worst Enemy", artist: "Lit", decade: "1990s" },
+{ title: "July", artist: "Noah Cyrus", decade: "2020s" },
+{ title: "Man! I Feel Like a Woman!", artist: "Shania Twain", decade: "1990s" },
+{ title: "Travelin' Soldier", artist: "The Chicks", decade: "2000s" },
+{ title: "You and I", artist: "Lady Gaga", decade: "2010s" },
+{ title: "Don't Take the Girl", artist: "Tim McGraw", decade: "1990s" },
+{ title: "All of Me", artist: "John Legend", decade: "2010s" },
+{ title: "Me & U", artist: "Cassie", decade: "2000s" }
 
 
 ];
@@ -1066,24 +1115,28 @@ return (
                 </div>
 
                 {/* Display Selected Song or Artist */}
-                <div className="mt-4">
-                    {randomSelection && (
-                        <div 
-                            className="cursor-pointer p-6 text-center bg-gray-800 text-white rounded-xl shadow-md hover:bg-gray-700 transition-all duration-300"
-                            onClick={() => onSelect && onSelect(randomSelection)}
-                        >
-                            {randomSelection.title ? (
-                                <div className="max-h-16 overflow-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-300">
-                                    <p className="text-md font-semibold">{randomSelection.title} by {randomSelection.artist}</p>
-                                    <p className="text-sm text-gray-400 italic">({randomSelection.decade})</p>
-                                </div>
-                            ) : (
-                                <p className="text-lg font-semibold">🎤 Artist:<br/> {randomSelection.artist}</p>
-                            )}
-                            <p className="text-sm text-white italic">(Click to autofill)</p>
-                        </div>
-                    )}
+                <div className="w-full mt-6">
+    {randomSelection && (
+        <div
+            className="cursor-pointer  p-10 pb-2 pt-2 text-center bg-gradient-to-b from-blue-400 via-blue-600 to-blue-800 text-white rounded-2xl shadow-lg hover:scale-105 hover:shadow-2xl transition-transform duration-300 ease-in-out"
+            onClick={() => onSelect && onSelect(randomSelection)}
+        >
+            {randomSelection.title ? (
+                <div className="max-h-20 w-full overflow-auto scrollbar-thin scrollbar-thumb-pink-500 scrollbar-track-gray-300">
+                    <p className="text-xl  font-bold  tracking-wide">{randomSelection.title}</p>
+                    <p className="text-lg text-gray-200 font-bold italic mt-1">{randomSelection.artist}</p>
+                    <p className="text-sm text-gray-300 italic mt-1">({randomSelection.decade})</p>
                 </div>
+            ) : (
+                <p className="text-xl font-semibold">
+                    🎤 <span className="block text-2xl font-bold mt-2">{randomSelection.artist}</span>
+                </p>
+            )}
+            <p className="text-sm text-gray-200 italic mt-4 animate-pulse">(Click to autofill)</p>
+        </div>
+    )}
+</div>
+
             </>
         )}
     </>
