@@ -11,10 +11,51 @@ import RandomSongGenerator from "./RandomSongGenerator";
 export default function KaraokeSignup() {
   const [notes, setNotes] = useState([]);
   const [autoRefresh, setAutoRefresh] = useState(false);
+  const [songLimit, setSongLimit] = useState(1); // Default to 2 songs
 
 
-
-
+  const toggleSongLimit = async () => {
+    const newLimit = songLimit === 1 ? 2 : 1;
+    try {
+      const response = await fetch(
+        "https://portfoliobackend-ih6t.onrender.com/karaokesettings",
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ max_songs_per_singer: newLimit }), // updated key
+        }
+      );
+      if (response.ok) {
+        setSongLimit(newLimit);
+      } else {
+        console.error("Failed to update song limit.");
+      }
+    } catch (error) {
+      console.error("Error updating song limit:", error);
+    }
+  };
+  
+  // Update the fetchSongLimit function
+  const fetchSongLimit = async () => {
+    try {
+      const response = await fetch(
+        "https://portfoliobackend-ih6t.onrender.com/karaokesettings"
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setSongLimit(data.max_songs_per_singer); // updated key
+      } else {
+        console.error("Failed to fetch song limit.");
+      }
+    } catch (error) {
+      console.error("Error fetching song limit:", error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchSongLimit();
+  }, []);
+  
   const [pin, setPin] = useState(""); // User-entered PIN
   const [isPinValid, setIsPinValid] = useState(false); // Whether the entered PIN is correct
   const [adminPin, setAdminPin] = useState(""); // Admin setting a new PIN
@@ -1038,11 +1079,13 @@ export default function KaraokeSignup() {
   
       // ✅ Step 4: Enforce the two-song limit per person
       const activeSongs = await checkActiveSongsForSinger(form.name);
-      if (activeSongs >= 2) {
+      if (activeSongs >= songLimit) {
         alert(
-          `⚠️ ${form.name} already has two songs in queue! Only two at a time per person, please.⏰`
+          `⚠️ ${form.name} already has ${songLimit} ${
+            songLimit === 1 ? "song" : "songs"
+          } in queue! Only ${songLimit} at a time per person, please.⏰`
         );
-        return; // Stop submission if they already have 2 active songs
+        return;
       }
   
       // ✅ Step 5: Determine adjustment value (default 0 if not set)
@@ -1355,7 +1398,12 @@ export default function KaraokeSignup() {
             </span>
           </h2>
 
-
+          <button
+  className="px-8 py-2 text-lg font-bold bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-md"
+  onClick={toggleSongLimit}
+>
+  {songLimit === 1 ? "🔒 Allow 2 Songs per Person" : "🔓 Allow Only 1 Song per Person"}
+</button>
           {user?.is_admin && (
             <div className="mt-6 text-center bg-gradient-to-r from-purple-600 to-pink-600 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
               {/* Input Field */}
