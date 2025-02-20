@@ -1400,7 +1400,7 @@ export default function KaraokeSignup() {
           {user?.is_admin && (
 
           <button
-  className="px-8 py-2 text-lg font-bold bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-md"
+  className="px-8 py-2 text-lg mt-3 font-bold bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-md"
   onClick={toggleSongLimit}
 >
   {songLimit === 1 ? "🔒 Allow 2 Songs per Person" : "🔓 Allow Only 1 Song per Person"}
