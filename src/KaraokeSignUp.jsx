@@ -1397,6 +1397,7 @@ export default function KaraokeSignup() {
                 : "N/A"}
             </span>
           </h2>
+          {user?.is_admin && (
 
           <button
   className="px-8 py-2 text-lg font-bold bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-md"
@@ -1404,6 +1405,7 @@ export default function KaraokeSignup() {
 >
   {songLimit === 1 ? "🔒 Allow 2 Songs per Person" : "🔓 Allow Only 1 Song per Person"}
 </button>
+          )}
           {user?.is_admin && (
             <div className="mt-6 text-center bg-gradient-to-r from-purple-600 to-pink-600 p-6 rounded-2xl shadow-xl max-w-md mx-auto">
               {/* Input Field */}
