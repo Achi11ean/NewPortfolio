@@ -959,7 +959,7 @@ useEffect(() => {
       
       </div><div className="items-center justify-center flex">  
       
-      <p className="bg-black  w-fit text-center">Be Advised: <br/> Dates may overlap due to working multiple jobs at the same time.</p>
+      <p className="bg-black font-bold w-fit text-center">Be Advised: <br/> Dates may overlap due to working multiple jobs at the same time.</p>
 </div>
       {/* 🔥 Current Role */}
       <h4 className="text-3xl font-extrabold text-yellow-400">Jwhit Productions</h4>
