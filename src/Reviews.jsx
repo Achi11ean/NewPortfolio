@@ -464,7 +464,7 @@ required
   <button
     onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
     disabled={currentPage === 1}
-    className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 disabled:opacity-50"
+    className="bg-black px-4 py-2 rounded hover:bg-gray-300 disabled:opacity-50"
   >
     Previous
   </button>
@@ -472,7 +472,7 @@ required
   <button
     onClick={() => setCurrentPage((prev) => prev + 1)}
     disabled={indexOfLastReview >= filteredReviews.length}
-    className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 disabled:opacity-50"
+    className="bg-black px-4 py-2 rounded hover:bg-gray-300 disabled:opacity-50"
   >
     Next
   </button>
