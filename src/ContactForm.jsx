@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
+import { motion } from "framer-motion";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -14,129 +15,66 @@ export default function ContactForm() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "phone") {
-      // Remove non-numeric characters
       const numericValue = value.replace(/\D/g, "");
-      // Format the number as (999) 999-9999
       const formattedValue = numericValue
         .slice(0, 10)
-        .replace(/(\d{3})(\d{3})(\d{1,4})/, (_, p1, p2, p3) => {
-          return `(${p1}) ${p2}-${p3}`;
-        });
+        .replace(/(\d{3})(\d{3})(\d{1,4})/, (_, p1, p2, p3) => `(${p1}) ${p2}-${p3}`);
       setFormData({ ...formData, [name]: formattedValue });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data to be Sent:", formData); // Log the form data
-
-    // Send data to Flask backend
     fetch("https://portfoliobackend-ih6t.onrender.com/contacts", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Saved to backend:", data);
-  
-        // Send to EmailJS after backend confirmation
         emailjs
-          .send(
-            "service_ud7473n", // Replace with your EmailJS service ID
-            "template_453lw8g", // Replace with your EmailJS template ID
-            formData,
-            "BDPsT3cNRMnCg-OaU" // Replace with your EmailJS public key
-          )
+          .send("service_ud7473n", "template_453lw8g", formData, "BDPsT3cNRMnCg-OaU")
           .then(
-            (result) => {
+            () => {
               setStatus("Message sent successfully!");
-              setFormData({
-                firstName: "",
-                lastName: "",
-                phone: "",
-                email: "",
-                message: "",
-              });
+              setFormData({ firstName: "", lastName: "", phone: "", email: "", message: "" });
             },
-            (error) => {
-              console.error("EmailJS error:", error);
-              setStatus("Failed to send the message. Please try again later.");
-            }
+            () => setStatus("Failed to send the message. Please try again later.")
           );
       })
-      .catch((error) => {
-        console.error("Backend error:", error);
-        setStatus("Failed to save the message. Please try again later.");
-      });
+      .catch(() => setStatus("Failed to save the message. Please try again later."));
   };
-  
 
   return (
-    <div className="bg-gray-100 p-6 rounded-lg shadow-lg max-w-md mx-auto">
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="firstName" className="block text-center text-gray-700">
-            First Name
-          </label>
-          <input
-            type="text"
-            name="firstName"
-            id="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border bg-black text-white rounded-2xl "
-          />
-        </div>
-        <div>
-          <label htmlFor="lastName" className="block text-center text-gray-700">
-            Last Name
-          </label>
-          <input
-            type="text"
-            name="lastName"
-            id="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            required
-            className="w-full p-2 bg-black text-white  border rounded-2xl "
-          />
-        </div>
-        <div>
-          <label htmlFor="phone" className="block text-center text-gray-700">
-            Phone (Optional)
-          </label>
-          <input
-            type="tel"
-            name="phone"
-            id="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className="w-full p-2 border bg-black text-white  rounded-2xl "
-          />
-        </div>
-        <div>
-          <label htmlFor="email" className="block  text-center text-gray-700">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border bg-black text-white  rounded-2xl"
-          />
-        </div>
-        <div>
-          <label htmlFor="message" className="block text-center text-gray-700">
+    <div className=" p-6 rounded-lg shadow-lg max-w-md mx-auto">
+      <motion.form
+        onSubmit={handleSubmit}
+        className="space-y-8 p-10 rounded-3xl shadow-2xl bg-gradient-to-br from-indigo-900 via-purple-900 to-black border-4 border-transparent bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-30 animate-gradient-x"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        {["firstName", "lastName", "phone", "email"].map((field) => (
+          <motion.div key={field} whileFocus={{ scale: 1.05 }} className="relative group">
+            <label htmlFor={field} className="block text-center text-lg font-semibold text-purple-300 group-focus-within:text-purple-400">
+              {field === "phone" ? "Phone (Optional)" : field.replace(/([A-Z])/, " $1").trim()}
+            </label>
+            <input
+              type={field === "email" ? "email" : field === "phone" ? "tel" : "text"}
+              name={field}
+              id={field}
+              value={formData[field]}
+              onChange={handleChange}
+              required={field !== "phone"}
+              className="w-full p-4 bg-gray-900 text-white rounded-3xl shadow-inner focus:ring-4 focus:ring-purple-500 border border-gray-700 hover:border-purple-500 transition-all duration-300"
+            />
+          </motion.div>
+        ))}
+
+        <motion.div whileFocus={{ scale: 1.05 }} className="relative group">
+          <label htmlFor="message" className="block text-center text-lg font-semibold text-purple-300 group-focus-within:text-purple-400">
             Message
           </label>
           <textarea
@@ -144,17 +82,22 @@ export default function ContactForm() {
             id="message"
             value={formData.message}
             onChange={handleChange}
+            rows="5"
             required
-            className="w-full p-2 bg-black text-white  border rounded-2xl"
+            className="w-full p-4 bg-gray-900 text-white rounded-3xl shadow-inner focus:ring-4 focus:ring-purple-500 border border-gray-700 hover:border-purple-500 transition-all duration-300"
           />
-        </div>
-        <button
+        </motion.div>
+
+        <motion.button
           type="submit"
-          className="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700"
+          whileHover={{ scale: 1.05, boxShadow: "0px 0px 20px rgba(147, 51, 234, 0.7)" }}
+          whileTap={{ scale: 0.95 }}
+          className="w-full bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white py-4 rounded-3xl text-xl font-bold hover:from-purple-600 hover:to-fuchsia-700 transition-all duration-300 shadow-lg hover:shadow-purple-600/70"
         >
-          Send Message
-        </button>
-      </form>
+          Send Message ✉️
+        </motion.button>
+      </motion.form>
+
       {status && <p className="mt-4 text-center text-gray-700">{status}</p>}
     </div>
   );
