@@ -282,7 +282,7 @@ useEffect(() => {
         rel="noopener noreferrer"
         className="hover:scale-105 transform transition-transform"
       >
-        <img src="/github.webp" alt="GitHub" className="w-20 h-20 rounded-full" />
+        <img src="/github.webp" alt="GitHub" className="w-20 h-20 ring-4 hover:ring-green-700 ring-green-400 rounded-full" />
         GitHub
       </a>
       <a
@@ -291,7 +291,7 @@ useEffect(() => {
         rel="noopener noreferrer"
         className="hover:scale-105 transform transition-transform"
       >
-        <img src="/linkedin.webp" alt="LinkedIn" className="w-20 h-20 rounded-full" />
+        <img src="/linkedin.webp" alt="LinkedIn" className="w-20 h-20 ring-blue-400 ring-4 rounded-full" />
         LinkedIn
       </a>
       <a
@@ -300,7 +300,7 @@ useEffect(() => {
         rel="noopener noreferrer"
         className="hover:scale-105 transform transition-transform"
       >
-        <img src="resume.webp" alt="Resume" className="w-20 h-20 rounded-full" />
+        <img src="resume.webp" alt="Resume" className="w-20 h-20 ring-4 ring-yellow-400 rounded-full" />
         Resume
       </a>
     </div>
