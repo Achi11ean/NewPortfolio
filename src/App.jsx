@@ -272,7 +272,7 @@ useEffect(() => {
 
           {/* Content */}
           {activeTab === "welcome" && (
-  <div className="relative z-10  rounded-3xl bg-gray-700 text-center p-6">
+            <div className="relative z-10 rounded-3xl bg-gradient-to-r from-[#78350f] to-gray-700 shadow-2xl shadow-gray-900 text-center p-8 md:p-10 border border-gray-600 backdrop-blur-lg bg-opacity-70">
     
     {/* Social Media Links */}
     <div className="flex justify-center mt-6 space-x-6">
@@ -1172,7 +1172,6 @@ useEffect(() => {
         </div>
       </div>
 
-      {/* Basic Services Tab */}
       {/* Basic Services Tab */}
       {activeTab === "basic-services" && (
         <div className="relative z-10 text-center p-8 min-h-[500px] rounded-lg shadow-lg overflow-hidden">
