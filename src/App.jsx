@@ -953,7 +953,7 @@ useEffect(() => {
         rel="noopener noreferrer"
         className="hover:scale-105 transform transition-transform"
       >
-        <img src="resume.webp" alt="Resume" className="w-20 h-20 rounded-full" />
+        <img src="resume.webp" alt="Resume" className="w-20 h-20 ring-4 ring-green-300 hover:ring-green-600 rounded-full" />
         Resume
       </a>      
       
