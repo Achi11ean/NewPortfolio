@@ -48,7 +48,7 @@ export default function ContactForm() {
   };
 
   return (
-    <div className=" p-6 rounded-lg shadow-lg max-w-md mx-auto">
+    <div className=" rounded-lg shadow-lg mx-auto">
       <motion.form
         onSubmit={handleSubmit}
         className="space-y-8 p-10 rounded-3xl shadow-2xl bg-gradient-to-br from-indigo-900 via-purple-900 to-black border-4 border-transparent bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-30 animate-gradient-x"
@@ -68,8 +68,8 @@ export default function ContactForm() {
               value={formData[field]}
               onChange={handleChange}
               required={field !== "phone"}
-              className="w-full p-4 bg-gray-900 text-white rounded-3xl shadow-inner focus:ring-4 focus:ring-purple-500 border border-gray-700 hover:border-purple-500 transition-all duration-300"
-            />
+              className="w-full p-3  text-sm sm:text-base bg-gray-900 text-white rounded-2xl shadow-inner focus:ring-4 focus:ring-purple-500 border border-gray-700 hover:border-purple-500 transition-all duration-300"
+              />
           </motion.div>
         ))}
 

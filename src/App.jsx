@@ -1154,9 +1154,9 @@ useEffect(() => {
         {/* Contact Info Card (Visible to All) */}
         <div
           onClick={() => setShowContactInfo(!showContactInfo)}
-          className="cursor-pointer p-4 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center font-bold shadow-lg hover:scale-105 transition-transform"
+          className="cursor-pointer  rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center font-bold shadow-lg hover:scale-105 transition-transform"
         >
-          {showContactInfo ? "Hide Contact Form" : "Get in Touch"}
+          {showContactInfo ? "Contact" : "Show Form"}
         </div>
         <br/>
         {showContactInfo && (
