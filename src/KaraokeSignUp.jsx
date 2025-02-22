@@ -1979,7 +1979,7 @@ export default function KaraokeSignup() {
                         </span>
                       </p>
 
-                      <div className="max-h-6 overflow-y-auto text-white  text-xl font-extrabold text-center">
+                      <div className="max-h-10 overflow-y-auto text-white  text-xl font-extrabold text-center">
                         <span>{song}</span>
                       </div>
 
