@@ -102,13 +102,14 @@ useEffect(() => {
         <div className="absolute inset-0 bg-black/30"></div>{" "}
         {/* Adds overlay */}
         <div className="relative flex flex-col items-center justify-center text-center z-10 pt-4 px-4 sm:px-8">
-          <div className="   sm:mt-0 sm:h-80  bg-white overflow-hidden shadow-md mx-auto mb-4 ">
-            <img
-              src="https://i.imgur.com/IEeLPPL.jpeg"
-              alt="Your Headshot"
-              className="w-full  h-full object-cover"
-            />
-          </div>
+        <div className="sm:mt-0 sm:h-80 bg-white overflow-hidden shadow-md mx-auto mb-4 border-4 border-white">
+  <img
+    src="https://i.imgur.com/IEeLPPL.jpeg"
+    alt="Your Headshot"
+    className="w-full h-full object-cover"
+  />
+</div>
+
           <h1 className="text-4xl sm:text-6xl font-bold">
   <span className="font-aspire font-bold pl-4 text-transparent bg-clip-text 
     bg-gradient-to-r from-red-500 via-yellow-500   to-purple-500 
@@ -319,9 +320,9 @@ useEffect(() => {
     {/* Auto-Scrolling Section */}
     <div
       ref={scrollContainerRef}
-      className="max-h-96 mb-10 mt-2 overflow-y-auto p-6 bg-gray-900 bg-opacity-80 rounded-2xl shadow-lg border border-gray-700 text-white text-center leading-relaxed"
+      className="max-h-96 mb-10 mt-2 overflow-y-auto p-8 bg-gray-900 bg-opacity-80 rounded-2xl shadow-lg border border-white  text-white text-center leading-relaxed"
     >
-      <p className="text-lg mb-16 pt-3 sm:text-2xl md:text-3xl font-bold">
+      <p className="text-lg mb-16 pt-3 sm:text-2xl md:text-3xl ">
         I'm <span className="text-white font-bold">Jonathen</span>, a software engineer and passionate{" "}
         <span className="text-pink-800 font-bold">Karaoke Host</span> who thrives on building{" "}
         <span className="text-red-300 font-bold">user-centric web applications</span> and creating{" "}
