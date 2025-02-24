@@ -56,7 +56,7 @@ export default function ContactForm() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        {["firstName", "lastName", "phone", "email"].map((field) => (
+        {["First Name", "Last Name", "phone", "Email"].map((field) => (
           <motion.div key={field} whileFocus={{ scale: 1.05 }} className="relative group">
             <label htmlFor={field} className="block text-center text-lg font-semibold text-purple-300 group-focus-within:text-purple-400">
               {field === "phone" ? "Phone (Optional)" : field.replace(/([A-Z])/, " $1").trim()}
@@ -98,7 +98,7 @@ export default function ContactForm() {
         </motion.button>
       </motion.form>
 
-      {status && <p className="mt-4 text-center text-gray-700">{status}</p>}
+      {status && <p className="mt-4 text-center text-white">{status}</p>}
     </div>
   );
 }
