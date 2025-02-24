@@ -56,23 +56,30 @@ export default function ContactForm() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        {["First Name", "Last Name", "phone", "Email"].map((field) => (
-          <motion.div key={field} whileFocus={{ scale: 1.05 }} className="relative group">
-            <label htmlFor={field} className="block text-center text-lg font-semibold text-purple-300 group-focus-within:text-purple-400">
-              {field === "phone" ? "Phone (Optional)" : field.replace(/([A-Z])/, " $1").trim()}
-            </label>
-            <input
-              type={field === "email" ? "email" : field === "phone" ? "tel" : "text"}
-              name={field}
-              id={field}
-              value={formData[field]}
-              onChange={handleChange}
-              required={field !== "phone"}
-              className="w-full p-3  text-sm sm:text-base bg-gray-900 text-white rounded-2xl shadow-inner focus:ring-4 focus:ring-purple-500 border border-gray-700 hover:border-purple-500 transition-all duration-300"
-              />
-          </motion.div>
-        ))}
-
+  {[
+  { label: "First Name", name: "firstName" },
+  { label: "Last Name", name: "lastName" },
+  { label: "Phone (Optional)", name: "phone" },
+  { label: "Email", name: "email" },
+].map(({ label, name }) => (
+  <motion.div key={name} whileFocus={{ scale: 1.05 }} className="relative group">
+    <label
+      htmlFor={name}
+      className="block text-center text-lg font-semibold text-purple-300 group-focus-within:text-purple-400"
+    >
+      {label}
+    </label>
+    <input
+      type={name === "email" ? "email" : name === "phone" ? "tel" : "text"}
+      name={name} // ✔️ Matches formData keys now
+      id={name}
+      value={formData[name]}
+      onChange={handleChange}
+      required={name !== "phone"}
+      className="w-full p-3 text-sm sm:text-base bg-gray-900 text-white rounded-2xl shadow-inner focus:ring-4 focus:ring-purple-500 border border-gray-700 hover:border-purple-500 transition-all duration-300"
+    />
+  </motion.div>
+))}
         <motion.div whileFocus={{ scale: 1.05 }} className="relative group">
           <label htmlFor="message" className="block text-center text-lg font-semibold text-purple-300 group-focus-within:text-purple-400">
             Message
