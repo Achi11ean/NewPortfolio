@@ -335,7 +335,7 @@ useEffect(() => {
         <br /><br />
 
         Curious about my engineering work? Dive into <button className="text-green-400 font-bold underline hover:text-green-500 transition"
-          onClick={() => setActiveTab("education")}>Jwhit©️</button>, where I showcase my latest software and AI-driven innovations.
+          onClick={() => setActiveTab("education")}>Jwhit ©</button>, where I showcase my latest software and AI-driven innovations.
         <br /><br />
 
         Want to explore my career journey? Check out my <button className="text-blue-300 font-bold underline hover:text-blue-400 transition"
