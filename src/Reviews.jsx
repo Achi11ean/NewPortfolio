@@ -61,7 +61,7 @@ console.log("Filter Selected:", filter);  // ✅ See what filter is applied
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch("https://portfoliobackend-ih6t.onrender.com/reviews");
+        const response = await fetch("http://127.0.0.1:5000/reviews");
         if (!response.ok) {
           throw new Error("Failed to fetch reviews");
         }
@@ -81,7 +81,7 @@ console.log("Filter Selected:", filter);  // ✅ See what filter is applied
   
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/reviews/${id}`, {
+      const response = await fetch(`http://127.0.0.1:5000/reviews/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`, // Include token
@@ -113,7 +113,7 @@ console.log("Filter Selected:", filter);  // ✅ See what filter is applied
     }
   
     try {
-      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/reviews", {
+      const response = await fetch("http://127.0.0.1:5000/reviews", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

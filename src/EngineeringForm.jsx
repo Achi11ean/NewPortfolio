@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from "react";
-import emailjs from "emailjs-com";
 
-export default function EngineeringForm() {
+export default function EngineeringForm({ onBookingSubmit }) {
   const [formData, setFormData] = useState({
-    contactId: "", // Add contactId
-    projectName: "",
-    projectType: "",
-    projectStartDate: "",
-    projectEndDate: "",
-    projectDescription: "",
-    specialRequests: "",
+    contact: "",
+    project_name: "",
+    project_description: "",
     price: "",
+    status: "Pending",
   });
 
-  const [contacts, setContacts] = useState([]); // Store list of contacts
+  const [showForm, setShowForm] = useState(false);
+  const [contacts, setContacts] = useState([]);
   const [status, setStatus] = useState("");
+  const [isNewContact, setIsNewContact] = useState(false);
+  const [newContact, setNewContact] = useState("");
 
   useEffect(() => {
-    // Fetch contacts from the backend
-    fetch("https://portfoliobackend-ih6t.onrender.com/contacts")
+    fetch("http://127.0.0.1:5000/contacts")
       .then((response) => response.json())
       .then((data) => setContacts(data))
       .catch((error) => console.error("Error fetching contacts:", error));
@@ -29,11 +27,27 @@ export default function EngineeringForm() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleContactSelection = (e) => {
+    const { value } = e.target;
+    if (value === "new") {
+      setIsNewContact(true);
+      setFormData({ ...formData, contact: newContact });
+    } else {
+      setIsNewContact(false);
+      setFormData({ ...formData, contact: value });
+    }
+  };
+
+  const handleNewContactChange = (e) => {
+    const value = e.target.value;
+    setNewContact(value);
+    setFormData({ ...formData, contact: value });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Save to Flask Backend
-    fetch("https://portfoliobackend-ih6t.onrender.com/engineering-bookings", {
+  
+    fetch("http://127.0.0.1:5000/engineering-bookings", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,139 +56,99 @@ export default function EngineeringForm() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Saved to backend:", data);
-
-        // Reset form and show success message
-        setFormData({
-          contactId: "",
-          projectName: "",
-          projectType: "",
-          projectStartDate: "",
-          projectEndDate: "",
-          projectDescription: "",
-          specialRequests: "",
-          price: "",
-        });
-        setStatus("Booking request sent successfully!");
+        if (data.message === "Booking saved successfully!") {
+          setStatus("Booking request sent successfully!");
+          setFormData({
+            contact: "",
+            project_name: "",
+            project_description: "",
+            price: "",
+            status: "Pending",
+          });
+          setNewContact("");
+          setIsNewContact(false);
+  
+          // ✅ Call the passed-in function to refetch bookings
+          if (onBookingSubmit) {
+            onBookingSubmit(); // 🔄 Refetch bookings after submission
+          }
+        } else {
+          setStatus("Failed to save booking. Please try again later.");
+        }
       })
       .catch((error) => {
         console.error("Backend error:", error);
         setStatus("Failed to save booking. Please try again later.");
       });
   };
-
+  
   return (
-    <div className="bg-gray-100 p-6 rounded-lg shadow-lg max-w-md mx-auto">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Engineering Booking</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Select Contact */}
+    <div className="bg-gradient-to-r from-blue-100 to-purple-100 p-8 rounded-2xl shadow-2xl max-w-lg mx-auto animate-fade-in">
+      <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Engineering Booking</h2>
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="contactId" className="block text-gray-700">
-            Select Contact
+          <label htmlFor="contact" className="block text-gray-800 text-lg font-semibold">
+            Select or Enter Contact
           </label>
           <select
-            name="contactId"
-            id="contactId"
-            value={formData.contactId}
-            onChange={handleChange}
+            name="contact"
+            id="contact"
+            value={isNewContact ? "new" : formData.contact}
+            onChange={handleContactSelection}
             required
-            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
+            className="w-full p-3 border rounded-2xl bg-white shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             <option value="">Select a Contact</option>
             {contacts.map((contact) => (
-              <option key={contact.id} value={contact.id}>
+              <option key={contact.id} value={`${contact.first_name} ${contact.last_name}`}>
                 {`${contact.first_name} ${contact.last_name}`}
               </option>
             ))}
+            <option value="new">Enter New Contact</option>
           </select>
+          {isNewContact && (
+            <input
+              type="text"
+              placeholder="Enter new contact name"
+              value={newContact}
+              onChange={handleNewContactChange}
+              className="w-full mt-3 p-3 border rounded-2xl bg-white shadow focus:outline-none focus:ring-2 focus:ring-purple-400"
+              required
+            />
+          )}
         </div>
 
-        {/* Project Name */}
         <div>
-          <label htmlFor="projectName" className="block text-gray-700">
+          <label htmlFor="project_name" className="block text-gray-800 text-lg font-semibold">
             Project Name
           </label>
           <input
             type="text"
-            name="projectName"
-            id="projectName"
-            value={formData.projectName}
+            name="project_name"
+            id="project_name"
+            value={formData.project_name}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
+            className="w-full p-3 border rounded-2xl bg-white shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
 
-        {/* Project Type */}
         <div>
-          <label htmlFor="projectType" className="block text-gray-700">
-            Service Type
-          </label>
-          <select
-            name="projectType"
-            id="projectType"
-            value={formData.projectType}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
-          >
-            <option value="">Select a Service Type</option>
-            <option value="New Website">New Website</option>
-            <option value="Dynamic Application">Dynamic Application</option>
-            <option value="Enterprise Solution">Enterprise Solution</option>
-          </select>
-        </div>
-
-        {/* Project Start Date */}
-        <div>
-          <label htmlFor="projectStartDate" className="block text-gray-700">
-            Project Start Date
-          </label>
-          <input
-            type="date"
-            name="projectStartDate"
-            id="projectStartDate"
-            value={formData.projectStartDate}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
-          />
-        </div>
-
-        {/* Project End Date */}
-        <div>
-          <label htmlFor="projectEndDate" className="block text-gray-700">
-            Project End Date
-          </label>
-          <input
-            type="date"
-            name="projectEndDate"
-            id="projectEndDate"
-            value={formData.projectEndDate}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
-          />
-        </div>
-
-        {/* Project Description */}
-        <div>
-          <label htmlFor="projectDescription" className="block text-gray-700">
+          <label htmlFor="project_description" className="block text-gray-800 text-lg font-semibold">
             Project Description
           </label>
           <textarea
-            name="projectDescription"
-            id="projectDescription"
-            value={formData.projectDescription}
+            name="project_description"
+            id="project_description"
+            value={formData.project_description}
             onChange={handleChange}
             placeholder="Provide a detailed description of the project"
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-3 border rounded-2xl bg-white shadow focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
         </div>
 
-        {/* Price */}
         <div>
-          <label htmlFor="price" className="block text-gray-700">
+          <label htmlFor="price" className="block text-gray-800 text-lg font-semibold">
             Budget Limit
           </label>
           <input
@@ -183,35 +157,23 @@ export default function EngineeringForm() {
             id="price"
             value={formData.price}
             onChange={handleChange}
-            className="w-full p-2 border rounded bg-gray-800 text-white"
+            className="w-full p-3 border rounded-2xl bg-white shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
             required
           />
         </div>
 
-        {/* Special Requests */}
-        <div>
-          <label htmlFor="specialRequests" className="block text-gray-700">
-            Special Requests
-          </label>
-          <textarea
-            name="specialRequests"
-            id="specialRequests"
-            value={formData.specialRequests}
-            onChange={handleChange}
-            placeholder="Any additional requirements or requests"
-            className="w-full p-2 border rounded bg-gray-800 text-white"
-          />
-        </div>
-
-        {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 rounded-2xl shadow-lg hover:from-blue-600 hover:to-purple-600 transform hover:scale-105 transition-transform duration-300"
         >
           Submit Booking Request
         </button>
       </form>
-      {status && <p className="mt-4 text-center text-gray-700">{status}</p>}
+      {status && (
+        <p className="mt-6 text-center text-lg font-medium text-green-600 animate-pulse">
+          {status}
+        </p>
+      )}
     </div>
   );
 }

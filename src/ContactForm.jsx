@@ -4,12 +4,14 @@ import { motion } from "framer-motion";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    first_Name: "",  
+    last_Name: "",   
     phone: "",
     email: "",
     message: "",
+    status: "Pending",
   });
+  
   const [status, setStatus] = useState("");
 
   const handleChange = (e) => {
@@ -27,22 +29,34 @@ export default function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("https://portfoliobackend-ih6t.onrender.com/contacts", {
+    fetch("http://127.0.0.1:5000/contacts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((data) => {
-        emailjs
-          .send("service_ud7473n", "template_453lw8g", formData, "BDPsT3cNRMnCg-OaU")
-          .then(
-            () => {
-              setStatus("Message sent successfully!");
-              setFormData({ firstName: "", lastName: "", phone: "", email: "", message: "" });
-            },
-            () => setStatus("Failed to send the message. Please try again later.")
-          );
+        if (data.message === "Contact saved successfully!") {
+          emailjs
+            .send("service_ud7473n", "template_453lw8g", formData, "BDPsT3cNRMnCg-OaU")
+            .then(
+              () => {
+                setStatus("Message sent and saved successfully!");
+                setFormData({
+                  first_Name: "",   
+                  last_Name: "",    
+                  phone: "",
+                  email: "",
+                  message: "",
+                  status: "Pending",
+                });
+                
+              },
+              () => setStatus("Failed to send the message via email. Please try again later.")
+            );
+        } else {
+          setStatus("Failed to save the message. Please try again later.");
+        }
       })
       .catch(() => setStatus("Failed to save the message. Please try again later."));
   };
@@ -56,9 +70,9 @@ export default function ContactForm() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-  {[
-  { label: "First Name", name: "firstName" },
-  { label: "Last Name", name: "lastName" },
+{[
+  { label: "First Name", name: "first_Name" },  // Updated to match formData
+  { label: "Last Name", name: "last_Name" },    // Updated to match formData
   { label: "Phone (Optional)", name: "phone" },
   { label: "Email", name: "email" },
 ].map(({ label, name }) => (
@@ -71,15 +85,16 @@ export default function ContactForm() {
     </label>
     <input
       type={name === "email" ? "email" : name === "phone" ? "tel" : "text"}
-      name={name} // ✔️ Matches formData keys now
+      name={name}                     // 👈 Now matches formData keys
       id={name}
-      value={formData[name]}
+      value={formData[name] || ""}    // 👈 Adding fallback for safety
       onChange={handleChange}
       required={name !== "phone"}
       className="w-full p-3 text-sm sm:text-base bg-gray-900 text-white rounded-2xl shadow-inner focus:ring-4 focus:ring-purple-500 border border-gray-700 hover:border-purple-500 transition-all duration-300"
     />
   </motion.div>
 ))}
+
         <motion.div whileFocus={{ scale: 1.05 }} className="relative group">
           <label htmlFor="message" className="block text-center text-lg font-semibold text-purple-300 group-focus-within:text-purple-400">
             Message

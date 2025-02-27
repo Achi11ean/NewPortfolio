@@ -27,8 +27,7 @@ export default function App() {
     setTimeout(() => setShowEmojis(false), 3000); 
   };
   const [showContactInfo, setShowContactInfo] = useState(true);
-  const [showPerformanceForm, setShowPerformanceForm] = useState(false); // State for toggling Performance Booking Form
-  const [showEngineeringForm, setShowEngineeringForm] = useState(false); // State for Engineering Booking Form
+
   const [showEducationSkills, setShowEducationSkills] = useState(false); // State to toggle EducationSkills visibility
   const [selectedVideo, setSelectedVideo] = useState(""); // State for selected video
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -259,7 +258,7 @@ useEffect(() => {
     style={{ position: "static", visibility: "visible", display: "block", width: "100%", flexGrow: 1 }}
     frameBorder="0"
     allowFullScreen
-    allowTransparency="true"
+    allowtransparency="true"
   >
     Loading...
   </iframe>
@@ -1119,38 +1118,8 @@ useEffect(() => {
       {/* Dropdown Options */}
       <div className="mb-10">
         {/* Performance Booking Card (Admin Only) */}
-        {user?.is_admin && (
-          <>
-            <div
-              onClick={() => setShowPerformanceForm(!showPerformanceForm)}
-              className="cursor-pointer p-4 rounded-lg bg-gradient-to-r from-green-500 to-blue-500 text-white text-center font-bold shadow-lg hover:scale-105 transition-transform"
-            >
-              {showPerformanceForm
-                ? "Hide Performance Booking"
-                : "Performance Booking"}
-            </div>
-            {showPerformanceForm && (
-              <div className="mb-4">
-                <PerformanceForm />
-              </div>
-            )}
+  
 
-            {/* Engineering Booking Card (Admin Only) */}
-            <div
-              onClick={() => setShowEngineeringForm(!showEngineeringForm)}
-              className="cursor-pointer p-4 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-500 text-white text-center font-bold shadow-lg hover:scale-105 transition-transform"
-            >
-              {showEngineeringForm
-                ? "Hide Engineering Booking"
-                : "Engineering Booking"}
-            </div>
-            {showEngineeringForm && (
-              <div className="mb-4">
-                <EngineeringForm />
-              </div>
-            )}
-          </>
-        )}
 
         {/* Contact Info Card (Visible to All) */}
         <div

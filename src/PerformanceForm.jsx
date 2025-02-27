@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 export default function PerformanceForm({ existingData = null, onSuccess }) {
   const [formData, setFormData] = useState(
     existingData || {
-      contactId: "", // New field for selecting a contact
-      eventName: "",
-      eventType: "",
-      eventDateTime: "",
-      location: "",
-      guests: "",
-      specialRequests: "",
-      price: "",
-      status: "Pending", // Default status
+      contact_name: "",
+      new_contact: "",
+      request: "",
+      cost: "",
+      notes: "",
+      date: "",
     }
   );
 
-  const [contacts, setContacts] = useState([]); // Store list of contacts
+  const [contacts, setContacts] = useState([]);
+  const [useNewContact, setUseNewContact] = useState(false);
   const [status, setStatus] = useState("");
 
-  // Fetch contacts from the backend
   useEffect(() => {
-    fetch("https://portfoliobackend-ih6t.onrender.com/contacts")
+    fetch("http://127.0.0.1:5000/contacts")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch contacts");
@@ -38,11 +36,13 @@ export default function PerformanceForm({ existingData = null, onSuccess }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (useNewContact) {
+      formData.contact_name = formData.new_contact;
+    }
 
-    // Determine the API endpoint and method
     const apiUrl = existingData
-      ? `https://portfoliobackend-ih6t.onrender.com/performance-bookings/${existingData.id}`
-      : "https://portfoliobackend-ih6t.onrender.com/performance-bookings";
+      ? `http://127.0.0.1:5000/general_inquiries/${existingData.id}`
+      : "http://127.0.0.1:5000/general_inquiries";
     const method = existingData ? "PATCH" : "POST";
 
     fetch(apiUrl, {
@@ -54,190 +54,153 @@ export default function PerformanceForm({ existingData = null, onSuccess }) {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to save or update booking");
+          throw new Error("Failed to save or update inquiry");
         }
         return response.json();
       })
       .then((data) => {
         if (onSuccess) {
-          onSuccess(data.booking); // Callback to refresh the list or update the UI
+          onSuccess(data.inquiry);
         }
         setStatus(
           existingData
-            ? "Booking updated successfully!"
-            : "Booking created successfully!"
+            ? "Inquiry updated successfully!"
+            : "Inquiry created successfully!"
         );
         if (!existingData) {
           setFormData({
-            contactId: "",
-            eventName: "",
-            eventType: "",
-            eventDateTime: "",
-            location: "",
-            guests: "",
-            specialRequests: "",
-            price: "",
-            status: "Pending",
+            contact_name: "",
+            new_contact: "",
+            request: "",
+            cost: "",
+            notes: "",
+            date: "",
           });
+          setUseNewContact(false);
         }
       })
       .catch((error) => {
         console.error("Error:", error);
-        setStatus("Failed to save the booking. Please try again later.");
+        setStatus("Failed to save the inquiry. Please try again later.");
       });
   };
 
   return (
-    <div className="bg-gray-100 p-6 rounded-lg shadow-lg max-w-md mx-auto">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-        {existingData ? "Update Performance Booking" : "Create Performance Booking"}
-      </h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Select Contact */}
-        <div>
-          <label htmlFor="contactId" className="block text-gray-700">
-            Select Contact
-          </label>
-          <select
-            name="contactId"
-            id="contactId"
-            value={formData.contactId}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
+    <div className="rounded-lg shadow-lg mx-auto max-w-2xl">
+      <motion.form
+        onSubmit={handleSubmit}
+        className="space-y-8 p-10 rounded-3xl shadow-2xl bg-gradient-to-br from-teal-900 via-blue-900 to-black border-4 border-transparent bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-30 animate-gradient-x"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <h2 className="text-3xl font-bold text-center text-white mb-6">
+          {existingData ? "Update General Inquiry" : "Create General Inquiry"}
+        </h2>
+        <motion.div whileFocus={{ scale: 1.05 }} className="relative group">
+          <label
+            htmlFor="contact_name"
+            className="block text-center text-lg font-semibold text-teal-300 group-focus-within:text-teal-400"
           >
-            <option value="">Select a Contact</option>
-            {contacts.map((contact) => (
-              <option key={contact.id} value={contact.id}>
-                {`${contact.first_name} ${contact.last_name}`}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Event Name */}
-        <div>
-          <label htmlFor="eventName" className="block text-gray-700">
-            Event Name
+            Select Existing Contact or Enter New
           </label>
-          <input
-            type="text"
-            name="eventName"
-            id="eventName"
-            value={formData.eventName}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
-          />
-        </div>
+          {!useNewContact ? (
+            <>
+              <select
+                name="contact_name"
+                id="contact_name"
+                value={formData.contact_name}
+                onChange={handleChange}
+                required={!useNewContact}
+                className="w-full p-3 bg-gray-900 text-white rounded-2xl shadow-inner focus:ring-4 focus:ring-teal-500 border border-gray-700 hover:border-teal-500 transition-all duration-300"
+              >
+                <option value="">Select a Contact</option>
+                {contacts.map((contact) => (
+                  <option
+                    key={contact.id}
+                    value={`${contact.first_name} ${contact.last_name}`}
+                  >
+                    {`${contact.first_name} ${contact.last_name}`}
+                  </option>
+                ))}
+              </select>
+              <button
+                type="button"
+                onClick={() => setUseNewContact(true)}
+                className="mt-2 w-full bg-yellow-500 text-white py-2 rounded-xl hover:bg-yellow-600"
+              >
+                Or Enter New Contact
+              </button>
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                name="new_contact"
+                id="new_contact"
+                value={formData.new_contact}
+                onChange={handleChange}
+                placeholder="Enter New Contact Name"
+                className="w-full p-3 bg-gray-900 text-white rounded-2xl shadow-inner focus:ring-4 focus:ring-teal-500 border border-gray-700 hover:border-teal-500 transition-all duration-300"
+              />
+              <button
+                type="button"
+                onClick={() => setUseNewContact(false)}
+                className="mt-2 w-full bg-gray-500 text-white py-2 rounded-xl hover:bg-gray-600"
+              >
+                Back to Select Contact
+              </button>
+            </>
+          )}
+        </motion.div>
 
-        {/* Event Type */}
-        <div>
-          <label htmlFor="eventType" className="block text-gray-700">
-            Event Type
-          </label>
-          <select
-            name="eventType"
-            id="eventType"
-            value={formData.eventType}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
-          >
-            <option value="">Select an Event Type</option>
-            <option value="Karaoke">Karaoke</option>
-            <option value="DJ Services">DJ Services</option>
-            <option value="Live Song Performances">Live Song Performances</option>
-          </select>
-        </div>
+        {[
+          { label: "Request Details", name: "request", type: "textarea" },
+          { label: "Estimated Cost", name: "cost", type: "number" },
+          { label: "Additional Notes", name: "notes", type: "textarea" },
+          { label: "Inquiry Date", name: "date", type: "date" },
+        ].map(({ label, name, type }) => (
+          <motion.div key={name} whileFocus={{ scale: 1.05 }} className="relative group">
+            <label
+              htmlFor={name}
+              className="block text-center text-lg font-semibold text-teal-300 group-focus-within:text-teal-400"
+            >
+              {label}
+            </label>
+            {type === "textarea" ? (
+              <textarea
+                name={name}
+                id={name}
+                value={formData[name]}
+                onChange={handleChange}
+                rows="4"
+                required
+                className="w-full p-4 bg-gray-900 text-white rounded-3xl shadow-inner focus:ring-4 focus:ring-teal-500 border border-gray-700 hover:border-teal-500 transition-all duration-300"
+              />
+            ) : (
+              <input
+                type={type}
+                name={name}
+                id={name}
+                value={formData[name]}
+                onChange={handleChange}
+                required
+                className="w-full p-3 text-sm sm:text-base bg-gray-900 text-white rounded-2xl shadow-inner focus:ring-4 focus:ring-teal-500 border border-gray-700 hover:border-teal-500 transition-all duration-300"
+              />
+            )}
+          </motion.div>
+        ))}
 
-        {/* Event Date & Time */}
-        <div>
-          <label htmlFor="eventDateTime" className="block text-gray-700">
-            Event Date and Time
-          </label>
-          <input
-            type="datetime-local"
-            name="eventDateTime"
-            id="eventDateTime"
-            value={formData.eventDateTime}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
-          />
-        </div>
-
-        {/* Location */}
-        <div>
-          <label htmlFor="location" className="block text-gray-700">
-            Location
-          </label>
-          <input
-            type="text"
-            name="location"
-            id="location"
-            value={formData.location}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
-          />
-        </div>
-
-        {/* Number of Guests */}
-        <div>
-          <label htmlFor="guests" className="block text-gray-700">
-            Number of Guests
-          </label>
-          <input
-            type="number"
-            name="guests"
-            id="guests"
-            value={formData.guests}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
-          />
-        </div>
-
-        {/* Special Requests */}
-        <div>
-          <label htmlFor="specialRequests" className="block text-gray-700">
-            Special Requests
-          </label>
-          <textarea
-            name="specialRequests"
-            id="specialRequests"
-            value={formData.specialRequests}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
-          />
-        </div>
-
-        {/* Price */}
-        <div>
-          <label htmlFor="price" className="block text-gray-700">
-            Price
-          </label>
-          <input
-            type="number"
-            name="price"
-            id="price"
-            value={formData.price}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-xl bg-gray-800 text-white"
-          />
-        </div>
-
-        {/* Status */}
-
-        {/* Submit Button */}
-        <button
+        <motion.button
           type="submit"
-          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+          whileHover={{ scale: 1.05, boxShadow: "0px 0px 20px rgba(20, 184, 166, 0.7)" }}
+          whileTap={{ scale: 0.95 }}
+          className="w-full bg-gradient-to-r from-teal-500 to-blue-600 text-white py-4 rounded-3xl text-xl font-bold hover:from-teal-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-teal-600/70"
         >
-          {existingData ? "Update Booking" : "Create Booking"}
-        </button>
-      </form>
-      {status && <p className="mt-4 text-center text-gray-700">{status}</p>}
+          {existingData ? "Update Inquiry" : "Create Inquiry"}
+        </motion.button>
+      </motion.form>
+      {status && <p className="mt-4 text-center text-white">{status}</p>}
     </div>
   );
 }
