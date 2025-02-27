@@ -180,7 +180,7 @@ const fetchCompanyData = async () => {
     try {
       const response = await axios.get("https://portfoliobackend-ih6t.onrender.com/income/aggregate");
   
-      console.log("Fetched income data response:", response.data); // Debugging log
+      console.log("Fetched income data response:", response.data); // ✅ Debugging log
   
       if (!response.data || !Array.isArray(response.data.income_details)) {
         console.error("Unexpected data format:", response.data);
@@ -188,11 +188,15 @@ const fetchCompanyData = async () => {
         return;
       }
   
+      // Check if engineering booking exists
+      const engineeringBooking = response.data.income_details.find(item => item.source === "Engineering");
+      console.log("Engineering Booking:", engineeringBooking); // ✅ Debug log
+  
       setIncomeData(response.data.income_details);
   
-      // Ensure "source" is not empty
+      // Group by source
       const grouped = response.data.income_details.reduce((acc, curr) => {
-        const source = curr.source || curr.name || "Unknown Source"; // Ensure a fallback
+        const source = curr.source || curr.name || "Unknown Source"; 
         acc[source] = (acc[source] || 0) + curr.amount;
         return acc;
       }, {});
@@ -203,7 +207,7 @@ const fetchCompanyData = async () => {
       const total = response.data.income_details.reduce((sum, item) => sum + item.amount, 0);
       setTotalIncome(total);
   
-      // ✅ Calculate total taxes
+      // Calculate total taxes
       const totalTaxAmount = response.data.income_details.reduce((sum, item) => sum + (item.taxes || 0), 0);
       setTotalTaxes(totalTaxAmount);
   
@@ -212,6 +216,7 @@ const fetchCompanyData = async () => {
       toast.error("Failed to fetch income data.");
     }
   };
+  
 
   return (
     <div className="p-6   rounded-3xl ">
@@ -366,7 +371,7 @@ const fetchCompanyData = async () => {
 
       {/* Individual Income Records */}
    {/* Individual Income Records */}
-<div className="space-y-4 max-h-[300px] overflow-y-auto p-4 bg-gray-50 rounded-2xl shadow-inner border mt-6">
+<div className="space-y-4 max-h-[400px] overflow-y-auto p-4 bg-gray-50 rounded-2xl shadow-inner border mt-6">
   {incomeData.length === 0 ? (
     <p className="text-lg text-gray-500 text-center">No income records found.</p>
   ) : (
