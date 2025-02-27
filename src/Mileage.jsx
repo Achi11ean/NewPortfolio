@@ -8,7 +8,7 @@ function Input({ label, ...props }) {
   
   return (
     <div className="w-full mb-4">
-      <label className="block text-sm font-semibold text-gray-700 mb-2">
+      <label className="block text-sm font-semibold text-center text-white mb-2">
         {label}
       </label>
       <input
@@ -22,7 +22,7 @@ function Input({ label, ...props }) {
 function Textarea({ label, ...props }) {
   return (
     <div className="w-full mb-4">
-      <label className="block text-sm font-semibold text-gray-700 mb-2">
+      <label className="block text-sm font-semibold text-white mb-2">
         {label}
       </label>
       <textarea
@@ -50,6 +50,8 @@ export default function MileageTracker() {
   const [formData, setFormData] = useState({});
   const [editingMileage, setEditingMileage] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [karaokeHostings, setKaraokeHostings] = useState([]); // Stores karaoke hostings
+
   const [locations, setLocations] = useState([]); // For dropdown locations
   const fetchLocations = async () => {
     try {
@@ -74,16 +76,44 @@ export default function MileageTracker() {
 
   useEffect(() => {
     fetchMileages();
-    fetchLocations(); // Fetch locations on component load
+    fetchKaraokeHostings(); // Fetch hosting companies
   }, []);
+
+
+  const fetchKaraokeHostings = async () => {
+    try {
+      const response = await axios.get("https://portfoliobackend-ih6t.onrender.com/karaoke_hosting");
+      const hostings = response.data;
+      setKaraokeHostings(hostings);
+      setLocations([...new Set(hostings.map((item) => item.location))]);
+    } catch (error) {
+      toast.error("Failed to fetch karaoke hosting companies.");
+    }
+  };
+  const handleHostingSelection = (e) => {
+    const hostingId = e.target.value;
+    if (!hostingId) {
+      setFormData({ ...formData, expense_name: "", end_location: "" });
+      return;
+    }
+    const selectedHosting = karaokeHostings.find((hosting) => hosting.id.toString() === hostingId);
+    if (selectedHosting) {
+      setFormData({
+        ...formData,
+        expense_name: `${selectedHosting.company_name} Hosting`,
+        end_location: selectedHosting.location,
+      });
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const preparedData = {
       ...formData,
       distance_driven: parseFloat(formData.distance_driven),
-      is_round_trip: !!formData.is_round_trip,  // Ensure boolean
+      is_round_trip: !!formData.is_round_trip,
     };
-  
+
     try {
       if (editingMileage) {
         await axios.patch(`https://portfoliobackend-ih6t.onrender.com/mileage/${editingMileage.id}`, preparedData);
@@ -97,7 +127,6 @@ export default function MileageTracker() {
       setEditingMileage(null);
       setShowForm(false);
     } catch (error) {
-      console.error("❌ Error saving mileage:", error);
       toast.error("Failed to save mileage record.");
     }
   };
@@ -132,6 +161,8 @@ export default function MileageTracker() {
 <h2 className="text-3xl  sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 text-gray-800 bg-gradient-to-r from-blue-500 via-green-500 to-teal-500 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
   🚗 Mileage  🚗
 </h2>
+<div className="w-full h-1 bg-gradient-to-r from-blue-500 via-yellow-500 via-yellow-500 via-gryellowen-500 via-yellow-500 via-yellow-500 to-blue-500 rounded-full shadow-lg my-6"></div>
+
 <div className="flex justify-center mt-6">
   <Button
     onClick={() => setShowForm(!showForm)}
@@ -148,62 +179,85 @@ export default function MileageTracker() {
       {showForm && (
         <form
           onSubmit={handleSubmit}
-          className="mt-6 bg-gray-50 p-6 max-w-2xl rounded-2xl shadow-inner"
-        >
-          <Input
-            label="Expense Name"
-            name="expense_name"
-            value={formData.expense_name || ""}
-            onChange={handleChange}
-            required
-          />
-          <Input
-            label="Date"
-            type="date"
-            name="date"
-            value={formData.date || ""}
-            onChange={handleChange}
-            required
-          />
-{/* Start Location Input with Datalist */}
+          className="mt-6 bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 p-8 max-w-2xl rounded-2xl shadow-xl border border-blue-300/40 backdrop-blur-md text-white"
+          >
+       {/* Dropdown for selecting a hosting company */}
+       <div className="w-full mb-4">
+            <label className="block text-sm font-semibold text-white mb-2">Select a Karaoke Hosting (optional)</label>
+            <select
+              name="karaoke_hosting"
+              onChange={handleHostingSelection}
+              className="w-full px-4 py-3 border rounded-lg shadow-sm"
+            >
+              <option value="">-- Select Hosting Company --</option>
+              {karaokeHostings.map((hosting) => (
+                <option key={hosting.id} value={hosting.id}>
+                  {hosting.company_name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Expense Title (auto-filled or manual entry) */}
+          <div className="w-full mb-4">
+            <label className="block text-sm font-semibold text-white mb-2">Expense Title</label>
+            <input
+              placeholder="Enter expense title"
+              name="expense_name"
+              value={formData.expense_name || ""}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border rounded-lg shadow-sm"
+              required
+            />
+          </div>
+{/* Date Input */}
 <div className="w-full mb-4">
-  <label className="block text-sm font-semibold text-gray-700 mb-2">
-    Start Location
-  </label>
+  <label className="block text-sm font-semibold text-white mb-2">Date</label>
   <input
-    list="startLocationOptions"
-    name="start_location"
-    value={formData.start_location || ""}
+    type="date"
+    name="date"
+    value={formData.date || ""}
     onChange={handleChange}
-    placeholder="Select or enter a location"
+    required
     className="w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
   />
-  <datalist id="startLocationOptions">
-    {locations.map((loc, idx) => (
-      <option key={idx} value={loc} />
-    ))}
-  </datalist>
 </div>
 
-{/* End Location Input with Datalist */}
-<div className="w-full mb-4">
-  <label className="block text-sm font-semibold text-gray-700 mb-2">
-    End Location
-  </label>
-  <input
-    list="endLocationOptions"
-    name="end_location"
-    value={formData.end_location || ""}
-    onChange={handleChange}
-    placeholder="Select or enter a location"
-    className="w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-  />
-  <datalist id="endLocationOptions">
-    {locations.map((loc, idx) => (
-      <option key={idx} value={loc} />
-    ))}
-  </datalist>
-</div>
+          {/* Start Location Input */}
+          <div className="w-full mb-4">
+            <label className="block text-sm font-semibold text-white mb-2">Start Location</label>
+            <input
+              list="startLocationOptions"
+              name="start_location"
+              value={formData.start_location || ""}
+              onChange={handleChange}
+              placeholder="Select or enter a location"
+              className="w-full px-4 py-3 border rounded-lg shadow-sm"
+            />
+            <datalist id="startLocationOptions">
+              {locations.map((loc, idx) => (
+                <option key={idx} value={loc} />
+              ))}
+            </datalist>
+          </div>
+
+          {/* End Location Input (Auto-filled if karaoke hosting is selected) */}
+          <div className="w-full mb-4">
+            <label className="block text-sm font-semibold text-white mb-2">End Location</label>
+            <input
+              list="endLocationOptions"
+              name="end_location"
+              value={formData.end_location || ""}
+              onChange={handleChange}
+              placeholder="Select or enter a location"
+              className="w-full px-4 py-3 border rounded-lg shadow-sm"
+            />
+            <datalist id="endLocationOptions">
+              {locations.map((loc, idx) => (
+                <option key={idx} value={loc} />
+              ))}
+            </datalist>
+          </div>
 
           <Input
             label="Distance Driven (miles)"
@@ -224,9 +278,9 @@ export default function MileageTracker() {
                   is_round_trip: e.target.checked,
                 })
               }
-              className="mr-2"
+              className="mr-2 p-5"
             />
-            <label className="text-gray-700">Round Trip?</label>
+            <label className="text-white text-2xl">Round Trip?</label>
           </div>
           <Textarea
             label="Notes"

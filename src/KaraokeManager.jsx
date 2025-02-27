@@ -16,7 +16,7 @@ function CardContent({ children, className }) {
 function Button({ children, onClick, variant = 'primary', className }) {
   const baseStyle = 'px-4 py-2 rounded-lg font-medium transition';
   const variants = {
-    primary: 'bg-orange-500 text-white hover:bg-orange-600',
+    primary: 'bg-orange-500 w-full text-white hover:bg-orange-600',
     destructive: 'bg-red-500 text-white hover:bg-red-600',
     outline: 'border border-gray-300 text-gray-700',
   };
@@ -81,8 +81,13 @@ export default function KaraokeManager() {
   };
 
   return (
-    <div className="p-4">
-      <Button
+    <div className="p-4 bg-black rounded-3xl border-white border-2 mt-3">
+<h2 className="text-3xl  sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 text-gray-800 bg-gradient-to-r from-yellow-500 via-red-700 to-yellow-500 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
+  🎤 Karaoke Manager 🎤
+</h2>   
+<div className="w-full h-1 bg-gradient-to-r from-yellow-500 via-red-500 via-orange-500  via-blue-500 to-yellow-500 rounded-full shadow-lg my-6"></div>
+
+   <Button
         onClick={() => setShowForm((prev) => !prev)}
         className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2 rounded-lg shadow-lg mb-6 transition-all duration-300"
       >

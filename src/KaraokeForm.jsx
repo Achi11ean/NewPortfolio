@@ -118,7 +118,7 @@ export default function KaraokeHostingForm({ onHostingSubmit }) {
   
 
   return (
-    <div className="bg-gradient-to-t from-red-900 to-yellow-200 p-8 mb-5 rounded-2xl shadow-2xl max-w-lg mx-auto">
+    <div className="bg-gradient-to-t from-red-900 to-yellow-200 p-8 mb-5 rounded-2xl shadow-2xl max-w-2xl mx-auto">
 <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-6 
                bg-gradient-to-r from-pink-500 to-purple-600 text-transparent bg-clip-text 
                drop-shadow-lg tracking-wide">

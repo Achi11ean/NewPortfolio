@@ -185,82 +185,93 @@ export default function Admin() {
   <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-32 h-32 bg-gradient-to-r from-yellow-500 to-pink-500 opacity-50 rounded-full blur-3xl"></div>
 </div>
 <GoogleCalendarManager/>
-<div className="flex flex-wrap gap-4 my-6 justify-center">
+<div className="flex justify-center items-center ">
+
+<div className="flex flex-col items-center justify-center max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-green-500 scrollbar-track-gray-800 p-4 rounded-lg w-full max-w-md bg-gray-900 shadow-lg">
+  {/* Buttons with uniform width */}
   <button
     onClick={() => setShowMileageTracker(!showMileageTracker)}
-    className="px-6 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-pink-400 to-purple-500 hover:scale-105 hover:from-purple-500 hover:to-pink-400"
+    className="w-full max-w-[250px] px-6 py-3 rounded-3xl text-white font-bold shadow-md transition-all duration-300 
+               bg-gradient-to-r from-pink-400 to-purple-500 hover:scale-105 hover:from-purple-500 hover:to-pink-400"
   >
     🚗 Mileage Tracker
   </button>
 
   <button
     onClick={() => setShowKaraokeManager(!showKaraokeManager)}
-    className="px-5 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-yellow-400 to-orange-500 hover:scale-105 hover:from-orange-500 hover:to-yellow-400"
+    className="w-full max-w-[250px] px-6 py-3 rounded-3xl text-white font-bold shadow-md transition-all duration-300 
+               bg-gradient-to-r from-yellow-400 to-orange-500 hover:scale-105 hover:from-orange-500 hover:to-yellow-400"
   >
     🎤 Karaoke 
   </button>
 
   <button
     onClick={() => setShowContactManager(!showContactManager)}
-    className="px-6 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-blue-400 to-cyan-500 hover:scale-105 hover:from-cyan-500 hover:to-blue-400"
+    className="w-full max-w-[250px] px-6 py-3 rounded-3xl text-white font-bold shadow-md transition-all duration-300 
+               bg-gradient-to-r from-blue-400 to-cyan-500 hover:scale-105 hover:from-cyan-500 hover:to-blue-400"
   >
     📞 Contact 
   </button>
 
   <button
     onClick={() => setShowEngineeringBookingManager(!showEngineeringBookingManager)}
-    className="px-6 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-green-400 to-teal-500 hover:scale-105 hover:from-teal-500 hover:to-green-400"
+    className="w-full max-w-[250px] px-6 py-3 rounded-3xl text-white font-bold shadow-md transition-all duration-300 
+               bg-gradient-to-r from-green-400 to-teal-500 hover:scale-105 hover:from-teal-500 hover:to-green-400"
   >
     ⚙️ Engineering 
   </button>
 
   <button
     onClick={() => setShowGeneralInquiryManager(!showGeneralInquiryManager)}
-    className="px-6 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-red-400 to-pink-500 hover:scale-105 hover:from-pink-500 hover:to-red-400"
+    className="w-full max-w-[250px] px-6 py-3 rounded-3xl text-white font-bold shadow-md transition-all duration-300 
+               bg-gradient-to-r from-red-400 to-pink-500 hover:scale-105 hover:from-pink-500 hover:to-red-400"
   >
     📨 General 
   </button>
 
   <button
     onClick={() => setShowIncome(!showIncome)}
-    className="px-6 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-lime-400 to-green-500 hover:scale-105 hover:from-green-500 hover:to-lime-400"
+    className="w-full max-w-[250px] px-6 py-3 rounded-3xl text-white font-bold shadow-md transition-all duration-300 
+               bg-gradient-to-r from-lime-400 to-green-500 hover:scale-105 hover:from-green-500 hover:to-lime-400"
   >
     💰 Income
   </button>
 
   <button
     onClick={() => setShowExpenseTracker(!showExpenseTracker)}
-    className="px-6 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-gray-400 to-gray-600 hover:scale-105 hover:from-gray-600 hover:to-gray-400"
+    className="w-full max-w-[250px] px-6 py-3 rounded-3xl text-white font-bold shadow-md transition-all duration-300 
+               bg-gradient-to-r from-gray-400 to-gray-600 hover:scale-105 hover:from-gray-600 hover:to-gray-400"
   >
     🧾 Expense 
   </button>
+
+  <button
+    onClick={() => setShowPendingReviews(!showPendingReviews)}
+    className="w-full max-w-[250px] px-6 py-3 rounded-3xl text-white font-bold shadow-md transition-all duration-300 
+               bg-gradient-to-r from-yellow-400 to-green-500 hover:scale-105 hover:from-yellow-500 hover:to-green-400"
+  >
+    {showPendingReviews ? "➖ Pending Reviews" : "➕ Pending Reviews"}
+  </button>
+
+  {/* Conditional Components */}
+
 </div>
-
+</div>
 {showMileageTracker && <MileageTracker />}
-{showKaraokeManager && <KaraokeManager />}
-{showContactManager && <ContactManager />}
-{showEngineeringBookingManager && <EngineeringBookingManager />}
-{showGeneralInquiryManager && <GeneralInquiryManager />}
-{showIncome && <Income />}
-{showExpenseTracker && <ExpenseTracker />}
-
-
+  {showKaraokeManager && <KaraokeManager />}
+  {showContactManager && <ContactManager />}
+  {showEngineeringBookingManager && <EngineeringBookingManager />}
+  {showGeneralInquiryManager && <GeneralInquiryManager />}
+  {showIncome && <Income />}
+  {showExpenseTracker && <ExpenseTracker />}
       <div>
 
 
 
-      <div className="flex justify-center mb-4">
-        <button
-          onClick={() => setShowPendingReviews(!showPendingReviews)}
-          className="px-6 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-yellow-400 to-green-500 hover:scale-105 hover:from-yellow-500 hover:to-green-400"
-          >
-          {showPendingReviews ? "➖ Pending Reviews" : "➕ Pending Reviews"}
-        </button>
-      </div>
 
       {showPendingReviews && (
 
-<section className="mb-6 text-center">
+<section className="mb-6  text-center">
   {reviewsError && <p className="text-red-500">{reviewsError}</p>}
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
     {pendingReviews.length === 0 ? (

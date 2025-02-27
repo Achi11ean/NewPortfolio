@@ -276,13 +276,8 @@ export default function GoogleCalendarManager() {
     window.open("https://calendar.google.com/calendar/u/0/r", "_blank");
   };
   return (
-    <div className="  min-h-screen flex flex-col mt-3 items-center">
-      <button
-  onClick={() => setShowCreateEvent(!showCreateEvent)}
-  className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition mb-4"
->
-  {showCreateEvent ? "Hide Event Creator" : "Create a New Event"}
-</button>
+    <div className="   min-h-screen flex flex-col mt-3 items-center">
+
 
 {!isSignedIn ? (
   // Show Sign In button if the user is not signed in
@@ -305,10 +300,10 @@ export default function GoogleCalendarManager() {
     </div>
 
     {/* 📅 Event Creation + Calendar */}
-    <div className="bg-gradient-to-br from-green-800 to-green-500 p-6 rounded-lg shadow-lg">
+    <div className=" border-2 border-white bg-gradient-to-br from-green-800 to-green-500 p-6 rounded-lg shadow-lg">
       <button
         onClick={() => setShowCreateEvent(!showCreateEvent)}
-        className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition mb-4"
+        className="bg-yellow-500 text-black font-bold px-4 py-2 rounded-full shadow-md hover:bg-blue-600 transition mb-4"
       >
         {showCreateEvent ? "Hide Event Creator" : "Create a New Event"}
       </button>
@@ -385,17 +380,11 @@ export default function GoogleCalendarManager() {
           >
             {isCreating ? "Saving..." : editingEvent ? "Update Event" : "Create Event"}
           </button>
+          
         </div>
       )}
 
       {/* 🗓️ Embedded Google Calendar */}
-      <h3 className="text-lg font-semibold mt-6 mb-2">Calendar View:</h3>
-      <button
-        onClick={openFullCalendar}
-        className="w-full mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition"
-      >
-        📅 Open Full Calendar
-      </button>
 
       <iframe
         src="https://calendar.google.com/calendar/embed?src=jwhit.pro%40gmail.com&ctz=America%2FNew_York"
@@ -405,10 +394,21 @@ export default function GoogleCalendarManager() {
         className="rounded-lg shadow-md"
       ></iframe>
     </div>
+    <button
+        onClick={openFullCalendar}
+        className="w-full border-2 border-white bg-green-600/40 text-white font-bold px-4 underline  shadow-md hover:bg-blue-700 transition"
+      >
+        📅 Open Full Calendar
+      </button>
 
     {/* 📆 Upcoming Events */}
     <div className="text-center max-w-3xl mx-auto justify-center items-center flex flex-col">
-      <h3 className="text-2xl font-bold text-white pt-10 mb-4">🌟 Upcoming Bookings 🌟</h3>
+    <h3 className="text-3xl font-extrabold mb-1 text-white mt-10 bg-gradient-to-r from-green-600 via-green-500 to-green-400 
+               shadow-lg shadow-green-500/50 rounded-2xl p-5 
+               border-2 border-white/20 backdrop-blur-md 
+               transition-all duration-300 transform hover:scale-105">
+  🌟 Upcoming Bookings 🌟
+</h3>
 
       <div className="space-y-4 max-h-[400px] overflow-y-auto w-full bg-white p-4 rounded-lg shadow-md">
         {events.length === 0 ? (
@@ -468,6 +468,7 @@ export default function GoogleCalendarManager() {
     </div>
   </div>
 )}
+<div className="w-full h-2 bg-gradient-to-r from-pink-500 via-red-500 via-orange-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 rounded-full shadow-lg my-6"></div>
 
     </div>
   );
