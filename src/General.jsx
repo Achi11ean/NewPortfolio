@@ -38,7 +38,7 @@ function Input({ name, value, onChange, placeholder, className }) {
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className={`border rounded-lg px-3 py-2 w-full ${className}`}
+      className={`border rounded-lg px-3 bg-black text-white py-2 w-full ${className}`}
     />
   );
 }
@@ -60,7 +60,17 @@ export default function GeneralInquiryManager() {
   const [selectedInquiry, setSelectedInquiry] = useState(null);
   const [formData, setFormData] = useState({});
   const [showForm, setShowForm] = useState(false); // 👈 Add this line
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const inquiriesPerPage = 10; // Adjust as needed
+  
+  // Calculate indexes
+  const indexOfLastInquiry = currentPage * inquiriesPerPage;
+  const indexOfFirstInquiry = indexOfLastInquiry - inquiriesPerPage;
+  const currentInquiries = inquiries.slice(indexOfFirstInquiry, indexOfLastInquiry);
+  const totalPages = Math.max(1, Math.ceil(inquiries.length / inquiriesPerPage));
+  const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+  
   useEffect(() => {
     fetchInquiries();
   }, []);
@@ -68,11 +78,13 @@ export default function GeneralInquiryManager() {
   const fetchInquiries = async () => {
     try {
       const response = await axios.get('https://portfoliobackend-ih6t.onrender.com/general_inquiries');
+      console.log("Fetched Inquiries:", response.data); // ✅ Debugging
       setInquiries(response.data);
     } catch (error) {
       toast.error("Failed to fetch general inquiries");
     }
   };
+  
 
   const handleEdit = (inquiry) => {
     setSelectedInquiry(inquiry);
@@ -105,9 +117,23 @@ export default function GeneralInquiryManager() {
   };
 
   return (
-    <div>
+    <div className="p-4 bg-black rounded-3xl border-white border-2 mt-3">
+<h2 className="text-3xl pb-1  sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 text-gray-800 bg-gradient-to-r from-blue-400  to-blue-200 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
+  General Inquiry
+  </h2>  
+  <div className="w-full h-1 bg-gradient-to-r from-purple-400 via-yellow-500 via-purple-500  via-blue-500 to-purple-500 rounded-full shadow-lg my-6"></div>
+  <div className='items-center flex flex-col justify-center'>
+  <Button
+    onClick={() => setShowForm((prev) => !prev)}
+    className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2 rounded-lg shadow-lg mb-6 transition-all duration-300"
+  >
+    {showForm ? "Hide Inquiry Form ⬆️" : "Add New Inquiry ⬇️"}
+  </Button>
+  {showForm && <GeneralInquiryForm onInquirySubmit={fetchInquiries} />}
+</div>
     <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {inquiries.map((inquiry) => (
+    {currentInquiries.map((inquiry) => (
+
         <motion.div
           key={inquiry.id}
           whileHover={{ scale: 1.02 }}
@@ -131,6 +157,8 @@ export default function GeneralInquiryManager() {
               ) : (
                 <>
                   <h3 className="text-lg font-semibold mb-1">{inquiry.contact_name}</h3>
+                  <p>📞 Phone: {inquiry.contact_phone || "N/A"}</p>
+
                   <p>Request: {inquiry.request}</p>
                   <p>Cost: ${inquiry.cost}</p>
                   <p>Notes: {inquiry.notes}</p>
@@ -146,14 +174,27 @@ export default function GeneralInquiryManager() {
         </motion.div>
       ))}
     </div>
-    <div className='items-center flex flex-col justify-center'>
+
+<div className="flex justify-center mt-6 space-x-4">
   <Button
-    onClick={() => setShowForm((prev) => !prev)}
-    className="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-2 rounded-lg shadow-lg mb-6 transition-all duration-300"
+    onClick={prevPage}
+    disabled={currentPage === 1}
+    className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 disabled:opacity-50"
   >
-    {showForm ? "Hide Inquiry Form ⬆️" : "Add New Inquiry ⬇️"}
+    ⬅ Previous
   </Button>
-  {showForm && <GeneralInquiryForm onInquirySubmit={fetchInquiries} />}
+
+  <span className="text-white text-lg">
+    Page {inquiries.length === 0 ? 0 : currentPage} of {totalPages || 1}
+  </span>
+
+  <Button
+    onClick={nextPage}
+    disabled={currentPage >= totalPages || inquiries.length === 0}
+    className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 disabled:opacity-50"
+  >
+    Next ➡
+  </Button>
 </div>
 
   </div>

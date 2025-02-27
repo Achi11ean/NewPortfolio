@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 export default function GeneralInquiryForm({ onInquirySubmit }) {
   const [formData, setFormData] = useState({
     contact_name: "",
+    contact_phone: "",
     request: "",
     cost: "",
     notes: "",
@@ -13,6 +14,8 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
   const [contacts, setContacts] = useState([]);
   const [isNewContact, setIsNewContact] = useState(false);
   const [newContact, setNewContact] = useState("");
+  const [newContactPhone, setNewContactPhone] = useState("");
+
   useEffect(() => {
     fetch("https://portfoliobackend-ih6t.onrender.com/contacts")
       .then((response) => response.json())
@@ -27,20 +30,61 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
 
   const handleContactSelection = (e) => {
     const { value } = e.target;
+  
     if (value === "new") {
       setIsNewContact(true);
-      setFormData({ ...formData, contact_name: newContact });
+      setFormData((prev) => ({
+        ...prev,
+        contact_name: newContact, 
+        contact_phone: newContactPhone,  // ✅ Copy the new phone number
+      }));
     } else {
       setIsNewContact(false);
-      setFormData({ ...formData, contact_name: value });
+      const selectedContact = contacts.find(
+        (contact) => `${contact.first_name} ${contact.last_name}` === value
+      );
+  
+      if (selectedContact) {
+        setFormData((prev) => ({
+          ...prev,
+          contact_name: value,  // ✅ Copy name
+          contact_phone: selectedContact.phone,  // ✅ Copy phone number
+        }));
+      }
+    }
+  };
+    
+  const handleNewContactChange = (e) => {
+    setNewContact(e.target.value);
+    setFormData((prev) => ({ ...prev, contact_name: e.target.value }));
+  };
+
+  const formatPhoneNumber = (value) => {
+    const cleaned = value.replace(/\D/g, ""); // Remove non-numeric characters
+    const match = cleaned.match(/^(\d{0,3})(\d{0,3})?(\d{0,4})?/);
+  
+    if (match) {
+      let formatted = "";
+      if (match[1]) formatted += `(${match[1]}`;
+      if (match[2]) formatted += `) ${match[2]}`;
+      if (match[3]) formatted += `-${match[3]}`;
+  
+      return formatted.substring(0, 14); // Limit length to 14 (including spaces, dashes, and parentheses)
+    }
+  
+    return value;
+  };
+  
+  const handleNewContactPhoneChange = (e) => {
+    const formattedValue = formatPhoneNumber(e.target.value);
+    
+    // Prevent input longer than formatted length
+    if (formattedValue.length <= 14) {
+      setNewContactPhone(formattedValue);
+      setFormData((prev) => ({ ...prev, contact_phone: formattedValue }));
     }
   };
   
-  const handleNewContactChange = (e) => {
-    const value = e.target.value;
-    setNewContact(value);
-    setFormData({ ...formData, contact_name: value });
-  };
   
 
   const handleSubmit = (e) => {
@@ -59,11 +103,14 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
           setStatus("Inquiry submitted successfully!");
           setFormData({
             contact_name: "",
+            contact_phone: "",
             request: "",
             cost: "",
             notes: "",
             date: "",
           });
+          setNewContact("");
+          setNewContactPhone("");
           if (onInquirySubmit) onInquirySubmit(); // Refetch inquiries after submission
         } else {
           setStatus("Failed to submit inquiry. Please try again later.");
@@ -81,38 +128,55 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
         General Inquiry Form
       </h2>
       <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-  <label htmlFor="contact_name" className="block text-gray-800 text-lg font-semibold">
-    Select or Enter Contact
-  </label>
-  <select
-    name="contact_name"
-    id="contact_name"
-    value={isNewContact ? "new" : formData.contact_name}
-    onChange={handleContactSelection}
-    required
-    className="w-full p-3 border rounded-2xl bg-white shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
-  >
-    <option value="">Select a Contact</option>
-    {contacts.map((contact) => (
-      <option key={contact.id} value={`${contact.first_name} ${contact.last_name}`}>
-        {`${contact.first_name} ${contact.last_name}`}
-      </option>
-    ))}
-    <option value="new">Enter New Contact</option>
-  </select>
+        <div>
+          <label htmlFor="contact_name" className="block text-gray-800 text-lg font-semibold">
+            Select or Enter Contact
+          </label>
+          <select
+            name="contact_name"
+            id="contact_name"
+            value={isNewContact ? "new" : formData.contact_name}
+            onChange={handleContactSelection}
+            required
+            className="w-full p-3 border rounded-2xl bg-gray-800 text-white shadow text-center  focus:outline-none focus:ring-2 focus:ring-blue-400"
+          >
+            <option value="">Select a Contact</option>
+            {contacts.map((contact) => (
+              <option key={contact.id} value={`${contact.first_name} ${contact.last_name}`}>
+                {`${contact.first_name} ${contact.last_name}`}
+              </option>
+            ))}
+            <option value="new">Enter New Contact</option>
+          </select>
 
-  {isNewContact && (
+          {isNewContact ? (
+  <>
     <input
       type="text"
       placeholder="Enter new contact name"
       value={newContact}
       onChange={handleNewContactChange}
-      className="w-full mt-3 p-3 border rounded-2xl bg-white shadow focus:outline-none focus:ring-2 focus:ring-purple-400"
+      className="w-full mt-3 p-3 border rounded-2xl bg-gray-800 text-white text-center shadow focus:outline-none focus:ring-2 focus:ring-purple-400"
       required
     />
-  )}
-</div>
+    <input
+      type="text"
+      placeholder="Enter new contact phone"
+      value={newContactPhone}
+      onChange={handleNewContactPhoneChange}
+      className="w-full mt-3 p-3 border rounded-2xl bg-gray-800 text-white text-center shadow focus:outline-none focus:ring-2 focus:ring-purple-400"
+      required
+    />
+  </>
+) : (
+  formData.contact_phone && (
+    <p className="mt-3 p-3 border rounded-2xl bg-gray-800 text-white text-center shadow">
+      📞 {formData.contact_phone}
+    </p>
+  )
+)}
+
+        </div>
 
 
         <textarea
@@ -121,7 +185,7 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
           value={formData.request}
           onChange={handleChange}
           required
-          className="w-full p-3 border rounded-2xl bg-white shadow focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          className="w-full p-3 border rounded-2xl bg-gray-800 text-white text-center shadow focus:outline-none focus:ring-2 focus:ring-yellow-400"
         />
 
         <input
@@ -131,7 +195,7 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
           value={formData.cost}
           onChange={handleChange}
           required
-          className="w-full p-3 border rounded-2xl bg-white shadow focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          className="w-full p-3 border rounded-2xl bg-gray-800 text-white text-center shadow focus:outline-none focus:ring-2 focus:ring-yellow-400"
         />
 
         <input
@@ -140,7 +204,7 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
           placeholder="Additional Notes (Optional)"
           value={formData.notes}
           onChange={handleChange}
-          className="w-full p-3 border rounded-2xl bg-white shadow focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          className="w-full p-3 border rounded-2xl bg-gray-800 text-white text-center shadow focus:outline-none focus:ring-2 focus:ring-yellow-400"
         />
 
         <input
@@ -149,7 +213,7 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
           placeholder="Preferred Date"
           value={formData.date}
           onChange={handleChange}
-          className="w-full p-3 border rounded-2xl bg-white shadow focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          className="w-full p-3 border rounded-2xl bg-gray-800 text-white text-center shadow focus:outline-none focus:ring-2 focus:ring-yellow-400"
         />
 
         <button

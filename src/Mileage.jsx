@@ -8,12 +8,12 @@ function Input({ label, ...props }) {
   
   return (
     <div className="w-full mb-4">
-      <label className="block text-sm font-semibold text-center text-white mb-2">
+      <label className="block text-sm  font-semibold text-center text-white mb-2">
         {label}
       </label>
       <input
         {...props}
-        className="w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="w-full px-4 py-3 border rounded-lg bg-black  text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
     </div>
   );
@@ -22,12 +22,12 @@ function Input({ label, ...props }) {
 function Textarea({ label, ...props }) {
   return (
     <div className="w-full mb-4">
-      <label className="block text-sm font-semibold text-white mb-2">
+      <label className="block text-sm font-semibold text-center text-white mb-2">
         {label}
       </label>
       <textarea
         {...props}
-        className="w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="w-full px-4 py-3 border rounded-lg bg-black text-center text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
     </div>
   );
@@ -37,7 +37,7 @@ function Button({ children, className = "", ...props }) {
   return (
     <button
       {...props}
-      className={`px-6 py-3 font-semibold rounded-lg shadow transition duration-300 ${className}`}
+      className={`px-1 py-1 font-semibold rounded-lg bg-yellow-300 text-blue-800 w-full text-xl font-serif  shadow transition duration-300 ${className}`}
     >
       {children}
     </button>
@@ -166,9 +166,9 @@ export default function MileageTracker() {
 <div className="flex justify-center mt-6">
   <Button
     onClick={() => setShowForm(!showForm)}
-    className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold 
-               text-lg px-8 py-4 rounded-full shadow-lg transition-all duration-300 
-               hover:scale-105 hover:shadow-blue-500/50 hover:from-indigo-600 hover:to-blue-700 
+    className="bg-gradient-to-l from-blue-500 via-yellow-500 to-blue-600 text-white font-bold 
+               text-lg px-8 py-4  rounded-full shadow-lg transition-all duration-300 
+               hover:scale-105 hover:shadow-blue-500/50 hover:from-blue-400 hover:to-yellow-400 
                border border-blue-300 backdrop-blur-lg"
   >
     {showForm ? "⬆️ Hide Form" : "⬇️ Add Mileage Record"}
@@ -179,7 +179,7 @@ export default function MileageTracker() {
       {showForm && (
         <form
           onSubmit={handleSubmit}
-          className="mt-6 bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 p-8 max-w-2xl rounded-2xl shadow-xl border border-blue-300/40 backdrop-blur-md text-white"
+          className="mt-6 bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 p-8 w-full rounded-2xl border-8 shadow-xl items-center justify-self-center    border-white backdrop-blur-md text-white"
           >
        {/* Dropdown for selecting a hosting company */}
        <div className="w-full mb-4">
@@ -187,7 +187,7 @@ export default function MileageTracker() {
             <select
               name="karaoke_hosting"
               onChange={handleHostingSelection}
-              className="w-full px-4 py-3 border rounded-lg shadow-sm"
+              className="w-full bg-black text-white text-center px-4 py-3 border rounded-lg shadow-sm"
             >
               <option value="">-- Select Hosting Company --</option>
               {karaokeHostings.map((hosting) => (
@@ -200,39 +200,39 @@ export default function MileageTracker() {
 
           {/* Expense Title (auto-filled or manual entry) */}
           <div className="w-full mb-4">
-            <label className="block text-sm font-semibold text-white mb-2">Expense Title</label>
+            <label className="block text-sm font-semibold text-center text-white mb-2">Expense Title</label>
             <input
               placeholder="Enter expense title"
               name="expense_name"
               value={formData.expense_name || ""}
               onChange={handleChange}
-              className="w-full px-4 py-3 border rounded-lg shadow-sm"
+              className="w-full px-4 py-3 border bg-black text-center text-white rounded-lg shadow-sm"
               required
             />
           </div>
 {/* Date Input */}
 <div className="w-full mb-4">
-  <label className="block text-sm font-semibold text-white mb-2">Date</label>
+  <label className="block text-sm font-semibold text-white text-center mb-2">Date</label>
   <input
     type="date"
     name="date"
     value={formData.date || ""}
     onChange={handleChange}
     required
-    className="w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+    className="w-full px-4 py-3 border bg-black text-white text-center rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
   />
 </div>
 
           {/* Start Location Input */}
           <div className="w-full mb-4">
-            <label className="block text-sm font-semibold text-white mb-2">Start Location</label>
+            <label className="block text-sm font-semibold text-center text-white mb-2">Start Location</label>
             <input
               list="startLocationOptions"
               name="start_location"
               value={formData.start_location || ""}
               onChange={handleChange}
               placeholder="Select or enter a location"
-              className="w-full px-4 py-3 border rounded-lg shadow-sm"
+              className="w-full px-4 bg-black text-white text-center  py-3 border rounded-lg shadow-sm"
             />
             <datalist id="startLocationOptions">
               {locations.map((loc, idx) => (
@@ -243,14 +243,14 @@ export default function MileageTracker() {
 
           {/* End Location Input (Auto-filled if karaoke hosting is selected) */}
           <div className="w-full mb-4">
-            <label className="block text-sm font-semibold text-white mb-2">End Location</label>
+            <label className="block text-sm font-semibold text-center text-white mb-2">End Location</label>
             <input
               list="endLocationOptions"
               name="end_location"
               value={formData.end_location || ""}
               onChange={handleChange}
               placeholder="Select or enter a location"
-              className="w-full px-4 py-3 border rounded-lg shadow-sm"
+              className="w-full bg-black text-white text-center px-4 py-3 border rounded-lg shadow-sm"
             />
             <datalist id="endLocationOptions">
               {locations.map((loc, idx) => (
@@ -319,7 +319,9 @@ export default function MileageTracker() {
             <p className="text-gray-700 font-bold mb-1">
               💲 Reimbursement: ${mileage.calculated_mileage}
             </p>
-            <div className="max-h-32 overflow-y-auto p-2 rounded-3xl bg-gray-100 ">
+            <p className="text-gray-700 font-bold mb-1">
+    🔄 Round Trip: {mileage.is_round_trip ? "Yes" : "No"}
+  </p>            <div className="max-h-32 overflow-y-auto p-2 rounded-3xl bg-gray-100 ">
   <p className="text-gray-600 font-bold italic">
     📝 {mileage.notes || "No notes available."}
   </p>
