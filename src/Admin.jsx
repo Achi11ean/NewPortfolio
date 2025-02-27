@@ -268,7 +268,7 @@ export default function Admin() {
 {activeSection === "engineering" && <EngineeringBookingManager />}
 {activeSection === "general" && <GeneralInquiryManager />}
 {activeSection === "income" && <Income />}
-{activeSection === "expenses" && <ExpenseTracker />}
+{activeSection === "expense" && <ExpenseTracker />}
       <div>
 
 

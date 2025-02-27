@@ -244,26 +244,29 @@ const fetchCompanyData = async () => {
 
 
   return (
-    <div className="p-6   rounded-3xl ">
-      {/* Manual Income Entry */}
+    <div className="p-4 bg-black rounded-3xl border-white border-2 mt-3">
+<h2 className="text-3xl pb-1  sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 text-gray-800 bg-gradient-to-r from-yellow-500 via-green-700 to-green-500 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
+  💲 Income Manager 💲 
+</h2>   
+<div className="w-full h-1 bg-gradient-to-r from-green-500 via-green-500 via-red-500  via-green-500 to-green-500 rounded-full shadow-lg my-6"></div>      {/* Manual Income Entry */}
       <div className="flex justify-center">
         <button
           onClick={() => setShowForm(!showForm)}
-          className="bg-blue-600 text-white px-6 py-3 rounded-xl shadow-md hover:bg-blue-700 transition"
-        >
+          className="bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 text-white px-6 py-3 font-bold rounded-xl shadow-lg hover:from-blue-600 hover:via-purple-600 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105"
+          >
           {showForm ? "➖ Hide Income Form" : "➕ Show Income Form"}
         </button>
       </div>
       {showForm && (
 
-<div className="mt-6 p-6 bg-gray-100 rounded-2xl shadow-md">
+<div className="mt-6 p-6 bg-gradient-to-r from-green-800 via-green-500 to-green-800 rounded-2xl shadow-md">
   <h3 className="text-2xl font-bold text-gray-800 text-center mb-4">
     ➕ Add New Income
   </h3>
   
  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
  <select
-    className="p-3 border rounded-lg w-full"
+    className="p-3 border bg-gray-800 text-white font-bold rounded-lg w-full"
     value={selectedCompany}
     onChange={(e) => {
       setSelectedCompany(e.target.value);
@@ -293,7 +296,7 @@ const fetchCompanyData = async () => {
       setSelectedCompany(""); // Clear dropdown selection
       setNewIncome((prev) => ({ ...prev, income_name: e.target.value }));
     }}
-    className="p-3 border rounded-lg w-full"
+    className="p-3 border bg-gray-800  font-bold rounded-lg w-full"
   />
 
   {/* Auto-filled Amount */}
@@ -303,7 +306,7 @@ const fetchCompanyData = async () => {
     placeholder="Amount ($)"
     value={newIncome.amount}
     onChange={handleInputChange}
-    className="p-3 border rounded-lg w-full"
+    className="p-3 border bg-gray-800 text-white font-bold rounded-lg w-full"
   />
 
   {/* Date Picker */}
@@ -312,7 +315,7 @@ const fetchCompanyData = async () => {
     name="date"
     value={newIncome.date}
     onChange={handleInputChange}
-    className="p-3 border rounded-lg w-full"
+    className="p-3 border bg-gray-800 text-white font-bold rounded-lg w-full"
   />
 
   {/* Taxes (Optional) */}
@@ -322,12 +325,12 @@ const fetchCompanyData = async () => {
   placeholder="Taxes (Optional)"
   value={newIncome.taxes || ""} // Ensure value is controlled
   onChange={handleInputChange}
-  className="p-3 border rounded-lg w-full"
+  className="p-3 border bg-gray-800 text-white font-bold rounded-lg w-full"
 />
 
         <button
           onClick={calculateTaxes}
-          className="mt-4 bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition"
+          className=" bg-red-500 text-black font-serif text-xl font-bold  px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition"
         >
           💰 Apply Taxes
         </button>
@@ -354,50 +357,65 @@ const fetchCompanyData = async () => {
 </div>
       )}
 
-      <h2 className="text-4xl font-extrabold mb-6 text-center text-white underline">
+      <h2 className="md:text-4xl text-2xl font-extrabold mb-6 text-center text-white underline">
         💰 Income Overview 💰
       </h2>
       <div className="flex flex-wrap justify-center gap-6 mx-auto mt-8">
   {/* Overall Total Income */}
-  <div className="p-8 bg-gradient-to-br from-green-400 to-green-600 rounded-3xl shadow-xl text-center w-72">
-    <h3 className="text-4xl font-extrabold text-white">
-      💵 Total Income
-    </h3>
-    <p className="text-3xl font-semibold text-white mt-2">
-      ${totalIncome.toFixed(2)}
-    </p>
-  </div>
+{/* Total Income */}
+<div className="p-2 mb-2 bg-gradient-to-br from-green-400 via-emerald-500 to-green-700 rounded-3xl shadow-2xl text-center w-[40%] transform transition-all duration-300 hover:scale-105 hover:shadow-green-500/50">
+<h3 className="text-md md:text-3xl font-extrabold text-white drop-shadow-lg">
+💵 <br/> <span className="underline">Total Income</span>
+  </h3>
+  <p className="md:text-3xl text-xl font-semibold text-white  drop-shadow-lg">
+    ${totalIncome.toFixed(2)}
+  </p>
+</div>
 
-  {/* Overall Total Taxes */}
-  <div className="p-8 bg-gradient-to-br from-red-400 to-red-600 rounded-3xl shadow-xl text-center w-72">
-    <h3 className="text-4xl font-extrabold text-white">
-      🏛️ Taxes Owed
-    </h3>
-    <p className="text-3xl font-semibold text-white mt-2">
-      ${totalTaxes.toFixed(2)}
-    </p>
-  </div>
+{/* Taxes Owed */}
+<div className="p-2 mb-2 bg-gradient-to-br from-red-400 via-rose-500 to-red-700 rounded-3xl shadow-2xl text-center w-[40%] transform transition-all duration-300 hover:scale-105 hover:shadow-red-500/50">
+  <h3 className="text-md md:text-3xl font-extrabold text-white drop-shadow-lg">
+    🏛️ <br/><span className="underline">Taxes Owed</span>
+  </h3>
+  <p className="md:text-3xl text-xl font-semibold text-white  drop-shadow-lg">
+    ${totalTaxes.toFixed(2)}
+  </p>
+</div>
+
 </div>
 
       {/* Income Group Totals */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {Object.entries(groupedIncome).map(([source, amount], index) => (
-          <div
-            key={index}
-            className="p-4 rounded-2xl bg-gradient-to-br from-purple-200 via-pink-100 to-blue-100 shadow-lg text-center"
-          >
-            <h3 className="text-xl font-bold text-gray-800">{source}</h3>
-            <p className="text-2xl font-extrabold text-gray-900 mt-2">
-              ${amount.toFixed(2)}
-            </p>
-          </div>
-        ))}
-      </div>
+      <div className="relative p-6 bg-gradient-to-br from-gray-200 to-gray-800 rounded-3xl shadow-2xl">
+  <h2 className="text-xl md:text-3xl font-extrabold text-white text-center mb-4">
+    💰 Income Breakdown
+  </h2>
+
+  {/* Scrollable container */}
+  <div className="max-h-64 overflow-y-auto custom-scrollbar p-2 rounded-2xl">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {Object.entries(groupedIncome).map(([source, amount], index) => (
+        <div
+          key={index}
+          className="p-6 rounded-2xl bg-gradient-to-br from-purple-400 via-pink-400 to-blue-500 shadow-xl text-center transform transition-all duration-300 hover:scale-105 hover:shadow-pink-500/50"
+        >
+          <h3 className="text-2xl font-bold text-white drop-shadow-md">
+            {source}
+          </h3>
+          <p className="text-3xl font-extrabold text-white mt-2 drop-shadow-lg">
+            ${amount.toFixed(2)}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
 
       {/* Individual Income Records */}
 {/* Individual Income Records */}
-<div className="space-y-4 max-h-[400px] overflow-y-auto p-4 bg-gray-50 rounded-2xl shadow-inner border mt-6">
-  {incomeData.length === 0 ? (
+<div className="space-y-4 max-h-[400px] overflow-y-auto p-4 
+  bg-gradient-to-br from-green-400 via-emerald-500 to-green-700 
+  rounded-2xl shadow-2xl border border-green-600 mt-6 
+  text-white custom-scrollbar">  {incomeData.length === 0 ? (
     <p className="text-lg text-gray-500 text-center">No income records found.</p>
   ) : (
     incomeData.map((item, index) => (
@@ -410,21 +428,21 @@ const fetchCompanyData = async () => {
               name="income_name"
               value={editFormData.income_name}
               onChange={(e) => setEditFormData({ ...editFormData, income_name: e.target.value })}
-              className="p-2 border rounded w-full mb-2"
+              className="p-2 border font-bold bg-gray-800 text-center rounded-xl w-full mb-2"
             />
             <input
               type="number"
               name="amount"
               value={editFormData.amount}
               onChange={(e) => setEditFormData({ ...editFormData, amount: e.target.value })}
-              className="p-2 border rounded w-full mb-2"
+              className="p-2 border rounded font-bold bg-gray-800 text-center w-full mb-2"
             />
             <input
               type="date"
               name="date"
               value={editFormData.date}
               onChange={(e) => setEditFormData({ ...editFormData, date: e.target.value })}
-              className="p-2 border rounded w-full mb-2"
+              className="p-2 border font-bold bg-gray-800 text-center rounded w-full mb-2"
             />
             <input
               type="number"
@@ -432,17 +450,17 @@ const fetchCompanyData = async () => {
               placeholder="Taxes (Optional)"
               value={editFormData.taxes || ""}
               onChange={(e) => setEditFormData({ ...editFormData, taxes: e.target.value })}
-              className="p-3 border rounded-lg w-full"
+              className="p-3 border font-bold bg-gray-800 text-center rounded-lg w-full"
             />
             <button
               onClick={handleUpdateIncome}
-              className="bg-green-500 text-white px-3 py-1 rounded-lg shadow-md hover:bg-green-600 transition mr-2"
+              className="bg-green-500 text-white w-full mt-1 py-1 rounded-lg shadow-md hover:bg-green-600 transition mr-2"
             >
               ✅ Save
             </button>
             <button
               onClick={() => setEditingIncome(null)}
-              className="bg-gray-500 text-white px-3 py-1 rounded-lg shadow-md hover:bg-gray-600 transition"
+              className="bg-gray-500 text-white w-full mt-3 px-3 py-1 rounded-lg shadow-md hover:bg-gray-600 transition"
             >
               ❌ Cancel
             </button>

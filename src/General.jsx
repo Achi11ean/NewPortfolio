@@ -62,6 +62,17 @@ export default function GeneralInquiryManager() {
   const [showForm, setShowForm] = useState(false); // 👈 Add this line
   const [currentPage, setCurrentPage] = useState(1);
   const inquiriesPerPage = 10; // Adjust as needed
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A"; // Handle missing dates
+  
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("en-US", {
+      weekday: "long",  // "Saturday"
+      month: "long",    // "March"
+      day: "numeric",   // "20"
+      year: "numeric"   // "2025"
+    }).format(date);
+  };
   
   // Calculate indexes
   const indexOfLastInquiry = currentPage * inquiriesPerPage;
@@ -162,7 +173,7 @@ export default function GeneralInquiryManager() {
                   <p>Request: {inquiry.request}</p>
                   <p>Cost: ${inquiry.cost}</p>
                   <p>Notes: {inquiry.notes}</p>
-                  <p>Date: {inquiry.date}</p>
+                  <p>Date: {formatDate(inquiry.date)}</p>
                   <div className="flex justify-end gap-2 mt-4">
                     <Button onClick={() => handleEdit(inquiry)} className="bg-pink-400 hover:bg-pink-500 text-white rounded-lg">Edit</Button>
                     <Button variant="destructive" onClick={() => handleDelete(inquiry.id)}>Delete</Button>
