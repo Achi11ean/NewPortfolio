@@ -276,8 +276,7 @@ export default function GoogleCalendarManager() {
     window.open("https://calendar.google.com/calendar/u/0/r", "_blank");
   };
   return (
-    <div className="  min-h-screen flex flex-col items-center">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6">🎤 Karaoke Event Manager</h2>
+    <div className="  min-h-screen flex flex-col mt-3 items-center">
       <button
   onClick={() => setShowCreateEvent(!showCreateEvent)}
   className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition mb-4"
@@ -285,152 +284,191 @@ export default function GoogleCalendarManager() {
   {showCreateEvent ? "Hide Event Creator" : "Create a New Event"}
 </button>
 
-      {!isSignedIn ? (
-        <button
-          onClick={handleAuthClick}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition"
-        >
-          Sign In with Google
-        </button>
-      ) : (
-        <div className="w-full max-w-6xl ">
-          {/* 📅 Event Creation + Calendar */}
-          <div className="bg-gradient-to-br from-green-800 to-green-500 p-6 rounded-lg shadow-lg">
-          {showCreateEvent && (
-  <div className="bg-gradient-to-br from-green-800 to-green-500  rounded-lg shadow-lg">
-            
+{!isSignedIn ? (
+  // Show Sign In button if the user is not signed in
+  <button
+    onClick={handleAuthClick}
+    className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition"
+  >
+    Sign In with Google
+  </button>
+) : (
+  <div className="w-full max-w-6xl">
+    {/* Sign Out Button */}
+    <div className="flex justify-end mb-4">
+      <button
+        onClick={handleSignOutClick}
+        className="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-600 transition"
+      >
+        Sign Out
+      </button>
+    </div>
+
+    {/* 📅 Event Creation + Calendar */}
+    <div className="bg-gradient-to-br from-green-800 to-green-500 p-6 rounded-lg shadow-lg">
+      <button
+        onClick={() => setShowCreateEvent(!showCreateEvent)}
+        className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition mb-4"
+      >
+        {showCreateEvent ? "Hide Event Creator" : "Create a New Event"}
+      </button>
+
+      {showCreateEvent && (
+        <div className="bg-gradient-to-br from-green-800 to-green-500 rounded-lg shadow-lg p-6">
           <h3 className="text-xl font-semibold text-white mb-4">Create a New Event</h3>
-  
-            <label className="block text-center text-white font-bold">Company Name:</label>
-            <select
-              className="border p-2 rounded w-full mb-3"
-              value={selectedCompany}
-              onChange={handleCompanyChange}
-            >
-              <option value="">-- Select a Company --</option>
-              {companyData.map((company, index) => (
-                <option key={index} value={company.company_name}>
-                  {company.company_name}
-                </option>
-              ))}
-            </select>
-  
+
+          <label className="block text-center text-white font-bold">Company Name:</label>
+          <select
+            className="border p-2 rounded w-full mb-3"
+            value={selectedCompany}
+            onChange={handleCompanyChange}
+          >
+            <option value="">-- Select a Company --</option>
+            {companyData.map((company, index) => (
+              <option key={index} value={company.company_name}>
+                {company.company_name}
+              </option>
+            ))}
+          </select>
+
+          <input
+            type="text"
+            placeholder="Or Enter a New Company Name"
+            value={selectedCompany}
+            onChange={(e) => setSelectedCompany(e.target.value)}
+            className="border p-2 rounded w-full mb-3"
+          />
+
+          <input
+            type="text"
+            placeholder="Location (Auto-Filled)"
+            value={eventLocation}
+            onChange={(e) => setEventLocation(e.target.value)}
+            className="border p-2 rounded w-full mb-3"
+          />
+
+          <div className="grid grid-cols-2 gap-4">
             <input
-              type="text"
-              placeholder="Or Enter a New Company Name"
-              value={selectedCompany}
-              onChange={(e) => setSelectedCompany(e.target.value)}
-              className="border p-2 rounded w-full mb-3"
+              type="date"
+              value={eventDate}
+              onChange={(e) => setEventDate(e.target.value)}
+              className="border p-2 rounded w-full"
             />
             <input
-              type="text"
-              placeholder="Location (Auto-Filled)"
-              value={eventLocation}
-              onChange={(e) => setEventLocation(e.target.value)}
-              className="border p-2 rounded w-full mb-3"
+              type="time"
+              value={eventStartTime}
+              onChange={(e) => setEventStartTime(e.target.value)}
+              className="border p-2 rounded w-full"
             />
-  
-            <div className="grid grid-cols-2 gap-4">
-              <input type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} className="border p-2 rounded w-full" />
-              <input type="time" value={eventStartTime} onChange={(e) => setEventStartTime(e.target.value)} className="border p-2 rounded w-full" />
-            </div>
-  
-            <div className="grid grid-cols-2 gap-4 mt-3">
-              <input type="time" value={eventEndTime} onChange={(e) => setEventEndTime(e.target.value)} className="border p-2 rounded w-full" />
-            </div>
-  
-            <textarea placeholder="Enter any notes (optional)" value={eventNotes} onChange={(e) => setEventNotes(e.target.value)} className="border p-2 rounded w-full mt-3"></textarea>
-  
-            <button
-  onClick={createEvent}
-  disabled={isCreating}
-  className="w-full mt-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600 transition"
->
-  {isCreating ? "Saving..." : editingEvent ? "Update Event" : "Create Event"}
-</button>
-</div>
-)}
-  
-            {/* 🗓️ Embedded Google Calendar */}
-            <h3 className="text-lg font-semibold mt-6 mb-2">Calendar View:</h3>
-            <button
-  onClick={openFullCalendar}
-  className="w-full mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition"
->
-  📅 Open Full Calendar
-</button>
-
-            <iframe
-              src="https://calendar.google.com/calendar/embed?src=jwhit.pro%40gmail.com&ctz=America%2FNew_York"
-              style={{ border: "1px solid #ccc", width: "100%", height: "400px" }}
-              frameBorder="0"
-              scrolling="no"
-              className="rounded-lg shadow-md"
-            ></iframe>
           </div>
-  
-          {/* 📆 Upcoming Events */}
-          <div className="text-center max-w-3xl mx-auto justify-center items-center flex flex-col">
-  {/* Cute Header */}
-  <h3 className="text-2xl font-bold text-white pt-10 mb-4">🌟 Upcoming Bookings 🌟</h3>
 
-  {/* Scrollable List Container */}
-  <div className="space-y-4 max-h-[400px] overflow-y-auto w-full bg-white p-4 rounded-lg  shadow-md">
-    {events.length === 0 ? (
-      <p className="text-gray-500">No upcoming events.</p>
-    ) : (
-      <div className="space-y-4">
-        {events.map((event) => (
-          <div key={event.id} className="bg-gray-100 p-4 rounded-lg shadow-md relative">
-            <h4 className="text-lg font-semibold text-gray-800">{event.summary}</h4>
-            <p className="text-gray-600">📍 {event.location || "No location"}</p>
-            <p className="text-gray-600">📅 {new Date(event.start.dateTime).toLocaleString()} - {new Date(event.end.dateTime).toLocaleString()}</p>
-
-            <div className="flex flex-wrap gap-2 mt-3">
-              <button 
-                onClick={() => duplicateEvent(event)} 
-                className="bg-blue-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-blue-600 transition"
-              >
-                ➕ Weekly x1
-              </button>
-
-              <button 
-                onClick={() => duplicateWeeklyForMonth(event)} 
-                className="bg-purple-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-purple-600 transition"
-              >
-                📆 Weekly for 1Mo
-              </button>
-
-              <button 
-                onClick={() => duplicateBiWeeklyForTwoMonths(event)} 
-                className="bg-orange-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-orange-600 transition"
-              >
-                📆 Bi-Weekly for 2Mo
-              </button>
-
-              <button 
-                onClick={() => editEvent(event)} 
-                className="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-yellow-600 transition"
-              >
-                ✏️ Edit
-              </button>
-
-              <button 
-                onClick={() => deleteEvent(event.id)} 
-                className="bg-red-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-red-600 transition"
-              >
-                🗑️ Delete
-              </button>
-            </div>
+          <div className="grid grid-cols-2 gap-4 mt-3">
+            <input
+              type="time"
+              value={eventEndTime}
+              onChange={(e) => setEventEndTime(e.target.value)}
+              className="border p-2 rounded w-full"
+            />
           </div>
-        ))}
-      </div>
-    )}
-  </div>
-</div>
 
+          <textarea
+            placeholder="Enter any notes (optional)"
+            value={eventNotes}
+            onChange={(e) => setEventNotes(e.target.value)}
+            className="border p-2 rounded w-full mt-3"
+          ></textarea>
+
+          <button
+            onClick={createEvent}
+            disabled={isCreating}
+            className="w-full mt-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600 transition"
+          >
+            {isCreating ? "Saving..." : editingEvent ? "Update Event" : "Create Event"}
+          </button>
         </div>
       )}
+
+      {/* 🗓️ Embedded Google Calendar */}
+      <h3 className="text-lg font-semibold mt-6 mb-2">Calendar View:</h3>
+      <button
+        onClick={openFullCalendar}
+        className="w-full mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition"
+      >
+        📅 Open Full Calendar
+      </button>
+
+      <iframe
+        src="https://calendar.google.com/calendar/embed?src=jwhit.pro%40gmail.com&ctz=America%2FNew_York"
+        style={{ border: "1px solid #ccc", width: "100%", height: "400px" }}
+        frameBorder="0"
+        scrolling="no"
+        className="rounded-lg shadow-md"
+      ></iframe>
+    </div>
+
+    {/* 📆 Upcoming Events */}
+    <div className="text-center max-w-3xl mx-auto justify-center items-center flex flex-col">
+      <h3 className="text-2xl font-bold text-white pt-10 mb-4">🌟 Upcoming Bookings 🌟</h3>
+
+      <div className="space-y-4 max-h-[400px] overflow-y-auto w-full bg-white p-4 rounded-lg shadow-md">
+        {events.length === 0 ? (
+          <p className="text-gray-500">No upcoming events.</p>
+        ) : (
+          <div className="space-y-4">
+            {events.map((event) => (
+              <div key={event.id} className="bg-gray-100 p-4 rounded-lg shadow-md relative">
+                <h4 className="text-lg font-semibold text-gray-800">{event.summary}</h4>
+                <p className="text-gray-600">📍 {event.location || "No location"}</p>
+                <p className="text-gray-600">
+                  📅 {new Date(event.start.dateTime).toLocaleString()} -{" "}
+                  {new Date(event.end.dateTime).toLocaleString()}
+                </p>
+
+                <div className="flex flex-wrap gap-2 mt-3">
+                  <button
+                    onClick={() => duplicateEvent(event)}
+                    className="bg-blue-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-blue-600 transition"
+                  >
+                    ➕ Weekly x1
+                  </button>
+
+                  <button
+                    onClick={() => duplicateWeeklyForMonth(event)}
+                    className="bg-purple-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-purple-600 transition"
+                  >
+                    📆 Weekly for 1Mo
+                  </button>
+
+                  <button
+                    onClick={() => duplicateBiWeeklyForTwoMonths(event)}
+                    className="bg-orange-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-orange-600 transition"
+                  >
+                    📆 Bi-Weekly for 2Mo
+                  </button>
+
+                  <button
+                    onClick={() => editEvent(event)}
+                    className="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-yellow-600 transition"
+                  >
+                    ✏️ Edit
+                  </button>
+
+                  <button
+                    onClick={() => deleteEvent(event.id)}
+                    className="bg-red-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-red-600 transition"
+                  >
+                    🗑️ Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
   

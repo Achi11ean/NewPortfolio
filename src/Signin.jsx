@@ -55,8 +55,8 @@ export default function Signin({ setActiveTab }) {
       <audio ref={audioRef} src={audioFile} preload="auto"></audio>
 
       {showWelcome ? (
-        <div className="text-5xl sm:text-4xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-red-500 to-pink-600 
-          animate-pulse shadow-2xl shadow-yellow-400 p-10 rounded-3xl border-4 border-pink-400 border-dashed transform scale-105 hover:scale-110 transition-all duration-200 ease-out">
+        <div className="text-xl sm:text-2xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-red-500 to-pink-600 
+          animate-pulse shadow-2xl shadow-yellow-400  rounded-3xl border-4 border-pink-400 border-dashed transform scale-105 hover:scale-110 transition-all duration-200 ease-out">
           🎉 Welcome Back, Daddy 🎉
         </div>
       ) : (

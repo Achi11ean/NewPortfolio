@@ -20,7 +20,9 @@ export default function Admin() {
   const [showGeneralInquiryManager, setShowGeneralInquiryManager] = useState(false);
   const [showIncome, setShowIncome] = useState(false);
   const [showExpenseTracker, setShowExpenseTracker] = useState(false);
-  
+  const [showPendingReviews, setShowPendingReviews] = useState(false); // ✅ Toggle State
+  const [activeSection, setActiveSection] = useState(null);
+
   
   const generateRandomGradient = () => {
     const colors = [
@@ -169,14 +171,14 @@ export default function Admin() {
 
   
   return (
-    <div className="p-6">
-<div className="bg-gradient-to-b from-gray-900 to-gray-800 p-10 sm:p-12 lg:p-16 rounded-3xl shadow-2xl border-4 border-gray-700 relative">
+    <div className="">
+<div className="bg-gradient-to-b from-gray-900 to-gray-800    rounded-3xl shadow-2xl border-4 border-gray-700 relative">
   {/* Subtle Glow Effect */}
   <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-yellow-500 opacity-20 blur-2xl"></div>
 
   {/* Title */}
-  <h1 className="text-4xl sm:text-6xl lg:text-8xl text-center font-extrabold mb-6 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent drop-shadow-xl font-[Aspire] animate-text-glow">
-    ⚡ Admin Dashboard ⚡
+  <h1 className="text-2xl sm:text-6xl lg:text-8xl text-center font-extrabold mb-3 mt-2 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent drop-shadow-xl font-serif animate-text-glow">
+    Jwhit Dashboard
   </h1>
 
   {/* Floating Gradient Accent */}
@@ -193,30 +195,30 @@ export default function Admin() {
 
   <button
     onClick={() => setShowKaraokeManager(!showKaraokeManager)}
-    className="px-6 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-yellow-400 to-orange-500 hover:scale-105 hover:from-orange-500 hover:to-yellow-400"
+    className="px-5 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-yellow-400 to-orange-500 hover:scale-105 hover:from-orange-500 hover:to-yellow-400"
   >
-    🎤 Karaoke Manager
+    🎤 Karaoke 
   </button>
 
   <button
     onClick={() => setShowContactManager(!showContactManager)}
     className="px-6 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-blue-400 to-cyan-500 hover:scale-105 hover:from-cyan-500 hover:to-blue-400"
   >
-    📞 Contact Manager
+    📞 Contact 
   </button>
 
   <button
     onClick={() => setShowEngineeringBookingManager(!showEngineeringBookingManager)}
     className="px-6 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-green-400 to-teal-500 hover:scale-105 hover:from-teal-500 hover:to-green-400"
   >
-    ⚙️ Engineering Booking
+    ⚙️ Engineering 
   </button>
 
   <button
     onClick={() => setShowGeneralInquiryManager(!showGeneralInquiryManager)}
     className="px-6 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-red-400 to-pink-500 hover:scale-105 hover:from-pink-500 hover:to-red-400"
   >
-    📨 General Inquiry
+    📨 General 
   </button>
 
   <button
@@ -230,7 +232,7 @@ export default function Admin() {
     onClick={() => setShowExpenseTracker(!showExpenseTracker)}
     className="px-6 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-gray-400 to-gray-600 hover:scale-105 hover:from-gray-600 hover:to-gray-400"
   >
-    🧾 Expense Tracker
+    🧾 Expense 
   </button>
 </div>
 
@@ -247,11 +249,18 @@ export default function Admin() {
 
 
 
+      <div className="flex justify-center mb-4">
+        <button
+          onClick={() => setShowPendingReviews(!showPendingReviews)}
+          className="px-6 py-3 rounded-full text-white font-bold shadow-md transition-all duration-300 bg-gradient-to-r from-yellow-400 to-green-500 hover:scale-105 hover:from-yellow-500 hover:to-green-400"
+          >
+          {showPendingReviews ? "➖ Pending Reviews" : "➕ Pending Reviews"}
+        </button>
+      </div>
 
-
+      {showPendingReviews && (
 
 <section className="mb-6 text-center">
-  <h3 className="text-2xl font-medium mb-4">Pending Reviews</h3>
   {reviewsError && <p className="text-red-500">{reviewsError}</p>}
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
     {pendingReviews.length === 0 ? (
@@ -393,7 +402,7 @@ export default function Admin() {
     )}
   </div>
 </section>
-
+      )}
 
       </div>
       

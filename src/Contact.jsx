@@ -172,6 +172,7 @@ const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
                 value={formData.phone || ''}
                 onChange={handleChange}
                 className="bg-white border-amber-300 focus:ring-amber-400"
+                required
               />
               <Textarea
                 name="message"

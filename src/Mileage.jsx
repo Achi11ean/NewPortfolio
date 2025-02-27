@@ -33,16 +33,17 @@ function Textarea({ label, ...props }) {
   );
 }
 
-function Button({ children, ...props }) {
+function Button({ children, className = "", ...props }) {
   return (
     <button
       {...props}
-      className="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow hover:bg-blue-600 transition duration-300"
+      className={`px-6 py-3 font-semibold rounded-lg shadow transition duration-300 ${className}`}
     >
       {children}
     </button>
   );
 }
+
 
 export default function MileageTracker() {
   const [mileages, setMileages] = useState([]);
@@ -127,14 +128,22 @@ export default function MileageTracker() {
   
 
   return (
-    <div className="p-6 mt-4 rounded-3xl ">
-      <h2 className="text-4xl font-extrabold text-center mb-6 text-gray-800">
-        🚗 Mileage Tracker 🚗
-      </h2>
+    <div className="p-6 mt-4 mb-3 bg-black justify-center items-center border-2 rounded-3xl ">
+<h2 className="text-3xl  sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 text-gray-800 bg-gradient-to-r from-blue-500 via-green-500 to-teal-500 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
+  🚗 Mileage  🚗
+</h2>
+<div className="flex justify-center mt-6">
+  <Button
+    onClick={() => setShowForm(!showForm)}
+    className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold 
+               text-lg px-8 py-4 rounded-full shadow-lg transition-all duration-300 
+               hover:scale-105 hover:shadow-blue-500/50 hover:from-indigo-600 hover:to-blue-700 
+               border border-blue-300 backdrop-blur-lg"
+  >
+    {showForm ? "⬆️ Hide Form" : "⬇️ Add Mileage Record"}
+  </Button>
+</div>
 
-      <Button onClick={() => setShowForm(!showForm)}>
-        {showForm ? "Hide Form ⬆️" : "Add Mileage Record ⬇️"}
-      </Button>
 
       {showForm && (
         <form
@@ -236,35 +245,56 @@ export default function MileageTracker() {
             whileHover={{ scale: 1.02 }}
             className="p-4 bg-gradient-to-br from-green-200 via-yellow-100 to-blue-100 rounded-2xl shadow-lg border"
           >
-            <h4 className="text-xl font-semibold text-gray-800 mb-2">
+            <h4 className="text-xl text-center font-semibold text-gray-800 mb-2">
               {mileage.expense_name}
             </h4>
-            <p className="text-gray-700 mb-1">
-              📅 Date: {mileage.date}
+            <p className="text-gray-700 font-bold mb-1">
+  📅 Date:  {new Date(mileage.date).toLocaleDateString("en-US", { 
+    year: "numeric", 
+    month: "2-digit", 
+    day: "2-digit" 
+  })}
+</p>
+
+            <p className="text-gray-700 font-bold mb-1">
+              🎬 From: {mileage.start_location} <br/> 🏁To: {mileage.end_location}
             </p>
-            <p className="text-gray-700 mb-1">
-              🛣️ From: {mileage.start_location} to {mileage.end_location}
-            </p>
-            <p className="text-gray-700 mb-1">
+            <p className="text-gray-700 font-bold mb-1">
               🚗 Distance: {mileage.distance_driven} miles
             </p>
-            <p className="text-gray-700 mb-1">
+            <p className="text-gray-700 font-bold mb-1">
               💲 Reimbursement: ${mileage.calculated_mileage}
             </p>
-            <p className="text-gray-600 italic">
-              📝 {mileage.notes || "No notes available."}
-            </p>
-            <div className="flex justify-end gap-2 mt-4">
-              <Button onClick={() => handleEdit(mileage)} className="bg-yellow-500 hover:bg-yellow-600">
-                ✏️ Edit
-              </Button>
-              <Button
-                onClick={() => handleDelete(mileage.id)}
-                className="bg-red-500 hover:bg-red-600"
-              >
-                🗑️ Delete
-              </Button>
-            </div>
+            <div className="max-h-32 overflow-y-auto p-2 rounded-3xl bg-gray-100 ">
+  <p className="text-gray-600 font-bold italic">
+    📝 {mileage.notes || "No notes available."}
+  </p>
+</div>
+
+<div className="flex justify-end gap-4 mt-4">
+  {/* ✏️ Edit Button */}
+  <Button
+    onClick={() => handleEdit(mileage)}
+    className="px-6 py-3 rounded-full text-white font-bold transition-all duration-300 
+               bg-gradient-to-r from-yellow-400 to-yellow-500 shadow-lg
+               hover:scale-110 hover:shadow-yellow-500/50 hover:from-yellow-500 hover:to-yellow-600 
+               border border-yellow-300 backdrop-blur-lg"
+  >
+    ✏️ Edit
+  </Button>
+
+  {/* 🗑️ Delete Button */}
+  <Button
+    onClick={() => handleDelete(mileage.id)}
+    className="px-6 py-3 rounded-full text-white font-bold transition-all duration-300 
+               bg-gradient-to-r from-red-400 to-red-500 shadow-lg
+               hover:scale-110 hover:shadow-red-500/50 hover:from-red-500 hover:to-red-600 
+               border border-red-300 backdrop-blur-lg"
+  >
+    🗑️ Delete
+  </Button>
+</div>
+
           </motion.div>
         ))}
       </div>

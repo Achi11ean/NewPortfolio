@@ -104,6 +104,7 @@ export default function EngineeringBookingManager() {
 
   return (
     <div>  
+      <h1>Engineering</h1>
          <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {bookings.map((booking) => (
         <motion.div
