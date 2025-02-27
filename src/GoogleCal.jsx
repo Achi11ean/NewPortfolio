@@ -276,7 +276,7 @@ export default function GoogleCalendarManager() {
     window.open("https://calendar.google.com/calendar/u/0/r", "_blank");
   };
   return (
-    <div className="p-6  min-h-screen flex flex-col items-center">
+    <div className="  min-h-screen flex flex-col items-center">
       <h2 className="text-3xl font-bold text-gray-800 mb-6">🎤 Karaoke Event Manager</h2>
       <button
   onClick={() => setShowCreateEvent(!showCreateEvent)}
@@ -297,7 +297,7 @@ export default function GoogleCalendarManager() {
           {/* 📅 Event Creation + Calendar */}
           <div className="bg-gradient-to-br from-green-800 to-green-500 p-6 rounded-lg shadow-lg">
           {showCreateEvent && (
-  <div className="bg-gradient-to-br from-green-800 to-green-500 p-6 rounded-lg shadow-lg">
+  <div className="bg-gradient-to-br from-green-800 to-green-500  rounded-lg shadow-lg">
             
           <h3 className="text-xl font-semibold text-white mb-4">Create a New Event</h3>
   
