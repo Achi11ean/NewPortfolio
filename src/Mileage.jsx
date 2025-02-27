@@ -161,7 +161,7 @@ export default function MileageTracker() {
 <h2 className="text-3xl  sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 text-gray-800 bg-gradient-to-r from-blue-500 via-green-500 to-teal-500 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
   🚗 Mileage  🚗
 </h2>
-<div className="w-full h-1 bg-gradient-to-r from-blue-500 via-yellow-500 via-yellow-500 via-gryellowen-500 via-yellow-500 via-yellow-500 to-blue-500 rounded-full shadow-lg my-6"></div>
+<div className="w-full h-3 bg-gradient-to-r from-blue-500 via-yellow-500 via-yellow-500 via-gryellowen-500 via-yellow-500 via-yellow-500 to-blue-500 rounded-full shadow-lg my-6"></div>
 
 <div className="flex justify-center mt-6">
   <Button

@@ -245,10 +245,10 @@ const fetchCompanyData = async () => {
 
   return (
     <div className="p-4 bg-black rounded-3xl border-white border-2 mt-3">
-<h2 className="text-3xl pb-1  sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 text-gray-800 bg-gradient-to-r from-yellow-500 via-green-700 to-green-500 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
+<h2 className="text-xl pb-1  sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 text-gray-800 bg-gradient-to-r from-yellow-500 via-green-700 to-green-500 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
   💲 Income Manager 💲 
 </h2>   
-<div className="w-full h-1 bg-gradient-to-r from-green-500 via-green-500 via-red-500  via-green-500 to-green-500 rounded-full shadow-lg my-6"></div>      {/* Manual Income Entry */}
+<div className="w-full h-3 bg-gradient-to-r from-green-500 via-green-500 via-red-500  via-green-500 to-green-500 rounded-full shadow-lg my-6"></div>      {/* Manual Income Entry */}
       <div className="flex justify-center">
         <button
           onClick={() => setShowForm(!showForm)}

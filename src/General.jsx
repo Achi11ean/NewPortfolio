@@ -132,7 +132,7 @@ export default function GeneralInquiryManager() {
 <h2 className="text-3xl pb-1  sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 text-gray-800 bg-gradient-to-r from-blue-400  to-blue-200 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
   General Inquiry
   </h2>  
-  <div className="w-full h-1 bg-gradient-to-r from-purple-400 via-yellow-500 via-purple-500  via-blue-500 to-purple-500 rounded-full shadow-lg my-6"></div>
+  <div className="w-full h-3 bg-gradient-to-r from-purple-400 via-yellow-500 via-purple-500  via-blue-500 to-purple-500 rounded-full shadow-lg my-6"></div>
   <div className='items-center flex flex-col justify-center'>
   <Button
     onClick={() => setShowForm((prev) => !prev)}

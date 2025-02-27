@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { gapi } from "gapi-script";
+import { motion } from "framer-motion";
 
 const CLIENT_ID = "302872606044-uv3vjerbmuoplb5k2pb9qluquic20t72.apps.googleusercontent.com";
 const API_KEY = "AIzaSyC-oL00ud_IeoNCsdmTuomXITTCypyJbEE";
@@ -420,70 +421,100 @@ export default function GoogleCalendarManager() {
       </button>
 
     {/* 📆 Upcoming Events */}
-    <div className="text-center max-w-3xl mx-auto justify-center items-center flex flex-col">
-    <h3 className="text-3xl font-extrabold mb-1 text-white mt-10 bg-gradient-to-r from-green-600 via-green-500 to-green-400 
-               shadow-lg shadow-green-500/50 rounded-2xl p-5 
-               border-2 border-white/20 backdrop-blur-md 
-               transition-all duration-300 transform hover:scale-105">
-  🌟 Upcoming Bookings 🌟
-</h3>
 
-      <div className="space-y-4 max-h-[400px] overflow-y-auto w-full bg-white p-4 rounded-lg shadow-md">
-        {events.length === 0 ? (
-          <p className="text-gray-500">No upcoming events.</p>
-        ) : (
-          <div className="space-y-4">
-            {events.map((event) => (
-              <div key={event.id} className="bg-gray-100 p-4 rounded-lg shadow-md relative">
-                <h4 className="text-lg font-semibold text-gray-800">{event.summary}</h4>
-                <p className="text-gray-600">📍 {event.location || "No location"}</p>
-                <p className="text-gray-600">
-                  📅 {new Date(event.start.dateTime).toLocaleString()} -{" "}
-                  {new Date(event.end.dateTime).toLocaleString()}
+<div className="w-full max-w-4xl mx-auto flex flex-col items-center">
+  {/* 🌟 Elegant Section Header */}
+  <h3 className="text-4xl font-extrabold text-white bg-gradient-to-r from-green-500 via-green-400 to-lime-400
+                 shadow-lg shadow-green-500/50 rounded-2xl p-3 mt-7 
+                 border-2 border-white/30 backdrop-blur-md 
+                 transition-all duration-300 transform hover:scale-105">
+    🌟 Upcoming Bookings 🌟
+  </h3>
+
+  {/* Scrollable Container */}
+  <div className="relative mt-6 w-full max-h-[500px] overflow-y-auto rounded-3xl 
+                  bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 
+                  shadow-2xl border border-gray-700 p-6 custom-scrollbar">
+    {events.length === 0 ? (
+      <p className="text-gray-400 text-center text-lg">No upcoming events.</p>
+    ) : (
+      <div className="space-y-6">
+        {events.map((event) => (
+          <motion.div
+            key={event.id}
+            whileHover={{ scale: 1.03 }}
+            className="p-6 bg-white/10 rounded-2xl shadow-lg border border-gray-700 text-white 
+                       backdrop-blur-lg transition-all duration-300 hover:shadow-green-400/30"
+          >
+            {/* Header Section */}
+            <div className="flex justify-between items-center border-b border-white/20 pb-3">
+              <h4 className="text-2xl font-bold">{event.summary}</h4>
+              <span className="text-md bg-green-500 text-white px-3 py-1 rounded-lg shadow-md">
+                {new Date(event.start.dateTime).toLocaleDateString()}
+              </span>
+            </div>
+
+            {/* Event Details */}
+            <div className="mt-4 text-gray-300 space-y-2">
+              <p><span className="font-semibold text-white">📍 Location:</span> {event.location || "Not specified"}</p>
+              <p><span className="font-semibold text-white">📅 Date & Time:</span> {new Date(event.start.dateTime).toLocaleString()} - {new Date(event.end.dateTime).toLocaleString()}</p>
+              {event.description && (
+                <p className="text-gray-400 italic mt-3 max-h-[80px] overflow-y-auto p-2 bg-gray-800/30 rounded-md">
+                  📝 {event.description}
                 </p>
+              )}
+            </div>
 
-                <div className="flex flex-wrap gap-2 mt-3">
-                  <button
-                    onClick={() => duplicateEvent(event)}
-                    className="bg-blue-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-blue-600 transition"
-                  >
-                    ➕ Weekly x1
-                  </button>
+            {/* Action Buttons */}
+            <div className="flex justify-between flex-wrap gap-3 mt-5">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                onClick={() => duplicateEvent(event)}
+                className="px-4 py-2 bg-blue-500 text-white rounded-xl shadow-md hover:bg-blue-600 transition-all"
+              >
+                ➕ Weekly x1
+              </motion.button>
 
-                  <button
-                    onClick={() => duplicateWeeklyForMonth(event)}
-                    className="bg-purple-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-purple-600 transition"
-                  >
-                    📆 Weekly for 1Mo
-                  </button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                onClick={() => duplicateWeeklyForMonth(event)}
+                className="px-4 py-2 bg-purple-500 text-white rounded-xl shadow-md hover:bg-purple-600 transition-all"
+              >
+                📆 Weekly for 1Mo
+              </motion.button>
 
-                  <button
-                    onClick={() => duplicateBiWeeklyForTwoMonths(event)}
-                    className="bg-orange-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-orange-600 transition"
-                  >
-                    📆 Bi-Weekly for 2Mo
-                  </button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                onClick={() => duplicateBiWeeklyForTwoMonths(event)}
+                className="px-4 py-2 bg-orange-500 text-white rounded-xl shadow-md hover:bg-orange-600 transition-all"
+              >
+                📆 Bi-Weekly for 2Mo
+              </motion.button>
 
-                  <button
-                    onClick={() => editEvent(event)}
-                    className="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-yellow-600 transition"
-                  >
-                    ✏️ Edit
-                  </button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                onClick={() => editEvent(event)}
+                className="px-4 py-2 bg-yellow-500 text-white rounded-xl shadow-md hover:bg-yellow-600 transition-all"
+              >
+                ✏️ Edit
+              </motion.button>
 
-                  <button
-                    onClick={() => deleteEvent(event.id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded-lg shadow-sm hover:bg-red-600 transition"
-                  >
-                    🗑️ Delete
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                onClick={() => deleteEvent(event.id)}
+                className="px-4 py-2 bg-red-500 text-white rounded-xl shadow-md hover:bg-red-600 transition-all"
+              >
+                🗑️ Delete
+              </motion.button>
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </div>
+    )}
+  </div>
+</div>
+
+
   </div>
 )}
 <div className="w-full h-2 bg-gradient-to-r from-pink-500 via-red-500 via-orange-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 rounded-full shadow-lg my-6"></div>

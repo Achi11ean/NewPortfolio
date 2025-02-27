@@ -135,7 +135,7 @@ const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
     <h2 className="text-3xl  sm:text-4xl md:text-5xl font-serif lg:text-6xl font-extrabold text-center mb-6 text-gray-800 bg-gradient-to-r from-blue-500 via-white to-teal-500 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
        Client Inquiries
     </h2>
-    <div className="w-full h-1 bg-white rounded-full shadow-lg my-6"></div>
+    <div className="w-full h-3 bg-white rounded-full shadow-lg my-6"></div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
 {currentContacts.map((contact) => (
   <motion.div

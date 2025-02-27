@@ -6,12 +6,12 @@ import { motion } from "framer-motion";
 function Input({ label, ...props }) {
   return (
     <div className="w-full mb-4">
-      <label className="block text-sm font-semibold text-gray-700 mb-2">
+      <label className="block text-lg underline font-semibold text-white text-center mb-2">
         {label}
       </label>
       <input
         {...props}
-        className="w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="w-full px-4 py-3 border rounded-lg shadow-sm bg-blue-200/40 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
     </div>
   );
@@ -20,12 +20,12 @@ function Input({ label, ...props }) {
 function Textarea({ label, ...props }) {
   return (
     <div className="w-full mb-4">
-      <label className="block text-sm font-semibold text-gray-700 mb-2">
+      <label className="block text-sm font-semibold text-white text-center mb-2">
         {label}
       </label>
       <textarea
         {...props}
-        className="w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="w-full px-4 py-3 border rounded-lg shadow-sm bg-blue-200/40 text-md focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
     </div>
   );
@@ -35,8 +35,12 @@ function Button({ children, ...props }) {
   return (
     <button
       {...props}
-      className="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow hover:bg-blue-600 transition duration-300"
-    >
+      className="px-6 py-3 w-full font-bold text-white rounded-lg shadow-xl 
+      bg-gradient-to-r from-black via-red-600 to-black 
+      hover:from-red-700 hover:via-black hover:to-red-700 
+      transition-all duration-300 transform hover:scale-105 
+      shadow-red-500/50 hover:shadow-red-700/50"
+>
       {children}
     </button>
   );
@@ -124,10 +128,11 @@ export default function ExpenseTracker() {
   };
 
   return (
-    <div className="p-6 mt-4 rounded-3xl">
-      <h2 className="text-4xl font-extrabold text-center mb-6 text-gray-800">
-        💸 Expense Tracker 💸
-      </h2>
+    <div className="p-6 mt-4 bg-gray-100 rounded-3xl">
+<h2 className="text-2xl pb-1  sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 text-gray-800 bg-gradient-to-r from-red-500 via-black to-red-500 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
+  💲 Expense Manager 💲 
+</h2>   
+<div className="w-full h-3 bg-gradient-to-r from-black   via-red-500 to-black rounded-full shadow-lg my-6"></div>      {/* Manual Income Entry */}
 
       <Button onClick={() => setShowForm(!showForm)}>
         {showForm ? "Hide Form ⬆️" : "Add Expense ⬇️"}
@@ -135,72 +140,98 @@ export default function ExpenseTracker() {
 
       {showForm && (
         <form
-          onSubmit={handleSubmit}
-          className="mt-6 bg-gray-50 p-6 max-w-2xl rounded-2xl shadow-inner"
-        >
-          <Input
-            label="Item"
-            name="item"
-            value={formData.item || ""}
-            onChange={handleChange}
-            required
-          />
-          <Input
-            label="Cost ($)"
-            type="number"
-            name="cost"
-            value={formData.cost || ""}
-            onChange={handleChange}
-            required
-          />
-          <Input
-            label="Frequency"
-            name="frequency"
-            value={formData.frequency || ""}
-            onChange={handleChange}
-            required
-          />
-          <Input
-            label="Purchase Date"
-            type="date"
-            name="purchase_date"
-            value={formData.purchase_date || ""}
-            onChange={handleChange}
-            required
-          />
-          <Input
-            label="Purchase Location"
-            name="purchase_location"
-            value={formData.purchase_location || ""}
-            onChange={handleChange}
-            required
-          />
-          <Input
-            label="Card Used"
-            name="card_used"
-            value={formData.card_used || ""}
-            onChange={handleChange}
-            required
-          />
-          <Input
-            label="Receipt Image URL (Optional)"
-            name="image_url_receipt"
-            value={formData.image_url_receipt || ""}
-            onChange={handleChange}
-          />
-          <Textarea
-            label="Notes"
-            name="notes"
-            value={formData.notes || ""}
-            onChange={handleChange}
-          />
-          <Button type="submit">{editingExpense ? "Update" : "Create"}</Button>
-        </form>
+  onSubmit={handleSubmit}
+  className="mt-6 bg-gradient-to-br from-black via-gray-900 to-black p-8 
+             max-w-full  rounded-2xl shadow-xl border border-red-600/50"
+>
+  <h3 className="text-3xl font-extrabold text-white text-center mb-6 
+                 bg-gradient-to-r from-red-500 to-red-700 text-transparent bg-clip-text">
+    {editingExpense ? "Edit Expense" : "Add New Expense"}
+  </h3>
+
+  <Input
+    label="💰 Item"
+    name="item"
+    value={formData.item || ""}
+    onChange={handleChange}
+    required
+    className="bg-gray-800 text-white border-red-600"
+  />
+  <Input
+    label="💵 Cost ($)"
+    type="number"
+    name="cost"
+    value={formData.cost || ""}
+    onChange={handleChange}
+    required
+    className="bg-gray-800 text-white border-red-600"
+  />
+  <Input
+    label="🔄 Frequency"
+    name="frequency"
+    value={formData.frequency || ""}
+    onChange={handleChange}
+    required
+    className="bg-gray-800 text-white border-red-600"
+  />
+  <Input
+    label="📅 Purchase Date"
+    type="date"
+    name="purchase_date"
+    value={formData.purchase_date || ""}
+    onChange={handleChange}
+    required
+    className="bg-gray-800 text-white border-red-600"
+  />
+  <Input
+    label="📍 Purchase Location"
+    name="purchase_location"
+    value={formData.purchase_location || ""}
+    onChange={handleChange}
+    required
+    className="bg-gray-800 text-white border-red-600"
+  />
+  <Input
+    label="💳 Card Used"
+    name="card_used"
+    value={formData.card_used || ""}
+    onChange={handleChange}
+    required
+    className="bg-gray-800 text-white border-red-600"
+  />
+  <Input
+    label="🖼️ Receipt Image URL (Optional)"
+    name="image_url_receipt"
+    value={formData.image_url_receipt || ""}
+    onChange={handleChange}
+    className="bg-gray-800 text-white border-red-600"
+  />
+  <Textarea
+    label="📝 Notes"
+    name="notes"
+    value={formData.notes || ""}
+    onChange={handleChange}
+    className="bg-gray-800 text-white border-red-600"
+  />
+
+  {/* Submit Button */}
+  <button
+    type="submit"
+    className="mt-6 w-full py-3 font-bold text-white rounded-xl shadow-lg 
+               bg-gradient-to-r from-red-600 via-red-700 to-red-800 
+               hover:from-red-700 hover:via-black hover:to-red-700 
+               transition-all duration-300 transform hover:scale-105 
+               shadow-red-500/50 hover:shadow-red-700/50"
+  >
+    {editingExpense ? "Update Expense" : "Create Expense"}
+  </button>
+</form>
+
       )}
 {/* Item Expenses Section */}
 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
   {/* Item Expenses */}
-  <div className="p-6 bg-gradient-to-br from-red-500 via-rose-500 to-red-700 
+  <div className="p-4 mb-3 bg-gradient-to-br from-red-500 via-rose-500 to-red-700 
                   rounded-2xl shadow-2xl text-center flex flex-col items-center 
                   transform transition-all duration-300 hover:scale-105 hover:shadow-red-500/50">
     <span className="text-5xl drop-shadow-md">🛒</span>
@@ -213,7 +244,7 @@ export default function ExpenseTracker() {
   </div>
 
   {/* Mileage Reimbursement */}
-  <div className="p-6 bg-gradient-to-br from-yellow-400 via-amber-500 to-yellow-600 
+  <div className="p-1 mb-4  bg-gradient-to-br from-yellow-400 via-amber-500 to-yellow-600 
                   rounded-2xl shadow-2xl text-center flex flex-col items-center 
                   transform transition-all duration-300 hover:scale-105 hover:shadow-yellow-500/50">
     <span className="text-5xl drop-shadow-md">🚗</span>
@@ -229,9 +260,7 @@ export default function ExpenseTracker() {
 
 
 <div className="relative bg-gradient-to-b from-gray-900 to-gray-800 p-6 rounded-3xl shadow-2xl border border-gray-700 max-h-[500px] overflow-y-auto custom-scrollbar">
-  <h2 className="text-3xl font-extrabold text-white text-center mb-4">
-    💳 Expense Tracker
-  </h2>
+
 
   {expenses.length === 0 ? (
     <p className="text-lg text-gray-400 text-center">No expense records found.</p>

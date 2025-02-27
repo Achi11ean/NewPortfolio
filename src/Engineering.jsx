@@ -126,7 +126,7 @@ export default function EngineeringBookingManager() {
   ⚙ Engineering ⚙
   </h2>   
 
-<div className="w-full h-1 bg-gradient-to-r from-purple-400 via-yellow-500 via-purple-500  via-blue-500 to-purple-500 rounded-full shadow-lg my-6"></div>
+<div className="w-full h-3 bg-gradient-to-r from-purple-400 via-yellow-500 via-purple-500  via-blue-500 to-purple-500 rounded-full shadow-lg my-6"></div>
       <div className='justify-center flex item-center '>
       <Button
   onClick={() => setShowForm((prev) => !prev)}

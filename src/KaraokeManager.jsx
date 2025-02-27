@@ -82,10 +82,10 @@ export default function KaraokeManager() {
 
   return (
     <div className="p-4 bg-black rounded-3xl border-white border-2 mt-3">
-<h2 className="text-3xl  sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 text-gray-800 bg-gradient-to-r from-yellow-500 via-red-700 to-yellow-500 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
+<h2 className="text-2xl  sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 text-gray-800 bg-gradient-to-r from-yellow-500 via-red-700 to-yellow-500 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
   🎤 Karaoke Manager 🎤
 </h2>   
-<div className="w-full h-1 bg-gradient-to-r from-yellow-500 via-red-500 via-orange-500  via-blue-500 to-yellow-500 rounded-full shadow-lg my-6"></div>
+<div className="w-full h-3 bg-gradient-to-r from-yellow-500 via-red-500 via-orange-500  via-blue-500 to-yellow-500 rounded-full shadow-lg my-6"></div>
 
    <Button
         onClick={() => setShowForm((prev) => !prev)}
