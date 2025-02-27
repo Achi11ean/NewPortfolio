@@ -53,7 +53,7 @@ export default function ExpenseTracker() {
   const [totalMileage, setTotalMileage] = useState(0);
   const fetchTotalExpensesAndMileage = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/total_expenses_and_mileage");
+      const response = await axios.get("https://portfoliobackend-ih6t.onrender.com/total_expenses_and_mileage");
       setCombinedTotal(response.data.combined_total);
       setTotalMileage(response.data.total_mileage_reimbursement);
     } catch (error) {
@@ -67,7 +67,7 @@ export default function ExpenseTracker() {
 
   const fetchExpenses = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/expenses");
+      const response = await axios.get("https://portfoliobackend-ih6t.onrender.com/expenses");
       setExpenses(response.data);
     } catch (error) {
       toast.error("Failed to fetch expenses.");
@@ -82,10 +82,10 @@ export default function ExpenseTracker() {
     e.preventDefault();
     try {
       if (editingExpense) {
-        await axios.patch(`http://127.0.0.1:5000/expenses/${editingExpense.id}`, formData);
+        await axios.patch(`https://portfoliobackend-ih6t.onrender.com/expenses/${editingExpense.id}`, formData);
         toast.success("Expense updated successfully!");
       } else {
-        await axios.post("http://127.0.0.1:5000/expenses", formData);
+        await axios.post("https://portfoliobackend-ih6t.onrender.com/expenses", formData);
         toast.success("Expense created successfully!");
       }
       setFormData({});
@@ -107,7 +107,7 @@ export default function ExpenseTracker() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://127.0.0.1:5000/expenses/${id}`);
+      await axios.delete(`https://portfoliobackend-ih6t.onrender.com/expenses/${id}`);
       toast.success("Expense deleted successfully!");
       fetchExpenses();
       fetchTotalExpensesAndMileage();  // Refresh combined totals after deletion

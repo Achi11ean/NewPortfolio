@@ -58,7 +58,7 @@ useEffect(() => {
 
 const fetchCompanyData = async () => {
   try {
-    const response = await axios.get("http://127.0.0.1:5000/karaoke_hosting");
+    const response = await axios.get("https://portfoliobackend-ih6t.onrender.com/karaoke_hosting");
     setCompanyData(response.data);
   } catch (error) {
     console.error("Error fetching company data:", error);
@@ -88,7 +88,7 @@ const fetchCompanyData = async () => {
     }
   
     try {
-      await axios.patch(`http://127.0.0.1:5000/income/${editingIncome}`, {
+      await axios.patch(`https://portfoliobackend-ih6t.onrender.com/income/${editingIncome}`, {
         income_name: editFormData.income_name,
         amount: parseInt(editFormData.amount, 10),
         date: editFormData.date,
@@ -107,7 +107,7 @@ const fetchCompanyData = async () => {
     if (!window.confirm("Are you sure you want to delete this income record?")) return;
   
     try {
-      await axios.delete(`http://127.0.0.1:5000/income/${id}`);
+      await axios.delete(`https://portfoliobackend-ih6t.onrender.com/income/${id}`);
       toast.success("Income deleted successfully!");
       fetchIncomeData(); // Refresh income list
     } catch (error) {
@@ -153,7 +153,7 @@ const fetchCompanyData = async () => {
     }
   
     try {
-      const response = await axios.post("http://127.0.0.1:5000/income", {
+      const response = await axios.post("https://portfoliobackend-ih6t.onrender.com/income", {
         income_name: newIncome.income_name,
         amount: parseInt(newIncome.amount, 10), // Convert amount to integer
         date: newIncome.date, // Ensure it's in "YYYY-MM-DD" format
@@ -178,7 +178,7 @@ const fetchCompanyData = async () => {
 
   const fetchIncomeData = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/income/aggregate");
+      const response = await axios.get("https://portfoliobackend-ih6t.onrender.com/income/aggregate");
   
       console.log("Fetched income data response:", response.data); // Debugging log
   

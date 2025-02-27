@@ -42,7 +42,7 @@ export default function KaraokeManager() {
 
   const fetchKaraokeEvents = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/karaoke_hosting');
+      const response = await axios.get('https://portfoliobackend-ih6t.onrender.com/karaoke_hosting');
       setKaraokeEvents(response.data);
     } catch (error) {
       toast.error("Failed to fetch karaoke events.");
@@ -57,7 +57,7 @@ export default function KaraokeManager() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://127.0.0.1:5000/karaoke_hosting/${id}`);
+      await axios.delete(`https://portfoliobackend-ih6t.onrender.com/karaoke_hosting/${id}`);
       toast.success("Karaoke event deleted successfully!");
       fetchKaraokeEvents();
     } catch (error) {
@@ -67,7 +67,7 @@ export default function KaraokeManager() {
 
   const handleUpdate = async () => {
     try {
-      await axios.patch(`http://127.0.0.1:5000/karaoke_hosting/${selectedEvent.id}`, formData);
+      await axios.patch(`https://portfoliobackend-ih6t.onrender.com/karaoke_hosting/${selectedEvent.id}`, formData);
       toast.success("Event updated successfully!");
       setSelectedEvent(null);
       fetchKaraokeEvents();

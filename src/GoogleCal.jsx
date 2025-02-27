@@ -37,7 +37,7 @@ export default function GoogleCalendarManager() {
   
   const fetchCompanyData = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/karaoke_hosting"); // Adjust API URL if needed
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/karaoke_hosting"); // Adjust API URL if needed
       const data = await response.json();
       setCompanyData(data); // Store the entire company object, including location
     } catch (error) {

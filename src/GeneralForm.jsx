@@ -14,7 +14,7 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
   const [isNewContact, setIsNewContact] = useState(false);
   const [newContact, setNewContact] = useState("");
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/contacts")
+    fetch("https://portfoliobackend-ih6t.onrender.com/contacts")
       .then((response) => response.json())
       .then((data) => setContacts(data))
       .catch((error) => console.error("Error fetching contacts:", error));
@@ -46,7 +46,7 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://127.0.0.1:5000/general_inquiries", {
+    fetch("https://portfoliobackend-ih6t.onrender.com/general_inquiries", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

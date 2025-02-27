@@ -67,7 +67,7 @@ export default function GeneralInquiryManager() {
 
   const fetchInquiries = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/general_inquiries');
+      const response = await axios.get('https://portfoliobackend-ih6t.onrender.com/general_inquiries');
       setInquiries(response.data);
     } catch (error) {
       toast.error("Failed to fetch general inquiries");
@@ -81,7 +81,7 @@ export default function GeneralInquiryManager() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://127.0.0.1:5000/general_inquiries/${id}`);
+      await axios.delete(`https://portfoliobackend-ih6t.onrender.com/general_inquiries/${id}`);
       toast.success("Inquiry deleted successfully!");
       fetchInquiries();
     } catch (error) {
@@ -91,7 +91,7 @@ export default function GeneralInquiryManager() {
 
   const handleUpdate = async () => {
     try {
-      await axios.patch(`http://127.0.0.1:5000/general_inquiries/${selectedInquiry.id}`, formData);
+      await axios.patch(`https://portfoliobackend-ih6t.onrender.com/general_inquiries/${selectedInquiry.id}`, formData);
       toast.success("Inquiry updated successfully!");
       setSelectedInquiry(null);
       fetchInquiries();

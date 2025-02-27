@@ -74,7 +74,7 @@ const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
   const fetchContacts = async () => {
     try {
-        const response = await axios.get('http://127.0.0.1:5000/contacts');
+        const response = await axios.get('https://portfoliobackend-ih6t.onrender.com/contacts');
         const fetchedContacts = Array.isArray(response.data) ? response.data : [];
       setContacts(fetchedContacts);
     } catch (error) {
@@ -98,7 +98,7 @@ const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://127.0.0.1:5000/contacts/${id}`);
+      await axios.delete(`https://portfoliobackend-ih6t.onrender.com/contacts/${id}`);
       toast.success("Contact deleted successfully!");
       fetchContacts();
     } catch (error) {
@@ -116,7 +116,7 @@ const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
         status: formData.status,
         message: formData.message,
       };
-      await axios.patch(`http://127.0.0.1:5000/contacts/${selectedContact.id}`, updatedData);
+      await axios.patch(`https://portfoliobackend-ih6t.onrender.com/contacts/${selectedContact.id}`, updatedData);
       toast.success("Contact updated successfully!");
       setSelectedContact(null);
       fetchContacts();

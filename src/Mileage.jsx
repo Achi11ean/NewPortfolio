@@ -52,7 +52,7 @@ export default function MileageTracker() {
   const [locations, setLocations] = useState([]); // For dropdown locations
   const fetchLocations = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/karaoke_hosting");
+      const response = await axios.get("https://portfoliobackend-ih6t.onrender.com/karaoke_hosting");
       console.log("Fetched karaoke hosting data:", response.data); // <-- Check what you get here
       const uniqueLocations = [...new Set(response.data.map((item) => item.location))];
       console.log("Unique locations:", uniqueLocations); // <-- See if locations are correct
@@ -64,7 +64,7 @@ export default function MileageTracker() {
   
   const fetchMileages = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/mileage");
+      const response = await axios.get("https://portfoliobackend-ih6t.onrender.com/mileage");
       setMileages(response.data);
     } catch (error) {
       toast.error("Failed to fetch mileage records.");
@@ -85,10 +85,10 @@ export default function MileageTracker() {
   
     try {
       if (editingMileage) {
-        await axios.patch(`http://127.0.0.1:5000/mileage/${editingMileage.id}`, preparedData);
+        await axios.patch(`https://portfoliobackend-ih6t.onrender.com/mileage/${editingMileage.id}`, preparedData);
         toast.success("Mileage record updated successfully!");
       } else {
-        await axios.post("http://127.0.0.1:5000/mileage", preparedData);
+        await axios.post("https://portfoliobackend-ih6t.onrender.com/mileage", preparedData);
         toast.success("Mileage record created successfully!");
       }
       await fetchMileages();
@@ -109,7 +109,7 @@ export default function MileageTracker() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://127.0.0.1:5000/mileage/${id}`);
+      await axios.delete(`https://portfoliobackend-ih6t.onrender.com/mileage/${id}`);
       toast.success("Mileage record deleted successfully!");
       fetchMileages();
     } catch (error) {

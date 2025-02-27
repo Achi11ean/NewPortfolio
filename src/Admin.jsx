@@ -59,7 +59,7 @@ export default function Admin() {
     };
     const handleEditSubmit = async (id) => {
       try {
-        const response = await fetch(`http://127.0.0.1:5000/reviews/${id}`, {
+        const response = await fetch(`https://portfoliobackend-ih6t.onrender.com/reviews/${id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -113,7 +113,7 @@ export default function Admin() {
   };
   const fetchPendingReviews = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/reviews/pending");
+      const response = await fetch("https://portfoliobackend-ih6t.onrender.com/reviews/pending");
 
       
       const data = await response.json();
@@ -137,7 +137,7 @@ export default function Admin() {
 
   const handleApproveReview = async (id) => {
     try {
-      await fetch(`http://127.0.0.1:5000/reviews/${id}/approve`, {
+      await fetch(`https://portfoliobackend-ih6t.onrender.com/reviews/${id}/approve`, {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -149,7 +149,7 @@ export default function Admin() {
   
   const handleDeleteReview = async (id) => {
     try {
-      await fetch(`http://127.0.0.1:5000/reviews/${id}`, {
+      await fetch(`https://portfoliobackend-ih6t.onrender.com/reviews/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

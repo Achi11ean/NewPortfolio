@@ -65,7 +65,7 @@ export default function EngineeringBookingManager() {
 
   const fetchBookings = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/engineering-bookings');
+      const response = await axios.get('https://portfoliobackend-ih6t.onrender.com/engineering-bookings');
       setBookings(response.data);
     } catch (error) {
       toast.error("Failed to fetch bookings");
@@ -79,7 +79,7 @@ export default function EngineeringBookingManager() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://127.0.0.1:5000/engineering-bookings/${id}`);
+      await axios.delete(`https://portfoliobackend-ih6t.onrender.com/engineering-bookings/${id}`);
       toast.success("Booking deleted successfully!");
       fetchBookings();
     } catch (error) {
@@ -89,7 +89,7 @@ export default function EngineeringBookingManager() {
 
   const handleUpdate = async () => {
     try {
-      await axios.patch(`http://127.0.0.1:5000/engineering-bookings/${selectedBooking.id}`, formData);
+      await axios.patch(`https://portfoliobackend-ih6t.onrender.com/engineering-bookings/${selectedBooking.id}`, formData);
       toast.success("Booking updated successfully!");
       setSelectedBooking(null);
       fetchBookings();

@@ -18,7 +18,7 @@ export default function PerformanceForm({ existingData = null, onSuccess }) {
   const [status, setStatus] = useState("");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/contacts")
+    fetch("https://portfoliobackend-ih6t.onrender.com/contacts")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch contacts");
@@ -41,8 +41,8 @@ export default function PerformanceForm({ existingData = null, onSuccess }) {
     }
 
     const apiUrl = existingData
-      ? `http://127.0.0.1:5000/general_inquiries/${existingData.id}`
-      : "http://127.0.0.1:5000/general_inquiries";
+      ? `https://portfoliobackend-ih6t.onrender.com/general_inquiries/${existingData.id}`
+      : "https://portfoliobackend-ih6t.onrender.com/general_inquiries";
     const method = existingData ? "PATCH" : "POST";
 
     fetch(apiUrl, {

@@ -20,7 +20,7 @@ export default function KaraokeHostingForm({ onHostingSubmit }) {
   const [status, setStatus] = useState("");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/contacts")
+    fetch("https://portfoliobackend-ih6t.onrender.com/contacts")
       .then((response) => response.json())
       .then((data) => setContacts(data))
       .catch((error) => console.error("Error fetching contacts:", error));
@@ -63,7 +63,7 @@ export default function KaraokeHostingForm({ onHostingSubmit }) {
   
     console.log("Submitting form data:", formData); // ✅ Debugging log
   
-    fetch("http://127.0.0.1:5000/karaoke_hosting", {
+    fetch("https://portfoliobackend-ih6t.onrender.com/karaoke_hosting", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

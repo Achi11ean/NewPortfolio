@@ -18,7 +18,7 @@ export default function KaraokeSignup() {
     const newLimit = songLimit === 1 ? 2 : 1;
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/karaokesettings",
+        "https://portfoliobackend-ih6t.onrender.com/karaokesettings",
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -39,7 +39,7 @@ export default function KaraokeSignup() {
   const fetchSongLimit = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/karaokesettings"
+        "https://portfoliobackend-ih6t.onrender.com/karaokesettings"
       );
       if (response.ok) {
         const data = await response.json();
@@ -82,7 +82,7 @@ export default function KaraokeSignup() {
   const [singerCounts, setSingerCounts] = useState([]);
   useEffect(() => {
     fetch(
-      "http://127.0.0.1:5000/karaokesignup/singer_counts"
+      "https://portfoliobackend-ih6t.onrender.com/karaokesignup/singer_counts"
     )
       .then((res) => res.json())
       .then((data) => {
@@ -98,7 +98,7 @@ export default function KaraokeSignup() {
     try {
       setIsLoading(true); // ✅ Start loading before fetching
       const response = await fetch(
-        "http://127.0.0.1:5000/karaokesignup/singer_counts"
+        "https://portfoliobackend-ih6t.onrender.com/karaokesignup/singer_counts"
       );
       if (!response.ok) throw new Error("Failed to fetch singer counts");
 
@@ -120,7 +120,7 @@ export default function KaraokeSignup() {
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/music-break")
+    fetch("https://portfoliobackend-ih6t.onrender.com/music-break")
       .then((res) => res.json())
       .then((data) => setShowAlert(data.show_alert))
       .catch((err) => console.error("Error fetching alert state:", err));
@@ -129,7 +129,7 @@ export default function KaraokeSignup() {
   const toggleAlert = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/music-break",
+        "https://portfoliobackend-ih6t.onrender.com/music-break",
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -151,7 +151,7 @@ export default function KaraokeSignup() {
   const fetchMusicBreakState = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/music-break"
+        "https://portfoliobackend-ih6t.onrender.com/music-break"
       );
       if (!response.ok) throw new Error("Failed to fetch music break state");
 
@@ -168,7 +168,7 @@ export default function KaraokeSignup() {
       console.log("🔄 Toggling warning status...");
 
       const response = await fetch(
-        `http://127.0.0.1:5000/karaokesignup/${id}`,
+        `https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -225,7 +225,7 @@ export default function KaraokeSignup() {
       console.log("🔄 Updating PIN...");
 
       const response = await fetch(
-        "http://127.0.0.1:5000/formstate/update_pin",
+        "https://portfoliobackend-ih6t.onrender.com/formstate/update_pin",
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -253,7 +253,7 @@ export default function KaraokeSignup() {
       console.log("🔍 Fetching form state from backend...");
 
       const response = await fetch(
-        "http://127.0.0.1:5000/formstate"
+        "https://portfoliobackend-ih6t.onrender.com/formstate"
       );
       if (!response.ok) {
         throw new Error(`Failed to validate PIN. Status: ${response.status}`);
@@ -291,7 +291,7 @@ export default function KaraokeSignup() {
 
       // Step 1: Fetch current PIN
       const checkResponse = await fetch(
-        "http://127.0.0.1:5000/formstate"
+        "https://portfoliobackend-ih6t.onrender.com/formstate"
       );
       if (!checkResponse.ok) throw new Error("Failed to check existing PIN.");
 
@@ -308,7 +308,7 @@ export default function KaraokeSignup() {
       console.log("✅ No existing PIN found. Setting new PIN...");
 
       const response = await fetch(
-        "http://127.0.0.1:5000/formstate/set_pin",
+        "https://portfoliobackend-ih6t.onrender.com/formstate/set_pin",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -330,7 +330,7 @@ export default function KaraokeSignup() {
   const handleDeletePin = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/formstate/delete_pin",
+        "https://portfoliobackend-ih6t.onrender.com/formstate/delete_pin",
         {
           method: "DELETE",
         }
@@ -376,7 +376,7 @@ export default function KaraokeSignup() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/djnotesactive",
+        "https://portfoliobackend-ih6t.onrender.com/djnotesactive",
         {
           method: "GET",
           headers: {
@@ -400,7 +400,7 @@ export default function KaraokeSignup() {
   const fetchActiveSingers = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/karaokesignup/count"
+        "https://portfoliobackend-ih6t.onrender.com/karaokesignup/count"
       );
       if (!response.ok) throw new Error("Failed to fetch active signups count");
 
@@ -436,7 +436,7 @@ export default function KaraokeSignup() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/djnotes/hard_delete_all",
+        "https://portfoliobackend-ih6t.onrender.com/djnotes/hard_delete_all",
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
@@ -460,7 +460,7 @@ export default function KaraokeSignup() {
       );
 
       const response = await fetch(
-        `http://127.0.0.1:5000/karaokesignup/${id}`,
+        `https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -502,7 +502,7 @@ export default function KaraokeSignup() {
   const fetchDeletedNotes = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/djnotes/deleted"
+        "https://portfoliobackend-ih6t.onrender.com/djnotes/deleted"
       );
 
       if (!response.ok) {
@@ -543,7 +543,7 @@ export default function KaraokeSignup() {
   const fetchDeletedSignups = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/karaokesignup/deleted"
+        "https://portfoliobackend-ih6t.onrender.com/karaokesignup/deleted"
       );
 
       if (!response.ok) {
@@ -574,7 +574,7 @@ export default function KaraokeSignup() {
   const fetchFormState = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/formstate"
+        "https://portfoliobackend-ih6t.onrender.com/formstate"
       );
       if (!response.ok) {
         throw new Error("Failed to fetch form state");
@@ -597,7 +597,7 @@ export default function KaraokeSignup() {
   const sortByTime = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:5000/karaokesignup/sort`,
+        `https://portfoliobackend-ih6t.onrender.com/karaokesignup/sort`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -622,7 +622,7 @@ export default function KaraokeSignup() {
   const fetchFlaggedSignups = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/karaokesignup/flagged"
+        "https://portfoliobackend-ih6t.onrender.com/karaokesignup/flagged"
       );
 
       if (!response.ok) {
@@ -658,7 +658,7 @@ export default function KaraokeSignup() {
     );
     if (confirmDelete) {
       const response = await fetch(
-        "http://127.0.0.1:5000/karaokesignup",
+        "https://portfoliobackend-ih6t.onrender.com/karaokesignup",
         { method: "DELETE" }
       );
       if (response.ok) {
@@ -678,7 +678,7 @@ export default function KaraokeSignup() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/karaokesignup/hard_delete",
+        "https://portfoliobackend-ih6t.onrender.com/karaokesignup/hard_delete",
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
@@ -707,7 +707,7 @@ export default function KaraokeSignup() {
     if (index < 5) return;
 
     await fetch(
-      `http://127.0.0.1:5000/karaokesignup/${id}/move`,
+      `https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -722,7 +722,7 @@ export default function KaraokeSignup() {
     if (index >= signups.length - 5) return;
 
     await fetch(
-      `http://127.0.0.1:5000/karaokesignup/${id}/move`,
+      `https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -739,7 +739,7 @@ export default function KaraokeSignup() {
     }
 
     await fetch(
-      `http://127.0.0.1:5000/karaokesignup/${id}/move`,
+      `https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -754,7 +754,7 @@ export default function KaraokeSignup() {
     if (index <= 1) return; // Prevent unnecessary movement
 
     await fetch(
-      `http://127.0.0.1:5000/karaokesignup/${id}/move`,
+      `https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -859,7 +859,7 @@ export default function KaraokeSignup() {
     }
 
     await fetch(
-      `http://127.0.0.1:5000/karaokesignup/${id}/move`,
+      `https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -877,7 +877,7 @@ export default function KaraokeSignup() {
     }
 
     await fetch(
-      `http://127.0.0.1:5000/karaokesignup/${id}/move`,
+      `https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/move`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -893,7 +893,7 @@ export default function KaraokeSignup() {
       console.log(`🔎 Searching for: "${searchTerm}"`);
 
       const response = await fetch(
-        `http://127.0.0.1:5000/karaokesignup?search=${encodeURIComponent(
+        `https://portfoliobackend-ih6t.onrender.com/karaokesignup?search=${encodeURIComponent(
           searchTerm
         )}`,
         {
@@ -930,7 +930,7 @@ export default function KaraokeSignup() {
 
       // ✅ Fetch full list of signups for position tracking
       const fullResponse = await fetch(
-        `http://127.0.0.1:5000/karaokesignup`
+        `https://portfoliobackend-ih6t.onrender.com/karaokesignup`
       );
       if (!fullResponse.ok)
         throw new Error("Failed to fetch full signup list.");
@@ -984,7 +984,7 @@ export default function KaraokeSignup() {
   const fetchRestrictedWords = async () => {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/restricted_words"
+        "https://portfoliobackend-ih6t.onrender.com/restricted_words"
       ); // ✅ Fetch restricted words from backend
       if (response.ok) {
         const words = await response.json();
@@ -1003,7 +1003,7 @@ export default function KaraokeSignup() {
   const checkActiveSongsForSinger = async (singerName) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:5000/karaokesignup/count?name=${encodeURIComponent(singerName)}`
+        `https://portfoliobackend-ih6t.onrender.com/karaokesignup/count?name=${encodeURIComponent(singerName)}`
       );
       if (!response.ok) throw new Error("Failed to fetch active song count");
   
@@ -1025,7 +1025,7 @@ export default function KaraokeSignup() {
     try {
       // ✅ Step 1: Check if signups are still open in the backend
       const formStateResponse = await fetch(
-        "http://127.0.0.1:5000/formstate"
+        "https://portfoliobackend-ih6t.onrender.com/formstate"
       );
       if (!formStateResponse.ok) throw new Error("Failed to fetch form state.");
   
@@ -1053,7 +1053,7 @@ export default function KaraokeSignup() {
       let allSignups = [];
       try {
         const response = await fetch(
-          "http://127.0.0.1:5000/karaokesignup/all"
+          "https://portfoliobackend-ih6t.onrender.com/karaokesignup/all"
         );
         if (response.ok) {
           allSignups = await response.json();
@@ -1095,7 +1095,7 @@ export default function KaraokeSignup() {
   
       // ✅ Step 6: Proceed with submission
       const response = await fetch(
-        "http://127.0.0.1:5000/karaokesignup",
+        "https://portfoliobackend-ih6t.onrender.com/karaokesignup",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -1162,7 +1162,7 @@ export default function KaraokeSignup() {
   // PATCH: Update a signup
   const handleEditSubmit = async (id) => {
     const response = await fetch(
-      `http://127.0.0.1:5000/karaokesignup/${id}`,
+      `https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -1186,7 +1186,7 @@ export default function KaraokeSignup() {
   const handleSoftDelete = async (id) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:5000/karaokesignup/${id}/soft_delete`,
+        `https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}/soft_delete`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -1206,7 +1206,7 @@ export default function KaraokeSignup() {
   // DELETE: Remove a signup
   const handleDelete = async (id) => {
     await fetch(
-      `http://127.0.0.1:5000/karaokesignup/${id}`,
+      `https://portfoliobackend-ih6t.onrender.com/karaokesignup/${id}`,
       { method: "DELETE" }
     );
     fetchSignups();
