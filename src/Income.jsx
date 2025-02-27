@@ -178,45 +178,70 @@ const fetchCompanyData = async () => {
 
   const fetchIncomeData = async () => {
     try {
-      const response = await axios.get("https://portfoliobackend-ih6t.onrender.com/income/aggregate");
+        const response = await axios.get("https://portfoliobackend-ih6t.onrender.com/income/aggregate");
   
-      console.log("Fetched income data response:", response.data); // ✅ Debugging log
+        console.log("Fetched income data response:", response.data); // ✅ Debugging log
   
-      if (!response.data || !Array.isArray(response.data.income_details)) {
-        console.error("Unexpected data format:", response.data);
-        toast.error("Unexpected data format from server.");
-        return;
-      }
+        if (!response.data || !Array.isArray(response.data.income_details)) {
+            console.error("Unexpected data format:", response.data);
+            toast.error("Unexpected data format from server.");
+            return;
+        }
   
-      // Check if engineering booking exists
-      const engineeringBooking = response.data.income_details.find(item => item.source === "Engineering");
-      console.log("Engineering Booking:", engineeringBooking); // ✅ Debug log
-  
-      setIncomeData(response.data.income_details);
-  
-      // Group by source
-      const grouped = response.data.income_details.reduce((acc, curr) => {
-        const source = curr.source || curr.name || "Unknown Source"; 
-        acc[source] = (acc[source] || 0) + curr.amount;
-        return acc;
-      }, {});
-  
-      setGroupedIncome(grouped);
-  
-      // Calculate total income
-      const total = response.data.income_details.reduce((sum, item) => sum + item.amount, 0);
-      setTotalIncome(total);
-  
-      // Calculate total taxes
-      const totalTaxAmount = response.data.income_details.reduce((sum, item) => sum + (item.taxes || 0), 0);
-      setTotalTaxes(totalTaxAmount);
-  
+        // ✅ Apply tax calculations to engineering bookings if taxes are missing
+        const updatedIncomeDetails = response.data.income_details.map((item) => {
+            if (item.source === "Engineering Booking") {
+                let storedPrice = item.price || item.amount || 0; // Use price, fallback to amount if missing
+
+                if (!item.taxes || item.taxes === null || item.taxes === undefined) {
+                    const selfEmploymentTax = storedPrice * 0.153; // 15.3% Self-Employment Tax
+                    const selfEmploymentDeduction = selfEmploymentTax / 2;
+                    const taxableIncome = storedPrice - selfEmploymentDeduction;
+
+                    const federalTax = taxableIncome * 0.12; // 12% Federal Tax
+                    const stateTax = taxableIncome * 0.03; // 3% State Tax
+                    const totalTax = selfEmploymentTax + federalTax + stateTax;
+
+                    return {
+                        ...item,
+                        taxes: totalTax.toFixed(2), // ✅ Store calculated tax
+                        taxBreakdown: {
+                            selfEmploymentTax: selfEmploymentTax.toFixed(2),
+                            federalTax: federalTax.toFixed(2),
+                            stateTax: stateTax.toFixed(2),
+                            totalTax: totalTax.toFixed(2),
+                        },
+                    };
+                }
+            }
+            return item; // Keep other items unchanged
+        });
+
+        setIncomeData(updatedIncomeDetails);
+
+        // ✅ Group income by source
+        const grouped = updatedIncomeDetails.reduce((acc, curr) => {
+            const source = curr.source || curr.name || "Unknown Source";
+            acc[source] = (acc[source] || 0) + (curr.price || curr.amount || 0); // Use price first
+            return acc;
+        }, {});
+
+        setGroupedIncome(grouped);
+
+        // ✅ Calculate total income
+        const total = updatedIncomeDetails.reduce((sum, item) => sum + (item.price || item.amount || 0), 0);
+        setTotalIncome(total);
+
+        // ✅ Calculate total taxes (including dynamically applied ones)
+        const totalTaxAmount = updatedIncomeDetails.reduce((sum, item) => sum + (parseFloat(item.taxes) || 0), 0);
+        setTotalTaxes(totalTaxAmount);
+
     } catch (error) {
-      console.error("Error fetching income data:", error);
-      toast.error("Failed to fetch income data.");
+        console.error("Error fetching income data:", error);
+        toast.error("Failed to fetch income data.");
     }
-  };
-  
+};
+
 
   return (
     <div className="p-6   rounded-3xl ">
@@ -370,7 +395,7 @@ const fetchCompanyData = async () => {
       </div>
 
       {/* Individual Income Records */}
-   {/* Individual Income Records */}
+{/* Individual Income Records */}
 <div className="space-y-4 max-h-[400px] overflow-y-auto p-4 bg-gray-50 rounded-2xl shadow-inner border mt-6">
   {incomeData.length === 0 ? (
     <p className="text-lg text-gray-500 text-center">No income records found.</p>
@@ -401,16 +426,14 @@ const fetchCompanyData = async () => {
               onChange={(e) => setEditFormData({ ...editFormData, date: e.target.value })}
               className="p-2 border rounded w-full mb-2"
             />
-<input
-  type="number"
-  name="taxes"
-  placeholder="Taxes (Optional)"
-  value={newIncome.taxes || ""} // Ensure value is controlled
-  onChange={handleInputChange}
-  className="p-3 border rounded-lg w-full"
-/>
-
-
+            <input
+              type="number"
+              name="taxes"
+              placeholder="Taxes (Optional)"
+              value={editFormData.taxes || ""}
+              onChange={(e) => setEditFormData({ ...editFormData, taxes: e.target.value })}
+              className="p-3 border rounded-lg w-full"
+            />
             <button
               onClick={handleUpdateIncome}
               className="bg-green-500 text-white px-3 py-1 rounded-lg shadow-md hover:bg-green-600 transition mr-2"
@@ -434,6 +457,9 @@ const fetchCompanyData = async () => {
             <p className="text-sm text-gray-700">
               <span className="font-semibold">Amount:</span> ${item.amount.toFixed(2)}
             </p>
+            <p className="text-sm text-gray-700">
+              <span className="font-semibold">Taxes:</span> ${item.taxes ? item.taxes : "N/A"}
+            </p>
 
             {/* Edit & Delete Buttons */}
             <div className="mt-3 flex gap-2">
@@ -456,6 +482,7 @@ const fetchCompanyData = async () => {
     ))
   )}
 </div>
+
 
       {/* Overall Total Income */}
  
