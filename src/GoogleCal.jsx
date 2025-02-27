@@ -233,32 +233,50 @@ export default function GoogleCalendarManager() {
           eventId: editingEvent.id,
           resource: eventDetails,
         });
+  
         alert("Event updated successfully! ✏️");
+  
+        // ✅ Update state immediately to reflect changes
+        setEvents((prevEvents) =>
+          prevEvents.map((ev) =>
+            ev.id === editingEvent.id ? { ...ev, ...eventDetails } : ev
+          )
+        );
       } else {
         // ➕ Creating a new event
-        await gapi.client.calendar.events.insert({
+        const response = await gapi.client.calendar.events.insert({
           calendarId: "primary",
           resource: eventDetails,
         });
+  
         alert("Event created successfully! 🎉");
+  
+        // ✅ Add new event to state immediately
+        setEvents((prevEvents) => [...prevEvents, response.result]);
       }
   
-      listUpcomingEvents(); // Refresh the event list
+      // ✅ Refresh event list from API
+      listUpcomingEvents();
   
-      // Reset form fields
-      setEditingEvent(null);
-      setSelectedCompany("");
-      setEventDate("");
-      setEventStartTime("");
-      setEventEndTime("");
-      setEventLocation("");
-      setEventNotes("");
+      // ✅ Reset form fields
+      resetForm();
     } catch (error) {
       console.error("Error saving event:", error);
       alert("Failed to save event. Please try again.");
     }
   
     setIsCreating(false);
+  };
+  
+  // Reset form after editing or creating an event
+  const resetForm = () => {
+    setEditingEvent(null);
+    setSelectedCompany("");
+    setEventDate("");
+    setEventStartTime("");
+    setEventEndTime("");
+    setEventLocation("");
+    setEventNotes("");
   };
   
 
@@ -314,7 +332,7 @@ export default function GoogleCalendarManager() {
 
           <label className="block text-center text-white font-bold">Company Name:</label>
           <select
-            className="border p-2 rounded w-full mb-3"
+            className="border p-2 bg-yellow-800/40 rounded w-full mb-3"
             value={selectedCompany}
             onChange={handleCompanyChange}
           >
@@ -331,7 +349,7 @@ export default function GoogleCalendarManager() {
             placeholder="Or Enter a New Company Name"
             value={selectedCompany}
             onChange={(e) => setSelectedCompany(e.target.value)}
-            className="border p-2 rounded w-full mb-3"
+            className="border  bg-yellow-800/40 p-2 rounded w-full mb-3"
           />
 
           <input
@@ -339,7 +357,7 @@ export default function GoogleCalendarManager() {
             placeholder="Location (Auto-Filled)"
             value={eventLocation}
             onChange={(e) => setEventLocation(e.target.value)}
-            className="border p-2 rounded w-full mb-3"
+            className="border p-2 bg-yellow-800/40 rounded w-full mb-3"
           />
 
           <div className="grid grid-cols-2 gap-4">
@@ -347,13 +365,13 @@ export default function GoogleCalendarManager() {
               type="date"
               value={eventDate}
               onChange={(e) => setEventDate(e.target.value)}
-              className="border p-2 rounded w-full"
+              className="border p-2 bg-yellow-800/40 rounded w-full"
             />
             <input
               type="time"
               value={eventStartTime}
               onChange={(e) => setEventStartTime(e.target.value)}
-              className="border p-2 rounded w-full"
+              className="border p-2 bg-yellow-800/40 rounded w-full"
             />
           </div>
 
@@ -362,7 +380,7 @@ export default function GoogleCalendarManager() {
               type="time"
               value={eventEndTime}
               onChange={(e) => setEventEndTime(e.target.value)}
-              className="border p-2 rounded w-full"
+              className="border bg-yellow-800/40 p-2 rounded w-full"
             />
           </div>
 
@@ -370,7 +388,7 @@ export default function GoogleCalendarManager() {
             placeholder="Enter any notes (optional)"
             value={eventNotes}
             onChange={(e) => setEventNotes(e.target.value)}
-            className="border p-2 rounded w-full mt-3"
+            className="border p-2 bg-yellow-800/40 rounded w-full mt-3"
           ></textarea>
 
           <button
