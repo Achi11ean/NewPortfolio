@@ -381,6 +381,43 @@ useEffect(() => {
               <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
 
 
+
+
+              <div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
+  <div className="relative w-full h-52 overflow-hidden rounded-md">
+    <img
+      src="acorn.jpeg"
+      alt="Acorn Center for Wellness"
+      className="w-full h-full object-cover object-top rounded-md transition-transform duration-300 group-hover:scale-110"
+    />
+    <div className="absolute inset-0 bg-black/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <p className="text-center text-sm px-2">
+        A compassionate wellness center dedicated to mental health support, 
+        personal growth, and relationship well-being. Designed to create a welcoming, 
+        professional, and supportive experience for every visitor.
+      </p>
+    </div>
+  </div>
+  <h3 className="text-xl text-gray-600 font-semibold mt-4">
+    Acorn Center for Wellness
+  </h3>
+  <p className="mt-2 text-sm text-gray-600">
+React, Vite, Tailwind CSS, SEO  </p>
+  <a
+    href="https://acorncw.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 hover:text-white"
+  >
+    Visit Site
+  </a>
+</div>
+
+
+
+
+
+
               <div className="bg-gray-100 rounded-lg shadow p-4 flex flex-col items-center relative group">
   <div className="relative w-full h-52 overflow-hidden rounded-md">
     {/* Placeholder for the image */}
@@ -466,7 +503,7 @@ useEffect(() => {
                     Ink Haven
                   </h3>
                   <p className="mt-2 text-sm text-gray-600">
-                    React, Vite, Tailwind CSS
+                    React, Vite, Tailwind CSS, JWT tokens, BOE, SEO
                   </p>
                   <a
                     href="https://jwhitproductionstattooparlor.netlify.app/"
