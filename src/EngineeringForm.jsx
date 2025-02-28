@@ -8,7 +8,8 @@ export default function EngineeringForm({ onBookingSubmit }) {
     project_description: "",
     price: "",
     status: "Pending",
-    notes: "", // ✅ Added notes field
+    notes: "",
+    date: "", // ✅ Added date field
   });
   
 
@@ -81,7 +82,6 @@ export default function EngineeringForm({ onBookingSubmit }) {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-  
     const submissionData = {
       contact_name: formData.contact_name,
       contact_phone: formData.contact_phone,
@@ -90,6 +90,7 @@ export default function EngineeringForm({ onBookingSubmit }) {
       price: formData.price,
       status: formData.status,
       notes: formData.notes,
+      date: formData.date, // ✅ Now sending date to backend
     };
     
   
@@ -192,6 +193,20 @@ export default function EngineeringForm({ onBookingSubmit }) {
             className="w-full p-3 border rounded-2xl bg-black text-center text-white shadow  focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
+        <div>
+  <label htmlFor="date" className="block text-gray-800 text-lg font-serif text-center underline font-semibold">
+    Booking Date
+  </label>
+  <input
+    type="date"
+    name="date"
+    id="date"
+    value={formData.date}
+    onChange={handleChange}
+    className="w-full p-3 border rounded-2xl text-center bg-black text-white shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
+    required
+  />
+</div>
 
         <div>
           <label htmlFor="project_description" className="block text-gray-800 text-center font-serif underline text-lg font-semibold">

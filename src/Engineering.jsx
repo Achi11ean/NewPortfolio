@@ -152,6 +152,14 @@ export default function EngineeringBookingManager() {
                   <h3 className="text-xl font-semibold mb-3">Edit Booking</h3>
                   <Input name="contact" placeholder="Contact" value={formData.contact || ''} onChange={handleChange} />
                   <Input name="project_name" placeholder="Project Name" value={formData.project_name || ''} onChange={handleChange} />
+                  <Input
+  type="date"
+  name="date"
+  value={formData.date || ""}
+  onChange={handleChange}
+  className="w-full p-3 border rounded-2xl bg-black text-center text-white shadow"
+/>
+
                   <Input name="contact_phone" placeholder="Phone Number" value={formData.contact_phone || ''} onChange={handleChange} /> 
 
                   <Textarea name="project_description" placeholder="Description" value={formData.project_description || ''} onChange={handleChange} />
@@ -168,6 +176,8 @@ export default function EngineeringBookingManager() {
                 <>
                   <h3 className="text-lg font-semibold mb-1">{booking.project_name}</h3>
                   <p>Contact: {booking.contact}</p>
+                  <p>📅 Date: {booking.date ? new Date(booking.date).toLocaleDateString() : "No date provided"}</p>
+
                   <p>Phone: {booking.contact_phone || 'N/A'}</p> {/* ✅ Added */}
 
                   <p>Description: {booking.project_description}</p>
