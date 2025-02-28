@@ -68,12 +68,13 @@ export default function MileageTracker() {
   const fetchMileages = async () => {
     try {
       const response = await axios.get("https://portfoliobackend-ih6t.onrender.com/mileage");
-      setMileages(response.data);
+      const sortedMileages = response.data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by date (newest first)
+      setMileages(sortedMileages);
     } catch (error) {
       toast.error("Failed to fetch mileage records.");
     }
   };
-
+  
   useEffect(() => {
     fetchMileages();
     fetchKaraokeHostings(); // Fetch hosting companies

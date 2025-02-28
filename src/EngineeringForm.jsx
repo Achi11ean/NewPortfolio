@@ -195,7 +195,7 @@ export default function EngineeringForm({ onBookingSubmit }) {
         </div>
         <div>
   <label htmlFor="date" className="block text-gray-800 text-lg font-serif text-center underline font-semibold">
-    Booking Date
+    StartDate/Payment Date
   </label>
   <input
     type="date"

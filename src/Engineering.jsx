@@ -74,19 +74,14 @@ export default function EngineeringBookingManager() {
   const fetchBookings = async () => {
     try {
       const response = await axios.get('https://portfoliobackend-ih6t.onrender.com/engineering-bookings');
-      setBookings(response.data);
+      const sortedBookings = response.data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by date (newest first)
+      setBookings(sortedBookings);
       setCurrentPage((prev) => Math.min(prev, totalPages));
-
     } catch (error) {
       toast.error("Failed to fetch bookings");
     }
   };
-
-  const handleEdit = (booking) => {
-    setSelectedBooking(booking);
-    setFormData(booking);
-  };
-
+  
   const handleDelete = async (id) => {
     try {
       await axios.delete(`https://portfoliobackend-ih6t.onrender.com/engineering-bookings/${id}`);

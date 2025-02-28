@@ -253,10 +253,13 @@ export default function IncomeOverview() {
         return item; // Keep other items unchanged
       });
   
-      setIncomeData(incomeWithTaxes);
+      // ✅ Sort income records by date from newest to oldest
+      const sortedIncome = incomeWithTaxes.sort((a, b) => new Date(b.date) - new Date(a.date));
+  
+      setIncomeData(sortedIncome);
   
       // ✅ Group income by source
-      const grouped = incomeWithTaxes.reduce((acc, curr) => {
+      const grouped = sortedIncome.reduce((acc, curr) => {
         const source = curr.source || "Unknown Source";
         acc[source] = (acc[source] || 0) + curr.amount; // Sum amounts for each source
         return acc;
@@ -265,11 +268,11 @@ export default function IncomeOverview() {
       setGroupedIncome(grouped);
   
       // ✅ Calculate total income
-      const total = incomeWithTaxes.reduce((sum, item) => sum + item.amount, 0);
+      const total = sortedIncome.reduce((sum, item) => sum + item.amount, 0);
       setTotalIncome(total);
   
       // ✅ Calculate total taxes (including dynamically applied ones)
-      const totalTaxAmount = incomeWithTaxes.reduce(
+      const totalTaxAmount = sortedIncome.reduce(
         (sum, item) => sum + (parseFloat(item.taxes) || 0),
         0
       );
@@ -279,6 +282,7 @@ export default function IncomeOverview() {
       toast.error("Failed to fetch income data.");
     }
   };
+  
   
   return (
     <div className="p-4 bg-black rounded-3xl border-white border-2 mt-3">
@@ -421,11 +425,11 @@ export default function IncomeOverview() {
 
         {/* Scrollable container */}
         <div className="max-h-64 overflow-y-auto custom-scrollbar p-2 rounded-2xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
             {Object.entries(groupedIncome).map(([source, amount], index) => (
               <div
                 key={index}
-                className="p-6 rounded-2xl bg-gradient-to-br from-purple-400 via-pink-400 to-blue-500 shadow-xl text-center transform transition-all duration-300 hover:scale-105 hover:shadow-pink-500/50"
+                className="pt-2 pb-2 rounded-2xl bg-gradient-to-b from-green-900 via-black to-green-900 shadow-xl text-center transform transition-all duration-300 hover:scale-105 hover:shadow-pink-500/50"
               >
                 <h3 className="text-2xl font-bold text-white drop-shadow-md">
                   {source}
@@ -440,129 +444,130 @@ export default function IncomeOverview() {
       </div>
       {/* Individual Income Records */}
       <div
-        className="space-y-4 max-h-[400px] overflow-y-auto p-4 
-  bg-gradient-to-br from-green-400 via-emerald-500 to-green-700 
-  rounded-2xl shadow-2xl border border-green-600 mt-6 
-  text-white custom-scrollbar"
+        className="max-h-[450px] overflow-y-auto p-6 bg-gradient-to-br from-purple-500 via-indigo-600 to-blue-700 rounded-3xl shadow-2xl border border-indigo-700 mt-6 text-white custom-scrollbar"
       >
-        {" "}
         {incomeData.length === 0 ? (
-          <p className="text-lg text-gray-500 text-center">
+          <p className="text-lg text-gray-300 text-center font-medium">
             No income records found.
           </p>
         ) : (
-          incomeData.map((item, index) => (
-            <div
-              key={index}
-              className="p-4 rounded-lg bg-white shadow-md border border-gray-200"
-            >
-              {editingIncome === item.id ? (
-                // ✅ Edit Mode: Render input fields
-                <div>
-                  <input
-                    type="text"
-                    name="income_name"
-                    value={editFormData.income_name}
-                    onChange={(e) =>
-                      setEditFormData({
-                        ...editFormData,
-                        income_name: e.target.value,
-                      })
-                    }
-                    className="p-2 border font-bold bg-gray-800 text-center rounded-xl w-full mb-2"
-                  />
-                  <input
-                    type="number"
-                    name="amount"
-                    value={editFormData.amount}
-                    onChange={(e) =>
-                      setEditFormData({
-                        ...editFormData,
-                        amount: e.target.value,
-                      })
-                    }
-                    className="p-2 border rounded font-bold bg-gray-800 text-center w-full mb-2"
-                  />
-                  <input
-                    type="date"
-                    name="date"
-                    value={editFormData.date}
-                    onChange={(e) =>
-                      setEditFormData({ ...editFormData, date: e.target.value })
-                    }
-                    className="p-2 border font-bold bg-gray-800 text-center rounded w-full mb-2"
-                  />
-                  <input
-                    type="number"
-                    name="taxes"
-                    placeholder="Taxes (Optional)"
-                    value={editFormData.taxes || ""}
-                    onChange={(e) =>
-                      setEditFormData({
-                        ...editFormData,
-                        taxes: e.target.value,
-                      })
-                    }
-                    className="p-3 border font-bold bg-gray-800 text-center rounded-lg w-full"
-                  />
-                  <button
-                    onClick={handleUpdateIncome}
-                    className="bg-green-500 text-white w-full mt-1 py-1 rounded-lg shadow-md hover:bg-green-600 transition mr-2"
-                  >
-                    ✅ Save
-                  </button>
-                  <button
-                    onClick={() => setEditingIncome(null)}
-                    className="bg-gray-500 text-white w-full mt-3 px-3 py-1 rounded-lg shadow-md hover:bg-gray-600 transition"
-                  >
-                    ❌ Cancel
-                  </button>
-                </div>
-              ) : (
-                // ✅ View Mode: Display income details
-                <>
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    {item.name}
-                  </h3>
-                  <p className="text-sm text-gray-700">
-                    <span className="font-semibold">Source:</span> {item.source}
-                  </p>
-                  <p className="text-sm text-gray-700">
-                    <span className="font-semibold">Amount:</span> $
-                    {item.amount.toFixed(2)}
-                  </p>
-                  <p className="text-sm text-gray-700">
-                    <span className="font-semibold">Taxes:</span> $
-                    {item.taxes ? item.taxes : "N/A"}
-                  </p>
-                  <p className="text-sm text-gray-700">
-                    <span className="font-semibold">Date:</span>{" "}
-                    {item.date
-                      ? new Date(item.date).toLocaleDateString()
-                      : "N/A"}
-                  </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {incomeData.map((item, index) => (
+              <div
+                key={index}
+                className="relative p-4 bg-white rounded-2xl shadow-lg border border-gray-300 transition-all hover:shadow-xl hover:scale-[1.03] flex flex-col items-center"
+              >
+                {editingIncome === item.id ? (
+                  <div className="space-y-3 w-full">
+                    <label className="text-black font-bold text-center underline item-center justify-center">Income Source</label>
+                    <input
+                      type="text"
+                      name="income_name"
+                      value={editFormData.income_name}
+                      onChange={(e) =>
+                        setEditFormData({
+                          ...editFormData,
+                          income_name: e.target.value,
+                        })
+                      }
+                      className="p-2 border border-gray-400 font-semibold bg-purple-400/40  text-black text-center rounded-xl w-full focus:ring-2 focus:ring-indigo-400"
+                    />
+                                        <label className="text-black font-bold text-center underline item-center justify-center">Income Amount</label>
 
-                  {/* Edit & Delete Buttons */}
-                  <div className="mt-3 flex gap-2">
-                    <button
-                      onClick={() => handleEditClick(item)}
-                      className="bg-yellow-500 text-white px-3 py-1 rounded-lg shadow-md hover:bg-yellow-600 transition"
-                    >
-                      ✏️ Edit
-                    </button>
-                    <button
-                      onClick={() => handleDeleteIncome(item.id)}
-                      className="bg-red-500 text-white px-3 py-1 rounded-lg shadow-md hover:bg-red-600 transition"
-                    >
-                      🗑️ Delete
-                    </button>
+                    <input
+                      type="number"
+                      name="amount"
+                      value={editFormData.amount}
+                      onChange={(e) =>
+                        setEditFormData({
+                          ...editFormData,
+                          amount: e.target.value,
+                        })
+                      }
+                      className="p-2 border border-gray-400 font-semibold bg-purple-400/40  text-black text-center rounded-xl w-full focus:ring-2 focus:ring-indigo-400"
+                    />
+                                        <label className="text-black font-bold text-center underline item-center justify-center">Income Date</label>
+
+                    <input
+                      type="date"
+                      name="date"
+                      value={editFormData.date}
+                      onChange={(e) =>
+                        setEditFormData({ ...editFormData, date: e.target.value })
+                      }
+                      className="p-2 border border-gray-400 font-semibold bg-purple-400/40  text-black text-center rounded-xl w-full focus:ring-2 focus:ring-indigo-400"
+                    />
+                                        <label className="text-black font-bold text-center underline item-center justify-center">Taxes Due</label>
+
+                    <input
+                      type="number"
+                      name="taxes"
+                      placeholder="Taxes (Optional)"
+                      value={editFormData.taxes || ""}
+                      onChange={(e) =>
+                        setEditFormData({
+                          ...editFormData,
+                          taxes: e.target.value,
+                        })
+                      }
+                      className="p-2 border border-gray-400 font-semibold bg-purple-400/40  text-black text-center rounded-xl w-full focus:ring-2 focus:ring-indigo-400"
+                    />
+                    <div className="flex justify-between mt-3">
+                      <button
+                        onClick={handleUpdateIncome}
+                        className="bg-green-500 text-white py-2 px-4 rounded-xl shadow-md hover:bg-green-600 transition hover:scale-105"
+                      >
+                        ✅ Save
+                      </button>
+                      <button
+                        onClick={() => setEditingIncome(null)}
+                        className="bg-gray-500 text-white py-2 px-4 rounded-xl shadow-md hover:bg-gray-600 transition hover:scale-105"
+                      >
+                        ❌ Cancel
+                      </button>
+                    </div>
                   </div>
-                </>
-              )}
-            </div>
-          ))
+                ) : (
+                  <>
+                    <h3 className="text-xl font-bold text-black text-center">
+                      {item.name}
+                    </h3>
+                    <p className="text-md font-bold text-black">
+                      <span className="font-semibold">Source:</span> {item.source}
+                    </p>
+                    <p className="text-md font-bold text-black">
+                      <span className="font-semibold">Amount:</span> $
+                      {item.amount.toFixed(2)}
+                    </p>
+                    <p className="text-md font-bold text-black">
+                      <span className="font-semibold">Taxes:</span> $
+                      {item.taxes ? item.taxes : "N/A"}
+                    </p>
+                    <p className="text-md font-bold text-black">
+                      <span className="font-semibold">Date:</span> {item.date ? new Date(item.date).toLocaleDateString() : "N/A"}
+                    </p>
+                    <div className="mt-3 flex gap-3">
+                      <button
+                        onClick={() => handleEditClick(item)}
+                        className="bg-yellow-500 text-white px-3 py-1 rounded-full shadow-md hover:bg-yellow-600 transition hover:scale-105"
+                      >
+                        ✏️
+                      </button>
+                      <button
+                        onClick={() => handleDeleteIncome(item.id)}
+                        className="bg-red-500 text-white px-3 py-1 rounded-full shadow-md hover:bg-red-600 transition hover:scale-105"
+                      >
+                        🗑️
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
         )}
       </div>
+
       {/* Overall Total Income */}
     </div>
   );
