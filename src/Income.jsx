@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-
 export default function IncomeOverview() {
   const [incomeData, setIncomeData] = useState([]);
   const [groupedIncome, setGroupedIncome] = useState({});
@@ -248,6 +247,10 @@ const fetchCompanyData = async () => {
 <h2 className="text-xl pb-1  sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 text-gray-800 bg-gradient-to-r from-yellow-500 via-green-700 to-green-500 text-transparent bg-clip-text drop-shadow-lg animate-fade-in">
   💲 Income Manager 💲 
 </h2>   
+
+<IncomeForm />
+
+
 <div className="w-full h-3 bg-gradient-to-r from-green-500 via-green-500 via-red-500  via-green-500 to-green-500 rounded-full shadow-lg my-6"></div>      {/* Manual Income Entry */}
       <div className="flex justify-center">
         <button
@@ -478,6 +481,10 @@ const fetchCompanyData = async () => {
             <p className="text-sm text-gray-700">
               <span className="font-semibold">Taxes:</span> ${item.taxes ? item.taxes : "N/A"}
             </p>
+            <p className="text-sm text-gray-700">
+  <span className="font-semibold">Date:</span> {item.date ? new Date(item.date).toLocaleDateString() : "N/A"}
+</p>
+
 
             {/* Edit & Delete Buttons */}
             <div className="mt-3 flex gap-2">
