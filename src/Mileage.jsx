@@ -303,11 +303,12 @@ export default function MileageTracker() {
               {mileage.expense_name}
             </h4>
             <p className="text-gray-700 font-bold mb-1">
-  📅 Date:  {new Date(mileage.date).toLocaleDateString("en-US", { 
-    year: "numeric", 
-    month: "2-digit", 
-    day: "2-digit" 
-  })}
+  📅 Date:  {new Date(new Date(mileage.date).setDate(new Date(mileage.date).getDate() + 1))
+    .toLocaleDateString("en-US", { 
+      year: "numeric", 
+      month: "2-digit", 
+      day: "2-digit" 
+    })}
 </p>
 
             <p className="text-gray-700 font-bold mb-1">
