@@ -73,16 +73,17 @@ export default function IncomeOverview() {
 
   const handleEditClick = (income) => {
     console.log("Editing income object:", income); // Debugging log
-  
-    setEditingIncome(income.id || null); // ✅ Allow null IDs for new records
-  
+
+    setEditingIncome(income.id || null); // ✅ Only set if it's an existing record
+
     setEditFormData({
-      income_name: income.name,
-      amount: income.amount,
+      income_name: income.income_name || "", // ✅ Use correct field name
+      amount: income.amount || "",
       date: income.date || "",
       taxes: income.taxes || "",
     });
-  };
+};
+
   
   const handleUpdateIncome = async () => {
     console.log("Attempting to update income with ID:", editingIncome); // Debugging log
@@ -138,17 +139,22 @@ export default function IncomeOverview() {
       toast.error("Failed to delete income.");
     }
   };
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
 
-    if (editingIncome) {
-      // If we are editing an existing income record
-      await handleUpdateIncome();
-    } else {
-      // If we are adding a new income record
+    console.log("Submitting form. Editing Income:", editingIncome); // Debugging log
+
+    if (editingIncome === null) {
+      console.log("Calling handleAddIncome()...");
       await handleAddIncome();
+    } else {
+      console.log("Calling handleUpdateIncome()...");
+      await handleUpdateIncome();
     }
-  };
+};
+
 
   const [newIncome, setNewIncome] = useState({
     income_name: "",
@@ -290,116 +296,97 @@ export default function IncomeOverview() {
         </button>
       </div>
       {showForm && (
-        <div className="mt-6 p-6 bg-gradient-to-r from-green-800 via-green-500 to-green-800 rounded-2xl shadow-md">
-          <h3 className="text-2xl font-bold text-gray-800 text-center mb-4">
-            ➕ Add New Income
-          </h3>
+  <div className="mt-6 p-6 bg-gradient-to-r from-green-800 via-green-500 to-green-800 rounded-2xl shadow-md">
+    <h3 className="text-2xl font-bold text-gray-800 text-center mb-4">
+      ➕ Add New Income
+    </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <select
-              className="p-3 border bg-gray-800 text-white font-bold rounded-lg w-full"
-              value={selectedCompany}
-              onChange={(e) => {
-                setSelectedCompany(e.target.value);
-                setNewIncome((prev) => ({
-                  ...prev,
-                  income_name: e.target.value,
-                  amount:
-                    companyData.find((c) => c.company_name === e.target.value)
-                      ?.payment_amount || "",
-                }));
-              }}
-            >
-              <option value="">-- Select a Company --</option>
-              {companyData.map((company, index) => (
-                <option key={index} value={company.company_name}>
-                  {company.company_name}
-                </option>
-              ))}
-            </select>
+    {/* ✅ Add form element and bind handleSubmit */}
+    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-            {/* OR Enter a New Company Name */}
-            <input
-              type="text"
-              name="new_company"
-              placeholder="Or Enter a New Company Name"
-              value={newCompany}
-              onChange={(e) => {
-                setNewCompany(e.target.value);
-                setSelectedCompany(""); // Clear dropdown selection
-                setNewIncome((prev) => ({
-                  ...prev,
-                  income_name: e.target.value,
-                }));
-              }}
-              className="p-3 border bg-gray-800  font-bold rounded-lg w-full"
-            />
+      <select
+        className="p-3 border bg-gray-800 text-white font-bold rounded-lg w-full"
+        value={selectedCompany}
+        onChange={(e) => {
+          setSelectedCompany(e.target.value);
+          setNewIncome((prev) => ({
+            ...prev,
+            income_name: e.target.value,
+            amount: companyData.find((c) => c.company_name === e.target.value)
+              ?.payment_amount || "",
+          }));
+        }}
+      >
+        <option value="">-- Select a Company --</option>
+        {companyData.map((company, index) => (
+          <option key={index} value={company.company_name}>
+            {company.company_name}
+          </option>
+        ))}
+      </select>
 
-            {/* Auto-filled Amount */}
-            <input
-              type="number"
-              name="amount"
-              placeholder="Amount ($)"
-              value={newIncome.amount}
-              onChange={handleInputChange}
-              className="p-3 border bg-gray-800 text-white font-bold rounded-lg w-full"
-            />
+      <input
+        type="text"
+        name="new_company"
+        placeholder="Or Enter a New Company Name"
+        value={newCompany}
+        onChange={(e) => {
+          setNewCompany(e.target.value);
+          setSelectedCompany("");
+          setNewIncome((prev) => ({
+            ...prev,
+            income_name: e.target.value,
+          }));
+        }}
+        className="p-3 border bg-gray-800 font-bold rounded-lg w-full"
+      />
 
-            {/* Date Picker */}
-            <input
-  type="date"
-  name="date"
-  value={editFormData.date || ""} // Ensure it's never null
-  onChange={(e) => setEditFormData({ ...editFormData, date: e.target.value })}
-  className="p-2 border font-bold bg-gray-800 text-center rounded w-full mb-2"
-/>
+      <input
+        type="number"
+        name="amount"
+        placeholder="Amount ($)"
+        value={newIncome.amount}
+        onChange={handleInputChange}
+        className="p-3 border bg-gray-800 text-white font-bold rounded-lg w-full"
+      />
 
-            {/* Taxes (Optional) */}
-            <input
-              type="number"
-              name="taxes"
-              placeholder="Taxes (Optional)"
-              value={newIncome.taxes || ""} // Ensure value is controlled
-              onChange={handleInputChange}
-              className="p-3 border bg-gray-800 text-white font-bold rounded-lg w-full"
-            />
+      <input
+        type="date"
+        name="date"
+        value={newIncome.date || ""}
+        onChange={handleInputChange}
+        className="p-2 border font-bold bg-gray-800 text-center rounded w-full mb-2"
+      />
 
-            <button
-              onClick={calculateTaxes}
-              className=" bg-red-500 text-black font-serif text-xl font-bold  px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition"
-            >
-              💰 Apply Taxes
-            </button>
-          </div>
+      <input
+        type="number"
+        name="taxes"
+        placeholder="Taxes (Optional)"
+        value={newIncome.taxes || ""}
+        onChange={handleInputChange}
+        className="p-3 border bg-gray-800 text-white font-bold rounded-lg w-full"
+      />
 
-          {taxBreakdown && (
-            <div className="mt-6 p-6 bg-gray-100 rounded-2xl shadow-md text-center">
-              <h3 className="text-2xl font-bold text-gray-800">
-                📑 Tax Breakdown
-              </h3>
-              <p className="text-lg font-semibold text-gray-700">
-                💵 Self-Employment Tax: ${taxBreakdown.selfEmploymentTax}
-              </p>
-              <p className="text-lg font-semibold text-gray-700">
-                🇺🇸 Federal Tax: ${taxBreakdown.federalTax}
-              </p>
-              <p className="text-lg font-semibold text-gray-700">
-                🏛️ CT State Tax: ${taxBreakdown.stateTax}
-              </p>
-              <p className="text-xl font-extrabold text-red-600 mt-2">
-                🔥 Total Taxes Owed: ${taxBreakdown.totalTax}
-              </p>
-            </div>
-          )}
+      <button
+        type="button"
+        onClick={calculateTaxes}
+        className="bg-red-500 text-black font-serif text-xl font-bold px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition"
+      >
+        💰 Apply Taxes
+      </button>
 
-          <button
-            onClick={handleAddIncome}
-            className="mt-4 w-full bg-blue-500 text-white p-3 rounded-lg shadow-md hover:bg-blue-600 transition"
-          >
-            💾 Save Income
-          </button>
-        </div>
-      )}
+      {/* ✅ Change the button to type="submit" */}
+      <button
+        type="submit" 
+        className="mt-4 w-full bg-blue-500 text-white p-3 rounded-lg shadow-md hover:bg-blue-600 transition"
+      >
+        💾 Save Income
+      </button>
+
+    </form>
+  </div>
+)}
+
       <h2 className="md:text-4xl text-2xl font-extrabold mb-6 text-center text-white underline">
         💰 Income Overview 💰
       </h2>
@@ -451,7 +438,6 @@ export default function IncomeOverview() {
           </div>
         </div>
       </div>
-      {/* Individual Income Records */}
       {/* Individual Income Records */}
       <div
         className="space-y-4 max-h-[400px] overflow-y-auto p-4 
