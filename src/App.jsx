@@ -201,7 +201,125 @@ useEffect(() => {
             <Signin setActiveTab={setActiveTab} />
           )}
           {activeTab === "admin-dashboard" && <Admin />}
-          {activeTab === "gallery" && <Gallery />}
+          {activeTab === "gallery" && (
+  <>
+    <Gallery />
+
+    {/* Moved Performing Arts Section */}
+    <div className="space-y-6">
+      <div>
+        <button
+          className="w-full text-center bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 text-white py-4 px-6 text-2xl font-bold rounded-lg shadow-2xl transform transition-all duration-300 relative overflow-hidden hover:scale-110 hover:shadow-pink-400/50"
+          onClick={() => toggleSection("performing")}
+        >
+          🎭 Performing Arts 🎶
+        </button>
+
+        {openSection === "performing" && (
+          <div className="relative p-6 text-white rounded-lg shadow-lg overflow-hidden min-h-[600px]">
+            {/* Background for Performing */}
+            <div className="absolute inset-0 z-0 bg-gradient-to-r from-pink-500 via-purple-600 to-red-500 opacity-50"></div>
+
+            {/* Content */}
+            <div className="relative text-center z-20 space-y-6">
+              <h2 className="text-5xl font-extrabold mb-6">My Passion for The Arts</h2>
+              <p className="text-2xl leading-relaxed mb-6">
+                Performing has always been a cornerstone of my life, and music is one of my greatest passions.
+              </p>
+              <p className="text-2xl">Some wonderful experiences I've had performing include:</p>
+              <ul className="list-disc list-inside text-2xl mt-2 mb-4">
+                <li>Performing at weddings and local LGBTQ+ events with Sky Casper Entertainment.</li>
+                <li>Hosting karaoke for two years, creating a space for others to share in the joy of music.</li>
+                <li>Embarking on an exciting journey to create my own music, pouring my heart into every lyric and melody.</li>
+              </ul>
+
+              <p className="text-xl leading-relaxed">
+                One of the most thrilling experiences was my role in <em>Cabaret the Musical</em>, where I played Herman, Max, and Sailor.
+                <br />
+                This is our last weekend performing <em>A Christmas Carol</em>, where I play Fred—the
+                <em>wonderfully British</em> nephew of dear old Uncle Scrooge.
+                <br />
+                Tickets are available at the link below. Don’t miss out on this festive experience!
+                <br />
+                Up next, I’m excited to be featured on an up-and-coming artist’s album and to start more work on my own music.
+                Stay tuned for what’s to come!
+              </p>
+
+              {/* Ticket Link Dropdown */}
+              <div className="mt-6">
+                <select
+                  className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-yellow-400 py-3 px-4 rounded-xl shadow-lg text-white font-extrabold text-xl text-center tracking-wide hover:scale-105 transform transition-transform duration-300"
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      window.open(e.target.value, "_blank");
+                    }
+                  }}
+                >
+                  <option value="">Tickets on sale Now!</option>
+                  <option value="https://www.connecticuttheatrecompany.org/box-office/">
+                    Tickets for A Christmas Carol December 2024
+                  </option>
+                </select>
+                <p className="mt-3">Select A Song to Watch me Perform it in the video below!</p>
+              </div>
+
+              {/* Video Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                {[
+                  { name: "Cabaret Musical Performance", video: "https://player.vimeo.com/video/1031800524" },
+                  { name: "Beautiful Things - Benson Boone", video: "instagram3" },
+                  { name: "You - Miley Cyrus", video: "instagram2" },
+                  { name: "Somebody - Jelly Roll", video: "instagram1" },
+                  { name: "Haunted House - Christina Aguilera", video: "instagram4" },
+                  { name: "Too Sweet - Hozier", video: "instagram5" },
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
+                    onClick={() => setSelectedVideo(item.video)}
+                  >
+                    <h3 className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 text-transparent bg-clip-text shadow-lg rounded-2xl p-3 sm:p-4 md:p-6 cursor-pointer hover:scale-105 transform transition-transform duration-300 text-sm sm:text-base md:text-lg lg:text-2xl font-extrabold tracking-wider uppercase">
+                      {item.name}
+                    </h3>
+                  </div>
+                ))}
+              </div>
+
+              {/* Video Player */}
+              <div className="flex items-center justify-center h-[300px] rounded-2xl overflow-hidden mt-6">
+                {selectedVideo.startsWith("instagram") ? (
+                  <div key={selectedVideo} className="instagram-container">
+                    <blockquote
+                      className="instagram-media"
+                      data-instgrm-permalink={
+                        {
+                          instagram1: "https://www.instagram.com/reel/DC4J0fERW6E/?utm_source=ig_embed&amp;utm_campaign=loading",
+                          instagram2: "https://www.instagram.com/reel/DC4MaLdxfUB/?utm_source=ig_embed&amp;utm_campaign=loading",
+                          instagram3: "https://www.instagram.com/reel/DC4NOC2Rsoi/?utm_source=ig_embed&amp;utm_campaign=loading",
+                          instagram4: "https://www.instagram.com/reel/DAzJtSxOhE9/?utm_source=ig_embed&amp;utm_campaign=loading",
+                          instagram5: "https://www.instagram.com/reel/C_q_mZ9O6Ag/?utm_source=ig_embed&amp;utm_campaign=loading",
+                        }[selectedVideo]
+                      }
+                      data-instgrm-version="14"
+                      style={{ background: "#FFF", border: "0", borderRadius: "3px", boxShadow: "0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15)", margin: "1px", maxWidth: "540px", minWidth: "326px", padding: "0", width: "calc(100% - 2px)" }}
+                    >
+                      <a href="https://www.instagram.com/" target="_blank">View this post on Instagram</a>
+                    </blockquote>
+                  </div>
+                ) : selectedVideo ? (
+                  <iframe src={selectedVideo} frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen className="w-full max-w-[800px] h-full rounded-2xl"></iframe>
+                ) : (
+                  <p className="text-lg text-gray-300">Please select a video to watch by clicking a card above.</p>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </>
+)}
+
           {activeTab === "karaoke" && <Karaoke />}
 
           {activeTab === "businessweekly" && (
@@ -633,348 +751,6 @@ React, Vite, Tailwind CSS, SEO  </p>
           )}
           {activeTab === "reviews" && <Reviews triggerEmojis={triggerEmojis} />}
 
-          {activeTab === "passion" && (
-            <div className="space-y-6">
-              {/* Dropdown for Passion for Performing */}
-              <div>
-              <button
-  className="w-full text-center bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500 text-white py-4 px-6 text-2xl font-bold rounded-lg shadow-2xl transform transition-all duration-300 relative overflow-hidden hover:scale-110 hover:shadow-pink-400/50"
-  onClick={() => toggleSection("performing")}
->
-  {/* Roaming Spotlight Circles */}
-  <span className="absolute inset-0">
-    <span className="absolute w-48 h-48 bg-white rounded-full blur-3xl animate-roam-1"></span>
-    <span className="absolute w-48 h-48 bg-white rounded-full blur-2xl animate-roam-2"></span>
-  </span>
-
-  {/* Button Text */}
-  <span className="relative z-10 inline-block tracking-wide uppercase font-mono">
-    🎭 Performing Arts 🎶
-  </span>
-</button>
-
-
-                {openSection === "performing" && (
-                  <div className="relative p-6 text-white rounded-lg shadow-lg overflow-hidden min-h-[600px]">
-                    {/* Background for Performing */}
-                    <div className="absolute inset-0 z-0 bg-gradient-to-r from-pink-500 via-purple-600 to-red-500 opacity-50"></div>
-
-                    {/* Content */}
-                    <div className="relative text-center z-20 space-y-6">
-                      <h2 className="text-5xl font-extrabold mb-6">
-                        My Passion for The Arts
-                      </h2>
-                      <p className="text-2xl leading-relaxed mb-6">
-                        Performing has always been a cornerstone of my life, and
-                        music is one of my greatest passions.
-                      </p>
-                      <p className="text-2xl">
-                        Some Wonderful experiences i've had performing include:
-                      </p>
-                      <ul className="list-disc list-inside text-2xl mt-2 mb-4">
-                        <li>
-                          Performing at weddings and local LGBTQ+ events with
-                          Sky Casper Entertainment.
-                        </li>
-                        <li>
-                          Hosting karaoke for two years, creating a space for
-                          others to share in the joy of music.
-                        </li>
-                        <li>
-                          Embarking on an exciting journey to create my own
-                          music, pouring my heart into every lyric and melody.
-                        </li>
-                      </ul>
-
-                      <p className="text-xl leading-relaxed">
-                        One of the most thrilling experiences was my role in{" "}
-                        <em>Cabaret the Musical</em>, where I played the
-                        characters of Herman, Max, and Sailor. <br />
-                        This is our last weekend performing{" "}
-                        <em>A Christmas Carol</em>, where I play Fred—the{" "}
-                        <em>wonderfully British</em> nephew of dear old Uncle
-                        Scrooge. <br />
-                        Tickets are available at the link below. Don’t miss out
-                        on this festive experience! <br />
-                        Up next, I’m excited to be featured on an up-and-coming
-                        artist’s album and to start more work on my own music.
-                        Stay tuned for what’s to come!
-                      </p>
-
-                      {/* Ticket Link Dropdown */}
-                      <div className="mt-6">
-                        <select
-                          className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-yellow-400 py-3 px-4 rounded-xl shadow-lg text-white font-extrabold text-xl text-center tracking-wide hover:scale-105 transform transition-transform duration-300 hover:bg-gradient-to-r hover:from-pink-600 hover:via-purple-700 hover:to-yellow-500 focus:ring-4 focus:ring-purple-600 focus:outline-none"
-                          onChange={(e) => {
-                            if (e.target.value) {
-                              window.open(e.target.value, "_blank");
-                            }
-                          }}
-                        >
-                          <option value="">Tickets on sale Now!</option>
-                          <option value="https://www.connecticuttheatrecompany.org/box-office/">
-                            Tickets for A Christmas Carol December 2024
-                          </option>
-                          {/* Add more performance options as needed */}
-                        </select>
-                        <p className="mt-3">
-                          Select A Song to Watch me Perform it in the video
-                          below!
-                        </p>
-                      </div>
-
-                      {/* Video Cards */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-                        {/* Cabaret Musical Performance */}
-                        <div
-                          className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
-                          onClick={() =>
-                            setSelectedVideo(
-                              "https://player.vimeo.com/video/1031800524"
-                            )
-                          }
-                        >
-<h3
-  className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 
-  text-transparent bg-clip-text shadow-lg rounded-2xl p-3 sm:p-4 md:p-6 
-  cursor-pointer hover:scale-105 hover:shadow-red-700 
-  transform transition-transform duration-300 
-  text-sm sm:text-base md:text-lg lg:text-2xl font-extrabold tracking-wider uppercase"
->
-  Cabaret Musical Performance
-</h3>
-
-                        </div>
-
-                        {/* Beautiful Things - Benson Boone */}
-                        <div
-                          className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
-                          onClick={() => setSelectedVideo("instagram3")}
-                        >
-<h3
-  className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 
-  text-transparent bg-clip-text shadow-lg rounded-2xl p-3 sm:p-4 md:p-6 
-  cursor-pointer hover:scale-105 hover:shadow-orange-700 
-  transform transition-transform duration-300 
-  text-sm sm:text-base md:text-lg lg:text-2xl font-extrabold tracking-wider uppercase"
->
-  Beautiful Things - Benson Boone
-</h3>
-
-                        </div>
-
-                        {/* You - Miley Cyrus */}
-                        <div
-                          className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
-                          onClick={() => setSelectedVideo("instagram2")}
-                        >
-<h3
-  className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 
-  text-transparent bg-clip-text shadow-lg rounded-2xl p-3 sm:p-4 md:p-6 
-  cursor-pointer hover:scale-105 hover:shadow-yellow-700 
-  transform transition-transform duration-300 
-  text-sm sm:text-base md:text-lg lg:text-2xl font-extrabold tracking-wider uppercase"
->
-  You - Miley Cyrus
-</h3>
-
-                        </div>
-
-                        {/* Somebody - Jelly Roll */}
-                        <div
-                          className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
-                          onClick={() => setSelectedVideo("instagram1")}
-                        >
-                          <h3   className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 
-  text-transparent bg-clip-text shadow-lg rounded-2xl p-3 sm:p-4 md:p-6 
-  cursor-pointer hover:scale-105 hover:shadow-yellow-700 
-  transform transition-transform duration-300 
-  text-sm sm:text-base md:text-lg lg:text-2xl font-extrabold tracking-wider uppercase">
-                            Somebody - Jelly Roll
-                          </h3>
-                        </div>
-
-                        {/* Haunted House - Christina Aguilera */}
-                        <div
-                          className="bg-black text-center shadow-lg rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
-                          onClick={() => setSelectedVideo("instagram4")}
-                        >
-                          <h3   className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 
-  text-transparent bg-clip-text shadow-lg rounded-2xl p-3 sm:p-4 md:p-6 
-  cursor-pointer hover:scale-105 hover:shadow-yellow-700 
-  transform transition-transform duration-300 
-  text-sm sm:text-base md:text-lg lg:text-2xl font-extrabold tracking-wider uppercase">
-                            Haunted House - Christina Aguilera
-                          </h3>
-                        </div>
-
-                        {/* New Video - Beautiful Symphony */}
-                        <div
-                          className="bg-black text-center  rounded-lg p-4 cursor-pointer hover:scale-105 transition-transform"
-                          onClick={() => setSelectedVideo("instagram5")}
-                        >
-                          <h3   className="bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 
-  text-transparent bg-clip-text shadow-lg rounded-2xl p-3 sm:p-4 md:p-6 
-  cursor-pointer hover:scale-105 hover:shadow-yellow-700 
-  transform transition-transform duration-300 
-  text-sm sm:text-base md:text-lg lg:text-2xl font-extrabold tracking-wider uppercase">
-                            Too Sweet - Hozier
-                          </h3>
-                        </div>
-                      </div>
-
-                      {/* Video Player */}
-                      <div className="flex items-center justify-center h-[300px] rounded-2xl overflow-hidden mt-6">
-                        {selectedVideo.startsWith("instagram") ? (
-                          <div
-                            key={selectedVideo}
-                            className="instagram-container"
-                          >
-                            {/* Instagram Embed Block */}
-                            <blockquote
-                              className="instagram-media"
-                              data-instgrm-permalink={
-                                selectedVideo === "instagram1"
-                                  ? "https://www.instagram.com/reel/DC4J0fERW6E/?utm_source=ig_embed&amp;utm_campaign=loading"
-                                  : selectedVideo === "instagram2"
-                                  ? "https://www.instagram.com/reel/DC4MaLdxfUB/?utm_source=ig_embed&amp;utm_campaign=loading"
-                                  : selectedVideo === "instagram3"
-                                  ? "https://www.instagram.com/reel/DC4NOC2Rsoi/?utm_source=ig_embed&amp;utm_campaign=loading"
-                                  : selectedVideo === "instagram4"
-                                  ? "https://www.instagram.com/reel/DAzJtSxOhE9/?utm_source=ig_embed&amp;utm_campaign=loading"
-                                  : "https://www.instagram.com/reel/C_q_mZ9O6Ag/?utm_source=ig_embed&amp;utm_campaign=loading" // Instagram5 - Beautiful Symphony
-                              }
-                              data-instgrm-version="14"
-                              style={{
-                                background: "#FFF",
-                                border: "0",
-                                borderRadius: "3px",
-                                boxShadow:
-                                  "0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15)",
-                                margin: "1px",
-                                maxWidth: "540px",
-                                minWidth: "326px",
-                                padding: "0",
-                                width: "calc(100% - 2px)",
-                              }}
-                            >
-                              <a
-                                href={
-                                  selectedVideo === "instagram1"
-                                    ? "https://www.instagram.com/reel/DC4J0fERW6E/?utm_source=ig_embed&amp;utm_campaign=loading"
-                                    : selectedVideo === "instagram2"
-                                    ? "https://www.instagram.com/reel/DC4MaLdxfUB/?utm_source=ig_embed&amp;utm_campaign=loading"
-                                    : selectedVideo === "instagram3"
-                                    ? "https://www.instagram.com/reel/DC4NOC2Rsoi/?utm_source=ig_embed&amp;utm_campaign=loading"
-                                    : selectedVideo === "instagram4"
-                                    ? "https://www.instagram.com/reel/DAzJtSxOhE9/?utm_source=ig_embed&amp;utm_campaign=loading"
-                                    : "https://www.instagram.com/reel/C_q_mZ9O6Ag/?utm_source=ig_embed&amp;utm_campaign=loading" // Instagram5 - Beautiful Symphony
-                                }
-                                target="_blank"
-                                style={{
-                                  background: "#FFF",
-                                  lineHeight: "0",
-                                  padding: "0",
-                                  textAlign: "center",
-                                  textDecoration: "none",
-                                  width: "100%",
-                                }}
-                              >
-                                View this post on Instagram
-                              </a>
-                            </blockquote>
-                          </div>
-                        ) : selectedVideo ? (
-                          // Regular Video Embed (e.g., Vimeo)
-
-                          <iframe
-                            src={selectedVideo}
-                            frameBorder="0"
-                            allow="autoplay; fullscreen; picture-in-picture"
-                            allowFullScreen
-                            className="w-full max-w-[800px] h-full rounded-2xl"
-                          ></iframe>
-                        ) : (
-                          // Placeholder Text
-                          <p className="text-lg text-gray-300">
-                            Please select a video to watch by clicking a card
-                            above.
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Dropdown for Passion for Software Engineering */}
-              <div>
-              <button
-  className="w-full text-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white py-4 px-6 text-2xl mb-3 rounded-lg shadow-2xl transform transition-all duration-300 hover:scale-110 hover:shadow-blue-400/50 relative"
-  onClick={() => toggleSection("technology")}
->
-  {/* Mobile Text */}
-  <span
-    className="block sm:hidden font-mono tracking-widest text-lg animate-typing overflow-hidden whitespace-nowrap border-r-2 border-white"
-  >
-    {"< Developer />"}
-  </span>
-
-  {/* Larger Screen Text */}
-  <span
-    className="hidden sm:inline-block font-mono tracking-widest w-[17ch] animate-typing overflow-hidden whitespace-nowrap border-r-2 border-white"
-  >
-    {"< Software Engineering />"}
-  </span>
-</button>
-
-
-
-                {openSection === "technology" && (
-                  <div className="relative p-6 text-white rounded-lg shadow overflow-hidden min-h-[500px]">
-                    {/* Fire Animation Background */}
-                    <div className="absolute inset-0 z-0 bg-gradient-to-r from-orange-500 via-red-600 to-yellow-500 animate-flicker"></div>
-                    <div className="absolute inset-0 h-200 z-10 opacity-50 bg-[url('/gif.webp')] bg-cover bg-center"></div>
-
-                    {/* Content */}
-                    <div className="relative z-20">
-                      <h2 className="text-3xl font-bold mb-4">
-                        Software Engineering
-                      </h2>
-                      <p className="text-2xl leading-relaxed">
-                        My passion for technology grew from experiences teaching
-                        clients about technology at the bank, troubleshooting
-                        their problems, and creating websites to help others.
-                        <br />
-                        <br />
-                        These experiences revealed how technology could empower
-                        people, simplify their lives, and create meaningful
-                        connections. Teaching clients provided opportunities to
-                        break down complex systems into understandable
-                        solutions, building trust and making technology more
-                        accessible.
-                        <br />
-                        <br />
-                        Troubleshooting challenges reinforced the satisfaction
-                        of solving problems and helping others navigate
-                        technical obstacles. Meanwhile, designing websites
-                        combined creativity with purpose, allowing for the
-                        creation of user-friendly platforms that simplify tasks
-                        and bring ideas to life.
-                        <br />
-                        <br />
-                        This combination of teaching, problem-solving, and
-                        creative development showed how technology can be a
-                        powerful tool for supporting, inspiring, and improving
-                        the lives of others, fostering a deep and lasting
-                        passion for the field.
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
 
 {activeTab === "employment" && (
   <div className="relative p-6 text-white rounded-lg shadow-lg overflow-hidden text-center">

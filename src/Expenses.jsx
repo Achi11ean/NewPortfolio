@@ -199,6 +199,33 @@ export default function ExpenseTracker() {
     required
     className="bg-gray-800 text-white border-red-600"
   />
+    <div className="relative group">
+                <a
+                  href="https://imgur.com/upload"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative inline-block w-full font-bold text-white text-center mb-2 uppercase rounded-lg
+                       bg-gradient-to-r from-green-400 via-green-500 to-green-600 shadow-lg transition-all duration-300 ease-in-out 
+                       hover:scale-105 hover:from-green-500 hover:via-green-600 hover:to-green-700 hover:shadow-2xl
+                       before:absolute before:-inset-1 before:rounded-lg before:bg-green-300 before:blur-lg before:opacity-30"
+                >
+                  <span className="relative z-10">Upload Photo to Imgur</span>
+                </a>
+
+                {/* Tooltip */}
+                <div
+                  className="absolute bottom-full mb-2 w-64 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg shadow-lg 
+                       opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{ left: "50%", transform: "translateX(-50%)" }}
+                >
+                  Don't have a URL for your image yet? Click the link. <br />
+                  1. Add your image <br />
+                  2. Right-click on the image and "Copy Image Address" <br />
+                  If it doesn't look like this:
+                  "https://i.imgur.com/example.jpg" <br />
+                  try copying the address again.
+                </div>
+              </div>
   <Input
     label="🖼️ Receipt Image URL (Optional)"
     name="image_url_receipt"
