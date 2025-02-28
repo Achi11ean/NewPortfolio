@@ -11,7 +11,7 @@ function Input({ label, ...props }) {
       </label>
       <input
         {...props}
-        className="w-full px-4 py-3 border rounded-lg shadow-sm bg-blue-200/40 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="w-full px-4 py-3 border rounded-lg shadow-sm  bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
     </div>
   );
@@ -155,7 +155,7 @@ export default function ExpenseTracker() {
     value={formData.item || ""}
     onChange={handleChange}
     required
-    className="bg-gray-800 text-white border-red-600"
+    className="bg-gray-800 text-black border-red-600"
   />
   <Input
     label="💵 Cost ($)"
