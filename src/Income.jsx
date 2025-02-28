@@ -546,20 +546,24 @@ export default function IncomeOverview() {
                     <p className="text-md font-bold text-black">
                       <span className="font-semibold">Date:</span> {item.date ? new Date(item.date).toLocaleDateString() : "N/A"}
                     </p>
-                    <div className="mt-3 flex gap-3">
-                      <button
-                        onClick={() => handleEditClick(item)}
-                        className="bg-yellow-500 text-white px-3 py-1 rounded-full shadow-md hover:bg-yellow-600 transition hover:scale-105"
-                      >
-                        ✏️
-                      </button>
-                      <button
-                        onClick={() => handleDeleteIncome(item.id)}
-                        className="bg-red-500 text-white px-3 py-1 rounded-full shadow-md hover:bg-red-600 transition hover:scale-105"
-                      >
-                        🗑️
-                      </button>
-                    </div>
+{/* Hide Edit & Delete Buttons for Engineering and General Inquiry sources */}
+{!(item.source === "Engineering Booking" || item.source === "General Inquiry") && (
+  <div className="mt-3 flex gap-3">
+    <button
+      onClick={() => handleEditClick(item)}
+      className="bg-yellow-500 text-white px-3 py-1 rounded-full shadow-md hover:bg-yellow-600 transition hover:scale-105"
+    >
+      ✏️
+    </button>
+    <button
+      onClick={() => handleDeleteIncome(item.id)}
+      className="bg-red-500 text-white px-3 py-1 rounded-full shadow-md hover:bg-red-600 transition hover:scale-105"
+    >
+      🗑️
+    </button>
+  </div>
+)}
+
                   </>
                 )}
               </div>

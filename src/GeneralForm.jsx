@@ -25,8 +25,16 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
   
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  
+    if (name === "date") {
+      // ✅ Ensure we store datetime format: "YYYY-MM-DDT10:00:00"
+      const formattedDate = value ? `${value}T10:00:00` : "";
+      setFormData((prev) => ({ ...prev, [name]: formattedDate }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
+  
 
   const handleContactSelection = (e) => {
     const { value } = e.target;
@@ -86,16 +94,20 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
   };
   
   
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
+    const formattedData = {
+      ...formData,
+      date: formData.date ? formData.date : null,  // ✅ Ensure correct datetime format
+    };
+  
     fetch("https://portfoliobackend-ih6t.onrender.com/general_inquiries", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(formattedData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -111,7 +123,7 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
           });
           setNewContact("");
           setNewContactPhone("");
-          if (onInquirySubmit) onInquirySubmit(); // Refetch inquiries after submission
+          if (onInquirySubmit) onInquirySubmit();
         } else {
           setStatus("Failed to submit inquiry. Please try again later.");
         }
@@ -121,6 +133,7 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
         setStatus("Failed to submit inquiry. Please try again later.");
       });
   };
+  
 
   return (
     <div className="bg-gradient-to-r from-yellow-100 to-red-100 p-8 rounded-2xl shadow-2xl max-w-lg mx-auto animate-fade-in">
@@ -207,14 +220,15 @@ export default function GeneralInquiryForm({ onInquirySubmit }) {
           className="w-full p-3 border rounded-2xl bg-gray-800 text-white text-center shadow focus:outline-none focus:ring-2 focus:ring-yellow-400"
         />
 
-        <input
-          type="date"
-          name="date"
-          placeholder="Preferred Date"
-          value={formData.date}
-          onChange={handleChange}
-          className="w-full p-3 border rounded-2xl bg-gray-800 text-white text-center shadow focus:outline-none focus:ring-2 focus:ring-yellow-400"
-        />
+<input
+  type="date"
+  name="date"
+  placeholder="Preferred Date"
+  value={formData.date ? formData.date.split("T")[0] : ""}  // ✅ Extract date only
+  onChange={handleChange}
+  className="w-full p-3 border rounded-2xl bg-gray-800 text-white text-center shadow focus:outline-none focus:ring-2 focus:ring-yellow-400"
+/>
+
 
         <button
           type="submit"

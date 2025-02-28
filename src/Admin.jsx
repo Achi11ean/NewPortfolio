@@ -190,45 +190,7 @@ export default function Admin() {
 <div className="flex flex-col items-center justify-center  overflow-y-auto scrollbar-thin scrollbar-thumb-green-500 scrollbar-track-gray-800 p-4 rounded-lg w-full max-w-lg border-8  bg-black border-3 border-white shadow-lg">
   {/* Buttons with uniform width */}
   <h2 className="font-bold text-xl mb-2 underline">JWhit Command Center</h2>
-  <button
-  onClick={() => setActiveSection(activeSection === "mileage" ? null : "mileage")}
-  className="w-full max-w-[250px] px-6 py-3 mb-2 rounded-3xl border-2 border-white  text-white font-bold shadow-md transition-all duration-300 
-               bg-gradient-to-r from-pink-400 to-purple-500 hover:scale-105 hover:from-purple-500 hover:to-pink-400"
-  >
-    🚗 Mileage Tracker
-  </button>
 
-  <button
-  onClick={() => setActiveSection(activeSection === "karaoke" ? null : "karaoke")}
-  className="w-full max-w-[250px] px-6 py-3 rounded-3xl mb-2 text-white border-2 border-white  font-bold shadow-md transition-all duration-300 
-               bg-gradient-to-r from-yellow-400 to-orange-500 hover:scale-105 hover:from-orange-500 hover:to-yellow-400"
-  >
-    🎤 Karaoke 
-  </button>
-
-  <button
-  onClick={() => setActiveSection(activeSection === "contact" ? null : "contact")}
-  className="w-full max-w-[250px] px-6 py-3 rounded-3xl mb-2 text-white border-2 border-white  font-bold shadow-md transition-all duration-300 
-               bg-gradient-to-r from-blue-400 to-cyan-500 hover:scale-105 hover:from-cyan-500 hover:to-blue-400"
-  >
-    📞 Contact 
-  </button>
-
-  <button
-  onClick={() => setActiveSection(activeSection === "engineering" ? null : "engineering")}
-  className="w-full max-w-[250px] px-6 py-3 rounded-3xl mb-2 text-white border-2 border-white  font-bold shadow-md transition-all duration-300 
-               bg-gradient-to-r from-green-400 to-teal-500 hover:scale-105 hover:from-teal-500 hover:to-green-400"
-  >
-    ⚙️ Engineering 
-  </button>
-
-  <button
-  onClick={() => setActiveSection(activeSection === "general" ? null : "general")}
-  className="w-full max-w-[250px] px-6 py-3 rounded-3xl mb-2 text-white border-2 border-white  font-bold shadow-md transition-all duration-300 
-               bg-gradient-to-r from-red-400 to-pink-500 hover:scale-105 hover:from-pink-500 hover:to-red-400"
-  >
-    📨 General 
-  </button>
 
   <button
   onClick={() => setActiveSection(activeSection === "income" ? null : "income")}
@@ -245,6 +207,49 @@ export default function Admin() {
   >
     🧾 Expense 
   </button>
+
+  <button
+  onClick={() => setActiveSection(activeSection === "mileage" ? null : "mileage")}
+  className="w-full max-w-[250px] px-6 py-3 mb-2 rounded-3xl border-2 border-white  text-white font-bold shadow-md transition-all duration-300 
+               bg-gradient-to-r from-pink-400 to-purple-500 hover:scale-105 hover:from-purple-500 hover:to-pink-400"
+  >
+    🚗 Mileage Tracker
+  </button>
+
+  <button
+  onClick={() => setActiveSection(activeSection === "karaoke" ? null : "karaoke")}
+  className="w-full max-w-[250px] px-6 py-3 rounded-3xl mb-2 text-white border-2 border-white  font-bold shadow-md transition-all duration-300 
+               bg-gradient-to-r from-yellow-400 to-orange-500 hover:scale-105 hover:from-orange-500 hover:to-yellow-400"
+  >
+    🎤 Karaoke/DJ
+  </button>
+
+  <button
+  onClick={() => setActiveSection(activeSection === "engineering" ? null : "engineering")}
+  className="w-full max-w-[250px] px-6 py-3 rounded-3xl mb-2 text-white border-2 border-white  font-bold shadow-md transition-all duration-300 
+               bg-gradient-to-r from-green-400 to-teal-500 hover:scale-105 hover:from-teal-500 hover:to-green-400"
+  >
+    ⚙️ Engineering 
+  </button>
+
+  <button
+  onClick={() => setActiveSection(activeSection === "general" ? null : "general")}
+  className="w-full max-w-[250px] px-6 py-3 rounded-3xl mb-2 text-white border-2 border-white  font-bold shadow-md transition-all duration-300 
+               bg-gradient-to-r from-red-400 to-pink-500 hover:scale-105 hover:from-pink-500 hover:to-red-400"
+  >
+    📨 General Requests
+  </button>
+
+
+
+  <button
+  onClick={() => setActiveSection(activeSection === "contact" ? null : "contact")}
+  className="w-full max-w-[250px] px-6 py-3 rounded-3xl mb-2 text-white border-2 border-white  font-bold shadow-md transition-all duration-300 
+               bg-gradient-to-r from-blue-400 to-cyan-500 hover:scale-105 hover:from-cyan-500 hover:to-blue-400"
+  >
+    📞 Inquiries 
+  </button>
+
 
   <button
   onClick={() => {

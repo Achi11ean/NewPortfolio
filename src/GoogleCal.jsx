@@ -423,13 +423,14 @@ export default function GoogleCalendarManager() {
     {/* 📆 Upcoming Events */}
 
 <div className="w-full max-w-4xl mx-auto flex flex-col items-center">
-  {/* 🌟 Elegant Section Header */}
-  <h3 className="text-4xl font-extrabold text-white bg-gradient-to-r from-green-500 via-green-400 to-lime-400
-                 shadow-lg shadow-green-500/50 rounded-2xl p-3 mt-7 
-                 border-2 border-white/30 backdrop-blur-md 
-                 transition-all duration-300 transform hover:scale-105">
-    🌟 Upcoming Bookings 🌟
-  </h3>
+{/* 🌟 Elegant Section Header */}
+<h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white 
+               bg-gradient-to-r from-green-500 via-green-400 to-lime-400
+               shadow-lg shadow-green-500/50 rounded-2xl p-2 sm:p-3 mt-5 sm:mt-7 
+               border-2 border-white/30 backdrop-blur-md 
+               transition-all duration-300 transform hover:scale-105">
+  🌟 Upcoming Bookings 🌟
+</h3>
 
   {/* Scrollable Container */}
   <div className="relative mt-6 w-full max-h-[500px] overflow-y-auto rounded-3xl 
