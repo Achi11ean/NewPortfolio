@@ -405,13 +405,16 @@ export default function GoogleCalendarManager() {
 
       {/* 🗓️ Embedded Google Calendar */}
 
+
       <iframe
-        src="https://calendar.google.com/calendar/embed?src=jwhit.pro%40gmail.com&ctz=America%2FNew_York"
-        style={{ border: "1px solid #ccc", width: "100%", height: "400px" }}
-        frameBorder="0"
-        scrolling="no"
-        className="rounded-lg shadow-md"
-      ></iframe>
+  src="https://calendar.google.com/calendar/embed?src=jwhit.pro%40gmail.com&src=lp10auq7h3b72tcdbf0ckhe745til2dn%40import.calendar.google.com&ctz=America%2FNew_York"
+  style={{ border: '1px solid #ccc', width: '100%', height: '400px' }}
+  frameBorder="0"
+  scrolling="no"
+  className="rounded-lg shadow-md"
+/>
+
+
     </div>
     <button
         onClick={openFullCalendar}
